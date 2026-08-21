@@ -6,6 +6,10 @@ A sourced survey of the popular ways to manage an LLM's context window, ranked b
 literature and the community talk about them, each with a concrete implementation recipe, a code
 snippet against a real API, tools, pitfalls and 12 sources.
 
+## Deep dive: why context windows stop near 1M (added 2026-08-21)
+
+A new section of `report.html` (nav: "★ Deep dive: context limits") answers: why frontier models cluster at ~1M tokens and why GPT-5 exposes 272K of input (400K window minus a 128K output reservation — verified on OpenAI's model page), the four bottlenecks (quadratic attention compute, linear KV-cache memory — e.g. ~328 GB per 1M tokens on Llama 3 70B — quality decay well before the nominal limit, and scarce long-context training data), how labs extend context (RoPE scaling, sparse/hybrid attention, MLA, training curricula), and what a distributed system can and cannot fix (context parallelism and disaggregated KV pools solve capacity; quality decay and per-token cost remain, so decomposition/retrieval/compaction stay necessary). Four figures: nominal-vs-effective context per model, cause→effect map, KV memory per 1M tokens vs GPU capacity, and an approach map by layer and maturity. Built from `src/deepdive/` (workflow `ctx-limits-deepdive`, 7 agents; sources verified via arXiv/Semantic Scholar APIs and WebFetch because the session's search quota was exhausted).
+
 ## Context Market Map (market research, 2026-08-21)
 
 [`market-report.html`](market-report.html) answers three questions for a founder: what breaks for teams using context and memory tooling today and which of those problems are worth solving (14 scored problems), who the startups and incumbents are (24 profiled companies, 14 sourced funding rounds, 13 platform moves), and how a new entrant should pick a wedge (7 scored wedges, a recommended one, a first-90-days plan). Built by `src/market/build.py` from the `ctx-market-research` workflow outputs in `src/market/`; 195 sources. Known limitation: a session-wide search quota ran out mid-sweep, so some planned queries did not run (listed in the report's Method section).
