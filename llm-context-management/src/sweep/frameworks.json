@@ -1,0 +1,285 @@
+{
+  "sources": [
+    {
+      "title": "LangGraph: Add and manage memory (checkpointers, trim, delete, summarize, long-term store)",
+      "url": "https://docs.langchain.com/oss/python/langgraph/add-memory",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "LangChain (LangGraph docs)",
+      "techniques": ["checkpointing/thread persistence", "message trimming", "message deletion", "compaction/summarization", "long-term memory store", "semantic retrieval"],
+      "summary": "Canonical LangGraph reference for short-term memory via checkpointers keyed by thread_id (InMemorySaver/PostgresSaver/Redis/Mongo), plus three in-graph context controls: trim_messages with count_tokens_approximately, RemoveMessage/REMOVE_ALL_MESSAGES deletion, and a SummarizationNode that maintains a RunningSummary. Long-term memory lives in a separate Store (InMemoryStore/PostgresStore) with embedding-based semantic search accessed via runtime.store.",
+      "popularity_signal": "langchain-ai/langgraph 40,111 GitHub stars; langchain-ai/langchain 144,642 stars"
+    },
+    {
+      "title": "LangMem Short-Term Memory API (SummarizationNode, RunningSummary)",
+      "url": "https://langchain-ai.github.io/langmem/reference/short_term/",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "LangChain (LangMem)",
+      "techniques": ["compaction/summarization", "running summary", "token budgeting"],
+      "summary": "API reference for LangMem's short-term memory utilities that LangGraph imports: summarize_messages and SummarizationNode compress older turns into a RunningSummary once a max_tokens budget is exceeded, keeping recent messages verbatim and passing the summary forward.",
+      "popularity_signal": "langchain-ai/langmem 1,619 GitHub stars"
+    },
+    {
+      "title": "LlamaIndex: Memory (token budgets + StaticMemoryBlock / FactExtractionMemoryBlock / VectorMemoryBlock)",
+      "url": "https://developers.llamaindex.ai/python/framework/module_guides/deploying/agents/memory/",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "LlamaIndex docs",
+      "techniques": ["token budgeting", "memory blocks", "fact extraction", "vector memory/RAG over chat history", "priority-based eviction", "chat store persistence"],
+      "summary": "LlamaIndex's Memory class enforces a token_limit (default 30k) split by chat_history_token_ratio (0.7); when short-term exceeds its share, token_flush_size (3k) tokens are flushed into long-term memory blocks. Three block types (static, LLM fact-extraction with max_facts, vector retrieval with similarity_top_k) are injected into the system or user message by insert_method, and each carries a priority (0 = never evicted) that governs truncation order; backing store is SQLite by default or any async SQL URI.",
+      "popularity_signal": "run-llama/llama_index 51,770 GitHub stars"
+    },
+    {
+      "title": "Letta: Memory blocks (core memory)",
+      "url": "https://docs.letta.com/guides/agents/memory-blocks/",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Letta docs",
+      "techniques": ["core memory blocks", "self-editing memory", "shared memory between agents", "in-context memory pinning"],
+      "summary": "Memory blocks are labeled, size-limited XML sections pinned into the agent's context window and always visible without retrieval. Agents edit them with built-in tools (memory_replace, memory_insert, memory_rethink); blocks can be read-only, and multiple agents can attach to the same block so updates propagate immediately.",
+      "popularity_signal": "letta-ai/letta 24,319 GitHub stars"
+    },
+    {
+      "title": "Letta: Archival memory",
+      "url": "https://docs.letta.com/guides/core-concepts/memory/archival-memory",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Letta docs",
+      "techniques": ["archival memory (external store)", "recall memory", "agentic retrieval", "OS-style memory hierarchy"],
+      "summary": "Describes the MemGPT-derived hierarchy: core memory (in-context, like RAM) versus archival and recall memory (out-of-context, like disk). Agents page data between tiers with tool calls, creating the illusion of unbounded memory within a fixed context; recall memory is the automatically persisted full message history that can be searched.",
+      "popularity_signal": "letta-ai/letta 24,319 GitHub stars"
+    },
+    {
+      "title": "Letta: Sleep-time agents",
+      "url": "https://docs.letta.com/guides/agents/architectures/sleeptime/",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Letta docs",
+      "techniques": ["sleep-time compute", "async memory consolidation", "background summarization", "shared memory blocks"],
+      "summary": "Sleep-time agents share a primary agent's memory blocks but run asynchronously in the background, reading conversation history and rewriting the blocks with 'learned context'. This decouples memory management from the response path, improving latency and memory quality versus the original single-agent MemGPT design.",
+      "popularity_signal": "letta-ai/letta 24,319 GitHub stars"
+    },
+    {
+      "title": "Mem0 Platform Overview (universal memory layer)",
+      "url": "https://docs.mem0.ai/platform/overview",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Mem0 docs",
+      "techniques": ["memory layer/middleware", "fact extraction", "semantic retrieval", "graph memory", "user/session/agent scoping"],
+      "summary": "Mem0 sits between the app and the LLM, using LLM-powered fact extraction to store and update user preferences and conversational facts, then retrieving them by semantic (and optionally graph) search so only relevant memories are injected per turn. Available as hosted Platform or self-hosted OSS.",
+      "popularity_signal": "mem0ai/mem0 63,696 GitHub stars"
+    },
+    {
+      "title": "Zep: A Temporal Knowledge Graph Architecture for Agent Memory",
+      "url": "https://arxiv.org/abs/2501.13956",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv (Zep / Graphiti authors)",
+      "techniques": ["temporal knowledge graph", "fact invalidation", "graph retrieval", "long-term memory"],
+      "summary": "Introduces Graphiti, a temporally-aware knowledge graph engine that synthesizes unstructured conversation and structured business data while preserving historical relationships, and reports gains over MemGPT on DMR and on the LongMemEval benchmark.",
+      "popularity_signal": "getzep/graphiti 30,134 GitHub stars; getzep/zep 4,854 stars"
+    },
+    {
+      "title": "What Is a Temporal Knowledge Graph? (Zep / Graphiti)",
+      "url": "https://www.getzep.com/ai-agents/temporal-knowledge-graph/",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Zep",
+      "techniques": ["temporal knowledge graph", "bi-temporal edges", "fact invalidation", "provenance"],
+      "summary": "Zep's explainer for its memory model: every fact carries when it became true, when it stopped being true, and its source episode. Bi-temporal edges and automatic fact invalidation let agents retrieve what was true at a point in time instead of stuffing transcripts into context.",
+      "popularity_signal": "Page cites 20,000+ GitHub stars for Graphiti; current getzep/graphiti 30,134 stars"
+    },
+    {
+      "title": "cognee: open-source AI memory platform (graph-vector hybrid)",
+      "url": "https://github.com/topoteretes/cognee",
+      "type": "repo",
+      "year": 2026,
+      "venue_or_author": "topoteretes (GitHub)",
+      "techniques": ["knowledge graph memory", "graph+vector hybrid retrieval", "long-term memory", "ECL pipeline"],
+      "summary": "Cognee gives agents persistent long-term memory by ingesting data into a self-hosted knowledge graph with a unified graph, vector, and relational storage layer, then exposing search over it so agents retrieve structure-aware context rather than raw chunks.",
+      "popularity_signal": "topoteretes/cognee 30,146 GitHub stars"
+    },
+    {
+      "title": "OpenAI Agents SDK: Sessions",
+      "url": "https://openai.github.io/openai-agents-python/sessions/",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "OpenAI Agents SDK docs",
+      "techniques": ["session storage", "history limit/trimming", "compaction/summarization", "server-side conversation state", "encryption/TTL"],
+      "summary": "Session protocol (get_items/add_items/pop_item/clear_session) with backends from SQLiteSession to SQLAlchemy, Redis, MongoDB, Dapr and OpenAIConversationsSession. Context is controlled via SessionSettings(limit=N), a session_input_callback that rewrites history before each model call, OpenAIResponsesCompactionSession for automatic Responses-API compaction (with manual run_compaction), and EncryptedSession wrappers.",
+      "popularity_signal": "openai/openai-agents-python 28,795 GitHub stars"
+    },
+    {
+      "title": "OpenAI Cookbook: Context Engineering - Short-Term Memory Management with Sessions",
+      "url": "https://cookbook.openai.com/examples/agents_sdk/session_memory",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "OpenAI Cookbook",
+      "techniques": ["message trimming", "compaction/summarization", "custom Session implementation"],
+      "summary": "Walks through implementing custom Session classes for the Agents SDK that either trim (keep last N turns; deterministic, zero added latency, verbatim recent tool results) or summarize older turns, and discusses the trade-offs between the two approaches.",
+      "popularity_signal": "openai/openai-agents-python 28,795 GitHub stars"
+    },
+    {
+      "title": "Claude Platform: Context editing (clear_tool_uses, clear_thinking)",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/context-editing",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Anthropic (Claude Platform docs)",
+      "techniques": ["server-side tool-result clearing", "thinking-block clearing", "prompt caching", "client-side compaction"],
+      "summary": "Server-side context_management edits under beta header context-management-2025-06-27: clear_tool_uses_20250919 replaces old tool results once a trigger (default 100k input tokens) fires, keeping the last N pairs (default 3) with clear_at_least, exclude_tools and clear_tool_inputs knobs; clear_thinking_20251015 prunes thinking blocks by keep thinking_turns. Documents cache-invalidation behaviour, count_tokens support, and notes a deprecated SDK-side compaction_control alternative.",
+      "popularity_signal": "anthropics/claude-code 142,118 GitHub stars (org); widely referenced by agent frameworks"
+    },
+    {
+      "title": "Claude Platform: Memory tool",
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Anthropic (Claude Platform docs)",
+      "techniques": ["memory files", "client-side file-based memory", "cross-session persistence", "context editing integration"],
+      "summary": "Client-implemented file memory tool (view/create/str_replace/insert/delete/rename under /memories) that lets Claude persist notes across conversations. Pairs with context editing: when the clearing threshold approaches, Claude is warned so it can write tool results to memory before they are cleared.",
+      "popularity_signal": "anthropics/claude-code 142,118 GitHub stars (org)"
+    },
+    {
+      "title": "Claude Cookbook: Context engineering - memory, compaction, and tool clearing",
+      "url": "https://platform.claude.com/cookbook/tool-use-context-engineering-context-engineering-tools",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Anthropic (Claude Cookbook)",
+      "techniques": ["memory files", "compaction/summarization", "tool-result clearing", "context editing"],
+      "summary": "Hands-on notebook combining the memory tool, context editing, and summarization-based compaction in one agent loop, showing how to keep long tool-heavy sessions within budget while preserving state in memory files.",
+      "popularity_signal": "anthropics/claude-code 142,118 GitHub stars (org)"
+    },
+    {
+      "title": "Claude Code: Explore the context window (interactive)",
+      "url": "https://code.claude.com/docs/en/context-window",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Anthropic (Claude Code docs)",
+      "techniques": ["auto-compact", "/compact", "CLAUDE.md re-injection", "auto memory (MEMORY.md)", "deferred tool schemas / tool search", "sub-agent isolation", "lazy skill loading"],
+      "summary": "Interactive simulation of how Claude Code's 200k window fills: system prompt, auto memory (first 200 lines/25KB of MEMORY.md), CLAUDE.md files, deferred MCP tool schemas (loaded on demand via tool search; ENABLE_TOOL_SEARCH), skill index, then file reads which dominate usage. Shows subagents working in a separate window and returning only a summary, and /compact replacing the conversation with a structured summary after which system prompt, CLAUDE.md, memory and MCP tools reload automatically (the skill listing is the exception).",
+      "popularity_signal": "anthropics/claude-code 142,118 GitHub stars"
+    },
+    {
+      "title": "Claude Agent SDK: Subagents in the SDK",
+      "url": "https://code.claude.com/docs/en/agent-sdk/subagents",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Anthropic (Claude Agent SDK docs)",
+      "techniques": ["sub-agent isolation", "parallel delegation", "context offloading", "auto-compact"],
+      "summary": "Subagents are separate agent instances with their own system prompt, context window, tool list and permission mode, spawned to isolate context, run analyses in parallel, and keep large intermediate output out of the parent; the SDK also handles automatic compaction near the limit and re-reads CLAUDE.md after compaction.",
+      "popularity_signal": "anthropics/claude-agent-sdk-python 7,942 GitHub stars"
+    },
+    {
+      "title": "Using Claude Code: session management and 1M context",
+      "url": "https://claude.com/blog/using-claude-code-session-management-and-1m-context",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Anthropic (Claude blog)",
+      "techniques": ["1M context", "/compact with instructions", "/clear", "sub-agent isolation", "session resume"],
+      "summary": "Anthropic's guidance on long Claude Code sessions: with a 1M window there is more room to /compact proactively with a description of what to keep, or to delegate to subagents that get a clean context and return only their result; recommends subagents when a chunk of work will produce lots of intermediate output you will not need again.",
+      "popularity_signal": "anthropics/claude-code 142,118 GitHub stars"
+    },
+    {
+      "title": "Google ADK: Memory (MemoryService, Vertex AI Memory Bank)",
+      "url": "https://google.github.io/adk-docs/sessions/memory/",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Google (ADK docs)",
+      "techniques": ["session/state/memory separation", "memory bank (LLM-extracted long-term memory)", "semantic retrieval", "episodic memory"],
+      "summary": "ADK splits Session (event log + State) from MemoryService; add_session_to_memory ingests completed sessions and VertexAiMemoryBankService uses an LLM to extract and consolidate salient facts, which agents later fetch with search_memory / load_memory tools, so old details are recalled without loading old transcripts into the window.",
+      "popularity_signal": "google/adk-python 21,205 GitHub stars"
+    },
+    {
+      "title": "Semantic Kernel: Creating and managing a chat history object (Chat History Reduction)",
+      "url": "https://learn.microsoft.com/en-us/semantic-kernel/concepts/ai-services/chat-completion/chat-history",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Microsoft Learn (Semantic Kernel)",
+      "techniques": ["history truncation", "compaction/summarization", "token-based reduction", "tool-call pair preservation"],
+      "summary": "Defines IChatHistoryReducer (.NET) and ChatHistoryReducer (Python) with two built-ins: ChatHistoryTruncationReducer drops oldest messages beyond target_count, ChatHistorySummarizationReducer summarizes the removed messages back into one message; threshold_count buffers so function call/result pairs are not split, system messages are always kept, and Python's auto_reduce applies reduction on add_message_async. Java unsupported.",
+      "popularity_signal": "microsoft/semantic-kernel 28,468 GitHub stars"
+    },
+    {
+      "title": "AutoGen: Model Context (BufferedChatCompletionContext and friends)",
+      "url": "https://microsoft.github.io/autogen/stable//user-guide/core-user-guide/components/model-context.html",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Microsoft (AutoGen docs)",
+      "techniques": ["sliding window (last-N messages)", "token-limited context", "pluggable model_context"],
+      "summary": "AutoGen agents take a model_context object that decides which stored messages are sent to the model; BufferedChatCompletionContext keeps only the most recent buffer_size messages (MRU), with token-limited and head-and-tail variants, letting developers bound context without changing agent logic.",
+      "popularity_signal": "microsoft/autogen 60,540 GitHub stars; microsoft/agent-framework 13,005 stars"
+    },
+    {
+      "title": "CrewAI: Memory (unified Memory with scoped recall)",
+      "url": "https://docs.crewai.com/en/concepts/memory",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "CrewAI docs",
+      "techniques": ["fact extraction", "scoped/hierarchical memory", "composite recall scoring (semantic+recency+importance)", "memory consolidation", "vector store (LanceDB)"],
+      "summary": "CrewAI replaced its separate short-term/long-term/entity memories with one Memory class: on save an LLM infers scope (filesystem-like paths such as /project/alpha), categories and importance; recall ranks by semantic_weight*similarity + recency_weight*decay + importance_weight*importance with adaptive depth. Crews auto-extract atomic facts after each task and inject relevant memories before the next; memory=True enables defaults, LanceDB is the default backend, and a StorageBackend protocol allows custom stores.",
+      "popularity_signal": "crewAIInc/crewAI 57,392 GitHub stars"
+    },
+    {
+      "title": "Pydantic AI: Messages and chat history (history processors)",
+      "url": "https://pydantic.dev/docs/ai/core-concepts/message-history/",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Pydantic docs",
+      "techniques": ["history processors", "message pruning", "compaction/summarization", "usage-aware filtering", "tool-call pair preservation"],
+      "summary": "Agent(history_processors=[...]) runs functions over the message list before each model call to prune, summarize or rewrite history; processors can take RunContext to act on current token usage, e.g. summarize the oldest messages with a cheaper model when usage is high. Docs warn that tool calls and returns must stay paired after summarization.",
+      "popularity_signal": "pydantic/pydantic-ai 19,417 GitHub stars"
+    },
+    {
+      "title": "Vercel AI SDK: pruneMessages",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/prune-messages",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Vercel (AI SDK docs)",
+      "techniques": ["message pruning", "tool-result pruning", "reasoning removal"],
+      "summary": "pruneMessages(ModelMessage[]) strips reasoning ('all' | 'before-last-message' | 'none'), tool call/result/approval parts ('all' | 'before-last-message' | 'before-last-N-messages' | per-tool arrays) and empty messages before a model call, typically inside a per-step prepare hook to cap context growth in tool loops.",
+      "popularity_signal": "vercel/ai 26,324 GitHub stars"
+    },
+    {
+      "title": "Model Context Protocol specification (2025-06-18): Resources",
+      "url": "https://modelcontextprotocol.io/specification/2025-06-18/server/resources",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Model Context Protocol (Anthropic / Linux Foundation)",
+      "techniques": ["application-controlled context (resources)", "URI-addressable context", "on-demand context loading", "subscriptions"],
+      "summary": "Specifies how MCP servers expose read-only, URI-addressed resources (files, schemas, logs) that the host application, not the model, chooses to pull into context, with list/read/subscribe operations; distinguishes application-driven resources from model-invoked tools so context loading stays deliberate.",
+      "popularity_signal": "modelcontextprotocol/modelcontextprotocol 9,007 GitHub stars; adopted by Claude, OpenAI, Google SDKs"
+    },
+    {
+      "title": "Aider: Building a better repository map with tree-sitter",
+      "url": "https://aider.chat/2023/10/22/repomap.html",
+      "type": "blog",
+      "year": 2023,
+      "venue_or_author": "Paul Gauthier (Aider)",
+      "techniques": ["repo map", "tree-sitter symbol extraction", "PageRank relevance ranking", "token-budgeted codebase summary"],
+      "summary": "Foundational write-up of Aider's repo map: tree-sitter tags.scm queries extract definitions and references per file, a dependency graph is ranked (PageRank-style) for relevance to the current chat, and a token-budgeted summary of the most important symbols is sent instead of whole files so the LLM can navigate large repos.",
+      "popularity_signal": "Aider-AI/aider 48,354 GitHub stars; pattern copied by many tools (RepoMapper, agentpatterns.ai)"
+    },
+    {
+      "title": "Cline's Context Window Explained: Maximize Performance, Minimize Cost",
+      "url": "https://cline.bot/blog/clines-context-window-explained-maximize-performance-minimize-cost",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Cline",
+      "techniques": ["context window monitoring", "task handoff (new_task)", "rules-driven compaction", "@mentions for selective context"],
+      "summary": "Explains Cline's context budget, why performance degrades around 70-80% fill, and its mitigations: a visual context progress bar, @file/@url mentions for precise context, and an automated handoff via the new_task tool driven by .clinerules (e.g. 'if context exceeds 50%, carry over X') so a fresh task starts with a curated summary.",
+      "popularity_signal": "cline/cline 66,545 GitHub stars"
+    },
+    {
+      "title": "DSPy: Managing Conversation History (dspy.History)",
+      "url": "https://dspy.ai/tutorials/conversation_history/",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "DSPy (Stanford NLP)",
+      "techniques": ["explicit history as typed input field", "manual history management"],
+      "summary": "DSPy deliberately does not manage conversation history inside modules; dspy.History is a typed input field (messages: list[dict]) that adapters format into the prompt, leaving truncation/summarization to the program author so history can be optimized like any other signature input.",
+      "popularity_signal": "stanfordnlp/dspy 37,452 GitHub stars"
+    }
+  ],
+  "notes": "Modality: framework & tool documentation. Used all 14 WebSearch calls (LangGraph, LlamaIndex, Letta, Claude Code, OpenAI Agents SDK, Google ADK, Semantic Kernel, mem0+Zep/Graphiti, Pydantic AI+CrewAI, Aider+Cline, Anthropic context editing/memory tool, Claude subagents/1M, Vercel AI SDK+MCP resources, AutoGen+DSPy+Cognee) and all 10 WebFetch calls (LangGraph add-memory, LlamaIndex memory, Letta memory blocks, Anthropic context editing, Claude Code context-window, ADK memory [301 redirect to adk.dev, not followed due to cap], OpenAI sessions, CrewAI memory, SK chat-history, AI SDK pruneMessages). GitHub star counts were pulled live via `gh api repos/<owner>/<repo>` on 2026-08-20, so they did not consume web caps. Not found / not covered: a primary URL for legacy LangChain memory classes (ConversationBufferMemory etc.), Cursor's context/codebase-indexing docs, Microsoft Agent Framework context docs (stars captured: 13,005), Google ADK context-caching page specifically, and Claude Code /compact settings page (auto-compact threshold numbers came only from third-party posts, omitted). Years for undated doc pages are best estimates from content/version cues. Extra URLs seen but not included to stay within 28: Letta blog 'Memory Blocks' (letta.com/blog/memory-blocks), LlamaIndex memory blog, Google Cloud 'Remember this' ADK blog, Anthropic 'Managing context on the Claude Developer Platform' blog, Neo4j Graphiti blog, devblogs.microsoft.com SK context-management posts, Vercel Academy 'Pruning Old Results', Cline 'How to think about context engineering', github.com/pydantic/pydantic-ai/blob/main/docs/message-history.md."
+}

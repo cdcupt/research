@@ -1,0 +1,81 @@
+<section class="technique" id="model-infra-foundations">
+  <h2><span class="num">3</span> Model &amp; infra foundations: long windows, prompt caching, KV cache</h2>
+  <p class="lede">What the model and serving stack give you before any application-level trick: 1M-token nominal windows, vendor prompt caching that bills repeated prefixes at a tenth of list price, and the KV-cache machinery underneath (paged memory, prefix reuse, eviction, quantization, bounded-memory attention). It is nearly free and sets the ceiling for every other technique.</p>
+  <div class="kv">
+    <div><b>Problem it solves</b><span>Long prompts cost quadratic prefill and linearly growing KV memory, and models reliably use only part of their nominal window.</span></div>
+    <div><b>Lifecycle stage</b><span>foundations — substrate every later stage inherits</span></div>
+    <div><b>Popularity signals</b><span>43 sources in this survey; Lost in the Middle ~4.7K citations, StreamingLLM ~2.3K, RULER ~1.2K; LMCache 11.2K GitHub stars; vLLM and SGLang cache prefixes by default; Anthropic, OpenAI and Gemini all sell 1M windows plus ~0.1x cached input; Chroma's "context rot" is the practitioner term.</span></div>
+  </div>
+  <h3>How it works</h3>
+  <p>Three layers stack. The model fixes the nominal window: RoPE rescaling such as YaRN stretches a pretrained model to 128K, and Ring Attention shards longer sequences across devices. Effective length is shorter and position-dependent: Lost in the Middle shows a U-shaped accuracy curve, RULER found only half of 17 models claiming 32K+ held up at 32K, and Chroma measured non-uniform decay across 18 frontier models. The serving engine stores a key/value pair per token per layer. PagedAttention keeps them in fixed blocks so identical prefixes share memory; prefix caching (vLLM hashes blocks, SGLang keeps an LRU radix tree, LMCache spills to CPU, disk and remote stores) skips prefill for any prefix seen before, and vendor prompt caching sells the same mechanism. When KV still does not fit, eviction (attention sinks plus a recent window, heavy hitters, SnapKV, PyramidKV) or KIVI's 2-bit quantization shrinks it, and hybrid designs (Gemma 3's 5:1 local-global layers, Mamba/Jamba) bound it.</p>
+  <h3>How to achieve it</h3>
+  <ol class="steps">
+    <li>Measure effective context first: run RULER or a NIAH variant with distractors at your real prompt lengths and budget for the length where accuracy stays flat, not the advertised one.</li>
+    <li>Order every prompt for the cache: tools, system, stable context, then the volatile turn. On Claude, mark the last stable block with <code>cache_control</code> (reads bill at 0.1x after a 1.25x five-minute or 2x one-hour write); OpenAI caches prefixes of 1,024+ tokens implicitly.</li>
+    <li>Verify hits from usage fields (<code>cache_read_input_tokens</code>, <code>cached_tokens</code>), never from the invoice; prompts under the model minimum (512 to 4,096 tokens on Claude) silently do not cache.</li>
+    <li>Self-hosting: leave vLLM prefix caching on or serve with SGLang, add LMCache to offload KV to CPU, SSD or Redis and share it across replicas, and pin same-prefix sessions to one replica.</li>
+    <li>When KV memory binds, quantize first (KIVI: 2.6x lower peak memory, up to 4x batch) and evict second; re-benchmark SnapKV or PyramidKV budgets on your own reasoning and instruction-following tasks.</li>
+    <li>Route rather than stuff: queries needing a small slice of a corpus go to retrieval, cross-document synthesis stays on the long window, and Self-Route lets the model abstain to the long path.</li>
+  </ol>
+  <pre><code class="lang-python">import anthropic
+
+client = anthropic.Anthropic()
+
+# Stable prefix first (tools -&gt; system -&gt; messages); put the breakpoint on the
+# LAST block that is identical across calls. Everything after it bills as input.
+SYSTEM = [
+    {"type": "text", "text": "You review pull requests for the repository below."},
+    {
+        "type": "text",
+        "text": REPO_SNAPSHOT,  # must exceed the model minimum (1,024 tokens on Sonnet 4.6)
+        "cache_control": {"type": "ephemeral", "ttl": "1h"},  # 2x write, 0.1x reads for 1h
+    },
+]
+
+def ask(question: str) -&gt; str:
+    resp = client.messages.create(
+        model="claude-sonnet-4-6",  # 1M window, no beta header since March 2026
+        max_tokens=16000,
+        system=SYSTEM,
+        messages=[{"role": "user", "content": question}],
+    )
+    u = resp.usage  # first call: cache_creation_input_tokens &gt; 0
+    print(u.cache_creation_input_tokens, u.cache_read_input_tokens, u.input_tokens)
+    return resp.content[0].text
+
+ask("Where does the retry logic live?")
+ask("Does that retry path ever log credentials?")  # cache_read_input_tokens covers the prefix</code></pre>
+  <h3>Variants &amp; tools</h3>
+  <ul class="tools">
+    <li><a href="https://docs.vllm.ai/en/v0.9.2/design/automatic_prefix_caching.html">vLLM automatic prefix caching</a> — KV blocks keyed by hash(prefix + block); zero-refcount blocks evicted LRU-first.</li>
+    <li><a href="https://www.lmsys.org/blog/2024-01-17-sglang/">SGLang RadixAttention</a> — LRU radix tree over token sequences with cache-aware scheduling.</li>
+    <li><a href="https://github.com/lmcache/lmcache">LMCache</a> — tiered KV offload (GPU, CPU, SSD, Redis/Mooncake/S3), cross-instance sharing and prefill-to-decode transfer.</li>
+    <li><a href="https://developers.openai.com/api/docs/guides/prompt-caching">OpenAI prompt caching</a> — implicit reuse of the longest seen prefix from 1,024 tokens in 128-token steps.</li>
+    <li><a href="https://arxiv.org/abs/2406.02069">PyramidKV</a> — layer-wise KV budgets; matches the full cache at 12% on LongBench; same family as H2O and SnapKV.</li>
+    <li><a href="https://arxiv.org/abs/2402.02750">KIVI</a> — tuning-free 2-bit KV quantization, per-channel keys and per-token values; 2.35 to 3.47x throughput.</li>
+    <li><a href="https://arxiv.org/pdf/2503.19786">Gemma 3 local-global attention</a> — five 1,024-token sliding-window layers per global layer; KV share of memory drops from ~60% to ~15%.</li>
+    <li><a href="https://arxiv.org/abs/2312.00752">Mamba</a> — selective state-space model with a fixed-size state instead of a growing KV cache; Jamba interleaves it with attention.</li>
+  </ul>
+  <h3>Trade-offs &amp; pitfalls</h3>
+  <ul>
+    <li>Nominal is not effective: half of RULER's 17 models failed at 32K, middle-of-context facts are the weakest, and Chroma found low needle-question similarity and coherent haystacks speed up decay.</li>
+    <li>Caching is positional: one byte changed in tools or system invalidates everything after it, and a timestamp at the top guarantees zero hits. A five-minute cache pays back after one reuse, a one-hour cache only after two.</li>
+    <li>Eviction hides damage: StreamingLLM states it does not extend the window or add memory, and heavy-hitter or observation-window policies tuned on QA can drop the instruction or step a later reasoning turn needs. Quantization degrades more gracefully.</li>
+    <li>The physics still bill you: a 900K-token Claude request costs the same per token as a 9K one, still roughly $3 to $5 of input per call before caching. Bounded-memory models trade exact far-back recall for that saving.</li>
+  </ul>
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://arxiv.org/abs/2307.03172">Lost in the Middle: How Language Models Use Long Contexts</a> <span class="src-type paper">paper</span> — Liu, Lin, Hewitt et al., TACL, 2024</li>
+    <li><a href="https://arxiv.org/abs/2404.06654">RULER: What's the Real Context Size of Your Long-Context Language Models?</a> <span class="src-type paper">paper</span> — Hsieh et al. (NVIDIA), COLM, 2024</li>
+    <li><a href="https://www.trychroma.com/research/context-rot">Context Rot: How Increasing Input Tokens Impacts LLM Performance</a> <span class="src-type blog">blog</span> — Hong, Troynikov, Huber (Chroma technical report), 2025</li>
+    <li><a href="https://claude.com/blog/1m-context-ga">1M context is now generally available for Opus 4.6 and Sonnet 4.6</a> <span class="src-type blog">blog</span> — Anthropic, 2026</li>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt caching</a> <span class="src-type docs">docs</span> — Claude Platform Docs, 2026</li>
+    <li><a href="https://arxiv.org/abs/2309.06180">Efficient Memory Management for Large Language Model Serving with PagedAttention</a> <span class="src-type paper">paper</span> — Kwon et al. (UC Berkeley), SOSP, 2023</li>
+    <li><a href="https://docs.vllm.ai/en/v0.9.2/design/automatic_prefix_caching.html">Automatic Prefix Caching - vLLM design docs</a> <span class="src-type docs">docs</span> — vLLM project, 2025</li>
+    <li><a href="https://www.lmsys.org/blog/2024-01-17-sglang/">Fast and Expressive LLM Inference with RadixAttention and SGLang</a> <span class="src-type blog">blog</span> — LMSYS Org, 2024</li>
+    <li><a href="https://github.com/lmcache/lmcache">LMCache: the fastest KV cache layer</a> <span class="src-type repo">repo</span> — LMCache project, 2026</li>
+    <li><a href="https://arxiv.org/html/2309.17453v3">Efficient Streaming Language Models with Attention Sinks (StreamingLLM)</a> <span class="src-type paper">paper</span> — Xiao et al. (MIT/Meta), ICLR, 2024</li>
+    <li><a href="https://arxiv.org/abs/2402.02750">KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache</a> <span class="src-type paper">paper</span> — Liu et al. (Rice), ICML, 2024</li>
+    <li><a href="https://arxiv.org/abs/2407.16833">Retrieval Augmented Generation or Long-Context LLMs? A Comprehensive Study and Hybrid Approach (Self-Route)</a> <span class="src-type paper">paper</span> — Li et al. (Google), EMNLP Industry, 2024</li>
+  </ol>
+</section>

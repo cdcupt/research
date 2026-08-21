@@ -1,0 +1,305 @@
+{
+  "sources": [
+    {
+      "title": "RULER: What's the Real Context Size of Your Long-Context Language Models?",
+      "url": "https://arxiv.org/abs/2404.06654",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Hsieh et al., NVIDIA (COLM 2024)",
+      "techniques": ["long-context-benchmark", "effective-vs-nominal-context", "NIAH"],
+      "summary": "Synthetic benchmark (13 tasks: retrieval, multi-hop tracing, aggregation, QA) showing that models which ace vanilla NIAH still degrade sharply with length; of 17 models claiming 32K+ only about half held up at 32K. Established the 'effective context length' framing.",
+      "popularity_signal": "De-facto standard effective-context benchmark, reported in most 2024-2026 model cards; exact citation count unknown"
+    },
+    {
+      "title": "Context Rot: How Increasing Input Tokens Impacts LLM Performance",
+      "url": "https://www.trychroma.com/research/context-rot",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Kelly Hong, Anton Troynikov, Jeff Huber (Chroma Research)",
+      "techniques": ["context-rot", "effective-vs-nominal-context", "long-context-benchmark", "context-engineering"],
+      "summary": "Tested 18 frontier models (Claude 4, GPT-4.1/o3, Gemini 2.5, Qwen3) with NIAH variants, LongMemEval and a repeated-words task; performance degrades with input length even far below the window, worse with low question-needle similarity and distractors. Argues for deliberate context engineering over 'just stuff the window'.",
+      "popularity_signal": "Coined the widely used term 'context rot'; heavily referenced in 2025-26 context-engineering writing (Hamel Husain, ZenML, Morph)"
+    },
+    {
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "url": "https://arxiv.org/abs/2307.03172",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Liu et al., Stanford (TACL 2024)",
+      "techniques": ["lost-in-the-middle", "positional-bias", "effective-vs-nominal-context"],
+      "summary": "Shows a U-shaped curve: models retrieve information best at the start or end of the context and markedly worse in the middle, even for explicitly long-context models. Foundational result behind 'put important context first/last' guidance.",
+      "popularity_signal": "Foundational; thousands of citations"
+    },
+    {
+      "title": "LongBench v2: Towards Deeper Understanding and Reasoning on Realistic Long-context Multitasks",
+      "url": "https://arxiv.org/abs/2412.15204",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Bai et al., Tsinghua (ACL 2025)",
+      "techniques": ["long-context-benchmark"],
+      "summary": "503 hard multiple-choice questions over contexts from 8K to 2M words across six task types (single/multi-doc QA, long ICL, dialogue history, code repos, structured data). Moves long-context evaluation from retrieval toward reasoning.",
+      "popularity_signal": "Successor to the widely used LongBench; ACL 2025 main track"
+    },
+    {
+      "title": "The Llama 4 herd: The beginning of a new era of natively multimodal AI innovation",
+      "url": "https://ai.meta.com/blog/llama-4-multimodal-intelligence/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Meta AI",
+      "techniques": ["long-context-model", "10M-context-claim", "iRoPE", "NIAH"],
+      "summary": "Announces Llama 4 Scout with a claimed 10M-token context via the iRoPE architecture (interleaved attention layers without positional embeddings plus inference-time attention temperature scaling), trained at 256K. Long-context evidence given is NIAH retrieval and NLL over 10M tokens of code only.",
+      "popularity_signal": "Primary vendor announcement; widely covered and widely criticised"
+    },
+    {
+      "title": "Llama 4 smells bad",
+      "url": "https://fastml.com/llama-4-smells-bad/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "FastML",
+      "techniques": ["effective-vs-nominal-context", "10M-context-claim", "Fiction.LiveBench"],
+      "summary": "Critique of the Llama 4 launch arguing the 10M context is nominal: Meta published only NIAH (no RULER/NoLiMa), and independent long-context tests such as Fiction.LiveBench showed steep degradation at far shorter lengths.",
+      "popularity_signal": "unknown; representative of the widespread community pushback"
+    },
+    {
+      "title": "1M context is now generally available for Opus 4.6 and Sonnet 4.6",
+      "url": "https://claude.com/blog/1m-context-ga",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Anthropic",
+      "techniques": ["long-context-model", "1M-context", "pricing"],
+      "summary": "Anthropic makes the 1M-token window GA for Claude Opus 4.6 and Sonnet 4.6 (March 2026) at standard pricing with no long-context surcharge, positioning whole-codebase and multi-document requests as in-scope.",
+      "popularity_signal": "Primary vendor announcement"
+    },
+    {
+      "title": "Introducing GPT-4.1 in the API",
+      "url": "https://openai.com/index/gpt-4-1/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "OpenAI",
+      "techniques": ["long-context-model", "1M-context"],
+      "summary": "GPT-4.1 family (April 2025) ships a 1M-token context window in the API with improved long-context comprehension claims; ChatGPT remained capped at 32K, illustrating the API-vs-product gap in effective context.",
+      "popularity_signal": "Primary vendor announcement"
+    },
+    {
+      "title": "Prompt caching - Claude Platform Docs",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Anthropic",
+      "techniques": ["prompt-caching", "cache-breakpoints", "prefix-stability", "pricing"],
+      "summary": "Explicit cache_control breakpoints (max 4) or automatic top-level caching; 5-min (1.25x write) or 1-hour (2x write) TTL, reads at 0.1x; cache hierarchy tools -> system -> messages, 20-block lookback, per-model minimum cacheable tokens (512-4096). Guidance: put static content first, mark the end of the stable prefix, never cache blocks containing changing content like timestamps, pre-warm with max_tokens=0.",
+      "popularity_signal": "Primary vendor docs; pattern copied by Bedrock/Vertex and most gateways"
+    },
+    {
+      "title": "Prompt caching | OpenAI API",
+      "url": "https://developers.openai.com/api/docs/guides/prompt-caching",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "OpenAI",
+      "techniques": ["prompt-caching", "prefix-stability", "pricing"],
+      "summary": "Automatic prefix caching for prompts >=1024 tokens in 128-token increments; cached input billed at 0.1x (cache writes free before GPT-5.6, 1.25x after). Retention 5-10 min in-memory up to 1h, extended retention up to 24h on newer models; prompt_cache_key steers routing (~15 rpm per key). Best practice: static instructions/tools/schemas first, variable content last; monitor cached_tokens.",
+      "popularity_signal": "Primary vendor docs"
+    },
+    {
+      "title": "Context caching | Gemini API",
+      "url": "https://ai.google.dev/gemini-api/docs/generate-content/caching",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Google AI for Developers",
+      "techniques": ["prompt-caching", "explicit-caching", "implicit-caching", "pricing"],
+      "summary": "Gemini offers implicit caching (on by default for 2.5+ models, discount passed through on prefix hits) and explicit CachedContent objects with a TTL that guarantee savings but add storage-time billing; cached tokens are billed at ~10% of input price.",
+      "popularity_signal": "Primary vendor docs"
+    },
+    {
+      "title": "Gemini 2.5 Models now support implicit caching",
+      "url": "https://developers.googleblog.com/en/gemini-2-5-models-now-support-implicit-caching/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Google Developers Blog",
+      "techniques": ["prompt-caching", "implicit-caching"],
+      "summary": "Announces implicit (automatic) caching for Gemini 2.5 so that requests sharing a common prefix receive the cached-token discount with no cache management; recommends placing repeated content at the start of the prompt to maximise hits.",
+      "popularity_signal": "Primary vendor announcement"
+    },
+    {
+      "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention",
+      "url": "https://arxiv.org/abs/2309.06180",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Kwon et al., UC Berkeley (SOSP 2023)",
+      "techniques": ["PagedAttention", "KV-cache-management", "KV-sharing"],
+      "summary": "Introduces PagedAttention, which stores KV cache in non-contiguous virtual-memory-style blocks, yielding near-zero KV memory waste and copy-on-write sharing across requests; vLLM built on it delivers 2-4x throughput over FasterTransformer/Orca at equal latency.",
+      "popularity_signal": "Foundation of vLLM, the most widely used open-source serving engine; thousands of citations"
+    },
+    {
+      "title": "Automatic Prefix Caching - vLLM design docs",
+      "url": "https://docs.vllm.ai/en/v0.9.2/design/automatic_prefix_caching.html",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "vLLM project",
+      "techniques": ["prefix-caching", "KV-cache-management", "PagedAttention"],
+      "summary": "Each KV block is keyed by hash(prefix tokens + block tokens) in a global table so identical prefixes share physical blocks; eviction removes zero-refcount blocks LRU-first (longest prefix as tiebreak), which is equivalent to RadixAttention's policy for full-attention models without an explicit tree.",
+      "popularity_signal": "Official docs of the dominant OSS serving engine"
+    },
+    {
+      "title": "Fast and Expressive LLM Inference with RadixAttention and SGLang",
+      "url": "https://www.lmsys.org/blog/2024-01-17-sglang/",
+      "type": "blog",
+      "year": 2024,
+      "venue_or_author": "LMSYS Org (Lianmin Zheng et al.)",
+      "techniques": ["prefix-caching", "RadixAttention", "KV-cache-management"],
+      "summary": "RadixAttention keeps the KV cache of all requests in a radix tree with LRU eviction, so multi-turn chats, few-shot prompts and tree-of-thought calls automatically reuse shared prefixes; reports large throughput gains on prefix-heavy workloads versus recomputation.",
+      "popularity_signal": "Origin of SGLang (major OSS serving engine); widely referenced"
+    },
+    {
+      "title": "SGLang: Efficient Execution of Structured Language Model Programs",
+      "url": "https://arxiv.org/pdf/2312.07104",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Zheng et al. (NeurIPS 2024)",
+      "techniques": ["RadixAttention", "structured-decoding", "prefix-caching"],
+      "summary": "Systems paper pairing RadixAttention prefix reuse with a compressed finite-state machine for faster constrained/structured decoding and API speculative execution, showing how structured-output constraints and KV reuse co-design reduce latency for agentic programs.",
+      "popularity_signal": "NeurIPS 2024; basis of SGLang"
+    },
+    {
+      "title": "LMCache: An Efficient KV Cache Layer for Enterprise-Scale LLM Inference",
+      "url": "https://arxiv.org/pdf/2510.09665",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "LMCache team (UChicago / Tensormesh)",
+      "techniques": ["KV-offloading", "KV-sharing", "prefix-caching"],
+      "summary": "A KV cache layer that spills KV from GPU to CPU RAM, local disk and remote stores and shares it across vLLM/SGLang instances, so repeated long contexts are loaded rather than re-prefilled; reports multi-x TTFT/throughput gains on long-context, multi-turn and RAG workloads.",
+      "popularity_signal": "Default offload backend of vLLM production-stack; GitHub stars unknown"
+    },
+    {
+      "title": "production-stack tutorial 05: Offload KV cache",
+      "url": "https://github.com/vllm-project/production-stack/blob/main/tutorials/05-offload-kv-cache.md",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "vLLM project (production-stack)",
+      "techniques": ["KV-offloading", "KV-sharing"],
+      "summary": "Hands-on guide to enabling LMCache in a vLLM Kubernetes deployment to offload KV cache to CPU or disk and to share it across pods via a remote cache server, raising hit rates beyond what GPU memory alone permits.",
+      "popularity_signal": "Official vLLM project docs"
+    },
+    {
+      "title": "Efficient Streaming Language Models with Attention Sinks (StreamingLLM)",
+      "url": "https://arxiv.org/abs/2309.17453",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Xiao et al., MIT / Meta (ICLR 2024)",
+      "techniques": ["KV-eviction", "attention-sinks", "sliding-window-attention"],
+      "summary": "Discovers that initial tokens act as 'attention sinks'; keeping their KV plus a sliding window of recent tokens lets models stream over millions of tokens with bounded memory and no fine-tuning, at the cost of forgetting evicted middle content.",
+      "popularity_signal": "Widely cited; popular GitHub repo (exact stars unknown)"
+    },
+    {
+      "title": "H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models",
+      "url": "https://arxiv.org/abs/2306.14048",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Zhang et al. (NeurIPS 2023)",
+      "techniques": ["KV-eviction", "attention-score-based-selection"],
+      "summary": "Keeps a small set of 'heavy hitter' tokens (high accumulated attention) plus recent tokens in the KV cache; with 20% heavy hitters it reports up to 29x throughput over HF Accelerate while preserving quality on OPT models.",
+      "popularity_signal": "Foundational KV eviction paper; widely cited"
+    },
+    {
+      "title": "SnapKV: LLM Knows What You are Looking for Before Generation",
+      "url": "https://arxiv.org/abs/2404.14469",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Li et al. (NeurIPS 2024)",
+      "techniques": ["KV-compression", "prefill-compression"],
+      "summary": "Uses an observation window at the end of the prompt to predict which prompt KV entries matter, then pools/clusters and keeps only those before decoding, compressing long-prompt KV with minimal accuracy loss.",
+      "popularity_signal": "Widely used baseline in KV-compression papers"
+    },
+    {
+      "title": "KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache",
+      "url": "https://arxiv.org/abs/2402.02750",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Liu et al. (ICML 2024)",
+      "techniques": ["KV-quantization"],
+      "summary": "Quantizes keys per-channel and values per-token to 2 bits without fine-tuning, cutting peak memory 2.6x and enabling up to 4x batch size and 2.35-3.47x throughput on Llama-2, Falcon and Mistral with comparable quality.",
+      "popularity_signal": "ICML 2024; reference implementation for 2-bit KV quantization"
+    },
+    {
+      "title": "The Pitfalls of KV Cache Compression",
+      "url": "https://arxiv.org/pdf/2510.00231",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Chen, Geh, Grover (UCLA)",
+      "techniques": ["KV-compression", "evaluation"],
+      "summary": "Critical evaluation showing KV cache compression can silently degrade behaviour in ways aggregate benchmarks miss, particularly adherence to instructions in multi-instruction/system prompts; argues eviction policies must be evaluated on instruction-following, not just perplexity or NIAH.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "Hold Onto That Thought: Assessing KV Cache Compression On Reasoning",
+      "url": "https://arxiv.org/html/2512.12008v1",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv",
+      "techniques": ["KV-compression", "reasoning-models", "evaluation"],
+      "summary": "Evaluates KV-cache compression on long chain-of-thought reasoning models, where generated tokens dominate the cache; finds compression interacts with reasoning quality differently than on prompt-heavy tasks, informing whether eviction is safe for thinking-style workloads.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "Mistral 7B",
+      "url": "https://arxiv.org/html/2310.06825",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Jiang et al., Mistral AI",
+      "techniques": ["sliding-window-attention", "rolling-buffer-KV-cache", "GQA"],
+      "summary": "Popularised sliding-window attention (each layer attends to the previous 4096 tokens, stacked layers give a longer effective span) with a rolling-buffer KV cache that bounds memory, plus grouped-query attention; ~2x speedup at 16K sequences.",
+      "popularity_signal": "Widely cited; basis of the Mistral open-weight line"
+    },
+    {
+      "title": "Gemma 3 Technical Report",
+      "url": "https://arxiv.org/pdf/2503.19786",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Google DeepMind",
+      "techniques": ["sliding-window-attention", "hybrid-local-global-attention", "KV-memory-reduction"],
+      "summary": "Interleaves 5 local sliding-window (1024-token) attention layers per 1 global layer, cutting KV-cache memory overhead at 32K from ~60% to under 15% while supporting 128K context via RoPE rescaling.",
+      "popularity_signal": "Major open-weight release; widely referenced architecture pattern"
+    },
+    {
+      "title": "Mamba: Linear-Time Sequence Modeling with Selective State Spaces",
+      "url": "https://arxiv.org/abs/2312.00752",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Gu & Dao (CMU / Princeton)",
+      "techniques": ["state-space-models", "linear-time-attention-alternative", "constant-memory-inference"],
+      "summary": "Selective state-space model with input-dependent dynamics that scales linearly in sequence length and carries a fixed-size recurrent state instead of a growing KV cache, matching Transformers on language modelling with ~5x higher inference throughput.",
+      "popularity_signal": "Thousands of citations; GitHub state-spaces/mamba widely used"
+    },
+    {
+      "title": "Jamba: A Hybrid Transformer-Mamba Language Model",
+      "url": "https://arxiv.org/pdf/2403.19887",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Lieber et al., AI21 Labs (ICLR 2025)",
+      "techniques": ["hybrid-SSM-attention", "MoE", "KV-memory-reduction", "256K-context"],
+      "summary": "Interleaves attention and Mamba layers at a 1:7 ratio with MoE, giving a 256K context that fits on a single 80GB GPU with ~8x smaller KV cache than Mixtral; shows hybrids keep retrieval ability that pure SSMs lose.",
+      "popularity_signal": "ICLR 2025; AI21 Jamba 1.5/1.6 product line; reference hybrid design"
+    },
+    {
+      "title": "microsoft/LLMLingua (LLMLingua, LongLLMLingua, LLMLingua-2)",
+      "url": "https://github.com/microsoft/LLMLingua",
+      "type": "repo",
+      "year": 2024,
+      "venue_or_author": "Microsoft Research (EMNLP 2023 / ACL 2024)",
+      "techniques": ["prompt-compression", "token-level-compression", "lost-in-the-middle"],
+      "summary": "Token-level prompt compression: a small LM (or a distilled token classifier in LLMLingua-2) drops low-information tokens for up to 20x compression; LongLLMLingua reorders and compresses long RAG contexts to counter lost-in-the-middle, reporting up to 21.4% RAG gains at a quarter of the tokens.",
+      "popularity_signal": "6.6k GitHub stars"
+    },
+    {
+      "title": "Long-Context Inference at Scale: The Hidden Infrastructure Cost",
+      "url": "https://www.digitalocean.com/community/tutorials/long-context-inference-production-cost",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "DigitalOcean Community",
+      "techniques": ["cost-latency-math", "prefill-vs-decode", "KV-memory-sizing"],
+      "summary": "Practitioner walkthrough of why long contexts are expensive: prefill attention is quadratic so TTFT stretches from ms to seconds, KV memory grows linearly per token and caps batch size, and per-request cost scales with total context even when most of it is static.",
+      "popularity_signal": "unknown"
+    }
+  ],
+  "notes": "Used all 12 WebSearch and all 8 WebFetch calls. Searches covered: RULER/effective context; Chroma context rot; Anthropic/OpenAI/Gemini prompt caching; vLLM APC + SGLang RadixAttention; StreamingLLM/H2O/SnapKV; Jamba/Gemma 3; LMCache/KV offload; Llama 4 10M claims; Claude 1M / GPT-4.1 1M; KIVI/Mistral SWA/Mamba; Lost in the Middle/LongBench v2/prefill cost. Fetched: Awesome-LLM-KV-Cache (to confirm arXiv IDs for StreamingLLM/H2O/SnapKV/KIVI/KVQuant/PyramidKV/MInference), Chroma context rot, Anthropic caching docs, vLLM APC docs, PagedAttention arXiv, Meta Llama 4 blog, LLMLingua repo, OpenAI caching docs. Could NOT confirm URLs for: Fiction.LiveBench page itself, NoLiMa paper, DuoAttention, InfLLM, Gemini 2M-context model page, Bedrock/Vertex caching specifics (Bedrock URL was seen but not fetched, omitted to stay in target count), Meta 'Context Parallelism for Scalable Million-Token Inference' (URL seen: https://arxiv.org/pdf/2411.01783, omitted for count), KVQuant (https://arxiv.org/abs/2401.18079, confirmed via fetch, omitted for count), PyramidKV (https://arxiv.org/abs/2406.02069), MInference (https://arxiv.org/abs/2407.02490), SqueezeBits vLLM-vs-TRT-LLM APC comparison, Red Hat Granite RULER blog, AI21 'rise of hybrid LLMs' blog, 'Speed Always Wins' efficient-architecture survey (https://arxiv.org/pdf/2508.09834), KV compression review (https://arxiv.org/pdf/2508.06297). Gemini doc page is labelled 'Legacy' Generate Content API; Gemini per-model minimum cacheable tokens not verified. Speculative decoding had no dedicated source; structured decoding covered only via the SGLang paper. Popularity signals are mostly qualitative; exact citation counts were not retrievable within caps."
+}

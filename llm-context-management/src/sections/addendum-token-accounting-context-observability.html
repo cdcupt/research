@@ -1,0 +1,81 @@
+<section class="technique" id="addendum-token-accounting-context-observability">
+  <h2><span class="num">10</span> Token accounting &amp; context observability: measure before you budget</h2>
+  <p class="lede">The measurement layer under every other technique here: count what a request will cost before sending it, read the provider's usage object after, attribute the total to system prompt, tool schemas, history and tool results, and alert when utilization crosses a line. Without it, "keep utilization around 40-60%" is a guess, not a control.</p>
+  <div class="kv">
+    <div><b>Problem it solves</b><span>Budgeting, compaction and pruning rules all assume you know utilization per turn and per component; most agent stacks never measure it.</span></div>
+    <div><b>Lifecycle stage</b><span>foundations — precondition for compress, select and isolate decisions</span></div>
+    <div><b>Popularity signals</b><span>12 sources in this survey; free count endpoints from Anthropic, Gemini and Bedrock; tiktoken for OpenAI; OpenTelemetry <code>gen_ai.usage.*</code> adopted by Langfuse, LangSmith, Arize and GitHub Copilot; Claude Code ships <code>/context</code>.</span></div>
+  </div>
+  <h3>How it works</h3>
+  <p>Three measurements, taken at different times, answer different questions. Before a call, a count endpoint (Anthropic <code>count_tokens</code>, Gemini <code>countTokens</code>) or a local tokenizer (tiktoken, OpenAI models only) returns an estimate for the exact payload, including system prompt, tool definitions, images and PDFs; dividing by the model's input limit gives utilization. After a call, the response <code>usage</code> object is the billed truth: input, output, cache-read and cache-write tokens, plus reasoning tokens on some providers. Tracing then attaches those numbers to each LLM span for aggregation by turn, tool, role and user. Attribution comes from counting components in isolation (fixed prefix versus history) or from classifying messages, as nilenso's context-viewer does: on one agent, 41% of the window was regenerated output and 13% duplicated specs.</p>
+  <h3>How to achieve it</h3>
+  <ol class="steps">
+    <li>Fix the denominator. Read the model's input limit programmatically where possible (Gemini <code>client.models.get(model).input_token_limit</code>) and store it with the model id; tokenizers differ too (Claude 4.7 and later emit roughly 30% more tokens for the same text).</li>
+    <li>Count before you send, on the exact payload, same model id, tools included. Anthropic's endpoint is free with its own rate limit; Gemini's <code>count_tokens</code> returns <code>total_tokens</code>. Use tiktoken only for OpenAI models.</li>
+    <li>Read <code>usage</code> on every response and log input, output, cache-read and cache-creation tokens per turn. OpenAI exposes cache hits as <code>usage.prompt_tokens_details.cached_tokens</code>, Gemini as <code>usage_metadata</code>. The billed count is the ground truth.</li>
+    <li>Attribute. Count the fixed prefix (system plus tool schemas) once per session and treat history as the remainder; tag each tool result with tool name and token size at insertion to see which tools dominate.</li>
+    <li>Emit OpenTelemetry GenAI spans (<code>invoke_agent</code>, <code>chat</code>, <code>execute_tool</code>) with <code>gen_ai.usage.input_tokens</code> and <code>gen_ai.usage.output_tokens</code>, or send <code>usage_details</code> / <code>usage_metadata</code> to Langfuse or LangSmith, and aggregate per trace and per user via their metrics APIs.</li>
+    <li>Alert on three signals: utilization thresholds (warn at 60%, force compaction at 80%), tokens added per turn, and a falling cache-read ratio, which usually means a supposedly stable prefix changed.</li>
+  </ol>
+  <pre><code class="lang-python">import anthropic
+
+client = anthropic.Anthropic()
+MODEL, WINDOW = "claude-opus-5", 200_000   # denominator: model's input limit
+
+def measure(system, tools, messages):
+    """Pre-send estimate (free endpoint, own rate limit); prefix vs history."""
+    count = lambda msgs: client.messages.count_tokens(
+        model=MODEL, system=system, tools=tools, messages=msgs).input_tokens
+    total = count(messages)
+    prefix = count([{"role": "user", "content": "x"}])  # system + tool schemas
+    return {"total": total, "util": total / WINDOW,
+            "prefix": prefix, "history": total - prefix}
+
+def step(system, tools, messages):
+    m = measure(system, tools, messages)
+    if m["util"] &gt; 0.60:
+        raise RuntimeError(f"context at {m['util']:.0%}; compact before calling")
+    resp = client.messages.create(model=MODEL, max_tokens=1024,
+                                  system=system, tools=tools, messages=messages)
+    u = resp.usage  # billed ground truth, read after every call
+    record = {**m, "billed_in": u.input_tokens, "out": u.output_tokens,
+              "cache_read": u.cache_read_input_tokens,
+              "cache_write": u.cache_creation_input_tokens}
+    emit(record)  # -&gt; OTel gen_ai.usage.* span attrs, Langfuse, or LangSmith
+    return resp</code></pre>
+  <h3>Variants &amp; tools</h3>
+  <ul class="tools">
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/token-counting">Anthropic count_tokens</a> — free estimate for system, tools, images, PDFs and thinking; rate-limited separately from message creation.</li>
+    <li><a href="https://ai.google.dev/gemini-api/docs/tokens">Gemini countTokens + usage_metadata</a> — <code>count_tokens</code> before, <code>usage_metadata</code> after; <code>models.get</code> gives <code>input_token_limit</code>; 258 tokens per image tile, 263/s video, 32/s audio.</li>
+    <li><a href="https://github.com/openai/tiktoken">tiktoken</a> — OpenAI's BPE tokenizer for local counts; the <a href="https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb">cookbook notebook</a> covers per-message chat overhead.</li>
+    <li><a href="https://claudelog.com/faqs/what-is-context-command-in-claude-code/">Claude Code /context</a> — per-session split into system prompt, system tools, MCP tools, agents, memory files, messages, free space and autocompact buffer.</li>
+    <li><a href="https://github.com/nilenso/context-viewer/">nilenso context-viewer</a> — segments a conversation log into classified components and charts growth per turn.</li>
+    <li><a href="https://opentelemetry.io/blog/2026/genai-observability/">OpenTelemetry GenAI semantic conventions</a> — vendor-neutral <code>gen_ai.usage.*</code> span attributes and the <code>gen_ai.client.token.usage</code> histogram; content capture is opt-in.</li>
+    <li><a href="https://langfuse.com/docs/observability/features/token-and-cost-tracking">Langfuse token &amp; cost tracking</a> — <code>usage_details</code> buckets (input, output, cache_read_input_tokens, reasoning), tokenizer inference, cost from model definitions, Metrics API.</li>
+    <li><a href="https://docs.langchain.com/langsmith/cost-tracking">LangSmith cost tracking</a> — <code>usage_metadata</code> (<code>input_tokens</code>, <code>output_tokens</code>, <code>input_token_details.cache_read</code>) per run, regex pricing map, per-trace roll-ups.</li>
+  </ul>
+  <h3>Trade-offs &amp; pitfalls</h3>
+  <ul>
+    <li>Estimates are not bills. Counts may include unbilled system-added tokens, ignore earlier-turn thinking blocks, count server tools only on the first sampling call, and never apply caching; reconcile against <code>usage</code> after the call.</li>
+    <li>Tokenizer mismatch is the common silent error: tiktoken undercounts Claude text by roughly 15-20%, and Langfuse's Claude tokenizer fallback is flagged as inaccurate for Claude 3 and later. Count with the provider's tool for the model you will call.</li>
+    <li>Attribution can double count. Summing per-component counts duplicates shared wrapper text: Claude Code's <code>/context</code> reported about 45k tokens for an MCP server that measured 14-15k in one request (fixed January 2026); Langfuse requires each token to land in exactly one bucket.</li>
+    <li>Counting costs a round trip and a rate-limit slot (2,000 RPM at Anthropic's Start tier). Measure at decision points, not on every streamed token.</li>
+    <li>Numbers do not say what is redundant. OTel captures no prompt content by default, and classification views like context-viewer need raw messages and take about 40 seconds per 35k-token log; use them offline, not as a live gate.</li>
+  </ul>
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/token-counting">Token counting</a> <span class="src-type docs">docs</span> — Anthropic Claude Platform docs, 2026</li>
+    <li><a href="https://ai.google.dev/gemini-api/docs/tokens">Understand and count tokens</a> <span class="src-type docs">docs</span> — Google AI for Developers, 2026</li>
+    <li><a href="https://github.com/openai/tiktoken">tiktoken: a fast BPE tokeniser for OpenAI's models</a> <span class="src-type repo">repo</span> — OpenAI, 2022-2026</li>
+    <li><a href="https://openai.com/index/api-prompt-caching/">Prompt Caching in the API</a> <span class="src-type blog">blog</span> — OpenAI, 2024</li>
+    <li><a href="https://blog.nilenso.com/blog/2025/10/29/fight-context-rot-with-context-observability/">Fight context rot with context observability</a> <span class="src-type blog">blog</span> — Srihari Sriraman, nilenso, 2025</li>
+    <li><a href="https://github.com/nilenso/context-viewer/">context-viewer: Observability for contexts</a> <span class="src-type repo">repo</span> — nilenso, 2025</li>
+    <li><a href="https://opentelemetry.io/blog/2026/genai-observability/">Inside the LLM Call: GenAI Observability with OpenTelemetry</a> <span class="src-type blog">blog</span> — OpenTelemetry blog, 2026</li>
+    <li><a href="https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/gen-ai/gen-ai-events.md">GenAI semantic conventions: events</a> <span class="src-type repo">repo</span> — OpenTelemetry, 2026</li>
+    <li><a href="https://langfuse.com/docs/observability/features/token-and-cost-tracking">Token &amp; Cost Tracking</a> <span class="src-type docs">docs</span> — Langfuse, 2026</li>
+    <li><a href="https://docs.langchain.com/langsmith/cost-tracking">Cost tracking</a> <span class="src-type docs">docs</span> — LangSmith (LangChain), 2026</li>
+    <li><a href="https://www.async-let.com/posts/claude-code-mcp-token-reporting/">Do MCP Servers Really Eat Half Your Context Window?</a> <span class="src-type blog">blog</span> — Async Let, 2025</li>
+    <li><a href="https://claudelog.com/faqs/what-is-context-command-in-claude-code/">What is the /context Command in Claude Code</a> <span class="src-type docs">docs</span> — ClaudeLog, 2025</li>
+    <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/count-tokens.html">Monitor your token usage by counting tokens before running inference</a> <span class="src-type docs">docs</span> — Amazon Bedrock, 2025</li>
+  </ol>
+</section>

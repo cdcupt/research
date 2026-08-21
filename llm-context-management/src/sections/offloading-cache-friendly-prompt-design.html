@@ -1,0 +1,82 @@
+<section class="technique" id="offloading-cache-friendly-prompt-design">
+  <h2><span class="num">5</span> Context offloading and cache-friendly prompt structure</h2>
+  <p class="lede">Treat the context window as a deliberately laid-out, append-only buffer and everything else as external state. Raw tool output, plans and notes go to files with pointers left behind; the prompt prefix never changes, so the provider's KV cache keeps hitting. Manus, Claude Code, Cline and LangChain's Deep Agents converge on this shape.</p>
+  <div class="kv">
+    <div><b>Problem it solves</b><span>Agent transcripts bloat with tool output and are re-sent every turn at full price, so the window must be both small and byte-stable.</span></div>
+    <div><b>Lifecycle stage</b><span>write — externalize state before it enters the window</span></div>
+    <div><b>Popularity signals</b><span>28 sources in this survey (prompt-caching 8, context-offloading 5, token-budgeting 4). Manus's post was among 2025's most reshared; Anthropic's drew 148 HN points; 12-Factor Agents drew 475 HN points and two conference talks. Shipped in Manus, Claude Code, Cline, LangChain Deep Agents and all three vendor caching APIs.</span></div>
+  </div>
+  <h3>How it works</h3>
+  <p>Every turn re-sends the whole transcript, and Manus reports an input-to-output ratio near 100:1, so input tokens dominate cost and latency. Providers serve a repeated prompt prefix from KV cache at about a tenth of the price: Anthropic bills cache reads at 0.1x and writes at 1.25x, OpenAI applies an automatic cached-input discount (no write premium; the rate varies by model), and Gemini 2.5+ caches implicitly. Keep the prefix identical: static system prompt first, no timestamps, deterministic serialization, append-only events, a fixed tool list. Then shrink the window without editing that prefix: write tool output to the sandbox filesystem and leave a restorable path or URL, keep the plan in a todo.md the agent rewrites at the tail of the context so goals stay in recent attention, and let grep or sub-agents re-read files on demand.</p>
+  <h3>How to achieve it</h3>
+  <ol class="steps">
+    <li>Lay the prompt out in stability order: tools, system prompt, canonical examples, then messages. Strip timestamps and request IDs, and pin serialization (key order, whitespace) so identical state produces identical bytes.</li>
+    <li>Put a cache breakpoint on the last constant block (Anthropic <code>cache_control</code>, OpenAI <code>prompt_cache_key</code>, Gemini explicit <code>CachedContent</code>) and log <code>cache_read_input_tokens</code> or <code>cached_tokens</code> on every request. Treat hit rate as an SLO.</li>
+    <li>Offload tool output: write the raw result to a file and keep a short pointer (path, size, first lines) in the event log; restore with <code>read_file</code> or <code>grep</code> only when needed. Compact stale results to pointers first; summarize only when that runs out.</li>
+    <li>Recite goals in a todo.md or NOTES.md the agent rewrites after each step. Anthropic's note-taking agent kept exact tallies across thousands of steps and resumed after context resets from its notes.</li>
+    <li>Curate the action space instead of swapping it: keep tool definitions fixed, use consistent name prefixes such as <code>browser_</code> and <code>shell_</code>, and constrain choice with logit masking or response prefill rather than adding or removing tools mid-task.</li>
+    <li>Own the serialization: write your own <code>thread_to_prompt()</code> over an event log (12-Factor, Factor 3) so you decide density and how errors appear. Keep failed calls in, add small variation to avoid few-shot ruts, and budget utilization (Cline: 70-80% fill; Horthy: about 40%).</li>
+  </ol>
+  <pre><code class="lang-python">import anthropic, hashlib, pathlib
+
+client = anthropic.Anthropic()
+SCRATCH = pathlib.Path("scratch"); SCRATCH.mkdir(exist_ok=True)
+events = []  # append-only; never rewrite earlier entries
+
+def offload(tool_name: str, raw: str) -&gt; str:
+    """Write raw tool output to disk; keep a restorable pointer in context."""
+    path = SCRATCH / f"{tool_name}-{hashlib.sha1(raw.encode()).hexdigest()[:10]}.txt"
+    path.write_text(raw)
+    return (f"&lt;{tool_name}_result path=\"{path}\" bytes={len(raw)}&gt;\n"
+            f"{raw[:400]}\n...(truncated; read_file to restore)\n&lt;/{tool_name}_result&gt;")
+
+def step(user_text: str):
+    events.append({"role": "user", "content": user_text})
+    resp = client.messages.create(
+        model="claude-opus-5",
+        max_tokens=1024,
+        tools=TOOLS,  # fixed list, never pruned mid-task
+        system=[{"type": "text", "text": SYSTEM_PROMPT,  # static: no clock, no IDs
+                 "cache_control": {"type": "ephemeral"}}],  # breakpoint on stable prefix
+        messages=events,
+    )
+    events.append({"role": "assistant", "content": resp.content})
+    u = resp.usage
+    total = u.cache_read_input_tokens + u.cache_creation_input_tokens + u.input_tokens
+    print(f"kv-cache hit rate: {u.cache_read_input_tokens / max(total, 1):.0%}")
+    return resp</code></pre>
+  <h3>Variants &amp; tools</h3>
+  <ul class="tools">
+    <li><a href="https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus">Manus</a> — stable prefix, logit-masked tools, filesystem as context, todo.md recitation.</li>
+    <li><a href="https://docs.langchain.com/oss/python/deepagents/overview">LangChain Deep Agents</a> — <code>write_todos</code> middleware, virtual filesystem, sub-agents; LangChain's default harness.</li>
+    <li><a href="https://github.com/humanlayer/12-factor-agents/blob/main/content/factor-03-own-your-context-window.md">12-Factor Agents, Factor 3</a> — custom token-dense event-log serialization instead of the framework message list.</li>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/context-editing">Anthropic context editing</a> — server-side <code>clear_tool_uses</code> swaps old tool results for placeholders past a token trigger.</li>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Anthropic</a>, <a href="https://developers.openai.com/api/docs/guides/prompt-caching">OpenAI</a> and <a href="https://ai.google.dev/gemini-api/docs/caching">Gemini</a> prompt caching — explicit breakpoints, automatic prefix caching with routing keys, and implicit plus explicit caches.</li>
+    <li><a href="https://cline.bot/blog/clines-context-window-explained-maximize-performance-minimize-cost">Cline</a> — context progress bar and a <code>new_task</code> handoff that preloads only rule-selected state.</li>
+    <li><a href="https://arxiv.org/abs/2606.17016">TokenPilot</a> — research framework that compacts and evicts context while keeping prefix cache hits.</li>
+    <li><a href="https://x.com/hwchase17/status/1996654615262367923">Harrison Chase, "Filesystems for context engineering!"</a> — a filesystem as the pragmatic primitive for agent state.</li>
+  </ul>
+  <h3>Trade-offs &amp; pitfalls</h3>
+  <ul>
+    <li>The cache is fragile: one changed token, a reordered tool, an added image or a new <code>tool_choice</code> invalidates everything after it. Minimum cacheable sizes vary (512-4,096 tokens on Claude, 1,024 on OpenAI, 2,048-4,096 on Gemini) and default TTLs are minutes; verify hits from usage fields.</li>
+    <li>Compaction and caching pull in opposite directions: rewriting old messages breaks the prefix hash. Compact rarely, at breakpoints, and prefer pointer substitution to summaries; TokenPilot reports 56 to 87 percent cost reductions from co-designing the two.</li>
+    <li>Pointers only help if restoration is cheap and the model knows to use it; you trade tokens for extra tool calls. A summary that drops the one relevant detail is irreversible, so keep the raw file.</li>
+    <li>Logit masking assumes you control decoding or the provider exposes prefill. On the Claude API, toggling <code>tool_choice</code> per turn still invalidates the cached messages prefix, so steer through the prompt where possible.</li>
+    <li>Recitation costs tokens every turn: Manus found about a third of its actions went to task-list updates before moving planning into a dedicated planner agent.</li>
+  </ul>
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus">Context Engineering for AI Agents: Lessons from Building Manus</a> <span class="src-type blog">blog</span> — Yichao "Peak" Ji, Manus, 2025</li>
+    <li><a href="https://github.com/humanlayer/12-factor-agents/blob/main/content/factor-03-own-your-context-window.md">12-Factor Agents, Factor 3: Own your context window</a> <span class="src-type repo">repo</span> — Dex Horthy / HumanLayer, 2025</li>
+    <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a> <span class="src-type blog">blog</span> — Anthropic Applied AI, 2025</li>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">Prompt caching</a> <span class="src-type docs">docs</span> — Claude Platform Docs, 2025</li>
+    <li><a href="https://developers.openai.com/api/docs/guides/prompt-caching">Prompt caching</a> <span class="src-type docs">docs</span> — OpenAI API docs, 2026</li>
+    <li><a href="https://ai.google.dev/gemini-api/docs/caching">Context caching</a> <span class="src-type docs">docs</span> — Gemini API docs, 2025</li>
+    <li><a href="https://rlancemartin.github.io/2025/10/15/manus/">Context Engineering in Manus</a> <span class="src-type blog">blog</span> — Lance Martin, 2025</li>
+    <li><a href="https://sequoiacap.com/podcast/context-engineering-our-way-to-long-horizon-agents-langchains-harrison-chase/">Context Engineering Our Way to Long-Horizon Agents</a> <span class="src-type talk">talk</span> — Harrison Chase on Sequoia Training Data, 2026</li>
+    <li><a href="https://news.ycombinator.com/item?id=45418251">Effective context engineering for AI agents (discussion)</a> <span class="src-type thread">thread</span> — Hacker News, 2025</li>
+    <li><a href="https://cline.bot/blog/clines-context-window-explained-maximize-performance-minimize-cost">Cline's Context Window Explained</a> <span class="src-type blog">blog</span> — Cline, 2025</li>
+    <li><a href="https://newsletter.pragmaticengineer.com/p/context-engineering-with-dex-horthy">Context engineering with Dex Horthy</a> <span class="src-type blog">blog</span> — The Pragmatic Engineer, 2025</li>
+    <li><a href="https://arxiv.org/abs/2606.17016">TokenPilot: Cache-Efficient Context Management for LLM Agents</a> <span class="src-type paper">paper</span> — Xu et al., arXiv 2606.17016, 2026</li>
+  </ol>
+</section>

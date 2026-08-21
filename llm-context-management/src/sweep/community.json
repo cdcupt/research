@@ -1,0 +1,265 @@
+{
+  "sources": [
+    {
+      "title": "Karpathy: \"+1 for context engineering over prompt engineering\" (X post)",
+      "url": "https://x.com/karpathy/status/1937902205765607626",
+      "type": "thread",
+      "year": 2025,
+      "venue_or_author": "Andrej Karpathy on X",
+      "techniques": ["context-window budgeting", "context engineering (term)", "RAG", "compaction/summarization", "tool selection"],
+      "summary": "Karpathy amplifies Tobi Lutke's term six days after Lutke's post, defining context engineering as 'the delicate art and science of filling the context window with just the right information for the next step' and listing the ingredients (task descriptions, few-shot examples, RAG, history compaction, tools, multimodal data). Widely treated as the naming moment for the discipline.",
+      "popularity_signal": "~14,000 likes / ~9,100 bookmarks (per secondary coverage); spawned HN thread 44379538"
+    },
+    {
+      "title": "The new skill in AI is not prompting, it's context engineering (HN thread on Phil Schmid's post)",
+      "url": "https://news.ycombinator.com/item?id=44427757",
+      "type": "thread",
+      "year": 2025,
+      "venue_or_author": "Hacker News (article by Phil Schmid, philschmid.de)",
+      "techniques": ["tool loadout", "context quarantine/sub-agent isolation", "context pruning", "compaction/summarization", "context offloading", "context rot", "position bias"],
+      "summary": "The largest community discussion of context engineering: commenters relay Drew Breunig's taxonomy (tool loadout, quarantine, pruning, summarization, offloading), report that practical accuracy degrades well below advertised window sizes ('whatever context limit they claim is not true'), and debate whether 'engineering' is a rebrand of prompt engineering ('magical thinking all the way down').",
+      "popularity_signal": "915 HN points, 518 comments (June 30, 2025)"
+    },
+    {
+      "title": "12-factor Agents: Patterns of reliable LLM applications (HN thread)",
+      "url": "https://news.ycombinator.com/item?id=43699271",
+      "type": "thread",
+      "year": 2025,
+      "venue_or_author": "Hacker News (repo by Dex Horthy, HumanLayer)",
+      "techniques": ["own your context window", "small focused agents", "LLM-as-function", "deterministic pre-processing", "custom context formats"],
+      "summary": "Dex Horthy's manifesto (Factor 3: 'Own your context window', Factor 10: 'Small, focused agents') hits HN front page; commenters converge on 'don't outsource your prompts', 'most production AI agents aren't actually that agentic', and treating LLMs as functions inside an owned OODA loop rather than letting frameworks grow hidden context.",
+      "popularity_signal": "475 HN points, 78 comments (Apr 16, 2025); repo widely cited as origin of 'context engineering' framing"
+    },
+    {
+      "title": "Effective context engineering for AI agents (HN thread on Anthropic's post)",
+      "url": "https://news.ycombinator.com/item?id=45418251",
+      "type": "thread",
+      "year": 2025,
+      "venue_or_author": "Hacker News (article by Anthropic Applied AI)",
+      "techniques": ["tool-output offloading", "compaction/summarization", "iterative context refinement", "MCP context cost", "structured agent output", "just-in-time retrieval"],
+      "summary": "Practitioners discuss that 'tool calls dominate context expansion bloat' and recommend extracting evidence then evicting raw tool output (caching in Redis with retrieval keys), asking the model first which files it needs and then restarting with only those, and using the post to judge whether an MCP server is worth its context cost.",
+      "popularity_signal": "148 HN points, 32 comments (Sept/Oct 2025)"
+    },
+    {
+      "title": "Karpathy: \"context engineering\" over \"prompt engineering\" (HN thread)",
+      "url": "https://news.ycombinator.com/item?id=44379538",
+      "type": "thread",
+      "year": 2025,
+      "venue_or_author": "Hacker News",
+      "techniques": ["memory files (CLAUDE.md / cursor rules)", "manual context curation", "evals", "instruction ordering"],
+      "summary": "Small HN thread on Karpathy's post; the notable practitioner claim is that people getting strong agentic-coding results 'take a lot of care in managing their cursor rules or claude.md files' and that past a complexity threshold the user must actively manage context rather than rely on the tool.",
+      "popularity_signal": "27 HN points, 4 comments (June 25, 2025)"
+    },
+    {
+      "title": "Context Engineering for AI Agents: Lessons from Building Manus (HN thread)",
+      "url": "https://news.ycombinator.com/item?id=44635141",
+      "type": "thread",
+      "year": 2025,
+      "venue_or_author": "Hacker News",
+      "techniques": ["prompt caching / KV-cache hit rate", "tool masking", "file system as context", "recitation (todo.md)", "keep errors in context"],
+      "summary": "HN discussion of the Manus post; the discussed practices are stable prompt prefixes and append-only context to keep KV-cache hit rate high, logit-masking tools instead of removing them, using the filesystem as unlimited restorable memory, reciting goals into a todo.md to fight lost-in-the-middle, and leaving failed actions in context.",
+      "popularity_signal": "unknown (HN page returned 429 during this sweep)"
+    },
+    {
+      "title": "Context Engineering for AI Agents: Lessons from Building Manus",
+      "url": "https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Yichao 'Peak' Ji, Manus",
+      "techniques": ["prompt caching / KV-cache hit rate", "tool masking", "file system as context", "recitation (todo.md)", "keep errors in context", "avoid few-shot rut"],
+      "summary": "Primary practitioner post: KV-cache hit rate is 'the single most important metric' for production agents (100:1 input/output ratio, 10x cost difference cached vs uncached), so keep prefixes stable, append-only, mask tools rather than remove them, offload to the filesystem with restorable compression, and recite objectives to steer attention.",
+      "popularity_signal": "Widely referenced (HN thread 44635141, LangChain's Lance Martin, Phil Schmid, ZenML LLMOps DB, multiple dev.to/Medium breakdowns)"
+    },
+    {
+      "title": "Effective context engineering for AI agents",
+      "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Anthropic Engineering",
+      "techniques": ["compaction/summarization", "structured note-taking / memory files", "sub-agent isolation", "just-in-time retrieval", "minimal system prompt", "tool-set hygiene"],
+      "summary": "Anthropic's canonical guide: treat context as a finite resource with diminishing returns, favor just-in-time retrieval over pre-loading, and manage long-horizon tasks with three patterns: compaction, structured note-taking (e.g., NOTES.md persisted outside the window), and multi-agent architectures where sub-agents return condensed summaries.",
+      "popularity_signal": "148 HN points / 32 comments; heavily cited across community posts and YouTube read-throughs"
+    },
+    {
+      "title": "How Long Contexts Fail",
+      "url": "https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Drew Breunig (dbreunig.com)",
+      "techniques": ["context rot taxonomy", "context poisoning", "context distraction", "context confusion", "context clash"],
+      "summary": "Defines the four failure modes practitioners now cite by name: poisoning (a hallucination enters context and is re-referenced), distraction (model over-attends to long context vs training), confusion (superfluous info/tools degrade output), and clash (accumulated info conflicts). Frames 'context rot' for the community.",
+      "popularity_signal": "Widely referenced (Simon Willison, O'Reilly Radar podcast, HN 44427757 thread, LangChain blog); YouTube talk"
+    },
+    {
+      "title": "How to Fix Your Context",
+      "url": "https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Drew Breunig (dbreunig.com)",
+      "techniques": ["RAG", "tool loadout", "context quarantine/sub-agent isolation", "context pruning", "compaction/summarization", "context offloading"],
+      "summary": "Companion post giving the six remedies that became the community's working vocabulary: RAG, tool loadout (select tools per task), context quarantine (isolate in separate threads/agents), pruning, summarization, and offloading to scratchpads outside the window.",
+      "popularity_signal": "Widely referenced; its taxonomy is repeated verbatim in the 915-point HN thread and many 2026 guides"
+    },
+    {
+      "title": "Context Rot: How Increasing Input Tokens Impacts LLM Performance",
+      "url": "https://www.trychroma.com/research/context-rot",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Chroma Research (Kelly Hong et al.)",
+      "techniques": ["context rot", "context-window budgeting", "needle-in-haystack variants", "retrieval over stuffing"],
+      "summary": "Technical report evaluating 18 frontier models (GPT-4.1, Claude 4, Gemini 2.5, Qwen3): performance degrades non-uniformly as input length grows even on simple tasks; distractors and semantically coherent haystacks hurt more than shuffled ones. Became the empirical backbone for community 'context rot' complaints.",
+      "popularity_signal": "Described as 'widely read' (Understanding AI); replication repo github.com/chroma-core/context-rot; covered by W&B, Hamel Husain, Maven"
+    },
+    {
+      "title": "Context rot: the emerging challenge that could hold back LLM progress",
+      "url": "https://www.understandingai.org/p/context-rot-the-emerging-challenge",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Timothy B. Lee, Understanding AI (Substack)",
+      "techniques": ["context rot", "compaction/summarization", "sub-agent isolation", "memory offloading"],
+      "summary": "Substack essay tracing the term 'context rot' to a June 2025 Hacker News commenter, summarizing Chroma's study, and arguing that agents will need summarization, sub-agents and external memory because bigger windows alone do not fix degradation.",
+      "popularity_signal": "Widely-shared Substack (Understanding AI); exact metrics unknown"
+    },
+    {
+      "title": "Context engineering with Dex Horthy",
+      "url": "https://newsletter.pragmaticengineer.com/p/context-engineering-with-dex-horthy",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Gergely Orosz, The Pragmatic Engineer",
+      "techniques": ["own your context window", "intentional compaction", "research-plan-implement", "dumb zone / context budgeting", "small focused agents"],
+      "summary": "Newsletter/podcast with Dex Horthy on how context engineering 'blew up in June'; covers owning prompt and context rather than letting frameworks hide state, and the observation (attributed in coverage to analysis of ~100k developer sessions) of a 'dumb zone' in the middle 40-60% of the window where recall degrades, motivating deliberate compaction before that point.",
+      "popularity_signal": "Pragmatic Engineer newsletter (largest paid tech newsletter on Substack); exact metrics unknown"
+    },
+    {
+      "title": "The rise of \"context engineering\"",
+      "url": "https://blog.langchain.com/the-rise-of-context-engineering/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Harrison Chase, LangChain blog",
+      "techniques": ["dynamic context assembly", "memory (short/long-term)", "retrieval", "tool state", "observability of context"],
+      "summary": "Defines context engineering as 'building dynamic systems to provide the right information and tools in the right format such that the LLM can plausibly accomplish the task' and argues most agent failures are context failures, not model failures; links to LangGraph/LangSmith tooling for tracing what actually entered the window.",
+      "popularity_signal": "Announced via X post x.com/hwchase17/status/1937194145074020798; widely cited alongside Karpathy/Lutke posts"
+    },
+    {
+      "title": "Harrison Chase: \"Filesystems for context engineering!\" (X post)",
+      "url": "https://x.com/hwchase17/status/1996654615262367923",
+      "type": "thread",
+      "year": 2025,
+      "venue_or_author": "Harrison Chase on X",
+      "techniques": ["file system as context", "context offloading", "memory files"],
+      "summary": "Chase points to real-world evidence that giving agents a filesystem (write notes, offload tool output, re-read on demand) is the pragmatic context-engineering primitive, referencing LangChain's own blog on filesystem-backed agents.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "Auto-compact triggers mid-task causing context loss and hallucinations (claude-code #10948)",
+      "url": "https://github.com/anthropics/claude-code/issues/10948",
+      "type": "other",
+      "year": 2025,
+      "venue_or_author": "GitHub issue, anthropics/claude-code",
+      "techniques": ["compaction/summarization", "/rewind", "handoff documents / checkpoints", "autoCompact setting", "pre-compact warning"],
+      "summary": "Users report auto-compact firing mid-task and derailing work; documented workarounds are /rewind to before compaction, starting a fresh chat with manual re-entry, and 'elaborate checkpoint/handover workflows'. Requests an autoCompact setting, better summaries that preserve file edits and decisions, and a warning before compaction.",
+      "popularity_signal": "Closed as duplicate (Nov 4, 2025); one of a cluster of 10+ auto-compact issues in the repo"
+    },
+    {
+      "title": "Context compaction too aggressive on 1M context window (Opus 4.6) (claude-code #42590)",
+      "url": "https://github.com/anthropics/claude-code/issues/42590",
+      "type": "other",
+      "year": 2026,
+      "venue_or_author": "GitHub issue, anthropics/claude-code",
+      "techniques": ["compaction/summarization", "compaction threshold tuning", "long-context budgeting"],
+      "summary": "With a 1M-token window, compaction still triggers early and loses '~90% of information at critical moments' (exact snippets, investigation state), showing that bigger windows shift rather than remove the compaction-threshold problem.",
+      "popularity_signal": "unknown (reactions not retrieved)"
+    },
+    {
+      "title": "Feature request: Pre-compaction hook and warning before automatic context compression (claude-code #34299)",
+      "url": "https://github.com/anthropics/claude-code/issues/34299",
+      "type": "other",
+      "year": 2026,
+      "venue_or_author": "GitHub issue, anthropics/claude-code",
+      "techniques": ["PreCompact hook", "handoff documents", "memory files", "compaction/summarization"],
+      "summary": "Asks for a hook/warning before auto-compaction so users can persist important state (notes, decisions) to files first; reflects the community pattern of writing a handoff/progress document before the window is summarized.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "[BUG] Claude Skills context completely lost after auto-compaction (claude-code #13919)",
+      "url": "https://github.com/anthropics/claude-code/issues/13919",
+      "type": "other",
+      "year": 2025,
+      "venue_or_author": "GitHub issue, anthropics/claude-code",
+      "techniques": ["compaction/summarization", "skills/instruction re-injection", "memory files"],
+      "summary": "After auto-compaction the agent forgets actively-loaded Skills and repeats the very mistakes the skills prevent; practitioners argue instructions and guardrails must be re-injected or kept outside the summarized transcript.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "Compact feature (cline/cline Discussion #3248)",
+      "url": "https://github.com/cline/cline/discussions/3248",
+      "type": "other",
+      "year": 2025,
+      "venue_or_author": "GitHub Discussion, Cline",
+      "techniques": ["compaction/summarization", "auto-compact threshold (80%)", "token accounting"],
+      "summary": "Cline users spec'd auto-compaction triggering at >=80% context usage with a user-configurable threshold, and later report it became erratic (token counts drifting to 350k on a 200k model until 'request too long' errors), illustrating how fragile client-side token accounting is.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "Building a better repository map with tree sitter",
+      "url": "https://aider.chat/2023/10/22/repomap.html",
+      "type": "blog",
+      "year": 2023,
+      "venue_or_author": "Paul Gauthier, Aider",
+      "techniques": ["repo map", "tree-sitter symbol extraction", "PageRank relevance ranking", "token budget (~1k tokens)"],
+      "summary": "Foundational coding-agent technique: parse the repo with tree-sitter, rank symbols by graph relevance, and serialize only the top-ranked signatures into a ~1k-token map so the model sees the whole codebase's shape without reading files. Cloned by RepoMapper, Hermes-agent (#535), Stacklit and others.",
+      "popularity_signal": "Aider repo ~35k+ GitHub stars (approx.); repo-map pattern reimplemented in multiple tools"
+    },
+    {
+      "title": "Meirtz/Awesome-Context-Engineering",
+      "url": "https://github.com/Meirtz/Awesome-Context-Engineering",
+      "type": "repo",
+      "year": 2025,
+      "venue_or_author": "GitHub (Meirtz)",
+      "techniques": ["survey/awesome list", "memory systems", "KV-cache compression", "RAG", "multi-agent", "prompt compression"],
+      "summary": "Curated survey (hundreds of papers/frameworks) framing context engineering through OS-style memory management: retrieval, compression, memory hierarchies, multi-agent orchestration.",
+      "popularity_signal": "~3.2k GitHub stars (per aggregator listing)"
+    },
+    {
+      "title": "jihoo-kim/awesome-context-engineering",
+      "url": "https://github.com/jihoo-kim/awesome-context-engineering",
+      "type": "repo",
+      "year": 2025,
+      "venue_or_author": "GitHub (jihoo-kim)",
+      "techniques": ["awesome list", "long-term memory libraries", "MCP", "prompt/RAG compression", "multi-agent"],
+      "summary": "Curated list of open-source libraries grouped by context-engineering concern: long-term memory (Mem0, Letta, etc.), MCP servers, prompt/RAG compression, and multi-agent frameworks.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "Context Engineering: Bringing Engineering Discipline to Prompts",
+      "url": "https://addyo.substack.com/p/context-engineering-bringing-engineering",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Addy Osmani (Substack)",
+      "techniques": ["context-window budgeting", "memory files", "RAG", "compaction/summarization", "evals"],
+      "summary": "Popular practitioner essay reframing Karpathy/Lutke's term as an engineering discipline: budget the window deliberately, assemble context from instructions, retrieved docs, history summaries and tool output, and test it like code.",
+      "popularity_signal": "Addy Osmani's Substack (large audience); exact metrics unknown"
+    },
+    {
+      "title": "Context Rot: Why Claude Code Sessions Decay, and How to Govern Them",
+      "url": "https://towardsdatascience.com/governed-context-managing-context-rot-in-claude-code/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Towards Data Science",
+      "techniques": ["context rot", "/compact strategy", "/clear with handoff", "CLAUDE.md memory files", "session governance"],
+      "summary": "Practitioner essay on why long Claude Code sessions decay and a governance routine: compact or clear on purpose at task boundaries, keep durable knowledge in CLAUDE.md/notes rather than the transcript, and treat the window as a budget.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "Cursor tip: enhanced memory system (Memory Bank)",
+      "url": "https://medium.com/vibe-coding/cursor-tip-enhanced-memory-system-f3539a438b80",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Medium (Vibe Coding), based on a Reddit user rule by PureRely",
+      "techniques": ["memory bank (markdown files)", "memory files", "handoff documents", "session persistence"],
+      "summary": "Documents the community 'Memory Bank' pattern from Reddit/Cursor forums: a user rule that makes the agent maintain a database of markdown files (project brief, active context, progress) it reads at session start and updates before the window fills, so context survives new chats.",
+      "popularity_signal": "Pattern widely copied (Cline Memory Bank, Cursor 'Memories' feature later); exact metrics unknown"
+    }
+  ],
+  "notes": "Searched 14/14 WebSearch and 6/6 WebFetch (caps hit). WebSearch (US-only) never surfaced reddit.com URLs despite three subreddit-targeted queries (r/ClaudeAI, r/LocalLLaMA, r/ChatGPTCoding/r/cursor), so no Reddit threads with upvote counts are included; the Memory Bank/handoff-document practices are represented via secondary posts. Could not confirm the URL of Tobi Lutke's original X post, so it is omitted (only referenced via Karpathy/Addy Osmani coverage). Could not find a Lobsters thread or a swyx post in results. HN metrics captured by fetch: 44427757 (915/518), 43699271 (475/78), 45418251 (148/32), 44379538 (27/4); the Manus HN page (44635141) returned HTTP 429 so its points are unknown. GitHub reaction counts were not visible in fetched pages. Years for the Pragmatic Engineer piece and some GitHub issues are inferred from context (issue numbers, model names) and may be off by a few months."
+}

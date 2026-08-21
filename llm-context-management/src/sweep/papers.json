@@ -1,0 +1,603 @@
+{
+  "sources": [
+    {
+      "title": "A Survey of Context Engineering for Large Language Models",
+      "url": "https://arxiv.org/abs/2507.13334",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Mei, Yao, Ge et al. (ICT/CAS et al.), arXiv 2507.13334",
+      "techniques": [
+        "context-engineering survey",
+        "RAG",
+        "memory systems",
+        "tool-integrated reasoning",
+        "multi-agent context"
+      ],
+      "summary": "Formalizes 'context engineering' as a discipline beyond prompt design: a taxonomy of foundational components (context retrieval/generation, processing, management) and system implementations (RAG, memory systems, tool-integrated reasoning, multi-agent). Built from ~1,400 papers; flags the asymmetry between models' ability to understand long context vs. generate long, coherent outputs.",
+      "popularity_signal": "143 citations (Semantic Scholar, Aug 2026); companion repo Meirtz/Awesome-Context-Engineering"
+    },
+    {
+      "title": "Awesome-Context-Engineering (companion paper list to the Mei et al. survey)",
+      "url": "https://github.com/Meirtz/Awesome-Context-Engineering",
+      "type": "repo",
+      "year": 2025,
+      "venue_or_author": "Meirtz (Lingrui Mei) on GitHub",
+      "techniques": [
+        "context-engineering survey",
+        "paper list"
+      ],
+      "summary": "Curated, continuously updated list of hundreds of papers, frameworks and implementation guides organized under the survey's taxonomy (retrieval, processing, management, RAG, memory, multi-agent).",
+      "popularity_signal": "stars not captured; the canonical companion repo of the 2507.13334 survey"
+    },
+    {
+      "title": "MemGPT: Towards LLMs as Operating Systems",
+      "url": "https://arxiv.org/abs/2310.08560",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Packer, Wooders, Lin et al. (UC Berkeley), arXiv 2310.08560",
+      "techniques": [
+        "virtual context management",
+        "hierarchical memory (OS paging)",
+        "memory files",
+        "self-editing memory via tool calls",
+        "summarization/compaction"
+      ],
+      "summary": "Introduces virtual context management: an OS-inspired memory hierarchy (in-context 'main context' vs. out-of-context 'external context') where the LLM pages information in and out via function calls and interrupts, yielding effectively unbounded context for document analysis and multi-session chat. Basis of the Letta framework.",
+      "popularity_signal": "1,141 citations (Semantic Scholar)"
+    },
+    {
+      "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+      "url": "https://arxiv.org/abs/2304.03442",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Park, O'Brien, Cai, Morris, Liang, Bernstein (Stanford/Google), UIST 2023",
+      "techniques": [
+        "memory stream",
+        "reflection (memory synthesis)",
+        "retrieval scoring (recency/importance/relevance)",
+        "memory-augmented agents"
+      ],
+      "summary": "Agents keep a natural-language memory stream of all experiences, periodically synthesize higher-level reflections, and retrieve memories scored by recency, importance and relevance to plan behavior; demonstrated in a 25-agent sandbox town. The archetype for retrieval-plus-reflection agent memory.",
+      "popularity_signal": "5,211 citations (Semantic Scholar)"
+    },
+    {
+      "title": "A-MEM: Agentic Memory for LLM Agents",
+      "url": "https://arxiv.org/pdf/2502.12110",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Xu, Liang, Mei et al. (Rutgers et al.), NeurIPS 2025",
+      "techniques": [
+        "agentic memory",
+        "Zettelkasten-style linked notes",
+        "memory evolution",
+        "top-k retrieval"
+      ],
+      "summary": "Zettelkasten-inspired memory: each experience becomes an atomic note with contextual description, keywords and tags; new notes are linked to related ones and can trigger updates of existing notes (memory evolution), enabling dynamic structured organization instead of fixed memory schemas.",
+      "popularity_signal": "897 citations (Semantic Scholar)"
+    },
+    {
+      "title": "Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory",
+      "url": "https://arxiv.org/abs/2504.19413",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Chhikara, Khant, Aryan, Singh, Yadav (Mem0), ECAI 2025",
+      "techniques": [
+        "long-term memory extraction/consolidation",
+        "graph memory",
+        "memory retrieval",
+        "token-cost reduction vs full context"
+      ],
+      "summary": "Memory-centric architecture that dynamically extracts, consolidates and retrieves salient facts from conversations (plus a graph-memory variant); on LOCOMO it beats OpenAI memory, RAG, and full-context baselines while cutting p95 latency ~91% and token cost ~90% relative to full-context.",
+      "popularity_signal": "559 citations (Semantic Scholar); backs the mem0 open-source library"
+    },
+    {
+      "title": "MemoryBank: Enhancing Large Language Models with Long-Term Memory",
+      "url": "https://arxiv.org/abs/2305.10250",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Zhong, Guo, Gao, Ye, Wang, AAAI 2024",
+      "techniques": [
+        "long-term memory",
+        "Ebbinghaus forgetting curve",
+        "memory retrieval",
+        "summarization-based memory"
+      ],
+      "summary": "Adds a long-term memory store that lets an LLM recall relevant past interactions, continually update a user portrait, and forget/strengthen memories following the Ebbinghaus forgetting curve; demonstrated via the SiliconFriend companion chatbot.",
+      "popularity_signal": "621 citations (Semantic Scholar)"
+    },
+    {
+      "title": "Recursively Summarizing Enables Long-Term Dialogue Memory in Large Language Models",
+      "url": "https://arxiv.org/abs/2308.15022",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Wang et al., Neurocomputing 2025 (arXiv 2308.15022)",
+      "techniques": [
+        "summarization/compaction",
+        "recursive summary memory",
+        "conversation memory"
+      ],
+      "summary": "Maintains a running memory by having the LLM summarize small dialogue chunks and then recursively fold previous memory plus new turns into an updated summary, improving consistency in long conversations with ChatGPT/text-davinci-003. The canonical 'summary-buffer' approach.",
+      "popularity_signal": "91 citations (Semantic Scholar)"
+    },
+    {
+      "title": "A Survey on the Memory Mechanism of Large Language Model-based Agents",
+      "url": "https://arxiv.org/abs/2404.13501",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Zhang, Bo, Ma et al. (Renmin Univ.), ACM TOIS 2025",
+      "techniques": [
+        "memory survey",
+        "memory writing/management/reading",
+        "memory-augmented agents"
+      ],
+      "summary": "Systematically surveys what memory is for LLM agents, why it is needed, and how to design it: memory sources, forms (textual vs. parametric), and operations (writing, management, reading), with evaluation methods and application areas.",
+      "popularity_signal": "721 citations (Semantic Scholar)"
+    },
+    {
+      "title": "From Human Memory to AI Memory: A Survey on Memory Mechanisms in the Era of LLMs",
+      "url": "https://arxiv.org/pdf/2504.15965",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Wu et al. (Huawei Noah's Ark Lab), arXiv 2504.15965",
+      "techniques": [
+        "memory survey",
+        "memory taxonomy (3D-8Q)",
+        "memory-augmented agents"
+      ],
+      "summary": "Maps human-memory concepts onto LLM memory and proposes a 3D-8Q taxonomy (object, form, time x eight quadrants) to classify memory mechanisms, with open problems for personal assistants and agents.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "On Memory Construction and Retrieval for Personalized Conversational Agents (SeCom)",
+      "url": "https://arxiv.org/pdf/2502.05589",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Pan et al. (Microsoft), ICLR 2025",
+      "techniques": [
+        "conversation memory",
+        "segment-level memory granularity",
+        "compression-based denoising",
+        "memory retrieval"
+      ],
+      "summary": "Studies memory granularity (turn vs. session vs. summary) and shows topically segmented memory units plus LLMLingua-2-style compression denoising improve retrieval and response quality on LOCOMO and Long-MT-Bench+.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "The Complexity Trap: Simple Observation Masking Is as Efficient as LLM Summarization for Agent Context Management",
+      "url": "https://arxiv.org/html/2508.21433v1",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Lindenbauer, Slinko, Felder, Bogomolov, Zharov (JetBrains Research), arXiv 2508.21433",
+      "techniques": [
+        "observation masking",
+        "summarization/compaction",
+        "agent context management",
+        "cost reduction"
+      ],
+      "summary": "On SWE-bench Verified coding agents, simply masking/eliding old tool observations cuts cost by roughly half and matches or beats LLM-based summarization of the trajectory; summarization can even prolong trajectories. Argues for simple baselines before complex compaction.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "LLMLingua: Compressing Prompts for Accelerated Inference of Large Language Models",
+      "url": "https://arxiv.org/abs/2310.05736",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Jiang, Wu, Lin, Yang, Qiu (Microsoft), EMNLP 2023",
+      "techniques": [
+        "prompt compression (token pruning)",
+        "small-LM perplexity scoring",
+        "budget controller"
+      ],
+      "summary": "Coarse-to-fine prompt compression: a small LM scores token importance by perplexity, a budget controller allocates compression across demonstrations/instructions/questions, and iterative token-level compression yields up to 20x compression with little performance loss.",
+      "popularity_signal": "315 citations (Semantic Scholar)"
+    },
+    {
+      "title": "LongLLMLingua: Accelerating and Enhancing LLMs in Long Context Scenarios via Prompt Compression",
+      "url": "https://arxiv.org/abs/2310.06839",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Jiang, Wu, Luo et al. (Microsoft), ACL 2024",
+      "techniques": [
+        "prompt compression (token pruning)",
+        "question-aware compression",
+        "document reordering (position bias)",
+        "long-context"
+      ],
+      "summary": "Question-aware coarse-to-fine compression plus reordering of documents to counter lost-in-the-middle; boosts GPT-3.5-Turbo on NaturalQuestions by up to 21.4% with ~4x fewer tokens and lower latency/cost.",
+      "popularity_signal": "522 citations (Semantic Scholar)"
+    },
+    {
+      "title": "LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression",
+      "url": "https://arxiv.org/abs/2403.12968",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Pan, Wu, Jiang et al. (Microsoft/Tsinghua), ACL 2024 Findings",
+      "techniques": [
+        "prompt compression (token pruning)",
+        "token classification compressor",
+        "data distillation"
+      ],
+      "summary": "Distills GPT-4 compression decisions into a dataset and trains a small bidirectional token-classifier (XLM-RoBERTa) to keep/drop tokens; task-agnostic, 3-6x faster than LLMLingua with 2-5x compression and up to 2.9x lower end-to-end latency.",
+      "popularity_signal": "356 citations (Semantic Scholar)"
+    },
+    {
+      "title": "Prompt Compression for Large Language Models: A Survey",
+      "url": "https://arxiv.org/html/2410.12388v2",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Li, Liu, Buck, Collier (Cambridge), NAACL 2025",
+      "techniques": [
+        "prompt compression survey",
+        "hard prompt methods",
+        "soft prompt methods"
+      ],
+      "summary": "Surveys prompt compression as hard-prompt (filtering/paraphrasing tokens, e.g. LLMLingua, Selective Context) vs. soft-prompt (learned compressed vectors, e.g. gist tokens, AutoCompressors, ICAE) methods, and discusses mechanisms, benchmarks and open challenges.",
+      "popularity_signal": "75 citations (Semantic Scholar)"
+    },
+    {
+      "title": "Learning to Compress Prompts with Gist Tokens",
+      "url": "https://arxiv.org/abs/2304.08467",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Mu, Li, Goodman (Stanford), NeurIPS 2023",
+      "techniques": [
+        "soft-prompt/gist compression",
+        "prompt caching",
+        "attention-mask training"
+      ],
+      "summary": "'Gisting' trains an LM to compress a prompt into a few cacheable gist tokens by modifying attention masks during instruction tuning; up to 26x prompt compression with ~40% FLOP reduction and minimal quality loss.",
+      "popularity_signal": "425 citations (Semantic Scholar)"
+    },
+    {
+      "title": "Adapting Language Models to Compress Contexts (AutoCompressors)",
+      "url": "https://arxiv.org/abs/2305.14788",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Chevalier, Wettig, Ajith, Chen (Princeton), EMNLP 2023",
+      "techniques": [
+        "soft-prompt/gist compression",
+        "summary vectors",
+        "recursive context compression"
+      ],
+      "summary": "AutoCompressors fine-tune LMs to recursively compress long documents into compact summary vectors used as soft prompts, extending effective context and improving retrieval-augmented LM / in-context learning at lower compute.",
+      "popularity_signal": "384 citations (Semantic Scholar)"
+    },
+    {
+      "title": "In-context Autoencoder for Context Compression in a Large Language Model (ICAE)",
+      "url": "https://arxiv.org/abs/2307.06945",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Ge, Hu, Wang, Wang, Chen, Wei (Microsoft), ICLR 2024",
+      "techniques": [
+        "soft-prompt/gist compression",
+        "memory slots",
+        "autoencoding pretraining"
+      ],
+      "summary": "A LoRA-adapted encoder compresses long context into short 'memory slots' that the frozen target LLM conditions on; pretrained with autoencoding + LM objectives, achieving ~4x compression with latency and GPU memory savings.",
+      "popularity_signal": "188 citations (Semantic Scholar)"
+    },
+    {
+      "title": "Unlocking Context Constraints of LLMs: Self-Information-Based Content Filtering (Selective Context)",
+      "url": "https://arxiv.org/abs/2304.12102",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Yucheng Li (Univ. of Surrey), arXiv 2304.12102 / EMNLP 2023",
+      "techniques": [
+        "prompt compression (token pruning)",
+        "self-information filtering"
+      ],
+      "summary": "Selective Context removes low self-information (low-surprise) lexical units from the prompt using a small causal LM, cutting context length on summarization and QA over papers, news and transcripts with modest quality loss.",
+      "popularity_signal": "66 citations (Semantic Scholar)"
+    },
+    {
+      "title": "RECOMP: Improving Retrieval-Augmented LMs with Compression and Selective Augmentation",
+      "url": "https://arxiv.org/abs/2310.04408",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Xu, Shi, Choi (UT Austin / UW), ICLR 2024",
+      "techniques": [
+        "RAG",
+        "retrieved-document compression",
+        "extractive and abstractive compressors",
+        "selective augmentation"
+      ],
+      "summary": "Compresses retrieved documents into short extractive or abstractive summaries before prepending them, and can return an empty summary to skip augmentation; keeps performance at ~6% of original tokens on LM and QA tasks.",
+      "popularity_signal": "303 citations (Semantic Scholar)"
+    },
+    {
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "url": "https://arxiv.org/abs/2307.03172",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Liu, Lin, Hewitt et al. (Stanford/UC Berkeley), TACL 2024",
+      "techniques": [
+        "position bias / lost-in-the-middle",
+        "long-context evaluation",
+        "multi-document QA"
+      ],
+      "summary": "Shows a U-shaped performance curve: models use information best at the start or end of the context and degrade sharply when the relevant passage is in the middle, even for explicitly long-context models; motivates reordering and context curation.",
+      "popularity_signal": "4,713 citations (Semantic Scholar)"
+    },
+    {
+      "title": "RULER: What's the Real Context Size of Your Long-Context Language Models?",
+      "url": "https://arxiv.org/abs/2404.06654",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Hsieh, Sun, Kriman et al. (NVIDIA), COLM 2024",
+      "techniques": [
+        "long-context evaluation (NIAH/benchmarks)",
+        "effective context length",
+        "multi-hop tracing / aggregation"
+      ],
+      "summary": "Synthetic benchmark extending needle-in-a-haystack with multi-needle, multi-hop tracing and aggregation tasks; of 17 models claiming >=32K context, only a handful kept satisfactory performance at 32K, showing advertised context sizes overstate effective context.",
+      "popularity_signal": "1,187 citations (Semantic Scholar); NVIDIA/RULER GitHub"
+    },
+    {
+      "title": "LongBench: A Bilingual, Multitask Benchmark for Long Context Understanding",
+      "url": "https://arxiv.org/abs/2308.14508",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Bai, Lv, Zhang et al. (Tsinghua/Zhipu), ACL 2024",
+      "techniques": [
+        "long-context evaluation (NIAH/benchmarks)",
+        "multi-task benchmark"
+      ],
+      "summary": "First bilingual (EN/ZH) multi-task long-context benchmark: 21 tasks across single-/multi-doc QA, summarization, few-shot learning, synthetic tasks and code completion; later extended as LongBench v2 (ACL 2025).",
+      "popularity_signal": "1,565 citations (Semantic Scholar)"
+    },
+    {
+      "title": "Context Rot: How Increasing Input Tokens Impacts LLM Performance",
+      "url": "https://www.trychroma.com/research/context-rot",
+      "type": "other",
+      "year": 2025,
+      "venue_or_author": "Hong, Troynikov, Huber (Chroma technical report, July 2025)",
+      "techniques": [
+        "context rot",
+        "long-context evaluation (NIAH/benchmarks)",
+        "distractors / semantic needles",
+        "context-engineering motivation"
+      ],
+      "summary": "Controlled experiments on 18 frontier models (GPT-4.1, Claude 4, Gemini 2.5, Qwen3) show reliability degrades non-uniformly as input grows, even on simple retrieval and text-replication tasks; coined 'context rot' and is widely used to justify context curation over maximal stuffing.",
+      "popularity_signal": "widely referenced technical report; replication toolkit at github.com/chroma-core/context-rot"
+    },
+    {
+      "title": "Retrieval Augmented Generation or Long-Context LLMs? A Comprehensive Study and Hybrid Approach",
+      "url": "https://arxiv.org/abs/2407.16833",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Li, Liu, Mi, Zheng, Bendersky (Google DeepMind), EMNLP 2024 Industry",
+      "techniques": [
+        "long-context vs RAG routing",
+        "RAG",
+        "Self-Route"
+      ],
+      "summary": "Benchmarks RAG vs. long-context prompting with Gemini-1.5/GPT-4o: long context wins on average when affordable, RAG is far cheaper; proposes Self-Route, which lets the model decide per query whether retrieval suffices, matching LC quality at much lower cost.",
+      "popularity_signal": "169 citations (Semantic Scholar)"
+    },
+    {
+      "title": "Retrieval-Augmented Generation for Large Language Models: A Survey",
+      "url": "https://arxiv.org/abs/2312.10997",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Gao, Xiong, Gao et al. (Tongji/Fudan), arXiv 2312.10997",
+      "techniques": [
+        "RAG",
+        "naive/advanced/modular RAG taxonomy",
+        "retrieval evaluation"
+      ],
+      "summary": "The standard RAG survey: organizes methods into naive, advanced and modular RAG, covering retrieval, generation and augmentation techniques plus evaluation frameworks and benchmarks.",
+      "popularity_signal": "unknown (not captured; among the most-cited RAG surveys)"
+    },
+    {
+      "title": "Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG",
+      "url": "https://arxiv.org/abs/2501.09136",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Singh, Ehtesham, Kumar, Khoei, arXiv 2501.09136",
+      "techniques": [
+        "agentic RAG",
+        "RAG",
+        "multi-agent retrieval",
+        "reflection/planning loops"
+      ],
+      "summary": "Surveys Agentic RAG, where autonomous agents plan, reflect, use tools and collaborate inside the retrieval pipeline; proposes a taxonomy (single-agent, multi-agent, hierarchical, corrective, adaptive, graph-based) with applications and open challenges.",
+      "popularity_signal": "393 citations (Semantic Scholar)"
+    },
+    {
+      "title": "A Comprehensive Survey on Long Context Language Modeling",
+      "url": "https://arxiv.org/pdf/2503.17407",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Liu et al. (multi-institution), arXiv 2503.17407",
+      "techniques": [
+        "long-context survey",
+        "context-window extension (RoPE scaling)",
+        "KV-cache compression",
+        "long-context evaluation (NIAH/benchmarks)"
+      ],
+      "summary": "Broad survey of long-context LMs covering data, architectures (position encodings, efficient attention), training, inference (KV cache, compression), evaluation benchmarks and applications, including a section on context compression and agent memory.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "Efficient Streaming Language Models with Attention Sinks (StreamingLLM)",
+      "url": "https://arxiv.org/html/2309.17453v3",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Xiao, Tian, Chen, Han, Lewis (MIT/Meta), ICLR 2024",
+      "techniques": [
+        "KV-cache eviction",
+        "attention sinks / sliding window",
+        "streaming inference"
+      ],
+      "summary": "Observes that initial tokens act as 'attention sinks'; keeping their KV states plus a sliding window of recent tokens lets finite-window LLMs model streams of 4M+ tokens stably without fine-tuning, with up to 22x speedup over recomputation.",
+      "popularity_signal": "2,289 citations (Semantic Scholar)"
+    },
+    {
+      "title": "H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models",
+      "url": "https://huggingface.co/papers/2306.14048",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Zhang, Sheng, Zhou et al. (UT Austin/Stanford/Meta), NeurIPS 2023",
+      "techniques": [
+        "KV-cache eviction",
+        "heavy-hitter tokens (accumulated attention)",
+        "recent + heavy-hitter policy"
+      ],
+      "summary": "Shows a small set of 'heavy hitter' tokens dominate attention mass; a dynamic eviction policy keeping recent tokens plus heavy hitters shrinks the KV cache (e.g. 20% budget) with negligible loss and up to 29x throughput gains.",
+      "popularity_signal": "878 citations (Semantic Scholar)"
+    },
+    {
+      "title": "SnapKV: LLM Knows What You are Looking for Before Generation",
+      "url": "https://arxiv.org/abs/2404.14469",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Li, Huang, Yang et al. (UIUC/Cohere), NeurIPS 2024",
+      "techniques": [
+        "KV-cache eviction",
+        "observation-window attention selection",
+        "prefill-time compression"
+      ],
+      "summary": "Fine-tuning-free method that uses an observation window at the end of the prompt to pick, per attention head, the important prefix KV positions before decoding; 3.6x faster generation and 8.2x memory efficiency on 16K inputs with comparable accuracy.",
+      "popularity_signal": "847 citations (Semantic Scholar)"
+    },
+    {
+      "title": "PyramidKV: Dynamic KV Cache Compression based on Pyramidal Information Funneling",
+      "url": "https://arxiv.org/html/2406.02069v1",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Cai, Zhang, Gao et al. (PKU et al.), arXiv 2406.02069",
+      "techniques": [
+        "KV-cache eviction",
+        "layer-wise budget allocation",
+        "pyramidal information funneling"
+      ],
+      "summary": "Finds attention is diffuse in lower layers and concentrated in upper layers ('information funneling'), so allocates more KV budget to lower layers and less to upper ones; matches full-cache LongBench accuracy with ~12% of the KV cache.",
+      "popularity_signal": "388 citations (Semantic Scholar)"
+    },
+    {
+      "title": "KIVI: A Tuning-Free Asymmetric 2bit Quantization for KV Cache",
+      "url": "https://arxiv.org/abs/2402.02750",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Liu, Yuan, Jin et al. (Rice/Univ. of Illinois), ICML 2024",
+      "techniques": [
+        "KV-cache quantization",
+        "per-channel key / per-token value quantization"
+      ],
+      "summary": "Tuning-free 2-bit KV quantization that quantizes keys per-channel and values per-token based on their distributions; Llama-2/Falcon/Mistral keep quality with 2.6x lower peak memory, enabling 4x larger batches and 2.35-3.47x throughput.",
+      "popularity_signal": "600 citations (Semantic Scholar)"
+    },
+    {
+      "title": "YaRN: Efficient Context Window Extension of Large Language Models",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/874a4d89f2d04b4bcf9a2c19545cf040-Paper-Conference.pdf",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Peng, Quesnelle, Fan, Shippole (Nous Research/EleutherAI), ICLR 2024",
+      "techniques": [
+        "context-window extension (RoPE scaling)",
+        "NTK-aware interpolation",
+        "attention temperature scaling"
+      ],
+      "summary": "Extends RoPE models' context (e.g. LLaMA to 128K) with NTK-by-parts frequency interpolation plus attention-logit temperature scaling, needing ~10x fewer tokens and 2.5x fewer training steps than prior interpolation methods.",
+      "popularity_signal": "611 citations (Semantic Scholar)"
+    },
+    {
+      "title": "Leave No Context Behind: Efficient Infinite Context Transformers with Infini-attention",
+      "url": "https://arxiv.org/html/2404.07143v1",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Munkhdalai, Faruqui, Gopal (Google), arXiv 2404.07143",
+      "techniques": [
+        "compressive memory (attention)",
+        "linear attention long-term memory",
+        "local + global attention"
+      ],
+      "summary": "Adds a compressive memory with linear-attention retrieval inside each attention block, combining masked local attention and long-term memory so Transformers process unbounded streams with bounded memory; 114x memory compression on 1M-token passkey and 500K book summarization.",
+      "popularity_signal": "228 citations (Semantic Scholar)"
+    },
+    {
+      "title": "Ring Attention with Blockwise Transformers for Near-Infinite Context",
+      "url": "https://arxiv.org/abs/2310.01889",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Liu, Zaharia, Abbeel (UC Berkeley), ICLR 2024",
+      "techniques": [
+        "distributed attention / sequence parallelism",
+        "blockwise attention",
+        "context-window scaling"
+      ],
+      "summary": "Distributes a long sequence across devices in a ring, overlapping KV-block communication with blockwise attention/feed-forward computation, enabling context length to scale linearly with device count without approximation; underpins 1M+-token training.",
+      "popularity_signal": "562 citations (Semantic Scholar)"
+    },
+    {
+      "title": "The Missing Memory Hierarchy: Demand Paging for LLM Context Windows",
+      "url": "https://arxiv.org/pdf/2603.09023",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv 2603.09023 (authors not captured)",
+      "techniques": [
+        "virtual context management",
+        "hierarchical memory (OS paging)",
+        "agent context management"
+      ],
+      "summary": "Argues the context window should sit atop an explicit memory hierarchy with OS-style demand paging of context in and out rather than ad-hoc truncation (title/abstract-level; full text not fetched).",
+      "popularity_signal": "unknown (2026)"
+    },
+    {
+      "title": "TokenPilot: Cache-Efficient Context Management for LLM Agents",
+      "url": "https://arxiv.org/pdf/2606.17016",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv 2606.17016 (authors not captured)",
+      "techniques": [
+        "agent context management",
+        "prompt caching",
+        "compaction that preserves cache prefixes"
+      ],
+      "summary": "Context-management scheme for agents that edits/compacts the working context while keeping prompt-cache prefix hits, trading off context size against cache reuse cost (title/abstract-level; full text not fetched).",
+      "popularity_signal": "unknown (2026)"
+    },
+    {
+      "title": "Hold Onto That Thought: Assessing KV Cache Compression On Reasoning",
+      "url": "https://arxiv.org/html/2512.12008v1",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv 2512.12008",
+      "techniques": [
+        "KV-cache eviction",
+        "KV-cache quantization",
+        "reasoning-model evaluation"
+      ],
+      "summary": "Evaluates eviction and quantization KV-compression methods on long chain-of-thought reasoning models, showing that methods tuned on standard long-context tasks can break multi-step reasoning and that accumulated-attention heavy-hitter strategies hold up best.",
+      "popularity_signal": "3 citations (Semantic Scholar)"
+    },
+    {
+      "title": "U-NIAH: Unified RAG and LLM Evaluation for Long Context Needle-In-A-Haystack",
+      "url": "https://arxiv.org/pdf/2503.00353",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "ACM TOIS 2025 (arXiv 2503.00353)",
+      "techniques": [
+        "long-context evaluation (NIAH/benchmarks)",
+        "long-context vs RAG routing",
+        "RAG"
+      ],
+      "summary": "Unified needle-in-a-haystack framework that evaluates long-context LLMs and RAG pipelines side by side across needle types/positions, quantifying when retrieval beats raw long context and vice versa.",
+      "popularity_signal": "25 citations (Semantic Scholar)"
+    },
+    {
+      "title": "A Survey on the Security of Long-Term Memory in LLM Agents: Toward Mnemonic Sovereignty",
+      "url": "https://arxiv.org/html/2604.16548v1",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv 2604.16548",
+      "techniques": [
+        "memory survey",
+        "memory poisoning / security",
+        "memory-augmented agents"
+      ],
+      "summary": "Surveys attacks and defenses on persistent agent memory (poisoning, extraction, tampering) and argues for 'mnemonic sovereignty'; relevant as OWASP's 2026 Agentic Top 10 lists memory and context poisoning.",
+      "popularity_signal": "unknown (2026)"
+    }
+  ]
+}

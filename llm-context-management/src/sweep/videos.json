@@ -1,0 +1,185 @@
+{
+  "sources": [
+    {
+      "title": "Andrej Karpathy: Software Is Changing (Again)",
+      "url": "https://www.youtube.com/watch?v=LCEmiRjPEtQ",
+      "type": "talk",
+      "year": 2025,
+      "venue_or_author": "Andrej Karpathy, Y Combinator AI Startup School (June 17, 2025)",
+      "techniques": ["LLM-as-OS / context window as RAM", "partial autonomy / autonomy slider", "agent-readable docs (llms.txt)", "context-building as core skill"],
+      "summary": "Frames Software 3.0 (natural-language programming of LLMs) and the LLM as an operating system whose context window is the working memory; argues the leverage gap is in engineering judgment and context-building skill, with LLM 'anterograde amnesia' as the core limitation apps must design around.",
+      "popularity_signal": "View count not captured (YouTube page fetch blocked); YC Startup Library flagship talk, very widely referenced (multiple transcripts/summaries in search results)"
+    },
+    {
+      "title": "+1 for \"context engineering\" over \"prompt engineering\" (Karpathy X post)",
+      "url": "https://x.com/karpathy/status/1937902205765607626",
+      "type": "thread",
+      "year": 2025,
+      "venue_or_author": "Andrej Karpathy on X (June 25, 2025)",
+      "techniques": ["context engineering definition", "task decomposition", "RAG", "few-shot examples", "compaction/summarization", "tool-result management"],
+      "summary": "The remark that popularized the term: context engineering is 'the delicate art and science of filling the context window with just the right information for the next step', spanning problem decomposition, RAG, few-shot, tool outputs, and compaction in industrial LLM apps.",
+      "popularity_signal": "~14,000 likes / 9,100 bookmarks (per search snippet); quoted in dozens of blogs and repos"
+    },
+    {
+      "title": "Context Engineering for Agents - Lance Martin, LangChain (Latent Space podcast)",
+      "url": "https://www.youtube.com/watch?v=_IlTcWciEC4",
+      "type": "video",
+      "year": 2025,
+      "venue_or_author": "Latent Space: The AI Engineer Podcast (swyx & Alessio) with Lance Martin, Sept 11, 2025; written companion at https://www.latent.space/p/context-engineering-for-agents-lance",
+      "techniques": ["context offloading (filesystem/state)", "compaction/summarization", "retrieval / just-in-time context", "sub-agent isolation", "memory files", "context rot"],
+      "summary": "Lance Martin lays out the offload / reduce / retrieve / isolate taxonomy: agents accumulate context from tool calls, so store heavy tool outputs on disk or in state and hand back summaries/pointers, compact at boundaries, retrieve just-in-time, and isolate work in sub-agents.",
+      "popularity_signal": "View count not captured (YouTube fetch blocked); episode syndicated on Spotify/Apple/Podwise/Snipd, frequently cited as the canonical explainer"
+    },
+    {
+      "title": "Context Engineering for AI Agents with LangChain and Manus",
+      "url": "https://www.youtube.com/watch?v=6_BcCthVvb8",
+      "type": "video",
+      "year": 2025,
+      "venue_or_author": "LangChain YouTube: Lance Martin (LangChain) with Yichao 'Peak' Ji (Manus); Lance's write-up at https://rlancemartin.github.io/2025/10/15/manus/",
+      "techniques": ["KV-cache hit rate optimization", "prompt caching (stable prefix, append-only)", "context offloading to filesystem", "compaction/summarization", "sub-agent isolation", "tool masking via logit bias", "recitation (todo.md)", "keep errors in context"],
+      "summary": "Manus's production lessons in conversation with LangChain: treat KV-cache hit rate as the single most important agent metric (10x cost gap between cached/uncached tokens), keep prompts append-only, offload to the filesystem as unlimited context, mask rather than remove tools, recite goals to fight lost-in-the-middle, and preserve failures so the model learns.",
+      "popularity_signal": "View count not captured (YouTube fetch blocked); accompanying Manus blog is among the most-cited 2025 context-engineering posts"
+    },
+    {
+      "title": "12-Factor Agents: Patterns of reliable LLM applications — Dex Horthy, HumanLayer",
+      "url": "https://www.youtube.com/watch?v=8kMaTybvDUw",
+      "type": "talk",
+      "year": 2025,
+      "venue_or_author": "AI Engineer World's Fair 2025 (AI Engineer YouTube channel)",
+      "techniques": ["own your context window", "own your prompts", "compact errors into context", "small focused agents", "unify execution state and business state", "stateless reducer / pause-resume"],
+      "summary": "Derived from ~100 interviews with production agent builders: reliable agents treat the context window as something you fully control (custom formats, not default message lists), keep agents small (3-10 steps) to avoid long-context degradation, and compact errors and state into context rather than letting history grow unbounded.",
+      "popularity_signal": "View count not captured (YouTube and Glasp fetches blocked); companion GitHub repo humanlayer/12-factor-agents is widely starred; talk mirrored on Class Central and Podwise"
+    },
+    {
+      "title": "12-factor Agents - Patterns of reliable LLM applications // Dexter Horthy // Agents in Production 2025",
+      "url": "https://www.youtube.com/watch?v=2yi4mAN3CtE",
+      "type": "talk",
+      "year": 2025,
+      "venue_or_author": "MLOps Community, Agents in Production 2025 (also at https://home.mlops.community/public/videos/12-factor-agents-patterns-of-reliable-llm-applications-dexter-horthy-agents-in-production-2025-2025-08-06)",
+      "techniques": ["own your context window", "compact errors into context", "small focused agents", "stateless reducer / pause-resume"],
+      "summary": "Second recording of the 12-Factor Agents talk (Aug 2025) for the MLOps Community, same core thesis: control flow, prompts and context window must be owned by the engineer, not the framework.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "Context engineering with Dex Horthy (The Pragmatic Engineer podcast)",
+      "url": "https://newsletter.pragmaticengineer.com/p/context-engineering-with-dex-horthy",
+      "type": "video",
+      "year": 2025,
+      "venue_or_author": "Gergely Orosz, The Pragmatic Engineer",
+      "techniques": ["research-plan-implement workflow", "frequent intentional compaction", "context budget (keep utilization low)", "spec/plan files as context carriers", "sub-agent isolation"],
+      "summary": "Dex Horthy on applying context engineering to coding agents: keep context utilization low, work in research -> plan -> implement phases, and use 'frequent intentional compaction' where plan/progress files become the handoff between fresh contexts.",
+      "popularity_signal": "Pragmatic Engineer newsletter (~1M subscribers) podcast; exact views unknown"
+    },
+    {
+      "title": "Dex Horthy on Ralph, RPI, and escaping the \"Dumb Zone\" (Dev Interrupted)",
+      "url": "https://open.spotify.com/episode/27WxKgyMcx6s5GpmDAFHvt",
+      "type": "video",
+      "year": 2026,
+      "venue_or_author": "Dev Interrupted podcast (LinearB)",
+      "techniques": ["context budget (avoid the 'dumb zone' past ~40% utilization)", "research-plan-implement workflow", "fresh context per iteration (Ralph loop)", "compaction/summarization"],
+      "summary": "Dex discusses the 'dumb zone' -- agent quality degrades once the context window fills past roughly 40% -- and the Ralph loop / RPI pattern of restarting with fresh context and carrying state forward in files.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "Claude for Long-Horizon Tasks — Lance Martin, Anthropic",
+      "url": "https://www.youtube.com/watch?v=9QebvrrY3KY",
+      "type": "talk",
+      "year": 2026,
+      "venue_or_author": "AI Engineer YouTube channel; Lance Martin (Anthropic)",
+      "techniques": ["agent harness design", "compaction/summarization", "memory files", "sub-agent isolation", "long-horizon task decomposition", "context rot"],
+      "summary": "Lance Martin (now at Anthropic) shares lessons on building agent harnesses for reliable, secure long-horizon work with Claude -- how to structure compaction, memory and sub-agents so a single task can span many context windows.",
+      "popularity_signal": "Published ~July 2026 (about a month before this sweep); views not captured"
+    },
+    {
+      "title": "Context Engineering Our Way to Long-Horizon Agents: LangChain's Harrison Chase",
+      "url": "https://www.youtube.com/watch?v=vtugjs2chdA",
+      "type": "video",
+      "year": 2026,
+      "venue_or_author": "Sequoia Capital Training Data podcast (Jan 21, 2026); episode page https://sequoiacap.com/podcast/context-engineering-our-way-to-long-horizon-agents-langchains-harrison-chase/",
+      "techniques": ["harness over model", "deep agents (planning tool + filesystem + sub-agents)", "agent memory", "context engineering", "long-horizon task decomposition"],
+      "summary": "Harrison Chase argues the harness matters more than the model for long-running agents, describing the 'deep agents' recipe -- planning/todo tool, filesystem offloading, sub-agent delegation, detailed system prompts -- and how memory and context engineering extend agent horizons.",
+      "popularity_signal": "Clips circulated widely on X; view count unknown"
+    },
+    {
+      "title": "AI Dev 25 | Harrison Chase: Long Term Memory with LangGraph",
+      "url": "https://www.youtube.com/watch?v=R0OdB-p-ns4",
+      "type": "talk",
+      "year": 2025,
+      "venue_or_author": "AI Dev 25 (DeepLearning.AI), March 27, 2025",
+      "techniques": ["long-term memory store", "semantic / episodic / procedural memory", "hot-path vs background memory formation", "memory files"],
+      "summary": "Harrison Chase on building agents that remember across sessions: typed memory (semantic facts, episodic examples, procedural instructions), when to write memory in the hot path vs in the background, and LangGraph's memory store primitives.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "Harrison Chase of LangChain on Deep Agents, LangSmith, and Earning Trust | NVIDIA AI Podcast Ep. 297",
+      "url": "https://www.youtube.com/watch?v=c-fsL0gsmo0",
+      "type": "video",
+      "year": 2025,
+      "venue_or_author": "NVIDIA AI Podcast",
+      "techniques": ["deep agents (planning tool + filesystem + sub-agents)", "context offloading (filesystem/state)", "sub-agent isolation", "observability (LangSmith)"],
+      "summary": "Harrison Chase explains the 'deep agents' architecture popularized by Claude Code / Manus / Deep Research: a planning tool, a filesystem for offloading context, sub-agents for isolation, and a detailed system prompt.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "Building AI Agents that actually automate Knowledge Work - Jerry Liu, LlamaIndex",
+      "url": "https://www.youtube.com/watch?v=jVGCulhBRZI",
+      "type": "talk",
+      "year": 2025,
+      "venue_or_author": "AI Engineer World's Fair 2025 (AI Engineer channel), June 24, 2025",
+      "techniques": ["RAG", "agentic document processing", "agent memory", "context-aware retrieval over enterprise data"],
+      "summary": "Jerry Liu on moving from chat-over-docs RAG to agents that automate knowledge work, with document parsing/extraction as the context-quality bottleneck and LlamaIndex's new Memory API for context-aware, long-term recall.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "RAG Is A Hack - with Jerry Liu from LlamaIndex",
+      "url": "https://www.latent.space/p/llamaindex",
+      "type": "video",
+      "year": 2023,
+      "venue_or_author": "Latent Space podcast (swyx & Alessio)",
+      "techniques": ["RAG", "in-context retrieval vs fine-tuning", "chunking/indexing", "long context vs RAG"],
+      "summary": "Foundational episode where Jerry Liu calls RAG 'a hack' that exists because context windows are finite and expensive, and lays out LlamaIndex's data framework for getting the right context into the window.",
+      "popularity_signal": "Early/classic Latent Space episode, widely cited; view count unknown"
+    },
+    {
+      "title": "Systematically Improving RAG Applications — Jason Liu (Mastering LLMs conference talk)",
+      "url": "https://christianjmills.com/posts/mastering-llms-course-notes/conference-talk-010/",
+      "type": "talk",
+      "year": 2024,
+      "venue_or_author": "Jason Liu, Mastering LLMs course (Hamel Husain & Dan Becker); course notes page; follow-on Maven course https://maven.com/applied-llms/rag-playbook",
+      "techniques": ["RAG", "retrieval evals (precision/recall)", "synthetic eval data", "query routing / specialized indices", "feedback loops"],
+      "summary": "Jason Liu's playbook for treating RAG as a recommendation-systems problem: build synthetic retrieval evals first, segment queries, add specialized indices and routers, and close the loop with user feedback rather than blindly swapping embeddings.",
+      "popularity_signal": "Talk from Hamel Husain's widely attended Mastering LLMs course (2024); exact views unknown"
+    },
+    {
+      "title": "Long Context Models Explained: Do We Still Need RAG?",
+      "url": "https://www.louisbouchard.ai/long-context-vs-rag/",
+      "type": "video",
+      "year": 2024,
+      "venue_or_author": "Louis Bouchard, What's AI (YouTube explainer + article)",
+      "techniques": ["long context vs RAG", "RAG", "hybrid retrieve-then-long-context", "cost/latency tradeoffs"],
+      "summary": "Popular explainer on whether million-token windows kill RAG; concludes they are complementary -- long context for bounded one-off analysis, retrieval for large/changing corpora and cost control.",
+      "popularity_signal": "What's AI channel explainer; view count unknown"
+    },
+    {
+      "title": "KV Cache: The Trick That Makes LLMs Faster",
+      "url": "https://www.youtube.com/watch?v=gpp57x_z_Jg",
+      "type": "video",
+      "year": 2025,
+      "venue_or_author": "YouTube explainer (Sept 21, 2025)",
+      "techniques": ["KV cache", "prefill vs decode", "inference memory"],
+      "summary": "Explainer on how autoregressive decoding caches per-layer attention keys/values so each new token attends to the cache instead of recomputing the prefix -- the mechanism that makes prompt caching and context reuse possible.",
+      "popularity_signal": "unknown"
+    },
+    {
+      "title": "KV Cache in LLMs Explained Visually | How LLMs Generate Tokens Faster",
+      "url": "https://www.youtube.com/watch?v=7OrMFn86PlM",
+      "type": "video",
+      "year": 2026,
+      "venue_or_author": "YouTube explainer (April 9, 2026)",
+      "techniques": ["KV cache", "prefill vs decode", "inference memory"],
+      "summary": "Visual walkthrough of the KV cache and why context length drives GPU memory and latency, motivating KV-cache-aware context management (stable prefixes, cache hit rate).",
+      "popularity_signal": "unknown"
+    }
+  ],
+  "notes": "Searched (12/12 WebSearch cap hit): Karpathy Software 3.0 + context-engineering post; Lance Martin Latent Space + LangChain/Manus video; Dex Horthy 12-factor (AI Engineer + MLOps) and podcasts; Anthropic/Claude long-horizon talk; Harrison Chase memory/deep-agents talks; Jason Liu / Hamel; LlamaIndex/Jerry Liu; KV cache explainers; RAG vs long context; Latent Space context episodes. WebFetch (6/6 cap hit): all 5 youtube.com fetches were redirected to a Google captcha, and glasp.co returned 403, so NO view counts were captured directly -- popularity signals are from search snippets (Karpathy X post: 14K likes / 9.1K bookmarks) or qualitative. Could not find: a dedicated Anthropic 'Code with Claude' context-engineering session URL (only the Anthropic blog/cookbook surfaced, left to the blog sweep), a Simon Willison talk specifically on context management, and a native YouTube URL for the Pragmatic Engineer / Dev Interrupted / What's AI episodes (non-YouTube episode pages used instead). Years for the Pragmatic Engineer, Dev Interrupted, NVIDIA podcast and What's AI entries are inferred, not confirmed. The Manus blog (manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus) and LangChain 'Memory for agents' blog surfaced but were omitted as non-video."
+}

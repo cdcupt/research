@@ -1,0 +1,82 @@
+<section class="technique" id="pruning-context-editing">
+  <h2><span class="num">7</span> Pruning, trimming &amp; context editing</h2>
+  <p class="lede">Pruning deletes context instead of rewriting it: keep the last N turns or tokens, blank out old tool outputs, drop stale reasoning blocks, or let the API clear tool results once a threshold is crossed. It is deterministic, needs no extra model call, and can be prompt-cache friendly, so it is the cheapest lever most teams reach for first.</p>
+  <div class="kv">
+    <div><b>Problem it solves</b><span>In agent loops, tool outputs and reasoning blocks grow fastest and crowd out the instructions and recent state the model needs.</span></div>
+    <div><b>Lifecycle stage</b><span>compress — shrinks history without a model call</span></div>
+    <div><b>Popularity signals</b><span>19 sources in this survey. Shipped by Anthropic (context editing API), LangGraph (~40k stars), AutoGen (~60k), LlamaIndex (~52k), OpenAI Agents SDK (~29k), Semantic Kernel (~28k), Vercel AI SDK (~26k), Pydantic AI (~19k). JetBrains' Complexity Trap (SWE-bench Verified): masking cut cost 52-56% and matched summarization; Anthropic reports 84% fewer tokens on a 100-turn web-search eval.</span></div>
+  </div>
+  <h3>How it works</h3>
+  <p>Every variant applies a deterministic rule to the message list before each model call. Sliding windows keep the most recent N messages (AutoGen <code>BufferedChatCompletionContext</code>, Semantic Kernel's truncation reducer) or the most recent tokens (LangGraph <code>trim_messages</code> with <code>strategy="last"</code>). Observation masking keeps every user and assistant turn but replaces tool outputs older than the last M turns with a one-line placeholder (JetBrains used M=10). Anthropic's context editing does this server-side: once input tokens (default 100k) or tool-use count pass a trigger, the API clears all but the last <code>keep</code> tool results (default 3), optionally removing at least <code>clear_at_least</code> tokens per edit so each cache invalidation is worth it. Thinking-block clearing is a separate strategy with its own keep count. Dropped content is gone for the model, so pruning is often paired with a memory flush (LlamaIndex) or a memory tool.</p>
+  <h3>How to achieve it</h3>
+  <ol class="steps">
+    <li>Measure what grows. Log tokens per message role over a few real runs; tool results usually dominate, so target those first.</li>
+    <li>Pick the rule and unit: last-N turns for chat (OpenAI's <code>TrimmingSession</code> groups tool calls with their user turn), a token budget for variable-length tool output (<code>trim_messages(max_tokens=..., token_counter=count_tokens_approximately)</code>), or observation masking for coding agents that can re-read files.</li>
+    <li>Preserve structural invariants: never orphan a tool result from its call, start the window on a user message (<code>start_on="human"</code>), and keep the system prompt. <code>pruneMessages</code> and Semantic Kernel reducers handle pairing; a hand-rolled DSPy <code>History</code> or Pydantic AI processor does not.</li>
+    <li>Trigger on live counts. Read usage from the previous response (Pydantic AI <code>ctx.usage.total_tokens</code>, Anthropic <code>trigger: input_tokens</code>) and clear in large chunks so the cache prefix is invalidated once, not every turn.</li>
+    <li>Protect what cannot be re-fetched: whitelist tools whose output must stay verbatim (<code>exclude_tools</code>), or flush pruned turns into a memory block or notes file first (LlamaIndex <code>token_flush_size</code>, Anthropic memory tool).</li>
+    <li>Compare against the unpruned baseline on your own traces (solve rate, cost, trajectory length); if quality drops, widen the keep window before trying summarization.</li>
+  </ol>
+  <pre><code class="lang-python">import anthropic
+
+client = anthropic.Anthropic()
+
+response = client.beta.messages.create(
+    model="claude-opus-5",
+    max_tokens=4096,
+    betas=["context-management-2025-06-27"],
+    tools=[
+        {"type": "text_editor_20250728", "name": "str_replace_based_edit_tool"},
+        {"type": "web_search_20250305", "name": "web_search", "max_uses": 3},
+    ],
+    messages=[{"role": "user", "content": "Refactor the calculator module"}],
+    context_management={
+        "edits": [
+            # clear_thinking must be listed first when both strategies are used
+            {"type": "clear_thinking_20251015",
+             "keep": {"type": "thinking_turns", "value": 2}},
+            {"type": "clear_tool_uses_20250919",
+             "trigger": {"type": "input_tokens", "value": 30000},
+             "keep": {"type": "tool_uses", "value": 3},
+             "clear_at_least": {"type": "input_tokens", "value": 5000},
+             "exclude_tools": ["web_search"]},
+        ]
+    },
+)
+# applied_edits reports cleared_tool_uses / cleared_input_tokens per strategy
+print(response.context_management)</code></pre>
+  <h3>Variants &amp; tools</h3>
+  <ul class="tools">
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/context-editing">Anthropic context editing</a> — server-side <code>clear_tool_uses</code> and <code>clear_thinking</code> with trigger, keep, <code>clear_at_least</code>, <code>exclude_tools</code>; see also the <a href="https://platform.claude.com/cookbook/tool-use-context-engineering-context-engineering-tools">cookbook</a> notebook.</li>
+    <li><a href="https://docs.langchain.com/oss/python/langgraph/add-memory">LangGraph trim_messages + RemoveMessage</a> — token-budget trimming in a node, plus deletion of message ids (or <code>REMOVE_ALL_MESSAGES</code>) from graph state.</li>
+    <li><a href="https://ai-sdk.dev/docs/reference/ai-sdk-ui/prune-messages">Vercel AI SDK pruneMessages</a> — strips reasoning and tool parts with <code>'all'</code>, <code>'before-last-message'</code>, <code>'before-last-N-messages'</code> or per-tool arrays.</li>
+    <li><a href="https://microsoft.github.io/autogen/stable//user-guide/core-user-guide/components/model-context.html">AutoGen BufferedChatCompletionContext</a> and <a href="https://learn.microsoft.com/en-us/semantic-kernel/concepts/ai-services/chat-completion/chat-history">Semantic Kernel ChatHistoryTruncationReducer</a> — fixed-size MRU buffers (<code>buffer_size</code>; <code>target_count</code>, <code>threshold_count</code>, <code>auto_reduce</code>), system message always kept.</li>
+    <li><a href="https://developers.openai.com/cookbook/examples/agents_sdk/session_memory">OpenAI Agents SDK TrimmingSession</a> — custom <code>Session</code> keeping the last N user turns with their tool calls, trimming on every read and write.</li>
+    <li><a href="https://pydantic.dev/docs/ai/core-concepts/message-history/">Pydantic AI history processors</a> — functions over the message list (now the <code>ProcessHistory</code> capability), optionally taking <code>RunContext</code> to prune on live token usage.</li>
+    <li><a href="https://developers.llamaindex.ai/python/framework/module_guides/deploying/agents/memory/">LlamaIndex Memory</a> — <code>token_limit</code> split by <code>chat_history_token_ratio</code>; overflow flushed in <code>token_flush_size</code> chunks into static, fact-extraction or vector blocks.</li>
+    <li><a href="https://dspy.ai/tutorials/conversation_history/">DSPy History</a> — history is a typed input field the adapter formats; the module never trims, so you own the window.</li>
+  </ul>
+  <h3>Trade-offs &amp; pitfalls</h3>
+  <ul>
+    <li>Deletion is blind. Masking works on SWE-bench because files can be re-read; one-shot API results cannot be. Exclude those tools or flush to memory first.</li>
+    <li>Orphaned tool calls break requests. Most providers reject a tool call without its result, and some require history to start with a user message. Prune in pairs and validate before sending.</li>
+    <li>Cache effects cut both ways. Clearing invalidates the prompt-cache prefix at the edit point, so clear rarely and in large chunks; kept thinking blocks preserve cache hits, cleared ones do not.</li>
+    <li>Pure trimming loses the thread in long chats; the OpenAI cookbook reserves summarization for when continuity matters.</li>
+    <li>Complex is not automatically better. In the JetBrains study summarization lengthened trajectories 13-15% and a critic-enhanced variant raised cost about 25% with no gain.</li>
+  </ul>
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://arxiv.org/html/2508.21433v1">The Complexity Trap: Simple Observation Masking Is as Efficient as LLM Summarization for Agent Context Management</a> <span class="src-type paper">paper</span> — Lindenbauer et al., JetBrains Research, arXiv 2508.21433, 2025</li>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/context-editing">Context editing</a> <span class="src-type docs">docs</span> — Anthropic Claude Platform Docs, 2025</li>
+    <li><a href="https://claude.com/blog/context-management">Managing context on the Claude Developer Platform</a> <span class="src-type blog">blog</span> — Anthropic, 2025</li>
+    <li><a href="https://ai-sdk.dev/docs/reference/ai-sdk-ui/prune-messages">pruneMessages</a> <span class="src-type docs">docs</span> — Vercel AI SDK docs, 2025</li>
+    <li><a href="https://docs.langchain.com/oss/python/langgraph/add-memory">Add and manage memory</a> <span class="src-type docs">docs</span> — LangChain, LangGraph docs, 2025</li>
+    <li><a href="https://microsoft.github.io/autogen/stable//user-guide/core-user-guide/components/model-context.html">Model Context</a> <span class="src-type docs">docs</span> — Microsoft, AutoGen docs, 2025</li>
+    <li><a href="https://learn.microsoft.com/en-us/semantic-kernel/concepts/ai-services/chat-completion/chat-history">Creating and managing a chat history object</a> <span class="src-type docs">docs</span> — Microsoft Learn, Semantic Kernel, 2025</li>
+    <li><a href="https://developers.openai.com/cookbook/examples/agents_sdk/session_memory">Context Engineering: Short-Term Memory Management with Sessions</a> <span class="src-type docs">docs</span> — OpenAI Cookbook, 2025</li>
+    <li><a href="https://pydantic.dev/docs/ai/core-concepts/message-history/">Messages and chat history</a> <span class="src-type docs">docs</span> — Pydantic AI docs, 2026</li>
+    <li><a href="https://developers.llamaindex.ai/python/framework/module_guides/deploying/agents/memory/">Memory</a> <span class="src-type docs">docs</span> — LlamaIndex docs, 2025</li>
+    <li><a href="https://dspy.ai/tutorials/conversation_history/">Managing Conversation History</a> <span class="src-type docs">docs</span> — DSPy, Stanford NLP, 2025</li>
+    <li><a href="https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html">How to Fix Your Context</a> <span class="src-type blog">blog</span> — Drew Breunig, 2025</li>
+  </ol>
+</section>

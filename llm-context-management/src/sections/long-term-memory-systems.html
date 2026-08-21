@@ -1,0 +1,77 @@
+<section class="technique" id="long-term-memory-systems">
+  <h2><span class="num">1</span> Long-term memory systems &amp; memory files</h2>
+  <p class="lede">Long-term memory keeps what an agent learns outside the context window and pages the relevant slice back in when a task or turn starts. It is the most widely shipped context technique because every multi-session agent needs it: coding assistants read CLAUDE.md, chat products recall user facts, agents resume unfinished work.</p>
+  <div class="kv">
+    <div><b>Problem it solves</b><span>Each session starts with an empty window, so preferences, project facts, and past decisions are lost unless stored deliberately and retrieved on demand.</span></div>
+    <div><b>Lifecycle stage</b><span>write — persist outside the window, page back later</span></div>
+    <div><b>Popularity signals</b><span>47 sources in this survey. Stars: mem0 63.7k, crewAI 57.4k, cognee 30.1k, graphiti 30.1k, letta 24.3k. Citations: Generative Agents 5,211, MemGPT 1,141, A-MEM 897, Mem0 559. Shipped by Anthropic (memory tool, CLAUDE.md, auto memory), LangGraph/LangMem, Letta, Mem0, Zep, cognee, CrewAI, Google ADK, LlamaIndex.</span></div>
+  </div>
+  <h3>How it works</h3>
+  <p>Every variant runs one loop: decide what is worth keeping, write it to a store, later select a small slice to inject. They differ in store and writer. MemGPT treats the window like RAM: a small always-present core memory the model edits itself, plus archival and recall tiers it pages in with tool calls. Mem0, CrewAI, and Vertex AI Memory Bank run an LLM over each exchange to extract facts, then add, update, merge, or delete against existing entries. Zep's Graphiti and cognee store facts as a temporal knowledge graph with validity intervals, so superseded facts are invalidated rather than overwritten. Coding agents use the simplest form: markdown files (CLAUDE.md, MEMORY.md, <code>/memories</code>) read at session start. Entries are typed as semantic, episodic, or procedural, and written in the hot path or by background consolidation.</p>
+  <h3>How to achieve it</h3>
+  <ol class="steps">
+    <li>Match the store to the data. Markdown files suit a single-user coding agent (CLAUDE.md for rules you write, MEMORY.md for notes the model writes); a namespaced vector store (LangGraph, Mem0) suits many users; a temporal graph (Graphiti, cognee) only when facts change over time.</li>
+    <li>Split memory into an always-in-context core and a paged tier. Keep identity, user profile, and current task in small size-limited blocks the agent edits itself (Letta <code>memory_replace</code> / <code>memory_insert</code> / <code>memory_rethink</code>, or <code>str_replace</code> in the Anthropic memory tool); page everything else in from archival storage by search.</li>
+    <li>Write through extraction and consolidation, not raw logs. An LLM extracts candidate facts from each exchange, compares them with existing entries, then adds, updates, merges, or skips, so contradictions do not pile up (Mem0; ADK <code>add_session_to_memory</code>).</li>
+    <li>Tag entries by type and namespace: semantic facts, episodic summaries, procedural instructions, keyed by <code>(user_id, kind)</code>, so retrieval can target one kind and procedural memory can be folded into the system prompt.</li>
+    <li>Retrieve with a scored query and a cap. Combine similarity with recency and importance (the Generative Agents score), keep a handful of hits, and log what was recalled.</li>
+    <li>Move heavy consolidation off the hot path. A sleep-time or scheduled agent rereads transcripts, rewrites blocks, links related notes (A-MEM), and decays stale entries (MemoryBank's forgetting curve). Measure on LongMemEval or LOCOMO.</li>
+  </ol>
+  <pre><code class="lang-python">from langchain.embeddings import init_embeddings
+from langgraph.store.memory import InMemoryStore  # PostgresStore in production
+
+# Long-term store with a semantic index (LangGraph "add memory" docs)
+store = InMemoryStore(
+    index={"embed": init_embeddings("openai:text-embedding-3-small"), "dims": 1536}
+)
+ns = ("user-42", "memories")  # namespace = who + what kind of memory
+
+# WRITE: typed entries, from the hot path or a background consolidation job
+store.put(ns, "pref-pkg", {"data": "Prefers pnpm over npm", "type": "semantic"})
+store.put(ns, "ep-2026-08-19",
+          {"data": "Flaky Redis test traced to TTL mismatch", "type": "episodic"})
+store.put(ns, "proc-review",
+          {"data": "Always run `pnpm test` before opening a PR", "type": "procedural"})
+
+# SELECT: recall a few relevant entries and inject them, never the whole store
+hits = store.search(ns, query="which package manager should I use?", limit=3)
+facts = "\n".join(f"- [{h.value['type']}] {h.value['data']}" for h in hits)
+system_prompt = f"Known facts about this user:\n{facts}"
+
+# Pair with a checkpointer for short-term (thread) memory:
+#   graph = builder.compile(checkpointer=InMemorySaver(), store=store)
+#   graph.invoke(inputs, {"configurable": {"thread_id": "t1"}})</code></pre>
+  <h3>Variants &amp; tools</h3>
+  <ul class="tools">
+    <li><a href="https://docs.letta.com/guides/agents/memory-blocks/">Letta (MemGPT lineage)</a> — size-limited core blocks pinned in context and edited by the agent; archival and recall memory paged in by tools; <a href="https://docs.letta.com/guides/agents/architectures/sleeptime/">sleep-time agents</a> rewrite shared blocks in the background.</li>
+    <li><a href="https://arxiv.org/abs/2504.19413">Mem0</a> — LLM fact extraction with add/update/merge and an optional graph store; 26% over OpenAI memory on LOCOMO, 91% lower p95 latency.</li>
+    <li><a href="https://arxiv.org/abs/2501.13956">Zep Graphiti</a> — bi-temporal knowledge graph; 94.8% on DMR versus MemGPT's 93.4%, up to 18.5% better on LongMemEval.</li>
+    <li><a href="https://www.langchain.com/blog/langmem-sdk-launch">LangGraph store + LangMem</a> — namespaced <code>put</code>/<code>search</code>/<code>get</code> with an embedding index; LangMem adds semantic, episodic, and procedural managers.</li>
+    <li><a href="https://code.claude.com/docs/en/memory">Claude Code CLAUDE.md + auto memory</a> — human-written instructions in managed, user, project, and local scopes, <code>@imports</code>, path-scoped <code>.claude/rules/</code>, plus a Claude-written MEMORY.md index.</li>
+    <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool">Anthropic memory tool</a> — client-side <code>/memories</code> directory driven by view, create, str_replace, insert, delete, rename (<code>memory_20250818</code>).</li>
+    <li><a href="https://google.github.io/adk-docs/sessions/memory/">Google ADK / Vertex AI Memory Bank</a> — <code>add_session_to_memory</code> ingests finished sessions; an LLM consolidates salient facts.</li>
+  </ul>
+  <h3>Trade-offs &amp; pitfalls</h3>
+  <ul>
+    <li>Stale or contradictory entries. Without update and invalidate operations, conflicting facts accumulate and the model picks one arbitrarily; Claude Code's docs say the same of conflicting CLAUDE.md lines.</li>
+    <li>Memory is context, not enforcement. Long files reduce adherence (Claude Code targets under 200 lines; only the first 200 lines or 25 KB of MEMORY.md load). Use hooks for hard rules.</li>
+    <li>Memory poisoning. MINJA plants records through ordinary queries with over 95% injection success. Treat recalled memory as untrusted, reject paths outside <code>/memories</code>, cap sizes, expire unused files.</li>
+    <li>Cost and latency. Extraction adds an LLM call per turn; hot-path writes slow responses, background writes lag a session. Concurrent <code>memory_rethink</code> on a shared block loses updates; designate one writer.</li>
+    <li>Benchmark fragility. LOCOMO and DMR scores depend on judge prompts and retrieval settings; the Zep versus MemGPT DMR gap is 1.4 points. Rerun on your own traffic.</li>
+  </ul>
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://arxiv.org/abs/2310.08560">MemGPT: Towards LLMs as Operating Systems</a> <span class="src-type paper">paper</span> — Packer, Wooders, Lin et al., UC Berkeley, arXiv 2310.08560, 2023</li>
+    <li><a href="https://arxiv.org/abs/2304.03442">Generative Agents: Interactive Simulacra of Human Behavior</a> <span class="src-type paper">paper</span> — Park et al., Stanford/Google, UIST, 2023</li>
+    <li><a href="https://arxiv.org/abs/2504.19413">Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory</a> <span class="src-type paper">paper</span> — Chhikara, Khant, Aryan, Singh, Yadav, Mem0, 2025</li>
+    <li><a href="https://arxiv.org/abs/2501.13956">Zep: A Temporal Knowledge Graph Architecture for Agent Memory</a> <span class="src-type paper">paper</span> — Rasmussen, Paliychuk, Beauvais, Ryan, Chalef, Zep AI, 2025</li>
+    <li><a href="https://arxiv.org/pdf/2502.12110">A-MEM: Agentic Memory for LLM Agents</a> <span class="src-type paper">paper</span> — Xu, Liang, Mei, Gao, Tan, Zhang, Rutgers et al., 2025</li>
+    <li><a href="https://arxiv.org/abs/2305.10250">MemoryBank: Enhancing Large Language Models with Long-Term Memory</a> <span class="src-type paper">paper</span> — Zhong et al., AAAI 2024, arXiv 2305.10250, 2023</li>
+    <li><a href="https://arxiv.org/abs/2410.10813">LongMemEval: Benchmarking Chat Assistants on Long-Term Interactive Memory</a> <span class="src-type paper">paper</span> — Wu, Wang, Yu, Zhang, Chang, Yu, ICLR 2025, 2024</li>
+    <li><a href="https://arxiv.org/abs/2503.03704">Memory Injection Attacks on LLM Agents via Query-Only Interaction (MINJA)</a> <span class="src-type paper">paper</span> — Dong et al., NeurIPS 2025, 2025</li>
+    <li><a href="https://code.claude.com/docs/en/memory">How Claude remembers your project (CLAUDE.md and auto memory)</a> <span class="src-type docs">docs</span> — Claude Code Docs, Anthropic, 2026</li>
+    <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool">Memory tool</a> <span class="src-type docs">docs</span> — Claude Platform Docs, Anthropic, 2025</li>
+    <li><a href="https://docs.letta.com/guides/agents/memory-blocks/">Letta: Memory blocks (core memory)</a> <span class="src-type docs">docs</span> — Letta Docs, 2025</li>
+    <li><a href="https://docs.langchain.com/oss/python/langgraph/add-memory">LangGraph: Add and manage memory</a> <span class="src-type docs">docs</span> — LangChain (LangGraph docs), 2025</li>
+  </ol>
+</section>

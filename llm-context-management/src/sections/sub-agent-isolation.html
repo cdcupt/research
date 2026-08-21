@@ -1,0 +1,82 @@
+<section class="technique" id="sub-agent-isolation">
+  <h2><span class="num">6</span> Isolation via sub-agents, multi-agent and sandboxed state</h2>
+  <p class="lede">Give each unit of work its own context window. An orchestrator keeps the plan; sub-agents explore with clean context and hand back a short summary; heavy objects stay in sandboxes or state fields the model never sees. People use it because isolation removes context rot and lets exploration run in parallel, at the price of tokens and coordination.</p>
+  <div class="kv">
+    <div><b>Problem it solves</b><span>One long thread fills with stale tool output, loses its plan, and cannot explore several branches at once.</span></div>
+    <div><b>Lifecycle stage</b><span>isolate — context is partitioned, not shrunk</span></div>
+    <div><b>Popularity signals</b><span>27 sources in this survey (21 tag instances). Shipped natively in Claude Code (142,118 stars), the Claude Agent SDK (7,942), LangChain Deep Agents and Google ADK; CrewAI (57,392) and AutoGen (60,540) appear via their context docs. One of Anthropic's three long-horizon techniques, LangChain's "isolate", Breunig's "context quarantine", 12-factor Factor 10 (HN 475 points). Anchored by Anthropic's research system, Cognition's "Don't Build Multi-Agents" and its 2026 revision.</span></div>
+  </div>
+  <h3>How it works</h3>
+  <p>The lead agent holds the goal and the plan, splits the task, and spawns sub-agents that each start a fresh conversation: they receive their own system prompt plus the task string, never the parent's history. A worker may spend tens of thousands of tokens searching or reading files, then returns a 1,000-2,000 token summary that lands in the parent as one tool result. Anthropic's research system runs 3-5 workers in parallel, each with its own tools, and the lead writes its plan to memory so truncation past 200K tokens cannot lose it. The same idea works inside one agent: LangGraph state schemas expose only selected fields to the model each turn, code sandboxes hold images and dataframes and pass handles instead, and Google ADK's agents-as-tools plus <code>include_contents='none'</code> stop history from cascading down an agent hierarchy.</p>
+  <h3>How to achieve it</h3>
+  <ol class="steps">
+    <li>Check the task is parallelizable and worth the cost. Anthropic reports a 90.2% gain on research evals at about 15x the tokens of chat, and says most coding tasks have few parallel pieces.</li>
+    <li>Define each sub-agent with a narrow description, its own system prompt, a restricted tool list and, where possible, a cheaper model. A reviewer gets <code>Read</code>, <code>Grep</code>, <code>Glob</code> only; a test runner gets <code>Bash</code>.</li>
+    <li>Put everything the worker needs in the task prompt: file paths, error messages, decisions already taken, and the output format and length you want; it sees none of the parent's history.</li>
+    <li>Have workers return condensed findings (1-2K tokens) and keep the lead on synthesis. Persist the lead's plan to a file or memory tool so a truncated window cannot lose it.</li>
+    <li>Keep writes single-threaded. Let extra agents review, research or advise while one thread owns edits (Cognition, 2026). For sequential work, prefer a fresh context per iteration (the Ralph loop) over parallel writers.</li>
+    <li>Cap depth, concurrency and spend (<code>CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH</code>, <code>CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS</code>, <code>max_budget_usd</code>), and route large objects through sandboxes or state fields rather than into prompts.</li>
+  </ol>
+  <pre><code class="lang-python">import asyncio
+from claude_agent_sdk import query, ClaudeAgentOptions, AgentDefinition
+
+async def main():
+    async for msg in query(
+        prompt="Find every call site of verify_token() and summarize how errors are handled",
+        options=ClaudeAgentOptions(
+            allowed_tools=["Read", "Grep", "Glob", "Agent"],  # Agent = may spawn subagents
+            agents={
+                "code-explorer": AgentDefinition(
+                    description="Read-only codebase exploration. Use for searches that touch many files.",
+                    prompt=(
+                        "Explore the repo and answer the question. Return at most 1500 tokens: "
+                        "file paths with line numbers, then a short synthesis. No raw file dumps."
+                    ),
+                    tools=["Read", "Grep", "Glob"],  # cannot edit or run commands
+                    model="sonnet",                  # cheaper worker; the lead keeps the default
+                ),
+            },
+            env={"CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH": "1",
+                 "CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS": "5"},
+            max_budget_usd=3.0,
+        ),
+    ):
+        if hasattr(msg, "result"):
+            print(msg.result)  # only the worker's final summary reached this context
+
+asyncio.run(main())</code></pre>
+  <h3>Variants &amp; tools</h3>
+  <ul class="tools">
+    <li><a href="https://code.claude.com/docs/en/agent-sdk/subagents">Claude Code / Agent SDK subagents</a> — <code>AgentDefinition</code> with own prompt, tools, model and permissions; only the final message returns; depth, concurrency and budget caps.</li>
+    <li><a href="https://www.anthropic.com/engineering/multi-agent-research-system">Anthropic lead researcher + subagents</a> — orchestrator-workers for research; 3-5 parallel workers, plan saved to memory.</li>
+    <li><a href="https://www.langchain.com/blog/deep-agents">LangChain Deep Agents</a> — harness recipe: planning tool, file system for offloading, sub-agent delegation, detailed prompt.</li>
+    <li><a href="https://developers.googleblog.com/architecting-efficient-context-aware-multi-agent-framework-for-production/">Google ADK</a> — agents-as-tools, <code>include_contents</code> scoping, artifacts as handles, event filtering between agents.</li>
+    <li><a href="https://www.langchain.com/blog/context-engineering-for-agents">LangGraph state schemas and code sandboxes</a> — expose only chosen state fields per turn; keep images and large objects in the execution environment.</li>
+    <li><a href="https://cognition.com/blog/multi-agents-working">Cognition code-review loop and smart friend</a> — single-writer patterns where extra agents add reasoning, not edits.</li>
+    <li><a href="https://www.codecentric.de/en/knowledge-hub/blog/the-ralph-wiggum-loop-autonomous-code-generation-with-a-fresh-context">Ralph loop</a> — sequential isolation: each iteration is a new process with an empty window; it reads specs from disk, does one task, exits.</li>
+    <li><a href="https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html">Context quarantine (Breunig)</a> — the general name for dedicated threads per sub-problem.</li>
+  </ul>
+  <h3>Trade-offs &amp; pitfalls</h3>
+  <ul>
+    <li>Token cost. Multi-agent runs use roughly 15x the tokens of chat, and token usage explains about 80% of performance variance in Anthropic's evals; reserve the pattern for high-value tasks.</li>
+    <li>Lost shared context. Parallel workers make implicit decisions that conflict (Cognition's Flappy Bird example: one worker builds a Mario background, another a bird with no physics). Coding rarely parallelizes cleanly; keep one writer.</li>
+    <li>Under- and over-specification. Managers tend to over-prescribe, children assume shared state, and cross-agent messaging does not happen on its own (Cognition, 2026). A worker only knows what its task string says.</li>
+    <li>Context explosion down the tree. If every agent forwards its full history, cost and noise compound (Google). Pass handles and summaries, and scope <code>include_contents</code>.</li>
+    <li>Control and trust. The parent may paraphrase worker output, that output can carry instruction-shaped text (treat worker output as untrusted data), and spawn trees grow unless depth, concurrency and spend are capped.</li>
+  </ul>
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://www.anthropic.com/engineering/multi-agent-research-system">How we built our multi-agent research system</a> <span class="src-type blog">blog</span> — Anthropic Engineering, 2025</li>
+    <li><a href="https://cognition.com/blog/dont-build-multi-agents">Don't Build Multi-Agents</a> <span class="src-type blog">blog</span> — Walden Yan, Cognition, 2025</li>
+    <li><a href="https://cognition.com/blog/multi-agents-working">Multi-Agents: What's Actually Working</a> <span class="src-type blog">blog</span> — Walden Yan, Cognition, 2026</li>
+    <li><a href="https://code.claude.com/docs/en/agent-sdk/subagents">Subagents in the SDK</a> <span class="src-type docs">docs</span> — Anthropic, Claude Agent SDK docs, 2026</li>
+    <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a> <span class="src-type blog">blog</span> — Anthropic Engineering, 2025</li>
+    <li><a href="https://www.anthropic.com/engineering/building-effective-agents">Building Effective AI Agents</a> <span class="src-type blog">blog</span> — Anthropic Engineering, 2024</li>
+    <li><a href="https://www.langchain.com/blog/context-engineering-for-agents">Context Engineering for Agents</a> <span class="src-type blog">blog</span> — Lance Martin, LangChain, 2025</li>
+    <li><a href="https://www.langchain.com/blog/deep-agents">Deep Agents</a> <span class="src-type blog">blog</span> — Harrison Chase, LangChain, 2025</li>
+    <li><a href="https://developers.googleblog.com/architecting-efficient-context-aware-multi-agent-framework-for-production/">Architecting efficient context-aware multi-agent framework for production</a> <span class="src-type blog">blog</span> — Hangfei Lin, Google Developers Blog, 2025</li>
+    <li><a href="https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html">How to Fix Your Context</a> <span class="src-type blog">blog</span> — Drew Breunig, 2025</li>
+    <li><a href="https://claude.com/blog/using-claude-code-session-management-and-1m-context">Using Claude Code: session management and 1M context</a> <span class="src-type blog">blog</span> — Anthropic, 2026</li>
+    <li><a href="https://news.ycombinator.com/item?id=43699271">12-factor Agents: Patterns of reliable LLM applications</a> <span class="src-type thread">thread</span> — Hacker News (Dex Horthy, HumanLayer), 2025</li>
+  </ol>
+</section>

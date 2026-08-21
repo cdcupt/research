@@ -1,0 +1,242 @@
+{
+ "title": "Which technique to reach for",
+ "w": 920,
+ "h": 790,
+ "minw": 820,
+ "lede": "Start from the symptom. Each question routes to the technique (and its section number) that addresses it; most real systems end up combining three or four.",
+ "caption": "A decision flow for picking a context-management technique. Questions descend on the left; a \"yes\" routes to the technique on the right. Foundations come first because every other technique assumes you know your model\u2019s real effective window and have caching on.",
+ "nodes": [
+  {
+   "id": "s",
+   "kind": "start",
+   "x": 80,
+   "y": 12,
+   "w": 260,
+   "h": 40,
+   "text": "Context is filling up, costs are rising, or quality drops mid-task",
+   "chars": 44,
+   "size": 12
+  },
+  {
+   "id": "q0",
+   "kind": "q",
+   "x": 40,
+   "y": 96,
+   "w": 340,
+   "h": 64,
+   "text": "Do you know the model\u2019s real effective window, and is prompt caching on?",
+   "chars": 38,
+   "size": 13
+  },
+  {
+   "id": "a0",
+   "kind": "a",
+   "x": 470,
+   "y": 96,
+   "w": 420,
+   "h": 64,
+   "text": "Measure first: RULER-style probes, context-rot curves; enable cache_control / implicit caching",
+   "stage": "foundations",
+   "sub": "#3 Model & infra foundations",
+   "chars": 46,
+   "size": 12
+  },
+  {
+   "id": "q1",
+   "kind": "q",
+   "x": 40,
+   "y": 196,
+   "w": 340,
+   "h": 64,
+   "text": "Must knowledge survive across sessions, users or agents?",
+   "chars": 38,
+   "size": 13
+  },
+  {
+   "id": "a1",
+   "kind": "a",
+   "x": 470,
+   "y": 196,
+   "w": 420,
+   "h": 64,
+   "text": "Add a memory layer: memory files (CLAUDE.md), Letta/mem0-style stores, graph memory",
+   "stage": "write",
+   "sub": "#1 Long-term memory systems",
+   "chars": 46,
+   "size": 12
+  },
+  {
+   "id": "q2",
+   "kind": "q",
+   "x": 40,
+   "y": 296,
+   "w": 340,
+   "h": 64,
+   "text": "Is one session\u2019s own history the bloat?",
+   "chars": 38,
+   "size": 13
+  },
+  {
+   "id": "a2",
+   "kind": "a",
+   "x": 470,
+   "y": 296,
+   "w": 420,
+   "h": 64,
+   "text": "Prune cheap stuff first (old tool results, thinking blocks), then auto-compact the rest at a threshold",
+   "stage": "compress",
+   "sub": "#7 Pruning \u2192 #2 Compaction",
+   "chars": 46,
+   "size": 12
+  },
+  {
+   "id": "q3",
+   "kind": "q",
+   "x": 40,
+   "y": 396,
+   "w": 340,
+   "h": 64,
+   "text": "Are big documents, tool outputs or a codebase the bloat?",
+   "chars": 38,
+   "size": 13
+  },
+  {
+   "id": "a3",
+   "kind": "a",
+   "x": 470,
+   "y": 396,
+   "w": 420,
+   "h": 64,
+   "text": "Load just-in-time: RAG / agentic search / repo map; offload raw outputs to files and keep pointers",
+   "stage": "select",
+   "sub": "#4 Retrieval \u00b7 #5 Offloading",
+   "chars": 46,
+   "size": 12
+  },
+  {
+   "id": "q4",
+   "kind": "q",
+   "x": 40,
+   "y": 496,
+   "w": 340,
+   "h": 64,
+   "text": "Are independent sub-tasks competing for one window?",
+   "chars": 38,
+   "size": 13
+  },
+  {
+   "id": "a4",
+   "kind": "a",
+   "x": 470,
+   "y": 496,
+   "w": 420,
+   "h": 64,
+   "text": "Isolate: sub-agents with their own windows that return condensed results; state schemas for big objects",
+   "stage": "isolate",
+   "sub": "#6 Sub-agent isolation",
+   "chars": 46,
+   "size": 12
+  },
+  {
+   "id": "q5",
+   "kind": "q",
+   "x": 40,
+   "y": 596,
+   "w": 340,
+   "h": 64,
+   "text": "Is the prompt itself long and repeated (prefix, few-shot, retrieved text)?",
+   "chars": 38,
+   "size": 13
+  },
+  {
+   "id": "a5",
+   "kind": "a",
+   "x": 470,
+   "y": 596,
+   "w": 420,
+   "h": 64,
+   "text": "Lay out a stable, append-only cached prefix; compress retrieved text with LLMLingua-style tools",
+   "stage": "write",
+   "sub": "#5 Cache-friendly prompts \u00b7 #8 Prompt compression",
+   "chars": 46,
+   "size": 12
+  },
+  {
+   "id": "e",
+   "kind": "start",
+   "x": 60,
+   "y": 696,
+   "w": 300,
+   "h": 44,
+   "text": "Window is healthy: keep utilization low (~40\u201360%) and re-check each release",
+   "chars": 44,
+   "size": 12
+  }
+ ],
+ "edges": [
+  {
+   "from": "s",
+   "to": "q0"
+  },
+  {
+   "from": "q0",
+   "to": "a0",
+   "label": "no"
+  },
+  {
+   "from": "q0",
+   "to": "q1",
+   "label": "yes"
+  },
+  {
+   "from": "q1",
+   "to": "a1",
+   "label": "yes"
+  },
+  {
+   "from": "q1",
+   "to": "q2",
+   "label": "no"
+  },
+  {
+   "from": "q2",
+   "to": "a2",
+   "label": "yes"
+  },
+  {
+   "from": "q2",
+   "to": "q3",
+   "label": "no"
+  },
+  {
+   "from": "q3",
+   "to": "a3",
+   "label": "yes"
+  },
+  {
+   "from": "q3",
+   "to": "q4",
+   "label": "no"
+  },
+  {
+   "from": "q4",
+   "to": "a4",
+   "label": "yes"
+  },
+  {
+   "from": "q4",
+   "to": "q5",
+   "label": "no"
+  },
+  {
+   "from": "q5",
+   "to": "a5",
+   "label": "yes"
+  },
+  {
+   "from": "q5",
+   "to": "e",
+   "label": "no"
+  }
+ ]
+}

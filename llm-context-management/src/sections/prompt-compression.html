@@ -1,0 +1,80 @@
+<section class="technique" id="prompt-compression">
+  <h2><span class="num">8</span> Prompt / context compression (token pruning and soft-prompt gisting)</h2>
+  <p class="lede">Prompt compression shrinks a prompt's token count while keeping what the model needs from it. Hard methods score tokens with a small model and delete the low-information ones; soft methods train the LLM to read a few learned vectors in place of the text. Teams use it to cut RAG and few-shot cost and fit more into a window.</p>
+  <div class="kv">
+    <div><b>Problem it solves</b><span>Retrieved passages, demonstrations and chat history are mostly low-information tokens that cost money and latency and push the relevant part into the middle, where models read worst.</span></div>
+    <div><b>Lifecycle stage</b><span>compress — fewer tokens before the call</span></div>
+    <div><b>Popularity signals</b><span>12 sources in this survey (10 papers, 1 repo, 1 awesome-list). microsoft/LLMLingua (6.6K stars) is the only dedicated OSS tool. Citations: LongLLMLingua 522, gist tokens 425, AutoCompressors 384, LLMLingua-2 356, LLMLingua 315, RECOMP 303, ICAE 188. Shipped as LangChain <code>LLMLinguaCompressor</code>, LlamaIndex <code>LongLLMLinguaPostprocessor</code> and Microsoft Prompt flow; no agent framework or vendor API runs it natively.</span></div>
+  </div>
+  <h3>How it works</h3>
+  <p>Hard methods delete from the prompt text. LLMLingua runs a small causal LM over the prompt and scores each token by perplexity; low-surprise tokens are dropped. A budget controller first allocates a ratio per segment (instruction, demonstrations, question), then token-level compression runs iteratively so later deletions condition on earlier ones. LongLLMLingua makes the scoring question-aware with contrastive perplexity, ranks whole documents, reorders them so the best sit at the edges, and gives higher-ranked documents more budget. LLMLingua-2 distills GPT-4 keep/drop labels into a bidirectional token classifier: faster, task-agnostic, and no 7B scorer. RECOMP trains a compressor for retrieved passages, extractive or abstractive, that may return an empty summary so the model answers unaugmented. Soft methods (gist tokens, AutoCompressors, ICAE) fine-tune the model to condense text into a handful of vectors it attends to instead of the tokens.</p>
+  <h3>How to achieve it</h3>
+  <ol class="steps">
+    <li>Decide what is compressible. Retrieved passages, demonstrations and old history are safe targets; keep the instruction and the user question verbatim (LLMLingua's budget controller spends most of the ratio on demonstrations).</li>
+    <li>Pick a compressor by cost. LLMLingua-2's XLM-RoBERTa classifier runs on CPU and is 3-6x faster than perplexity scoring with a 7B model; use LongLLMLingua when you need question-aware ranking and reordering for long RAG prompts.</li>
+    <li>Set the budget with <code>rate</code> or <code>target_token</code>. Start at 2-4x, and pass <code>force_tokens</code> so newlines, punctuation and numbers survive; the papers' 20x figures come from verbose few-shot prompts, not dense facts.</li>
+    <li>For RAG, wire it behind the retriever: LangChain <code>ContextualCompressionRetriever</code> + <code>LLMLinguaCompressor</code>, or LlamaIndex <code>LongLLMLinguaPostprocessor</code>, with <code>reorder_context="sort"</code> and a dynamic ratio to counter lost-in-the-middle.</li>
+    <li>Evaluate per ratio on your own task. Plot accuracy against compressed tokens and include the compressor's wall-clock time; degradation is non-linear, so find the knee rather than copying a ratio from a paper.</li>
+    <li>Use soft methods only if you fine-tune and serve the model yourself. Gisting, ICAE and AutoCompressors need training, are tied to one base model, and pay off for repeated fixed prefixes you can cache, not for ad hoc content.</li>
+  </ol>
+  <pre><code class="lang-python">from llmlingua import PromptCompressor
+
+# LLMLingua-2: distilled token classifier, task-agnostic, runs on CPU
+fast = PromptCompressor(
+    model_name="microsoft/llmlingua-2-xlm-roberta-large-meetingbank",
+    use_llmlingua2=True,
+    device_map="cpu",
+)
+out = fast.compress_prompt(retrieved_passages, rate=0.33, force_tokens=["\n", "?", "."])
+print(out["origin_tokens"], "-&gt;", out["compressed_tokens"])
+
+# LongLLMLingua: question-aware ranking + reordering for long RAG prompts
+longc = PromptCompressor("NousResearch/Llama-2-7b-hf")
+out = longc.compress_prompt(
+    retrieved_passages,
+    instruction="Answer using only the context.",
+    question=user_question,
+    target_token=1500,
+    rank_method="longllmlingua",
+    condition_in_question="after_condition",
+    reorder_context="sort",                 # best documents to the edges
+    dynamic_context_compression_ratio=0.3,
+    condition_compare=True,
+    context_budget="+100",
+)
+messages = [{"role": "user", "content": out["compressed_prompt"]}]</code></pre>
+  <h3>Variants &amp; tools</h3>
+  <ul class="tools">
+    <li><a href="https://github.com/microsoft/LLMLingua">microsoft/LLMLingua</a> — one <code>PromptCompressor</code> class covering LLMLingua, LongLLMLingua and LLMLingua-2; the reference implementation.</li>
+    <li><a href="https://reference.langchain.com/python/langchain-community/document_compressors/llmlingua_filter/LLMLinguaCompressor">LangChain LLMLinguaCompressor</a> — document compressor that drops into <code>ContextualCompressionRetriever</code>.</li>
+    <li><a href="https://developers.llamaindex.ai/python/framework-api-reference/postprocessor/longllmlingua/">LlamaIndex LongLLMLinguaPostprocessor</a> — node postprocessor (<code>llama-index-postprocessor-longllmlingua</code>) with <code>use_llmlingua2</code> switch.</li>
+    <li><a href="https://arxiv.org/abs/2304.12102">Selective Context</a> — self-information filtering at phrase or sentence granularity with a small causal LM; the simplest hard method.</li>
+    <li><a href="https://arxiv.org/abs/2310.04408">RECOMP</a> — trained extractive and abstractive compressors for retrieved documents that can abstain with an empty summary.</li>
+    <li><a href="https://arxiv.org/abs/2304.08467">Gist tokens</a>, <a href="https://arxiv.org/abs/2305.14788">AutoCompressors</a>, <a href="https://arxiv.org/abs/2307.06945">ICAE</a> — soft-prompt family: cached gist tokens, recursive summary vectors, LoRA encoder memory slots.</li>
+    <li><a href="https://arxiv.org/pdf/2502.05589">SeCom</a> — uses LLMLingua-2 as a denoiser over segmented memory units before retrieval; where agent builders meet this idea.</li>
+    <li><a href="https://arxiv.org/pdf/2409.13035">TACO-RL</a> and <a href="https://arxiv.org/pdf/2603.19635">BEAVER</a> — 2024-2026 follow-ups: RL-trained task-aware pruning, and training-free structure-aware page selection.</li>
+  </ul>
+  <h3>Trade-offs &amp; pitfalls</h3>
+  <ul>
+    <li>Compression is not free. Scoring a 10k-token prompt with a 7B model can cost more than it saves; the survey notes gains only materialize for long prompts or outputs. LLMLingua-2 exists largely to fix this.</li>
+    <li>Deleting tokens breaks grammar and produces an input distribution the target model never saw. Numbers, names and code are the first casualties; protect them with <code>force_tokens</code> and never compress the question.</li>
+    <li>Abstractive compression hallucinates at high ratios. A 2024 characterization study found query-aware extractive methods most reliable, with accuracy falling off a cliff past a threshold rather than degrading linearly.</li>
+    <li>Soft prompts do not transfer. Gist, ICAE and AutoCompressor vectors are tied to one base model, must be retrained on upgrades, and cannot be sent to a hosted API; gisting's 26x token compression delivered only a 4.2% wall-clock gain.</li>
+    <li>It can fight prompt caching. Compressing a stable system prefix changes its bytes and invalidates provider-side caches; compress volatile content and leave cached prefixes untouched.</li>
+  </ul>
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://arxiv.org/abs/2310.05736">LLMLingua: Compressing Prompts for Accelerated Inference of Large Language Models</a> <span class="src-type paper">paper</span> — Jiang et al. (Microsoft), EMNLP 2023</li>
+    <li><a href="https://arxiv.org/abs/2310.06839">LongLLMLingua: Accelerating and Enhancing LLMs in Long Context Scenarios via Prompt Compression</a> <span class="src-type paper">paper</span> — Jiang et al. (Microsoft), ACL 2024</li>
+    <li><a href="https://arxiv.org/abs/2403.12968">LLMLingua-2: Data Distillation for Efficient and Faithful Task-Agnostic Prompt Compression</a> <span class="src-type paper">paper</span> — Pan et al. (Microsoft / Tsinghua), ACL 2024 Findings</li>
+    <li><a href="https://github.com/microsoft/LLMLingua">microsoft/LLMLingua</a> <span class="src-type repo">repo</span> — Microsoft Research, 2024</li>
+    <li><a href="https://arxiv.org/html/2410.12388v2">Prompt Compression for Large Language Models: A Survey</a> <span class="src-type paper">paper</span> — Li, Liu, Buck, Collier (Cambridge), NAACL 2025</li>
+    <li><a href="https://arxiv.org/abs/2304.08467">Learning to Compress Prompts with Gist Tokens</a> <span class="src-type paper">paper</span> — Mu, Li, Goodman (Stanford), NeurIPS 2023</li>
+    <li><a href="https://arxiv.org/abs/2305.14788">Adapting Language Models to Compress Contexts (AutoCompressors)</a> <span class="src-type paper">paper</span> — Chevalier, Wettig, Ajith, Chen (Princeton), EMNLP 2023</li>
+    <li><a href="https://arxiv.org/abs/2307.06945">In-context Autoencoder for Context Compression in a Large Language Model (ICAE)</a> <span class="src-type paper">paper</span> — Ge et al. (Microsoft), ICLR 2024</li>
+    <li><a href="https://arxiv.org/abs/2304.12102">Unlocking Context Constraints of LLMs: Self-Information-Based Content Filtering (Selective Context)</a> <span class="src-type paper">paper</span> — Yucheng Li (Surrey), EMNLP 2023</li>
+    <li><a href="https://arxiv.org/abs/2310.04408">RECOMP: Improving Retrieval-Augmented LMs with Compression and Selective Augmentation</a> <span class="src-type paper">paper</span> — Xu, Shi, Choi (UT Austin / UW), ICLR 2024</li>
+    <li><a href="https://arxiv.org/pdf/2502.05589">On Memory Construction and Retrieval for Personalized Conversational Agents (SeCom)</a> <span class="src-type paper">paper</span> — Pan et al. (Microsoft), ICLR 2025</li>
+    <li><a href="https://arxiv.org/pdf/2407.08892">Characterizing Prompt Compression Methods for Long Context Inference</a> <span class="src-type paper">paper</span> — Jha et al. (UC Berkeley), arXiv 2024</li>
+  </ol>
+</section>

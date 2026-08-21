@@ -1,0 +1,81 @@
+<section class="technique" id="compaction-summarization">
+  <h2><span class="num">2</span> Compaction &amp; summarization of history</h2>
+  <p class="lede">When the transcript nears the window limit, the runtime asks the model to write a structured summary of older turns, swaps it in, and keeps going. It needs no external store, so it ships built in almost everywhere: on by default in Claude Code and Cline, and available as an opt-in reducer, history processor or API option in LangGraph/LangMem, Semantic Kernel, the OpenAI Agents SDK, Pydantic AI, Letta and the Anthropic API.</p>
+  <div class="kv">
+    <div><b>Problem it solves</b><span>An agent or chat session outgrows the context window, or degrades from context rot, long before the task is finished.</span></div>
+    <div><b>Lifecycle stage</b><span>compress — shrinks history in place, no retrieval</span></div>
+    <div><b>Popularity signals</b><span>42 sources in this survey (second by source count, behind long-term memory at 47); the most frequent technique tag in the corpus (31 tags, twice rag at 15). On by default in Claude Code (142k stars), Cline (66k), LangGraph (40k), Semantic Kernel (28k), OpenAI Agents SDK (29k) and Pydantic AI (19k). 10+ auto-compact issues in anthropics/claude-code.</span></div>
+  </div>
+  <h3>How it works</h3>
+  <p>A token counter watches the message list. When it crosses a trigger (Claude Code near the model limit, adjustable with <code>/autocompact</code>; Cline's proposed 80 percent; LangMem's <code>max_tokens_before_summary</code>; the Anthropic API's <code>context_token_threshold</code>, default 100,000), the runtime injects a summary prompt as a user turn. The model writes a structured digest: goal, decisions, files touched, progress, next steps. Claude Code's prompt "preserves architectural decisions, unresolved bugs, and implementation details while discarding redundant tool outputs". Older messages are deleted and the digest takes their place; recent turns stay verbatim. Recursive variants (Wang et al.) fold the previous summary plus new turns into a fresh one, and LangMem's <code>RunningSummary</code> tracks <code>summarized_message_ids</code> so nothing is summarized twice. Content outside the message history (system prompt, CLAUDE.md) reloads from disk; anything that existed only in conversation survives only if the summary mentions it.</p>
+  <h3>How to achieve it</h3>
+  <ol class="steps">
+    <li>Choose the trigger and counter. Summarize at a token threshold well below the hard limit so the summary call still fits, and keep the last N turns or tool-call groups untouched (LangMem <code>max_tokens_before_summary</code>, Anthropic <code>compaction_control.context_token_threshold</code>).</li>
+    <li>Write the compaction prompt as a schema: goal, constraints, decisions with rationale, files modified, completed versus pending work, open bugs, next steps. Anthropic's guidance: maximize recall first, then iterate toward precision.</li>
+    <li>Protect structural invariants. Never separate a tool call from its result (providers reject orphaned results), keep the system message, and re-inject durable instructions (project-root CLAUDE.md, skill bodies) from disk.</li>
+    <li>Prefer intentional compaction at task boundaries. Run <code>/compact focus on ...</code> before a new task, or write a handoff or plan file and <code>/clear</code>. Horthy's research-plan-implement loop compresses roughly 100k tokens of research into a 10k-token plan, verified by a human, then implements in a fresh context.</li>
+    <li>Offload compression: subagents return 1,000-2,000 token digests, Letta sleep-time agents rewrite shared memory blocks every N steps, and a cheaper model (<code>compaction_control["model"] = "claude-haiku-4-5"</code>) can write the summary.</li>
+    <li>Eval against the alternatives on your own task. Observation masking and cached full history both beat summarization in published tests; track recall, cost per turn and trajectory length.</li>
+  </ol>
+  <pre><code class="lang-python">from typing import Any
+from langchain_openai import ChatOpenAI
+from langgraph.graph import StateGraph, START, MessagesState
+from langgraph.checkpoint.memory import InMemorySaver
+from langmem.short_term import SummarizationNode
+
+model = ChatOpenAI(model="gpt-4o")
+class State(MessagesState):
+    context: dict[str, Any]   # holds the RunningSummary between turns
+
+summarize = SummarizationNode(
+    model=model.bind(max_tokens=256),
+    max_tokens=4096,                 # budget for what the model sees
+    max_tokens_before_summary=4096,  # trigger once history exceeds this
+    max_summary_tokens=256,
+)
+
+def call_model(state):
+    # summarized_messages = running summary + recent verbatim turns
+    return {"messages": [model.invoke(state["summarized_messages"])]}
+
+graph = StateGraph(State)
+graph.add_node("summarize", summarize)
+graph.add_node("call_model", call_model)
+graph.add_edge(START, "summarize")
+graph.add_edge("summarize", "call_model")
+app = graph.compile(checkpointer=InMemorySaver())
+app.invoke({"messages": "hi, my name is bob"}, {"configurable": {"thread_id": "1"}})</code></pre>
+  <h3>Variants &amp; tools</h3>
+  <ul class="tools">
+    <li><a href="https://code.claude.com/docs/en/context-window">Claude Code /compact, /autocompact, /clear, /rewind</a> — auto-compacts near the limit; re-injects project-root CLAUDE.md and invoked skills, drops the skill index and nested CLAUDE.md.</li>
+    <li><a href="https://platform.claude.com/cookbook/tool-use-automatic-context-compaction">Anthropic API compaction_control</a> — SDK <code>tool_runner</code> summarizes at <code>context_token_threshold</code>; server-side compaction recommended on Opus 4.6 and newer.</li>
+    <li><a href="https://langchain-ai.github.io/langmem/reference/short_term/">LangMem SummarizationNode / RunningSummary</a> — LangGraph node keeping a running summary plus recent turns under a token budget.</li>
+    <li><a href="https://learn.microsoft.com/en-us/semantic-kernel/concepts/ai-services/chat-completion/chat-history">Semantic Kernel ChatHistorySummarizationReducer</a> — truncates to <code>target_count</code>, summarizes the removed messages into one inserted message; optional <code>auto_reduce</code>.</li>
+    <li><a href="https://docs.cline.bot/features/auto-compact">Cline Auto Compact</a> — threshold-triggered condensation; community spec: configurable 80 percent trigger, cheaper summarizer model, pre-compaction snapshot.</li>
+    <li><a href="https://docs.letta.com/guides/agents/architectures/sleeptime/">Letta sleep-time agents</a> — <code>enable_sleeptime=True</code> spawns a background agent that rewrites shared memory blocks every <code>sleeptime_agent_frequency</code> steps.</li>
+    <li><a href="https://cognition.com/blog/dont-build-multi-agents">Cognition context-compression model</a> — a fine-tuned model whose only job is to compress action history into key details, events and decisions.</li>
+  </ul>
+  <h3>Trade-offs &amp; pitfalls</h3>
+  <ul>
+    <li>Mid-task compaction loses state. Issue #10948: lost file-modification history, decisions and planned-versus-implemented status, then hallucinated progress; Cline #5790: completed work redone. Workarounds: <code>/rewind</code>, checkpoint files, compacting only at boundaries.</li>
+    <li>Summaries break prompt caching. In Bouchard's 2026 tutor evals, full cached history cost $0.11 per turn with 92-100 percent recall versus $0.24 and 38-58 percent for the clearing-plus-summary preset; capping tool output size cut cost 38 percent without rewriting the prefix.</li>
+    <li>Summarization can lengthen runs. On SWE-bench Verified, masking old observations matched LLM summaries (54.8 vs 53.8 percent on Qwen3-Coder 480B) at lower cost ($0.61 vs $0.64), and summaries lengthened trajectories about 15 percent.</li>
+    <li>Not everything reloads. In Claude Code the skill index, nested CLAUDE.md files and path-scoped rules are summarized away; keep must-survive rules in the project-root CLAUDE.md and at the top of SKILL.md (large skills truncate from the end).</li>
+    <li>Compaction quality is unmeasured. Anthropic warns that over-aggressive prompts drop "subtle but critical context"; treat the summary prompt as code with its own recall eval.</li>
+  </ul>
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a> <span class="src-type blog">blog</span> — Anthropic Engineering, 2025</li>
+    <li><a href="https://code.claude.com/docs/en/context-window">Explore the context window: what survives compaction</a> <span class="src-type docs">docs</span> — Claude Code Docs, 2026</li>
+    <li><a href="https://platform.claude.com/cookbook/tool-use-automatic-context-compaction">Automatic context compaction</a> <span class="src-type docs">docs</span> — Claude Cookbook (Anthropic), 2026</li>
+    <li><a href="https://arxiv.org/abs/2308.15022">Recursively Summarizing Enables Long-Term Dialogue Memory in Large Language Models</a> <span class="src-type paper">paper</span> — Wang et al., Neurocomputing (arXiv 2308.15022), 2023</li>
+    <li><a href="https://arxiv.org/html/2508.21433v1">The Complexity Trap: Simple Observation Masking Is as Efficient as LLM Summarization</a> <span class="src-type paper">paper</span> — Lindenbauer et al., JetBrains Research (arXiv 2508.21433), 2025</li>
+    <li><a href="https://langchain-ai.github.io/langmem/reference/short_term/">LangMem Short-Term Memory API (SummarizationNode, RunningSummary)</a> <span class="src-type docs">docs</span> — LangChain, 2025</li>
+    <li><a href="https://docs.letta.com/guides/agents/architectures/sleeptime/">Letta: Sleep-time agents</a> <span class="src-type docs">docs</span> — Letta docs, 2025</li>
+    <li><a href="https://github.com/anthropics/claude-code/issues/10948">Auto-compact triggers mid-task causing context loss and hallucinations (#10948)</a> <span class="src-type thread">thread</span> — GitHub, anthropics/claude-code, 2025</li>
+    <li><a href="https://github.com/cline/cline/discussions/3248">Compact feature (Discussion #3248)</a> <span class="src-type thread">thread</span> — GitHub, cline/cline, 2025</li>
+    <li><a href="https://www.louisbouchard.ai/context-engineering-2026/">Context Engineering in 2026: Why We Stopped Compacting Our Agent's Context</a> <span class="src-type blog">blog</span> — Louis Bouchard, 2026</li>
+    <li><a href="https://cognition.com/blog/dont-build-multi-agents">Don't Build Multi-Agents</a> <span class="src-type blog">blog</span> — Walden Yan, Cognition, 2025</li>
+    <li><a href="https://newsletter.pragmaticengineer.com/p/context-engineering-with-dex-horthy">Context engineering with Dex Horthy</a> <span class="src-type video">video</span> — Gergely Orosz, The Pragmatic Engineer, 2025</li>
+  </ol>
+</section>

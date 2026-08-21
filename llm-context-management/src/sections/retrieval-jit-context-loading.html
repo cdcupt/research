@@ -1,0 +1,81 @@
+<section class="technique" id="retrieval-jit-context-loading">
+  <h2><span class="num">4</span> Retrieval &amp; just-in-time context loading</h2>
+  <p class="lede">Keep the corpus outside the model and pull in only the slice a step needs: document chunks, code symbols, tool definitions, memories, MCP resources. RAG is the oldest context trick and still the main cost and attention control even with million-token windows; coding agents, MCP hosts and Claude's tool search all ship a form of it.</p>
+  <div class="kv">
+    <div><b>Problem it solves</b><span>Recall degrades as tokens pile up (context rot) and cost scales with every token, yet the facts, code or tools a step needs are a tiny fraction of what is available.</span></div>
+    <div><b>Lifecycle stage</b><span>select — fetches context at use time</span></div>
+    <div><b>Popularity signals</b><span>26 sources in this survey (rag tag 15, retrieval 7); llama_index 51.8k stars, langchain ~145k, aider ~35k; Agentic RAG survey 393 citations, Self-Route 169; shipped in Claude Code (grep/glob), aider, Cursor, Windsurf, MCP hosts and Anthropic's tool search tool.</span></div>
+  </div>
+  <h3>How it works</h3>
+  <p>One idea, several forms: heavy data stays outside the window, a cheap pointer stays inside. Classic RAG indexes chunks and injects the top-k hits; advanced and modular RAG add query rewriting, hybrid BM25 plus vector search, metadata filters, re-ranking and routing across specialized indices. Agentic RAG hands the loop to the model: plan, retrieve, reflect on sufficiency, retrieve again or switch source (corrective and adaptive loops, single or multi-agent). Just-in-time retrieval drops the index for lightweight identifiers the agent follows itself (file paths, URIs, glob, grep, head, tail), disclosing detail progressively. The same pattern covers tool definitions (search plus deferred loading), memories (vector or graph lookup) and MCP resources, where the host, not the model, decides which URIs enter context. Self-Route adds a switch: answer from retrieved chunks when they suffice, otherwise fall back to the full long context.</p>
+  <h3>How to achieve it</h3>
+  <ol class="steps">
+    <li>Pick the unit of retrieval and index it. Chunk documents with metadata; for code, parse the repo with tree-sitter and rank symbols by incoming references (aider's repo map fits the top signatures into about 1k tokens via <code>--map-tokens</code>); for tools, index names, descriptions and argument descriptions.</li>
+    <li>Build retrieval evals before tuning. Generate synthetic question-to-chunk pairs, score retriever precision and recall apart from answer quality, then cluster real queries (even 100 reveal patterns) to split content gaps from capability gaps.</li>
+    <li>Retrieve hybrid and re-rank. Combine full-text or grep with embeddings, filter on extracted metadata, re-rank candidates, and route queries to specialized indices instead of one flat store.</li>
+    <li>Give the agent handles, not payloads. Expose read, grep and glob tools, file paths and MCP resource URIs; preload a small high-value set (a rules file, the 3 to 5 hottest tools) and defer the rest to on-demand search.</li>
+    <li>Close the loop agentically. After each retrieval the model judges sufficiency, reformulates or switches source, and stops at a hard iteration cap.</li>
+    <li>Route between retrieval and raw long context. Try RAG first; if the model declares the chunks insufficient, resend with the full document. Track per-query cost and retrieval hit rate.</li>
+  </ol>
+  <pre><code class="lang-python">import anthropic
+
+client = anthropic.Anthropic()
+
+def deferred(name, description, schema):
+    return {"name": name, "description": description,
+            "input_schema": schema, "defer_loading": True}
+
+tools = [
+    # the search tool itself must stay loaded
+    {"type": "tool_search_tool_bm25_20251119", "name": "tool_search_tool_bm25"},
+    # hot-path tool: always in context
+    {"name": "read_file", "description": "Read a file by path",
+     "input_schema": {"type": "object",
+                      "properties": {"path": {"type": "string"}},
+                      "required": ["path"]}},
+    # hundreds more like this: loaded only when a search matches
+    deferred("github_list_prs", "List open pull requests in a repo",
+             {"type": "object", "properties": {"repo": {"type": "string"}},
+              "required": ["repo"]}),
+]
+
+resp = client.messages.create(
+    model="claude-sonnet-4-6", max_tokens=1024, tools=tools,
+    messages=[{"role": "user", "content": "Which PRs are open on acme/api?"}],
+)
+# resp.content: server_tool_use -&gt; tool_search_tool_result -&gt; tool_use</code></pre>
+  <h3>Variants &amp; tools</h3>
+  <ul class="tools">
+    <li><a href="https://aider.chat/2023/10/22/repomap.html">aider repo map</a> — tree-sitter definitions and references, graph-ranked into a ~1k-token map of signatures; widely copied by later coding agents.</li>
+    <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool">Anthropic tool search tool</a> — <code>defer_loading: true</code> plus a regex or BM25 search tool; cuts a ~55k-token multi-server tool prefix by over 85%, caching intact.</li>
+    <li><a href="https://code.claude.com/docs/en/agent-sdk/tool-search">Claude Code MCP tool search</a> — deferred discovery for MCP servers in Claude Code and the Agent SDK.</li>
+    <li><a href="https://modelcontextprotocol.io/specification/2025-06-18/server/resources">MCP Resources</a> — URI-addressed data with list, read, templates and subscribe; the host, not the model, chooses what loads.</li>
+    <li><a href="https://github.com/run-llama/llama_index">LlamaIndex</a> — indices, query engines, routers, agentic retrieval; 51.8k stars.</li>
+    <li><a href="https://www.langchain.com/blog/context-engineering-for-agents">LangChain / LangGraph "select"</a> — retrieval over memories, tools and knowledge; cites Windsurf's grep + AST + knowledge-graph + re-rank stack.</li>
+    <li><a href="https://sourcegraph.com/blog/context-engineering">Sourcegraph code search pipelines</a> — production context pipelines for coding agents: search, retrieve, prune, order high-signal material first or last.</li>
+    <li><a href="https://arxiv.org/abs/2407.16833">Self-Route</a> — per-query routing between RAG and long context; 65% (Gemini-1.5-Pro) and 39% (GPT-4o) cost reduction at near long-context quality.</li>
+  </ul>
+  <h3>Trade-offs &amp; pitfalls</h3>
+  <ul>
+    <li>Retrieval quality is the ceiling. When affordable, long context beats RAG on average (Li et al.); retrieval wins on cost, so measure the gap and route rather than pick a side.</li>
+    <li>Embedding search degrades as the corpus grows. Windsurf calls it unreliable at scale and layers grep, AST parsing, knowledge graphs and re-ranking on top.</li>
+    <li>Runtime exploration is slower than precomputed retrieval, and an unguided agent wastes context misusing tools or chasing dead ends (Anthropic). Cap iterations; preload the predictable part.</li>
+    <li>Tool overload is real: DeepSeek-v3 confuses tools above 30 and nearly always fails past 100; Llama 3.1 8b fails with 46 tools but succeeds with 19 (Breunig). Keep 3 to 5 hot tools loaded, never defer the search tool itself.</li>
+    <li>Evaluate the retriever, not just the answer. Without synthetic precision/recall sets and query clustering you tune blind; position effects (lost in the middle) can hide good hits.</li>
+  </ul>
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://arxiv.org/abs/2312.10997">Retrieval-Augmented Generation for Large Language Models: A Survey</a> <span class="src-type paper">paper</span> — Gao et al., Tongji/Fudan, arXiv 2312.10997, 2023</li>
+    <li><a href="https://arxiv.org/abs/2501.09136">Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG</a> <span class="src-type paper">paper</span> — Singh, Ehtesham, Kumar, Khoei, arXiv 2501.09136, 2025</li>
+    <li><a href="https://arxiv.org/abs/2407.16833">Retrieval Augmented Generation or Long-Context LLMs? A Comprehensive Study and Hybrid Approach</a> <span class="src-type paper">paper</span> — Li, Liu, Mi, Zheng, Bendersky (Google DeepMind), EMNLP 2024 Industry, 2024</li>
+    <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a> <span class="src-type blog">blog</span> — Anthropic Engineering, 2025</li>
+    <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool">Tool search tool</a> <span class="src-type docs">docs</span> — Claude Platform Docs, Anthropic, 2025</li>
+    <li><a href="https://www.langchain.com/blog/context-engineering-for-agents">Context Engineering for Agents</a> <span class="src-type blog">blog</span> — Lance Martin, LangChain blog, 2025</li>
+    <li><a href="https://aider.chat/2023/10/22/repomap.html">Building a better repository map with tree sitter</a> <span class="src-type blog">blog</span> — Paul Gauthier, Aider, 2023</li>
+    <li><a href="https://modelcontextprotocol.io/specification/2025-06-18/server/resources">Model Context Protocol specification (2025-06-18): Resources</a> <span class="src-type docs">docs</span> — Model Context Protocol, Anthropic / Linux Foundation, 2025</li>
+    <li><a href="https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html">How to Fix Your Context</a> <span class="src-type blog">blog</span> — Drew Breunig, 2025</li>
+    <li><a href="https://christianjmills.com/posts/mastering-llms-course-notes/conference-talk-010/">Systematically Improving RAG Applications</a> <span class="src-type talk">talk</span> — Jason Liu, Mastering LLMs conference (notes by Christian Mills), 2024</li>
+    <li><a href="https://www.latent.space/p/llamaindex">RAG Is A Hack - with Jerry Liu from LlamaIndex</a> <span class="src-type video">video</span> — Latent Space podcast, 2023</li>
+    <li><a href="https://sourcegraph.com/blog/context-engineering">Context Engineering: A Practical Guide for AI Agents (2026)</a> <span class="src-type blog">blog</span> — Sourcegraph blog, 2026</li>
+  </ol>
+</section>

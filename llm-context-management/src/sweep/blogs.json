@@ -1,0 +1,435 @@
+{
+  "sources": [
+    {
+      "title": "Effective context engineering for AI agents",
+      "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Anthropic Engineering",
+      "techniques": ["context-engineering-framework", "context-rot", "compaction/summarization", "just-in-time-retrieval", "memory-files", "sub-agent-isolation", "tool-design", "system-prompt-altitude"],
+      "summary": "Defines context engineering as curating the optimal, finite set of tokens at inference time because LLMs have limited attention (context rot). Prescribes 'smallest high-signal token set', just-in-time retrieval via lightweight identifiers (file paths, links), and three long-horizon techniques: compaction, structured note-taking (memory files), and sub-agent architectures.",
+      "popularity_signal": "Widely referenced by LangChain, Lance Martin, MarkTechPost and multiple 2026 arXiv papers on context management; de facto canonical industry post on the topic"
+    },
+    {
+      "title": "Building Effective AI Agents",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "type": "blog",
+      "year": 2024,
+      "venue_or_author": "Anthropic Engineering (Dec 19, 2024)",
+      "techniques": ["workflows-vs-agents", "orchestrator-workers", "sub-agent-isolation", "simple-composable-patterns", "tool-design"],
+      "summary": "Foundational guide arguing successful agents use simple, composable patterns (prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer) over heavy frameworks. Distinguishes predefined workflows from autonomous agents and stresses investing in tool/ACI design.",
+      "popularity_signal": "Foundational, widely cited across the agent-building community; precursor to Anthropic's context-engineering post"
+    },
+    {
+      "title": "How we built our multi-agent research system",
+      "url": "https://www.anthropic.com/engineering/multi-agent-research-system",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Anthropic Engineering (Jun 13, 2025)",
+      "techniques": ["sub-agent-isolation", "compression-via-subagents", "external-memory", "token-budgeting", "parallelization"],
+      "summary": "Subagents run with independent context windows and condense findings into essential tokens before reporting to the lead agent; the lead saves its plan to external memory to survive context overflow. Multi-agent uses ~15x the tokens of chat, so it only pays off for parallelizable, high-value research tasks.",
+      "popularity_signal": "Widely referenced as the counterpoint to Cognition's 'Don't Build Multi-Agents'"
+    },
+    {
+      "title": "Managing context on the Claude Developer Platform",
+      "url": "https://claude.com/blog/context-management",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Anthropic / Claude blog",
+      "techniques": ["context-editing", "tool-result-clearing", "memory-tool", "memory-files", "compaction/summarization"],
+      "summary": "Announces context editing (server-side clearing of stale tool results/thinking blocks as limits approach) and the memory tool (file-based cross-session memory). Reports memory tool + context editing improved agentic search performance 39% over baseline; context editing alone 29%.",
+      "popularity_signal": "Official launch post; referenced by Letta, hermes-agent issue tracker and multiple tutorials"
+    },
+    {
+      "title": "Context editing (Claude Platform Docs)",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/context-editing",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Anthropic Claude Platform Docs",
+      "techniques": ["context-editing", "tool-result-clearing", "thinking-block-clearing", "prompt-caching"],
+      "summary": "Reference for the context_management API: strategies clear_tool_uses and clear_thinking with trigger thresholds, keep-N settings, and exclusions, designed to be cache-friendly. Can pair with the memory tool so Claude is warned before clearing and can persist important results.",
+      "popularity_signal": "Official vendor docs"
+    },
+    {
+      "title": "Memory tool (Claude Platform Docs)",
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Anthropic Claude Platform Docs",
+      "techniques": ["memory-tool", "memory-files", "cross-session-memory", "offloading-to-filesystem"],
+      "summary": "Client-side file-based memory: Claude creates/reads/updates/deletes files in a /memories directory that persist across conversations, building knowledge without keeping everything in the context window.",
+      "popularity_signal": "Official vendor docs; many third-party tutorials (Monigatti, Wiegold, NerdLevelTech)"
+    },
+    {
+      "title": "Prompt caching (Claude Platform Docs)",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Anthropic Claude Platform Docs",
+      "techniques": ["prompt-caching", "KV-cache", "stable-prefix"],
+      "summary": "cache_control breakpoints mark prefix boundaries; identical prefixes are reused with a 5-minute default TTL (1-hour optional at 2x write cost). Cache writes cost 1.25x base, hits 0.1x, so stable prompt prefixes cut cost and latency.",
+      "popularity_signal": "Official vendor docs; the pricing asymmetry is cited by Manus as the reason KV-cache hit rate is the key agent metric"
+    },
+    {
+      "title": "Context windows (Claude Platform Docs)",
+      "url": "https://docs.anthropic.com/en/docs/build-with-claude/context-windows",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Anthropic Claude Platform Docs",
+      "techniques": ["context-window-accounting", "extended-thinking-budget", "1M-context"],
+      "summary": "Explains how input, output and extended-thinking tokens accumulate across turns, how thinking blocks from prior turns are stripped, and how to reason about the effective window.",
+      "popularity_signal": "Official vendor docs"
+    },
+    {
+      "title": "Context engineering: memory, compaction, and tool clearing (Claude Cookbook)",
+      "url": "https://platform.claude.com/cookbook/tool-use-context-engineering-context-engineering-tools",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Anthropic Claude Cookbook",
+      "techniques": ["compaction/summarization", "tool-result-clearing", "memory-tool", "sub-agent-isolation", "context-editing"],
+      "summary": "Hands-on notebook showing the context-engineering levers available in the API: compaction, tool-result clearing, the memory tool, and subagents that isolate work in their own context.",
+      "popularity_signal": "Official cookbook example"
+    },
+    {
+      "title": "How Claude remembers your project (CLAUDE.md and auto memory)",
+      "url": "https://code.claude.com/docs/en/memory",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Claude Code Docs",
+      "techniques": ["memory-files", "CLAUDE.md", "path-scoped-rules", "auto-memory", "compaction-survival", "progressive-disclosure"],
+      "summary": "Two cross-session memory systems: human-written CLAUDE.md (managed/user/project/local scopes, target <200 lines, @imports, path-scoped .claude/rules/) and Claude-written auto memory (MEMORY.md index capped at 200 lines/25KB, topic files loaded on demand). Project-root CLAUDE.md is re-read and re-injected after /compact; nested files and path rules reload lazily.",
+      "popularity_signal": "Official Claude Code docs; widely mirrored in community guides"
+    },
+    {
+      "title": "Context window and what survives compaction (Claude Code Docs)",
+      "url": "https://code.claude.com/docs/en/context-window",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Claude Code Docs",
+      "techniques": ["auto-compact", "compaction/summarization", "compaction-survival", "context-visualization"],
+      "summary": "Visualizes what occupies the Claude Code context window at startup and documents auto-compact behavior and which items survive compaction (CLAUDE.md re-injected, conversation-only instructions lost).",
+      "popularity_signal": "Official Claude Code docs (linked from the memory page; not fetched directly)"
+    },
+    {
+      "title": "Context Engineering for Agents",
+      "url": "https://www.langchain.com/blog/context-engineering-for-agents",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "LangChain blog (Lance Martin)",
+      "techniques": ["write-select-compress-isolate", "scratchpads", "memory-files", "RAG", "tool-selection", "compaction/summarization", "context-pruning", "sub-agent-isolation", "sandbox-state-isolation"],
+      "summary": "Organizes context engineering into four strategies: write (scratchpads, long-term memory), select (retrieve memories, tools, knowledge), compress (summarization, trimming/pruning), and isolate (multi-agent, sandboxes, state objects). Maps each to LangGraph primitives and cites Claude Code, Manus and Anthropic's research system as exemplars.",
+      "popularity_signal": "The most-cited taxonomy of the field; reused by Anthropic-adjacent posts, Reactify, Sourcegraph and many 2026 guides"
+    },
+    {
+      "title": "Context Engineering for Agents - Lance Martin, LangChain (Latent Space podcast)",
+      "url": "https://www.latent.space/p/context-engineering-for-agents-lance",
+      "type": "talk",
+      "year": 2025,
+      "venue_or_author": "Latent Space / Lance Martin (Sep 11, 2025)",
+      "techniques": ["context-offloading", "context-reduction", "retrieval", "context-pruning", "sub-agent-isolation", "token-budgeting"],
+      "summary": "Martin recounts Open Deep Research's naive loop burning ~500K tokens ($1-2) per run from accumulating tool output, and distills a reduce/offload/retrieve/isolate playbook used by Manus and Claude Code. Emphasizes the bitter-lesson tension: hand-built context structure helps today but should be removable as models improve.",
+      "popularity_signal": "Latent Space flagship podcast episode; reposted on YouTube/Spotify and widely summarized"
+    },
+    {
+      "title": "Context Engineering in Manus",
+      "url": "https://rlancemartin.github.io/2025/10/15/manus/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Lance Martin (personal blog, Oct 15, 2025)",
+      "techniques": ["context-offloading", "context-reduction", "compaction/summarization", "retrieval", "sub-agent-isolation", "KV-cache"],
+      "summary": "Interview-driven breakdown of how Manus applies offloading, reduction (layered compaction and summarization with reversible references), retrieval and isolation in production, including how compaction is scheduled relative to context limits.",
+      "popularity_signal": "Companion to the widely shared Manus post; referenced in ZenML LLMOps database"
+    },
+    {
+      "title": "Context Engineering for AI Agents: Lessons from Building Manus",
+      "url": "https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Manus (Yichao 'Peak' Ji, Jul 18, 2025)",
+      "techniques": ["KV-cache-hit-rate", "prompt-caching", "stable-prefix", "mask-dont-remove", "logit-masking", "file-system-as-context", "context-offloading", "recitation", "keep-failures-in-context", "avoid-few-shot-ruts"],
+      "summary": "Argues KV-cache hit rate is the single most important production metric (100:1 input/output ratio; 10x cached vs uncached price), so keep prefixes stable and append-only. Mask tool logits instead of removing tools, use the file system as unlimited restorable context, recite goals (todo.md) to fight lost-in-the-middle, keep failed actions in context, and avoid repetitive few-shot patterns.",
+      "popularity_signal": "One of the most-shared context-engineering posts of 2025; summarized by MarkTechPost, Lance Martin, ZenML, DEV and Medium"
+    },
+    {
+      "title": "Don't Build Multi-Agents",
+      "url": "https://cognition.com/blog/dont-build-multi-agents",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Cognition (Walden Yan, Jun 2025)",
+      "techniques": ["share-full-context", "single-threaded-agent", "compaction/summarization", "avoid-parallel-subagents", "context-compression-model"],
+      "summary": "Two principles: share full context and traces (not just messages), and recognize that actions carry implicit decisions that conflict when made in parallel. Recommends single-threaded linear agents; for very long tasks, a dedicated model that compresses history into key details.",
+      "popularity_signal": "Widely debated alongside Anthropic's multi-agent post; spawned numerous 'architecture wars' articles"
+    },
+    {
+      "title": "A year ago, I'd tell people to not build multi-agents... (update thread)",
+      "url": "https://x.com/walden_yan/status/2047054554433462360",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "Walden Yan (Cognition) on X",
+      "techniques": ["single-writer-principle", "sub-agent-isolation", "share-full-context"],
+      "summary": "2026 follow-up: multi-agent setups now work when writes stay single-threaded and additional agents contribute intelligence (reviews, research) rather than actions, while context-engineering fundamentals remain the priority.",
+      "popularity_signal": "Author update from Cognition; referenced in 2026 analyses (piyush.cc, note.com 'single writer' articles)"
+    },
+    {
+      "title": "Context Rot: How Increasing Input Tokens Impacts LLM Performance",
+      "url": "https://www.trychroma.com/research/context-rot",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Chroma Research (Kelly Hong, Anton Troynikov, Jeff Huber; Jul 14, 2025)",
+      "techniques": ["context-rot", "long-context-evaluation", "needle-in-haystack-variants", "distractors", "retrieval-justification"],
+      "summary": "Evaluated 18 models (GPT-4.1, Claude 4, Gemini 2.5, Qwen3) and found performance degrades non-uniformly as input length grows, even well below the window limit; lower needle-question similarity, distractors, and even coherent (vs shuffled) haystacks accelerate degradation. Motivates retrieval and context minimization over 'just use long context'.",
+      "popularity_signal": "Cited by Anthropic's context-engineering post as the source of the 'context rot' term; widely referenced; companion repo github.com/chroma-core/context-rot"
+    },
+    {
+      "title": "chroma-core/context-rot (code and data)",
+      "url": "https://github.com/chroma-core/context-rot",
+      "type": "repo",
+      "year": 2025,
+      "venue_or_author": "Chroma (GitHub)",
+      "techniques": ["context-rot", "long-context-evaluation"],
+      "summary": "Open code, datasets and prompts to reproduce the Context Rot experiments (NIAH extensions, LongMemEval, repeated-words task).",
+      "popularity_signal": "Companion repo to the Chroma report (star count not captured)"
+    },
+    {
+      "title": "How Long Contexts Fail",
+      "url": "https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Drew Breunig (Jun 22, 2025)",
+      "techniques": ["context-poisoning", "context-distraction", "context-confusion", "context-clash", "tool-loadout"],
+      "summary": "Names four long-context failure modes: poisoning (hallucinations persisted and re-referenced, e.g. Gemini Pokemon 'goals'), distraction (>100K tokens, model repeats history instead of planning), confusion (Berkeley Function-Calling: every model worse with more tools), and clash (sharded prompts drop performance ~39%).",
+      "popularity_signal": "Amplified by Simon Willison; the four failure modes are reused by nilenso, Reactify and many 2026 guides"
+    },
+    {
+      "title": "How to Fix Your Context",
+      "url": "https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Drew Breunig (Jun 26, 2025)",
+      "techniques": ["RAG", "tool-loadout", "context-quarantine", "context-pruning", "compaction/summarization", "context-offloading"],
+      "summary": "Six remedies for the failure modes: RAG, tool loadout (select a small subset of tools; >20 confuses models), context quarantine (isolated threads/subagents), context pruning, context summarization, and context offloading (scratchpads/'think' tool). Frames all of it as information management.",
+      "popularity_signal": "Reposted and endorsed by Simon Willison (simonwillison.net/2025/Jun/29/how-to-fix-your-context/)"
+    },
+    {
+      "title": "Context engineering",
+      "url": "https://simonwillison.net/2025/jun/27/context-engineering/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Simon Willison (Jun 27, 2025)",
+      "techniques": ["context-engineering-framework", "terminology"],
+      "summary": "Endorses 'context engineering' over 'prompt engineering' as the term for the full discipline of deciding what goes into the window, collecting the Karpathy/Tobi Lutke framing and linking the Breunig posts.",
+      "popularity_signal": "Widely linked; helped popularize the term in June 2025"
+    },
+    {
+      "title": "The New Skill in AI is Not Prompting, It's Context Engineering",
+      "url": "https://www.philschmid.de/context-engineering",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Philipp Schmid (Jun 30, 2025)",
+      "techniques": ["context-components", "RAG", "short-term-memory", "long-term-memory", "tool-definitions", "structured-output"],
+      "summary": "Decomposes the context window into seven components: system instructions, user prompt, short-term history, long-term memory, retrieved information, tool definitions, and structured output schema, arguing the engineering job is assembling the right ones dynamically per task.",
+      "popularity_signal": "Widely cited 'seven components' framing; referenced by Context Patterns, Idam AI and many guides"
+    },
+    {
+      "title": "12-Factor Agents, Factor 3: Own your context window",
+      "url": "https://github.com/humanlayer/12-factor-agents/blob/main/content/factor-03-own-your-context-window.md",
+      "type": "repo",
+      "year": 2025,
+      "venue_or_author": "Dex Horthy / HumanLayer",
+      "techniques": ["own-your-context-window", "custom-context-format", "event-log-as-context", "token-density", "error-compaction"],
+      "summary": "Argues against handing the message-list abstraction to a framework: serialize the agent's state/event log into a custom, token-dense format you control, so you decide what the model sees, how errors are summarized, and how history is compacted. Horthy's later 'dumb zone' framing warns recall degrades once a window fills past ~40%.",
+      "popularity_signal": "Popular GitHub repo (humanlayer/12-factor-agents) plus AI Engineer conference talk; widely referenced in production-agent guides"
+    },
+    {
+      "title": "Memory Blocks: The Key to Agentic Context Management",
+      "url": "https://www.letta.com/blog/memory-blocks/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Letta (formerly MemGPT)",
+      "techniques": ["memory-blocks", "self-editing-memory", "LLM-as-OS", "core-vs-archival-memory", "memory-files"],
+      "summary": "Structures the context window into discrete in-context memory blocks (user, persona, task) that the agent or other agents can edit, with archival/recall memory paged in via tools, extending the MemGPT 'LLM as operating system' model to production agents.",
+      "popularity_signal": "From the MemGPT authors; MemGPT paper and DeepLearning.AI course 'LLMs as Operating Systems: Agent Memory' widely referenced"
+    },
+    {
+      "title": "Agent Memory: How to Build Agents That Learn and Remember",
+      "url": "https://www.letta.com/blog/agent-memory/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Letta",
+      "techniques": ["agent-memory", "self-editing-memory", "in-context-vs-out-of-context-memory", "memory-tools"],
+      "summary": "Overview of agent memory design: in-context memory the agent manages itself vs external memory retrieved on demand, and why statefulness should live in the agent rather than the prompt.",
+      "popularity_signal": "Letta flagship explainer; referenced in Mem0-vs-Letta comparisons"
+    },
+    {
+      "title": "AI Memory Management for LLMs and Agents",
+      "url": "https://mem0.ai/blog/ai-memory-management-for-llms-and-agents",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Mem0",
+      "techniques": ["memory-layer", "extraction-and-update", "long-term-memory", "retrieval"],
+      "summary": "Describes Mem0's two-phase memory pipeline (extract salient facts from conversation, then add/update/merge against existing memories) so agents keep a compact persistent memory store instead of replaying history.",
+      "popularity_signal": "Mem0 is one of the most widely adopted open-source agent-memory libraries; integrations with OpenAI Agents SDK, Google ADK, AWS, Redis"
+    },
+    {
+      "title": "Understanding Memory Benchmark For Production AI Agents",
+      "url": "https://mem0.ai/blog/understanding-memory-benchmark-for-production-ai-agents",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Mem0",
+      "techniques": ["memory-benchmarks", "LOCOMO", "long-term-memory", "token-cost"],
+      "summary": "Explains how to evaluate agent memory systems (LOCOMO-style long-conversation benchmarks) on accuracy, latency and token cost, contrasting full-context replay with memory retrieval.",
+      "popularity_signal": "Referenced in Mem0 vs Zep / Letta comparison articles"
+    },
+    {
+      "title": "Graphiti: Knowledge graph memory for an agentic world",
+      "url": "https://neo4j.com/blog/developer/graphiti-knowledge-graph-memory/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Neo4j developer blog (Zep / Graphiti team)",
+      "techniques": ["temporal-knowledge-graph", "bi-temporal-memory", "graph-RAG", "long-term-memory"],
+      "summary": "Introduces Graphiti, Zep's open-source temporally aware knowledge-graph memory: episodes are decomposed into entities and relationships with validity intervals (event time vs ingestion time) so agents retrieve current, contradiction-resolved facts instead of raw history.",
+      "popularity_signal": "Backed by the Zep arXiv paper (2501.13956) claiming SOTA on DMR/LongMemEval; Graphiti is a widely used OSS repo"
+    },
+    {
+      "title": "Zep: A Temporal Knowledge Graph Architecture for Agent Memory",
+      "url": "https://arxiv.org/abs/2501.13956",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv (Zep AI)",
+      "techniques": ["temporal-knowledge-graph", "long-term-memory", "memory-benchmarks"],
+      "summary": "Presents Zep's Graphiti engine and reports it outperforms MemGPT on the Deep Memory Retrieval benchmark and does well on LongMemEval while cutting latency by retrieving structured facts rather than full transcripts.",
+      "popularity_signal": "Referenced in GraphRAG.com appendix and EmergentMind; basis of Zep's product"
+    },
+    {
+      "title": "Context Engineering - Short-Term Memory Management with Sessions",
+      "url": "https://developers.openai.com/cookbook/examples/agents_sdk/session_memory",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "OpenAI Cookbook (Agents SDK)",
+      "techniques": ["sessions", "context-trimming", "compaction/summarization", "short-term-memory"],
+      "summary": "Shows two context-management techniques in the OpenAI Agents SDK Sessions layer: trimming (keep last N turns) and compression (summarize older turns), to keep agents fast and coherent over long conversations.",
+      "popularity_signal": "Official OpenAI cookbook example"
+    },
+    {
+      "title": "Sessions (OpenAI Agents SDK docs)",
+      "url": "https://openai.github.io/openai-agents-python/sessions/",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "OpenAI Agents SDK",
+      "techniques": ["sessions", "server-managed-state", "conversation-state", "short-term-memory"],
+      "summary": "Documents three ways to carry conversation state: manual RunResult.to_input_list(), the Session protocol (SQLite/Redis/etc.) for automatic persistence, and server-managed state via conversation_id / previous_response_id on the Responses API.",
+      "popularity_signal": "Official SDK docs"
+    },
+    {
+      "title": "Context Engineering for Personalization - State Management with Long-Term Memory Notes",
+      "url": "https://developers.openai.com/cookbook/examples/agents_sdk/context_personalization",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "OpenAI Cookbook (Agents SDK)",
+      "techniques": ["long-term-memory", "memory-notes", "run-context-state", "personalization"],
+      "summary": "Uses RunContextWrapper structured state plus persisted long-term memory notes so an agent's preferences and facts evolve across runs without bloating the prompt.",
+      "popularity_signal": "Official OpenAI cookbook example"
+    },
+    {
+      "title": "Context caching (Gemini API docs)",
+      "url": "https://ai.google.dev/gemini-api/docs/caching",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "Google AI for Developers",
+      "techniques": ["prompt-caching", "implicit-caching", "explicit-caching", "KV-cache"],
+      "summary": "Gemini offers implicit (automatic) and explicit (user-created, TTL-controlled) context caches for repeated prefixes from a 2,048-token minimum up to the full window; cached tokens are billed at roughly 10% of standard input price for Gemini 2.5+ models.",
+      "popularity_signal": "Official Google docs"
+    },
+    {
+      "title": "Remember this: Agent state and memory with ADK",
+      "url": "https://cloud.google.com/blog/topics/developers-practitioners/remember-this-agent-state-and-memory-with-adk",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Google Cloud Blog (ADK)",
+      "techniques": ["sessions", "state", "long-term-memory", "memory-bank", "retrieval"],
+      "summary": "Explains ADK's split between Session (short-term event history), State (scoped key-value working memory) and MemoryService (searchable long-term archive, e.g. Vertex AI Memory Bank) into which session events are consolidated and later retrieved by query.",
+      "popularity_signal": "Official Google Cloud post; mirrored by adk.dev memory docs"
+    },
+    {
+      "title": "Architecting efficient context-aware multi-agent framework for production",
+      "url": "https://developers.googleblog.com/architecting-efficient-context-aware-multi-agent-framework-for-production/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Google Developers Blog",
+      "techniques": ["sub-agent-isolation", "context-routing", "multi-agent", "token-budgeting"],
+      "summary": "Google's guidance on building production multi-agent systems that keep each agent's context small and task-specific, routing only the necessary state between agents.",
+      "popularity_signal": "Official Google developer blog (publication date not verified)"
+    },
+    {
+      "title": "Fight context rot with context observability",
+      "url": "https://blog.nilenso.com/blog/2025/10/29/fight-context-rot-with-context-observability/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "nilenso blog (Oct 29, 2025)",
+      "techniques": ["context-observability", "context-rot", "context-poisoning", "token-accounting"],
+      "summary": "Argues you cannot fix context rot without instrumenting what is actually in the window; proposes logging and visualizing context composition per turn to catch poisoning, distraction and clash early.",
+      "popularity_signal": "Practitioner post building on Breunig's failure modes"
+    },
+    {
+      "title": "Context Engineering in 2026: Why We Stopped Compacting Our Agent's Context",
+      "url": "https://www.louisbouchard.ai/context-engineering-2026/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Louis Bouchard",
+      "techniques": ["prompt-caching", "full-history-retention", "compaction/summarization", "evals"],
+      "summary": "Contrarian 2026 take backed by production evals on an AI tutor: with prompt caching, keeping the full history beat every summarization strategy on cost, latency and memory recall, so compaction should be an eval-justified choice rather than a default.",
+      "popularity_signal": "Recent 2026 post; popularity unknown"
+    },
+    {
+      "title": "Context Engineering: A Practical Guide for AI Agents (2026)",
+      "url": "https://sourcegraph.com/blog/context-engineering",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Sourcegraph blog (May 28, 2026)",
+      "techniques": ["context-engineering-framework", "retrieval", "code-context", "context-pipelines"],
+      "summary": "Practical guide covering the four pillars of context engineering, how it differs from prompt engineering, and how to build context pipelines (code search, retrieval, pruning) for production coding agents.",
+      "popularity_signal": "Vendor guide from Sourcegraph (code-intelligence provider); popularity unknown"
+    },
+    {
+      "title": "Context Engineering: Agent Reliability Playbook 2026",
+      "url": "https://www.digitalapplied.com/blog/context-engineering-agent-reliability-playbook-2026",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Digital Applied (May 26, 2026)",
+      "techniques": ["retrieval-budgeting", "compaction/summarization", "memory-tiering", "tool-result-pruning", "token-budgeting"],
+      "summary": "Maps four failure modes to four remediation levers (retrieval budgeting, compaction, memory tiering, tool-result pruning with keep-or-drop rules) and gives concrete token-budget allocations by agent type.",
+      "popularity_signal": "Recent 2026 post; popularity unknown"
+    },
+    {
+      "title": "Context Engineering for Coding Agents (announcement of Birgitta Boeckeler's article)",
+      "url": "https://x.com/martinfowler/status/2019436508399403385",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "Martin Fowler on X (article by Birgitta Boeckeler, martinfowler.com)",
+      "techniques": ["CLAUDE.md", "context-configuration", "rules", "skills", "sub-agent-isolation", "compaction/summarization"],
+      "summary": "Fowler announces a martinfowler.com article by Birgitta Boeckeler surveying the current state of context-configuration features in coding agents (instruction files, rules, skills, subagents, compaction), using Claude Code as the worked example.",
+      "popularity_signal": "Martin Fowler's site; canonical article URL could not be verified (fetch 404), so the announcement post is cited"
+    },
+    {
+      "title": "AI Agent Harness, 3 Principles for Context Engineering, and the Bitter Lesson Revisited",
+      "url": "https://hugobowne.substack.com/p/ai-agent-harness-3-principles-for",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Hugo Bowne-Anderson (Vanishing Gradients) with Lance Martin",
+      "techniques": ["agent-harness", "context-offloading", "context-reduction", "retrieval", "bitter-lesson"],
+      "summary": "Conversation with Lance Martin distilling three context-engineering principles (offload, reduce, retrieve/isolate) and the harness-vs-model tension: build structure now, remove it as models improve.",
+      "popularity_signal": "Substack/podcast episode; popularity unknown"
+    },
+    {
+      "title": "Claude Code's Memory Evolution: Auto Memory and PreCompact Hooks Explained",
+      "url": "https://yuanchang.org/en/posts/claude-code-auto-memory-and-hooks/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Yuanchang's Blog",
+      "techniques": ["auto-memory", "PreCompact-hooks", "compaction-survival", "memory-files"],
+      "summary": "Practitioner walkthrough of Claude Code's auto memory directory and PreCompact hooks, showing how to persist key state to files right before auto-compact so it survives the summary.",
+      "popularity_signal": "Community post; popularity unknown"
+    }
+  ],
+  "notes": "Searched 14/14 WebSearch and 8/8 WebFetch (both caps hit), ~12 minutes. Confirmed via fetch: Anthropic 'Building effective agents' (Dec 19 2024), 'multi-agent research system' (Jun 13 2025), prompt-caching docs, Claude Code memory docs, Breunig 'How Long Contexts Fail' (Jun 22 2025), Schmid (Jun 30 2025). LangChain 'Context Engineering for Agents': blog.langchain.com URL returned a 301 to https://www.langchain.com/blog/context-engineering-for-agents (server-supplied redirect target used as the URL; content not fetched because the fetch cap was reached). martinfowler.com/articles/context-engineering-coding-agents.html returned 404, so only Fowler's X announcement of Birgitta Boeckeler's article is listed. code.claude.com/docs/en/context-window was seen only as a link inside the fetched memory page. Not found within caps: first-party Cursor, Factory, Devin, Cline, Windsurf engineering posts on context management (searches returned only third-party comparison articles); Eugene Yan and Hamel Husain context-specific posts; Google Developers Blog multi-agent post date unverified (listed as 2026). Popularity figures (stars/views) were not visible in search results, so signals are qualitative."
+}

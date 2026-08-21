@@ -1,0 +1,81 @@
+<section class="technique" id="addendum-vendor-server-side-state-openai-gemini">
+  <h2><span class="num">9</span> Vendor-managed conversation state and server-side compaction (OpenAI, Gemini)</h2>
+  <p class="lede">Instead of re-sending the whole transcript every turn, you hand the provider an id and it replays, stores and, on request, compacts the thread. OpenAI does this with <code>previous_response_id</code>, the Conversations API and <code>/responses/compact</code>; Gemini does it with the Interactions API and <code>previous_interaction_id</code>. Teams use it to cut payloads, raise cache hits and skip writing a summarizer.</p>
+  <div class="kv">
+    <div><b>Problem it solves</b><span>Shipping the full transcript on every turn grows linearly and eventually overflows the window; vendor-held state removes the shipping and gives a one-parameter compaction instead of a hand-built summarizer.</span></div>
+    <div><b>Lifecycle stage</b><span>write — provider persists, then compacts, the thread</span></div>
+    <div><b>Popularity signals</b><span>12 sources in this survey; first-class API surface at OpenAI (Responses, Conversations, compaction, mirrored on Azure) and Google (Interactions API, GA June 2026); wrapped by OpenAI Agents SDK sessions, LangChain and Agno; open feature requests in Vercel AI SDK, pydantic-ai and opencode.</span></div>
+  </div>
+  <h3>How it works</h3>
+  <p>OpenAI's Responses API offers three modes. Manual: you send the full input array, including encrypted reasoning items. Chained: you send only the new message plus <code>previous_response_id</code>; the server replays the stored chain, but every prior input token is still billed each turn, and stored responses expire after 30 days unless <code>store=false</code>. Persistent: a Conversation object with its own id holds items (messages, tool calls, tool outputs) with no 30-day TTL and is prepended to each request. On top of either, <code>context_management=[{"type":"compaction","compact_threshold":N}]</code> makes the server swap old items for an opaque, encrypted compaction item once the rendered context crosses N tokens; <code>/responses/compact</code> does the same on demand for a history you hold yourself. Gemini's Interactions API mirrors the chained mode: <code>previous_interaction_id</code>, <code>store=true</code> by default, 55-day (paid) or 1-day (free) retention, and better implicit-cache hits than resending history.</p>
+  <h3>How to achieve it</h3>
+  <ol class="steps">
+    <li>Pick a mode. Use manual arrays when you need full control, <code>previous_response_id</code> for simple chains, and <code>conversation=</code> when the thread must survive sessions or devices. On Gemini, call <code>interactions.create</code> with <code>previous_interaction_id</code> (google-genai 2.3.0 or later).</li>
+    <li>Decide storage. Keep <code>store=true</code> if you want to continue by id. Set <code>store=false</code> for zero data retention, and then carry every output item yourself, including encrypted reasoning and compaction items.</li>
+    <li>Turn on server compaction. Add a <code>context_management</code> compaction entry with a <code>compact_threshold</code> below the model window (OpenAI's examples use 200,000). Keep the compaction item in the window and never prune by hand when chaining by id.</li>
+    <li>For a self-held history, call <code>responses.compact</code> when your own trigger fires (the Agents SDK default is ten non-user items) and treat the returned output as the canonical next window.</li>
+    <li>Budget tokens explicitly. On Gemini call <code>count_tokens</code> before sending and read <code>usage.total_cached_tokens</code> after; on OpenAI set <code>truncation="auto"</code> as a last-resort guard so an overflow drops the middle instead of returning HTTP 400.</li>
+    <li>Re-send interaction-scoped settings each turn (Gemini: <code>tools</code>, <code>system_instruction</code>, <code>generation_config</code>) and keep your own durable record of thread ids, because retention windows expire.</li>
+  </ol>
+  <pre><code class="lang-python">from openai import OpenAI
+from google import genai
+
+oa = OpenAI()
+# 1) OpenAI: server holds the thread and compacts it past 200k rendered tokens
+first = oa.responses.create(model="gpt-5.6", input="Audit this repo for flaky tests.")
+nxt = oa.responses.create(
+    model="gpt-5.6",
+    previous_response_id=first.id,   # server replays prior turns
+    input=[{"role": "user", "content": "Now fix the top three."}],
+    context_management=[{"type": "compaction", "compact_threshold": 200_000}],
+    store=True,                      # default; False for ZDR, then carry items yourself
+)
+
+# 2) Manual checkpoint for a history you keep client-side
+compacted = oa.responses.compact(model="gpt-5.6", input=history_items)
+history_items = compacted.output     # canonical next window, do not prune it
+
+# 3) Gemini: same idea with the Interactions API
+g = genai.Client()
+i1 = g.interactions.create(model="gemini-3.7-flash", input="Hi, my name is Bob")
+i2 = g.interactions.create(
+    model="gemini-3.7-flash",
+    input="What's my name?",
+    previous_interaction_id=i1.id,   # stored 55 days (paid) or 1 day (free)
+)
+print(i2.usage.total_input_tokens, i2.usage.total_cached_tokens)</code></pre>
+  <h3>Variants &amp; tools</h3>
+  <ul class="tools">
+    <li><a href="https://developers.openai.com/api/reference/python/resources/conversations">OpenAI Conversations API</a> — durable conversation object whose items (messages, tool calls, outputs) are prepended to each Responses call; no 30-day TTL.</li>
+    <li><a href="https://developers.openai.com/api/reference/resources/responses/methods/compact">OpenAI /responses/compact</a> — stateless, ZDR-friendly endpoint that returns a shorter window containing an encrypted compaction item.</li>
+    <li><a href="https://openai.github.io/openai-agents-js/guides/sessions/">OpenAI Agents SDK Sessions</a> — <code>OpenAIConversationsSession</code> delegates history to the Conversations API; <code>OpenAIResponsesCompactionSession</code> wraps any session and calls <code>responses.compact</code> on a trigger.</li>
+    <li><a href="https://reference.langchain.com/python/langchain-openai/chat_models/base/BaseChatOpenAI/use_previous_response_id">LangChain ChatOpenAI use_previous_response_id</a> — drops messages up to the last response from the payload and sends the id instead.</li>
+    <li><a href="https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/responses">Azure OpenAI Responses API</a> — same surface on Azure, including <code>context_management</code> compaction and <code>responses.delete</code>.</li>
+    <li><a href="https://ai.google.dev/gemini-api/docs/interactions-overview">Gemini Interactions API</a> — <code>previous_interaction_id</code>, <code>store</code>, tiered retention, background execution; replaces <code>generateContent</code> for new projects.</li>
+    <li><a href="https://firebase.google.com/docs/ai-logic/chat">google-genai / Firebase chat sessions</a> — the older client-side model: the SDK keeps <code>history</code> locally and your app trims it.</li>
+    <li><a href="https://docs.agno.com/models/providers/native/google/gemini-interactions">Agno Gemini Interactions provider</a> — framework integration that rides the server-side state.</li>
+  </ul>
+  <h3>Trade-offs &amp; pitfalls</h3>
+  <ul>
+    <li>Billing does not shrink. A <code>previous_response_id</code> chain still bills all prior input tokens every turn; only compaction reduces the rendered context, and caching lowers the price, not the count.</li>
+    <li>There is no token-cap knob for chains. Developers asked for an Assistants-style <code>last_messages</code> limit in July 2025 and got no staff answer; without <code>truncation="auto"</code> or compaction, overflow is a 400 error.</li>
+    <li>State is opaque. Compaction items are encrypted and "not intended to be human-interpretable"; you cannot inspect or edit what the model kept, and the thread is not portable across vendors.</li>
+    <li>Retention differs per vendor: OpenAI responses expire at 30 days, Gemini interactions at 55 days (paid) or 1 day (free); Gemini <code>store=false</code> disables id continuation and background execution, and Interactions still lacks explicit caching and Batch.</li>
+    <li>Mixing modes breaks things. Do not pair <code>OpenAIResponsesCompactionSession</code> with <code>OpenAIConversationsSession</code>; do not prune manually when chaining by id; with stateless arrays drop only items that precede the latest compaction item.</li>
+  </ul>
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://developers.openai.com/api/docs/guides/conversation-state">Conversation state | OpenAI API</a> <span class="src-type docs">docs</span> — OpenAI, 2026</li>
+    <li><a href="https://developers.openai.com/api/docs/guides/compaction">Compaction | OpenAI API</a> <span class="src-type docs">docs</span> — OpenAI, 2026</li>
+    <li><a href="https://developers.openai.com/api/reference/resources/responses/methods/compact">Compact a response | OpenAI API Reference</a> <span class="src-type docs">docs</span> — OpenAI, 2026</li>
+    <li><a href="https://developers.openai.com/api/reference/python/resources/conversations">Conversations | OpenAI API Reference</a> <span class="src-type docs">docs</span> — OpenAI, 2026</li>
+    <li><a href="https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/responses">Use the Azure OpenAI Responses API</a> <span class="src-type docs">docs</span> — Microsoft Learn, 2026</li>
+    <li><a href="https://ai.google.dev/gemini-api/docs/interactions-overview">Interactions API | Gemini API</a> <span class="src-type docs">docs</span> — Google AI for Developers, 2026</li>
+    <li><a href="https://ai.google.dev/gemini-api/docs/tokens">Understand and count tokens | Gemini API</a> <span class="src-type docs">docs</span> — Google AI for Developers, 2026</li>
+    <li><a href="https://openai.github.io/openai-agents-js/guides/sessions/">Sessions | OpenAI Agents SDK</a> <span class="src-type docs">docs</span> — OpenAI, 2026</li>
+    <li><a href="https://developers.openai.com/cookbook/examples/agents_sdk/building_reliable_agents_memory_compaction">Building Reliable Agents with Memory and Compaction</a> <span class="src-type blog">blog</span> — OpenAI Cookbook, 2026</li>
+    <li><a href="https://reference.langchain.com/python/langchain-openai/chat_models/base/BaseChatOpenAI/use_previous_response_id">use_previous_response_id | langchain_openai</a> <span class="src-type docs">docs</span> — LangChain Reference, 2026</li>
+    <li><a href="https://community.openai.com/t/any-way-to-manage-context-window-when-using-response-api/1304298">Any way to manage context window when using Response API</a> <span class="src-type thread">thread</span> — OpenAI Developer Community, 2025</li>
+    <li><a href="https://github.com/anomalyco/opencode/issues/5200">/compact should be configurable to use OpenAI Responses API compaction (issue #5200)</a> <span class="src-type repo">repo</span> — anomalyco/opencode, 2025</li>
+  </ol>
+</section>

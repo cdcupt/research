@@ -1,0 +1,429 @@
+{
+  "framings": [
+    {
+      "name": "Write / Select / Compress / Isolate (LangChain, Lance Martin)",
+      "source_url": "https://www.langchain.com/blog/context-engineering-for-agents",
+      "description": "The most-reused taxonomy: write context outside the window (scratchpads, memories), select what to pull in (RAG, tool selection, memory retrieval), compress what stays (summarization, trimming), and isolate work across sub-agents, sandboxes and state schemas. Used as the stage vocabulary for this report."
+    },
+    {
+      "name": "Anthropic long-horizon trio + just-in-time retrieval",
+      "source_url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "description": "Context engineering = curating the smallest high-signal token set because attention is finite (context rot). Prescribes system-prompt altitude, tool curation, just-in-time retrieval via lightweight identifiers, and three long-horizon techniques: compaction, structured note-taking (memory files), and sub-agent architectures."
+    },
+    {
+      "name": "Manus lessons: KV-cache hit rate, file system as context, recitation",
+      "source_url": "https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus",
+      "description": "Production playbook: KV-cache hit rate is the #1 metric (stable append-only prefix), mask tools instead of removing them, use the filesystem as unlimited context with reversible pointers, recite goals via todo.md, keep errors in context, avoid few-shot ruts."
+    },
+    {
+      "name": "12-Factor Agents: own your context window, small focused agents",
+      "source_url": "https://github.com/humanlayer/12-factor-agents/blob/main/content/factor-03-own-your-context-window.md",
+      "description": "Dex Horthy's manifesto (475 HN points): serialize the event log into a custom token-dense format you control (Factor 3), compact errors into context, keep agents to 3-10 steps (Factor 10), and carry state in files across a research -> plan -> implement loop with frequent intentional compaction."
+    },
+    {
+      "name": "Lance Martin's offload / reduce / retrieve / isolate",
+      "source_url": "https://www.latent.space/p/context-engineering-for-agents-lance",
+      "description": "Practitioner restatement of the LangChain taxonomy from the Latent Space episode and the Manus write-up: offload heavy tool output to disk/state, reduce via compaction and pruning, retrieve just-in-time, isolate with sub-agents; motivated by Open Deep Research burning ~500K tokens per run."
+    },
+    {
+      "name": "Breunig's four failure modes and six fixes",
+      "source_url": "https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html",
+      "description": "Failure modes (poisoning, distraction, confusion, clash) mapped to remedies: RAG, tool loadout, context quarantine, context pruning, context summarization, context offloading. Amplified by Simon Willison and the 915-point HN thread; reused by nilenso, Digital Applied and many 2026 guides."
+    },
+    {
+      "name": "How long contexts fail (Breunig)",
+      "source_url": "https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html",
+      "description": "Names context poisoning, distraction (>100K tokens), confusion (too many tools) and clash as the reasons bigger windows do not save you; the diagnostic half of the Breunig framing."
+    },
+    {
+      "name": "MemGPT / LLM-as-operating-system (virtual context management)",
+      "source_url": "https://arxiv.org/abs/2310.08560",
+      "description": "The context window is RAM; external storage is disk; the LLM pages data in and out via tool calls (core vs archival/recall memory). Basis of Letta memory blocks, the 'Missing Memory Hierarchy' demand-paging paper, and Karpathy's LLM-OS framing."
+    },
+    {
+      "name": "Mei et al. survey: retrieval/generation, processing, management + RAG/memory/tools/multi-agent",
+      "source_url": "https://arxiv.org/abs/2507.13334",
+      "description": "Academic formalization (143 citations) splitting context engineering into foundational components (context retrieval and generation, context processing, context management) and system implementations (RAG, memory systems, tool-integrated reasoning, multi-agent systems), with the Awesome-Context-Engineering companion list."
+    },
+    {
+      "name": "Phil Schmid's seven components of the context window",
+      "source_url": "https://www.philschmid.de/context-engineering",
+      "description": "System instructions, user prompt, short-term history, long-term memory, retrieved information, tool definitions, structured output schema; the post behind the largest HN thread (915 points)."
+    },
+    {
+      "name": "Karpathy's definition",
+      "source_url": "https://x.com/karpathy/status/1937902205765607626",
+      "description": "'The delicate art and science of filling the context window with just the right information for the next step' (~14K likes); lists task decomposition, RAG, few-shot examples, summarization and tool-result management as the constituent skills."
+    },
+    {
+      "name": "LangChain 'The rise of context engineering' (dynamic systems)",
+      "source_url": "https://blog.langchain.com/the-rise-of-context-engineering/",
+      "description": "Harrison Chase: context engineering is building dynamic systems that provide the right information and tools in the right format; most agent failures are context failures."
+    },
+    {
+      "name": "Deep agents recipe (planning tool + filesystem + sub-agents + detailed system prompt)",
+      "source_url": "https://www.youtube.com/watch?v=vtugjs2chdA",
+      "description": "Harrison Chase's distillation of Claude Code / Manus / Deep Research: a todo/planning tool, a filesystem for offloading, sub-agent delegation for isolation, and a long system prompt; 'the harness matters more than the model' for long-horizon work."
+    },
+    {
+      "name": "Research -> Plan -> Implement, frequent intentional compaction, the 'dumb zone'",
+      "source_url": "https://newsletter.pragmaticengineer.com/p/context-engineering-with-dex-horthy",
+      "description": "Dex Horthy's coding-agent workflow: keep utilization low (quality drops past ~40%), work in phases whose plan/progress files become the handoff, restart with fresh context (Ralph loop) and carry state forward in files."
+    },
+    {
+      "name": "Memory writing / management / reading (Zhang et al. memory survey)",
+      "source_url": "https://arxiv.org/abs/2404.13501",
+      "description": "The standard academic framing of agent memory (721 citations): sources, forms (textual vs parametric) and operations (writing, management, reading), with evaluation methods; complemented by the 3D-8Q taxonomy of Wu et al."
+    },
+    {
+      "name": "Hard vs soft prompt compression (Li et al. survey)",
+      "source_url": "https://arxiv.org/html/2410.12388v2",
+      "description": "Hard methods filter or paraphrase tokens (LLMLingua, Selective Context); soft methods learn compressed vectors (gist tokens, AutoCompressors, ICAE)."
+    },
+    {
+      "name": "Share full context / single-threaded agent (Cognition)",
+      "source_url": "https://cognition.com/blog/dont-build-multi-agents",
+      "description": "Counter-framing to sub-agent isolation: share full traces, avoid parallel actions that carry conflicting implicit decisions, and for very long tasks use a dedicated context-compression model; updated in 2026 to a single-writer principle."
+    }
+  ],
+  "categories": [
+    {
+      "slug": "long-term-memory-systems",
+      "name": "Long-term memory systems & memory files",
+      "stage": "write",
+      "description": "Persist knowledge outside the window and page it back in: OS-style tiered memory (MemGPT/Letta core vs archival), LLM fact-extraction memory layers (Mem0, CrewAI, Vertex AI Memory Bank), temporal knowledge-graph memory (Zep/Graphiti, cognee), and plain memory files that coding agents read at session start (CLAUDE.md, auto memory, the Anthropic memory tool, Cursor/Cline memory banks). Memory is typed as semantic / episodic / procedural and written either in the hot path or by background 'sleep-time' consolidation.",
+      "sub_techniques": [
+        "Virtual context management / OS-style memory hierarchy (MemGPT, Letta core vs archival and recall memory, demand paging)",
+        "Self-editing in-context memory blocks (memory_replace / memory_insert / memory_rethink)",
+        "LLM fact extraction with add/update/merge consolidation (Mem0, CrewAI unified Memory, ADK Memory Bank)",
+        "Temporal / bi-temporal knowledge-graph memory (Zep Graphiti, cognee, Mem0 graph variant)",
+        "Memory files: CLAUDE.md and path-scoped rules, auto memory, Anthropic memory tool (/memories), Cursor and Cline memory banks",
+        "Semantic vs episodic vs procedural memory typing (LangGraph store, LangMem, Harrison Chase)",
+        "Hot-path vs background (sleep-time agent) memory formation and consolidation",
+        "Recency / importance / relevance retrieval scoring, reflection, and forgetting curves (Generative Agents, MemoryBank, A-MEM)",
+        "Memory benchmarks (LOCOMO, LongMemEval, DMR) and memory-poisoning security"
+      ],
+      "source_count": 47,
+      "popularity_rank": 1,
+      "signals": [
+        "Largest product ecosystem in the corpus: mem0ai/mem0 63,696 stars, getzep/graphiti 30,134, topoteretes/cognee 30,146, letta-ai/letta 24,319, crewAIInc/crewAI 57,392 (memory docs)",
+        "Highest academic weight of any applied category: Generative Agents 5,211 citations, MemGPT 1,141, A-MEM 897, Zhang memory survey 721, MemoryBank 621, Mem0 559; three dedicated memory surveys",
+        "Shipped by 11+ runtimes/vendors: Anthropic memory tool, Claude Code CLAUDE.md + auto memory, LangGraph store/LangMem, LlamaIndex memory blocks, Letta, Mem0, Zep, cognee, CrewAI, Google ADK Memory Bank, OpenAI Agents SDK sessions and memory notes",
+        "Combined memory tag family (memory files 16, long-term memory 9, memory-augmented 4, memory survey 3, memory-tool 3, memory retrieval 3, short-term 3, graph/conversation/hierarchical memory, CLAUDE.md, auto-memory) is about 50 tag instances, the largest family in the frequency table",
+        "47 distinct sources across 5 of 6 sweeps (papers 12, blogs 17, frameworks 10, videos 4, community 4); HN commenters credit careful CLAUDE.md / cursor-rules curation for the best agentic-coding results",
+        "DeepLearning.AI course 'LLMs as Operating Systems: Agent Memory' and the Martin Fowler / Boeckeler survey of instruction-file configuration show mainstream practitioner adoption"
+      ],
+      "source_urls": [
+        "https://arxiv.org/abs/2310.08560",
+        "https://arxiv.org/abs/2504.19413",
+        "https://arxiv.org/abs/2404.13501",
+        "https://arxiv.org/abs/2304.03442",
+        "https://arxiv.org/pdf/2502.12110",
+        "https://arxiv.org/abs/2501.13956",
+        "https://docs.mem0.ai/platform/overview",
+        "https://docs.letta.com/guides/agents/memory-blocks/",
+        "https://www.letta.com/blog/memory-blocks/",
+        "https://code.claude.com/docs/en/memory",
+        "https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool",
+        "https://docs.langchain.com/oss/python/langgraph/add-memory",
+        "https://google.github.io/adk-docs/sessions/memory/",
+        "https://developers.llamaindex.ai/python/framework/module_guides/deploying/agents/memory/",
+        "https://www.youtube.com/watch?v=R0OdB-p-ns4"
+      ]
+    },
+    {
+      "slug": "compaction-summarization",
+      "name": "Compaction & summarization of history",
+      "stage": "compress",
+      "description": "When the window fills, replace older turns with an LLM-written summary and keep going: auto-compact at a utilization threshold (Claude Code, Cline ~80%), running or recursive summaries (LangMem RunningSummary, Recursively Summarizing), summarize-the-oldest history reducers (Semantic Kernel, Pydantic AI, OpenAI Sessions), intentional compaction at task boundaries with handoff/plan files, and sub-agents or sleep-time agents that condense on your behalf. The most universally shipped technique, with the loudest failure reports (mid-task compaction losing state) and credible contrarian evidence that masking or caching can beat it.",
+      "sub_techniques": [
+        "Auto-compact at a utilization threshold (Claude Code auto-compact, Cline >=80%, LangMem max_tokens trigger)",
+        "Recursive / running summary of older turns (Recursively Summarizing, RunningSummary, ChatHistorySummarizationReducer, MemGPT queue overflow)",
+        "Manual / intentional compaction at task boundaries (/compact with instructions, /clear with handoff, research-plan-implement, Ralph loop)",
+        "Compaction survival: re-inject CLAUDE.md and skills, PreCompact hooks, checkpoint and handoff documents, /rewind",
+        "Compress-then-report via sub-agents or a dedicated context-compression model (Anthropic research system, Cognition)",
+        "Background consolidation by sleep-time agents (Letta)",
+        "Keep-recent + summarize-older hybrids with tool-call pair preservation and summary caching (TokenPilot)",
+        "Eval-justified compaction and its alternatives (Complexity Trap observation masking; Bouchard 2026 full history + caching)"
+      ],
+      "source_count": 42,
+      "popularity_rank": 2,
+      "signals": [
+        "Highest single technique tag in the corpus: compaction/summarization 31 (+3 as summarization/compaction), twice the next tag (rag 15)",
+        "Built in by default to the most-used agent runtimes: Claude Code auto-compact (anthropics/claude-code 142,118 stars), Cline (66,545), LangGraph/LangMem (40,111 / 1,619), Semantic Kernel (28,468), OpenAI Agents SDK (28,795), Pydantic AI (19,417), Letta sleep-time agents, Anthropic API compaction in the cookbook",
+        "Strongest practitioner footprint of any category: 14 blog, 10 community and 8 video sources; named first among Anthropic's three long-horizon techniques and as 'compress' in LangChain's taxonomy; in Karpathy's definition",
+        "Community pain as an adoption signal: a cluster of 10+ auto-compact issues in anthropics/claude-code (#10948, #42590, #34299, #13919) plus cline/cline discussion #3248",
+        "Counter-evidence is itself prominent: JetBrains' Complexity Trap (masking matches summarization at ~half the cost on SWE-bench Verified) and Bouchard 2026 (prompt caching + full history beat every summarization strategy on an AI tutor)",
+        "42 distinct sources; near-tie with memory systems (47) and foundations (43), ranked above both on the single-tag count and default-shipping breadth"
+      ],
+      "source_urls": [
+        "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+        "https://code.claude.com/docs/en/context-window",
+        "https://claude.com/blog/using-claude-code-session-management-and-1m-context",
+        "https://arxiv.org/abs/2308.15022",
+        "https://arxiv.org/html/2508.21433v1",
+        "https://langchain-ai.github.io/langmem/reference/short_term/",
+        "https://docs.langchain.com/oss/python/langgraph/add-memory",
+        "https://learn.microsoft.com/en-us/semantic-kernel/concepts/ai-services/chat-completion/chat-history",
+        "https://developers.openai.com/cookbook/examples/agents_sdk/session_memory",
+        "https://pydantic.dev/docs/ai/core-concepts/message-history/",
+        "https://cognition.com/blog/dont-build-multi-agents",
+        "https://newsletter.pragmaticengineer.com/p/context-engineering-with-dex-horthy",
+        "https://github.com/anthropics/claude-code/issues/10948",
+        "https://www.louisbouchard.ai/context-engineering-2026/",
+        "https://docs.letta.com/guides/agents/architectures/sleeptime/"
+      ]
+    },
+    {
+      "slug": "model-infra-foundations",
+      "name": "Model & infra foundations: long windows, prompt caching, KV-cache, attention variants, benchmarks",
+      "stage": "foundations",
+      "description": "What the model and serving stack give you before any application-level trick: 1M-token windows (GPT-4.1, Claude Opus/Sonnet 4.6) and their real effective length (RULER, LongBench, Lost in the Middle, Chroma's context rot), vendor prompt caching and the engines behind it (PagedAttention, vLLM automatic prefix caching, SGLang RadixAttention, LMCache), inference-side KV-cache eviction and quantization (StreamingLLM, H2O, SnapKV, PyramidKV, KIVI), context extension (YaRN, Ring Attention) and bounded-memory architectures (sliding-window and hybrid attention, Infini-attention, Mamba/Jamba).",
+      "sub_techniques": [
+        "Long-context models and window extension (1M GA at standard pricing, Llama 4 10M claim, YaRN / RoPE scaling, Ring Attention)",
+        "Effective-vs-nominal context measurement: NIAH, RULER, LongBench v1/v2, Lost in the Middle, Chroma context rot (18 models)",
+        "Vendor prompt-caching economics (0.1x cached input, 1.25x writes, 5-min to 24-h TTLs; implicit vs explicit caches)",
+        "Serving-side prefix reuse: PagedAttention, vLLM hash-keyed prefix caching, RadixAttention LRU radix tree, LMCache GPU->CPU->disk KV offload and cross-instance sharing",
+        "KV-cache eviction and budgeting (attention sinks + sliding window, heavy hitters, SnapKV observation window, PyramidKV layer-wise budgets) and their pitfalls on reasoning and instruction following",
+        "KV-cache quantization (KIVI 2-bit per-channel keys / per-token values)",
+        "Bounded-memory architectures: sliding-window and 5:1 local-global attention (Mistral 7B, Gemma 3), Infini-attention compressive memory, state-space models (Mamba, Jamba hybrid)",
+        "Long-context vs RAG routing (Self-Route, U-NIAH) and the cost/latency math (quadratic prefill, linear KV growth)"
+      ],
+      "source_count": 43,
+      "popularity_rank": 3,
+      "signals": [
+        "Highest citation counts in the corpus: Lost in the Middle 4,713, StreamingLLM 2,289, LongBench 1,565, RULER 1,187, H2O 878, SnapKV 847, YaRN 611, KIVI 600, Ring Attention 562, PyramidKV 388; PagedAttention/vLLM and Mamba in the thousands",
+        "Two entire sweeps (papers and infra) are dominated by this category: 43 distinct sources after de-duplicating StreamingLLM, H2O and the Gemini caching docs",
+        "Every major vendor ships both a 1M window (GPT-4.1 Apr 2025; Claude Opus/Sonnet 4.6 GA Mar 2026, no surcharge) and prompt caching (Anthropic, OpenAI, Gemini at ~0.1x for cached tokens)",
+        "vLLM, SGLang and LMCache are the dominant OSS serving engines and all implement automatic prefix caching; LMCache is the default offload backend of vLLM production-stack",
+        "Chroma's 'context rot' report coined the term used across the practitioner literature (context rot tags 9; long-context evaluation tags 5; kv-cache eviction 5; kv-cache 3; 1m-context 3; sliding-window-attention 3; kv-sharing 3; kv-cache-management 3)",
+        "Caveat: this is an umbrella of five sub-areas; no single sub-area would rank above 6th on its own, and the signals are academic citations and vendor docs rather than practitioner adoption"
+      ],
+      "source_urls": [
+        "https://arxiv.org/abs/2307.03172",
+        "https://www.trychroma.com/research/context-rot",
+        "https://arxiv.org/abs/2404.06654",
+        "https://arxiv.org/abs/2308.14508",
+        "https://arxiv.org/html/2309.17453v3",
+        "https://huggingface.co/papers/2306.14048",
+        "https://arxiv.org/abs/2404.14469",
+        "https://arxiv.org/abs/2402.02750",
+        "https://arxiv.org/abs/2309.06180",
+        "https://docs.vllm.ai/en/v0.9.2/design/automatic_prefix_caching.html",
+        "https://www.lmsys.org/blog/2024-01-17-sglang/",
+        "https://proceedings.iclr.cc/paper_files/paper/2024/file/874a4d89f2d04b4bcf9a2c19545cf040-Paper-Conference.pdf",
+        "https://claude.com/blog/1m-context-ga",
+        "https://arxiv.org/pdf/2503.17407",
+        "https://arxiv.org/abs/2312.00752"
+      ]
+    },
+    {
+      "slug": "retrieval-jit-context-loading",
+      "name": "Retrieval & just-in-time context loading (RAG, agentic search, tool selection)",
+      "stage": "select",
+      "description": "Do not preload; fetch the right slice at the moment it is needed. Classic and agentic RAG over documents, code-aware retrieval (aider's tree-sitter repo map, Sourcegraph code search, Cline @mentions), host-controlled resources via MCP, lightweight identifiers the agent follows itself (Anthropic's just-in-time retrieval with grep/glob/file paths), retrieval over memories and tool descriptions (tool loadout), and routing between retrieval and raw long context.",
+      "sub_techniques": [
+        "Naive / advanced / modular RAG with retrieval evals (precision/recall, synthetic eval data, query routing, specialized indices)",
+        "Agentic RAG: single-agent, multi-agent, hierarchical, corrective and adaptive retrieval loops with planning and reflection",
+        "Just-in-time retrieval via lightweight references (file paths, URIs, grep/glob) and progressive disclosure of detail",
+        "Code-aware retrieval: tree-sitter repo map ranked by PageRank into ~1K tokens, code search, @file/@url mentions",
+        "Application-controlled context via MCP resources (URI-addressed, list/read/subscribe)",
+        "Tool selection / tool loadout (RAG over tool descriptions; more than ~20 tools confuses models)",
+        "Retrieval over memories (semantic/vector, graph) as a special case of select",
+        "Long-context vs RAG routing (Self-Route) and hybrid retrieve-then-long-context"
+      ],
+      "source_count": 26,
+      "popularity_rank": 4,
+      "signals": [
+        "rag is the second-highest single tag (15) plus retrieval 7, semantic retrieval 3, memory retrieval 3 and just-in-time-retrieval; 26 distinct sources across all five applied sweeps",
+        "Biggest OSS ecosystems among the selection tools: run-llama/llama_index 51,770 stars, aider ~35K (repo map reimplemented by multiple tools), langchain 144,642; MCP spec repo 9,007 stars and adopted by Claude, OpenAI and Google SDKs",
+        "Academic weight: the Gao RAG survey is among the most-cited RAG papers (count not captured), Agentic RAG survey 393 citations, RECOMP 303, Self-Route 169, U-NIAH 25",
+        "Anthropic's 'just-in-time retrieval' and LangChain's 'select' both elevate retrieval to a first-class strategy; Breunig's six fixes open with RAG and tool loadout",
+        "The long-context-vs-RAG debate (Self-Route, U-NIAH, Bouchard explainer, 'RAG is a hack') consistently concludes retrieval survives as the cost-control path even with 1M windows",
+        "Within the noise band of isolation (27) and offloading (28) on raw count; ranked above them on tag frequency and ecosystem size"
+      ],
+      "source_urls": [
+        "https://arxiv.org/abs/2312.10997",
+        "https://arxiv.org/abs/2501.09136",
+        "https://arxiv.org/abs/2407.16833",
+        "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+        "https://www.langchain.com/blog/context-engineering-for-agents",
+        "https://aider.chat/2023/10/22/repomap.html",
+        "https://modelcontextprotocol.io/specification/2025-06-18/server/resources",
+        "https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html",
+        "https://www.latent.space/p/llamaindex",
+        "https://christianjmills.com/posts/mastering-llms-course-notes/conference-talk-010/",
+        "https://www.louisbouchard.ai/long-context-vs-rag/",
+        "https://arxiv.org/abs/2507.13334",
+        "https://sourcegraph.com/blog/context-engineering",
+        "https://www.youtube.com/watch?v=jVGCulhBRZI"
+      ]
+    },
+    {
+      "slug": "offloading-cache-friendly-prompt-design",
+      "name": "Context offloading & cache-friendly prompt structure (file system as context, stable prefixes, own your window)",
+      "stage": "write",
+      "description": "Treat the window as a deliberately laid-out, append-only buffer and everything else as external state. Write tool outputs, plans and notes to a filesystem or scratchpad and keep pointers; recite goals via todo.md; keep prompt prefixes stable and append-only so the KV-cache hit rate stays high; mask tools instead of removing them; own the serialization format of the event log (12-factor); set system-prompt altitude, curate tools, budget tokens and instrument what is actually in the window.",
+      "sub_techniques": [
+        "File system as unlimited context: offload tool outputs, plans and notes to disk and keep reversible pointers (Manus, deep agents, HN 'extract evidence then evict raw output')",
+        "Scratchpads, plan/spec files and todo.md recitation to keep goals in the recent-attention span",
+        "Stable, append-only prefix with cache_control breakpoints or implicit caching; KV-cache hit rate as the key production metric (10x cached/uncached price gap)",
+        "Mask, don't remove: logit-mask tool availability so the prefix stays cacheable",
+        "Own your context window: custom token-dense serialization of state and event log instead of the framework message list (12-factor Factor 3)",
+        "System-prompt altitude, tool curation and progressive disclosure (Anthropic)",
+        "Keep errors in context and avoid few-shot ruts",
+        "Token budgeting and utilization thresholds (Dex Horthy's ~40% 'dumb zone', Cline's 70-80% degradation) plus context observability"
+      ],
+      "source_count": 28,
+      "popularity_rank": 5,
+      "signals": [
+        "The Manus post is described as one of the most-shared context-engineering posts of 2025 and spawned a LangChain video, a Lance Martin write-up and an HN thread; 12-Factor Agents drew 475 HN points, two conference talks and a widely starred repo",
+        "All three major vendor APIs ship prompt caching (Anthropic cache_control 1.25x write / 0.1x read; OpenAI automatic >=1024 tokens at 0.1x; Gemini implicit + explicit at ~10%), making prefix stability a universal lever",
+        "Tags: prompt-caching 8 (+2), context-offloading 5 (+3), token-budgeting 4, own your context window 3, stable-prefix 2, recitation, file-system-as-context; 28 distinct sources",
+        "Harrison Chase's 'Filesystems for context engineering!' and the deep-agents recipe (planning tool + filesystem + sub-agents) make offloading the default primitive in LangChain's agent stack",
+        "HN discussion of Anthropic's post (148 points) converges on 'tool calls dominate context bloat' -> evict raw tool output and keep retrieval keys",
+        "2026 research (TokenPilot) formalizes compaction that preserves cache prefixes, showing the caching and compaction levers are now co-designed"
+      ],
+      "source_urls": [
+        "https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus",
+        "https://www.youtube.com/watch?v=6_BcCthVvb8",
+        "https://rlancemartin.github.io/2025/10/15/manus/",
+        "https://github.com/humanlayer/12-factor-agents/blob/main/content/factor-03-own-your-context-window.md",
+        "https://www.youtube.com/watch?v=8kMaTybvDUw",
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+        "https://developers.openai.com/api/docs/guides/prompt-caching",
+        "https://ai.google.dev/gemini-api/docs/caching",
+        "https://www.latent.space/p/context-engineering-for-agents-lance",
+        "https://x.com/hwchase17/status/1996654615262367923",
+        "https://www.youtube.com/watch?v=vtugjs2chdA",
+        "https://news.ycombinator.com/item?id=45418251",
+        "https://arxiv.org/pdf/2606.17016",
+        "https://cline.bot/blog/clines-context-window-explained-maximize-performance-minimize-cost",
+        "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+      ]
+    },
+    {
+      "slug": "sub-agent-isolation",
+      "name": "Isolation via sub-agents, multi-agent and sandboxed state",
+      "stage": "isolate",
+      "description": "Give each piece of work its own context window: orchestrator-worker sub-agents that explore with clean context and return condensed findings (Anthropic research system, Claude Code and Agent SDK subagents, deep agents), context quarantine, small focused agents (3-10 steps), fresh context per iteration, and sandboxes or state schemas that keep heavy objects out of the prompt. Accompanied by a live debate about when parallel agents lose shared context (Cognition) and the 2026 single-writer compromise.",
+      "sub_techniques": [
+        "Orchestrator-workers / lead agent + subagents with independent windows that return condensed summaries (uses ~15x tokens)",
+        "Claude Code / Agent SDK subagents with their own system prompt, tools, permissions and context window",
+        "Context quarantine and small focused agents (3-10 steps); fresh context per iteration (Ralph loop)",
+        "Deep-agents recipe: planning tool + filesystem + sub-agent delegation",
+        "State schemas and sandboxes that keep large objects out of LLM context (LangGraph state, code sandboxes)",
+        "Single-writer principle: extra agents contribute intelligence (review, research) while one thread owns actions (Cognition 2026)",
+        "Context routing between agents in production multi-agent frameworks (Google ADK)",
+        "Share-full-context counterargument and the dedicated context-compression model (Cognition)"
+      ],
+      "source_count": 27,
+      "popularity_rank": 6,
+      "signals": [
+        "Tags: sub-agent-isolation 10 + sub-agent isolation 8 + small focused agents 3 = 21; 27 distinct sources",
+        "Anchored by the two most-debated posts in the space: Anthropic's multi-agent research system and Cognition's 'Don't Build Multi-Agents', plus Walden Yan's 2026 single-writer update and Google's production multi-agent guidance",
+        "Shipped natively: Claude Code subagents (anthropics/claude-code 142,118 stars), Claude Agent SDK (7,942), LangGraph deep agents, Google ADK; multi-agent frameworks CrewAI (57,392) and AutoGen (60,540) appear in the corpus through their memory/context docs",
+        "Named as one of Anthropic's three long-horizon techniques, LangChain's 'isolate', Breunig's 'context quarantine' and 12-factor Factor 10 (HN 475 points)",
+        "Harrison Chase's deep-agents talks (Sequoia, NVIDIA, AI Engineer) and Lance Martin's Anthropic talk treat sub-agent delegation as a standard harness component",
+        "Within the noise band of retrieval (26) and offloading (28) on raw count; fewer tag instances and a stronger counter-movement (Cognition) place it sixth"
+      ],
+      "source_urls": [
+        "https://www.anthropic.com/engineering/multi-agent-research-system",
+        "https://cognition.com/blog/dont-build-multi-agents",
+        "https://x.com/walden_yan/status/2047054554433462360",
+        "https://www.anthropic.com/engineering/building-effective-agents",
+        "https://code.claude.com/docs/en/agent-sdk/subagents",
+        "https://claude.com/blog/using-claude-code-session-management-and-1m-context",
+        "https://www.langchain.com/blog/context-engineering-for-agents",
+        "https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html",
+        "https://developers.googleblog.com/architecting-efficient-context-aware-multi-agent-framework-for-production/",
+        "https://www.youtube.com/watch?v=c-fsL0gsmo0",
+        "https://www.youtube.com/watch?v=9QebvrrY3KY",
+        "https://news.ycombinator.com/item?id=43699271",
+        "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+        "https://platform.claude.com/cookbook/tool-use-context-engineering-context-engineering-tools"
+      ]
+    },
+    {
+      "slug": "pruning-context-editing",
+      "name": "Pruning, trimming & context editing (tool-result clearing, observation masking, sliding windows)",
+      "stage": "compress",
+      "description": "Delete rather than summarize: keep the last N turns or tokens, drop or mask old tool observations and reasoning blocks, and clear stale tool results server-side as limits approach. Cheap, deterministic and cache-friendly; JetBrains' Complexity Trap shows plain observation masking matches LLM summarization on SWE-bench Verified at roughly half the cost.",
+      "sub_techniques": [
+        "Sliding window / last-N messages or tokens (AutoGen BufferedChatCompletionContext, LangGraph trim_messages, Semantic Kernel truncation reducer, OpenAI trimming sessions)",
+        "Tool-result and thinking-block clearing (Anthropic context editing: clear_tool_uses, clear_thinking, trigger thresholds, keep-N, exclusions)",
+        "Observation masking / eliding old tool outputs (Complexity Trap)",
+        "Message-pruning APIs: Vercel AI SDK pruneMessages, LangGraph RemoveMessage, Pydantic AI history processors",
+        "Keep-or-drop rules for tool results and tool-call pair preservation",
+        "Token-budget flush of short-term history into long-term memory blocks (LlamaIndex)",
+        "Usage-aware pruning triggered by live token counts (RunContext)",
+        "Manual history ownership as a typed input field (DSPy History)"
+      ],
+      "source_count": 19,
+      "popularity_rank": 7,
+      "signals": [
+        "Shipped by 8+ frameworks and one vendor API: Anthropic context editing, LangGraph (40,111 stars), Vercel AI SDK pruneMessages (26,324), AutoGen (60,540), Semantic Kernel (28,468), OpenAI Agents SDK (28,795), Pydantic AI (19,417), LlamaIndex (51,770)",
+        "Tags: context-editing 3, tool-result-clearing 3, context-pruning 3, observation masking, message trimming/pruning; 19 distinct sources",
+        "Strongest single piece of evidence in the applied literature: JetBrains' Complexity Trap (SWE-bench Verified) shows masking cuts cost ~50% and matches or beats summarization",
+        "Anthropic's context-management launch reports measurable gains on agentic-search evals from context editing paired with the memory tool, and the API is designed to be prompt-cache friendly",
+        "Recommended as 'context pruning' in Breunig's fixes and as 'tool-result pruning with keep-or-drop rules' in 2026 playbooks; HN threads converge on evicting raw tool output first",
+        "Lower source count than compaction because most frameworks document trim and summarize side by side; a practitioner usually meets it as the cheaper sibling of compaction"
+      ],
+      "source_urls": [
+        "https://arxiv.org/html/2508.21433v1",
+        "https://claude.com/blog/context-management",
+        "https://platform.claude.com/docs/en/build-with-claude/context-editing",
+        "https://ai-sdk.dev/docs/reference/ai-sdk-ui/prune-messages",
+        "https://docs.langchain.com/oss/python/langgraph/add-memory",
+        "https://microsoft.github.io/autogen/stable//user-guide/core-user-guide/components/model-context.html",
+        "https://learn.microsoft.com/en-us/semantic-kernel/concepts/ai-services/chat-completion/chat-history",
+        "https://cookbook.openai.com/examples/agents_sdk/session_memory",
+        "https://pydantic.dev/docs/ai/core-concepts/message-history/",
+        "https://developers.llamaindex.ai/python/framework/module_guides/deploying/agents/memory/",
+        "https://www.dbreunig.com/2025/06/26/how-to-fix-your-context.html",
+        "https://www.digitalapplied.com/blog/context-engineering-agent-reliability-playbook-2026",
+        "https://platform.claude.com/cookbook/tool-use-context-engineering-context-engineering-tools",
+        "https://dspy.ai/tutorials/conversation_history/"
+      ]
+    },
+    {
+      "slug": "prompt-compression",
+      "name": "Prompt / context compression (token pruning and soft-prompt gisting)",
+      "stage": "compress",
+      "description": "Shrink a prompt's token count without changing its meaning: hard methods that drop low-information tokens with a small LM or a distilled classifier (LLMLingua family, Selective Context), question-aware reordering to counter lost-in-the-middle (LongLLMLingua), compression of retrieved passages before prepending (RECOMP), and soft methods that train the model to read compressed vectors (gist tokens, AutoCompressors, ICAE). Academically strong and well-cited, but rarely shipped inside agent frameworks.",
+      "sub_techniques": [
+        "Perplexity / self-information token pruning with a small LM (LLMLingua, Selective Context)",
+        "Distilled token-classification compressors, task-agnostic and 3-6x faster (LLMLingua-2)",
+        "Question-aware coarse-to-fine compression plus document reordering for long RAG contexts (LongLLMLingua)",
+        "Extractive / abstractive compression of retrieved documents with selective augmentation (RECOMP)",
+        "Soft-prompt gisting: gist tokens (26x), AutoCompressors summary vectors, ICAE memory slots",
+        "Compression-based denoising of memory units (SeCom)",
+        "Budget controllers that allocate compression ratios across instructions, demonstrations and questions"
+      ],
+      "source_count": 12,
+      "popularity_rank": 8,
+      "signals": [
+        "High per-paper citations: LongLLMLingua 522, gist tokens 425, AutoCompressors 384, LLMLingua-2 356, LLMLingua 315, RECOMP 303, ICAE 188, prompt-compression survey 75, Selective Context 66",
+        "microsoft/LLMLingua repo 6.6K stars (EMNLP 2023 / ACL 2024), the only dedicated OSS tool for the category in the corpus",
+        "Tags: prompt compression (token pruning) 4, soft-prompt/gist compression 3; 12 distinct sources",
+        "Almost entirely academic: 10 of 12 sources come from the papers sweep, one is an awesome-list and one the repo; no agent framework, vendor API or practitioner blog in the corpus ships it natively",
+        "Its ideas leak into other categories (LLMLingua-2 denoising inside SeCom memory; LongLLMLingua's reordering as a lost-in-the-middle fix), which is where practitioners actually encounter them"
+      ],
+      "source_urls": [
+        "https://arxiv.org/abs/2310.05736",
+        "https://arxiv.org/abs/2310.06839",
+        "https://arxiv.org/abs/2403.12968",
+        "https://github.com/microsoft/LLMLingua",
+        "https://arxiv.org/html/2410.12388v2",
+        "https://arxiv.org/abs/2304.08467",
+        "https://arxiv.org/abs/2305.14788",
+        "https://arxiv.org/abs/2307.06945",
+        "https://arxiv.org/abs/2304.12102",
+        "https://arxiv.org/abs/2310.04408",
+        "https://arxiv.org/pdf/2502.05589",
+        "https://github.com/jihoo-kim/awesome-context-engineering"
+      ]
+    }
+  ],
+  "notes": "Method: each of the 164 sources was read from its summary and tags and assigned to every category it substantively covers (multi-technique sources such as the Anthropic, LangChain, Manus, Breunig and Lance Martin pieces therefore appear in several categories). Near-duplicate entries were counted once per category (StreamingLLM and H2O each appear at two URLs, the Gemini caching doc at two URLs, the OpenAI session-memory cookbook at two domains, and the Lance Martin Latent Space episode as text and video). source_count is the de-duplicated count of distinct sources. Ranking = source_count plus external signals (stars, citations, HN points, how many frameworks ship the technique). Three ties had to be broken: (a) memory systems (47) vs compaction (42) vs foundations (43) -- memory is ranked first because it leads on count, star counts and citations and is shipped by 11+ runtimes; compaction is ranked above foundations despite one fewer source because compaction/summarization is the single most frequent tag (31, twice the next) and is a default behaviour in every agent runtime, whereas foundations is an umbrella of five sub-areas whose signals are academic citations rather than adoption. (b) retrieval (26) vs offloading/cache design (28) vs isolation (27) are within noise on count; retrieval is placed fourth on tag frequency (rag 15, second-highest tag) and ecosystem size (LlamaIndex, aider, MCP), offloading fifth on the Manus/12-factor/vendor-caching signals, isolation sixth on its lower tag count (21) and the prominent Cognition counter-movement. (c) pruning (19) is ranked above prompt compression (12) because it is shipped by 8+ frameworks and one vendor API, while prompt compression is well-cited but lives almost entirely in papers. Stage mapping follows LangChain's write/select/compress/isolate: memory systems and offloading/cache-friendly design are both 'write' (state written outside the window), retrieval is 'select', compaction/pruning/prompt-compression are three grades of 'compress' (LLM-rewritten, deleted, token-level), sub-agents are 'isolate', and long-context models, caching infrastructure, KV-cache methods, attention variants and benchmarks are 'foundations'. Counts are sensitive to strictness: a stricter 'primary topic only' filter lowers memory to ~44, compaction to ~36 and foundations to ~40 without changing the order of the top three or the bottom two."
+}
