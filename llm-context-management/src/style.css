@@ -55,6 +55,7 @@ figcaption b{color:var(--ink)}
 .swipe{display:none;color:var(--accent);font-weight:600}
 @media (max-width:700px){.swipe{display:inline}}
 figure.rail{background:var(--bg);padding:10px 10px 8px;margin:6px 0 10px}
+.wrap figure.breakout{width:min(1160px,calc(100vw - 40px));max-width:none;position:relative;left:50%;transform:translateX(-50%)}
 .table-wrap{overflow-x:auto;margin-top:10px}
 table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
 th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--hair);vertical-align:top}

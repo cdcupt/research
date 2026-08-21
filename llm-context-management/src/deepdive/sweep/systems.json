@@ -1,0 +1,275 @@
+{
+  "sources": [
+    {
+      "title": "Context Parallelism for Scalable Million-Token Inference",
+      "url": "https://arxiv.org/abs/2411.01783",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Amy Yang, Jingyi Yang, Aya Ibrahim et al. (arXiv, v1 Nov 4 2024; v3 Apr 21 2025)",
+      "topics": ["context parallelism", "ring attention", "multi-node prefill", "TTFT at 1M tokens", "pass-KV", "pass-Q"],
+      "summary": "Shows that million-token prefill is a multi-node distributed-systems problem rather than an impossibility: ring-style context parallelism with pass-KV and pass-Q attention variants spreads a single 1M-token prompt across 128 H100 GPUs in 16 nodes and reaches 1M-context prefill of Llama3 405B in 77 seconds. The headline is that the bottleneck is time-to-first-token and GPU-seconds, not feasibility.",
+      "key_facts": [
+        "1M-token context prefill of Llama3 405B in 77s on up to 128 H100 GPUs across 16 nodes (arxiv.org/abs/2411.01783)",
+        "93% parallelization efficiency and 63% FLOPS utilization at 1M context (arxiv.org/abs/2411.01783)",
+        "128K-token context prefill in 3.8s on the same setup (arxiv.org/abs/2411.01783)",
+        "Introduces pass-KV and pass-Q ring attention variants for inference context parallelism (arxiv.org/abs/2411.01783)"
+      ]
+    },
+    {
+      "title": "Mooncake: A KVCache-centric Disaggregated Architecture for LLM Serving",
+      "url": "https://arxiv.org/html/2407.00079",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Ruoyu Qin, Zheming Li, Weiran He, Mingxing Zhang et al., Moonshot AI + Tsinghua University (arXiv 2407.00079v4, Sep 3 2025; v1 2024)",
+      "topics": ["disaggregated prefill/decode", "KV cache offload", "CPU DRAM + SSD KV store", "RDMA KV transfer", "chunked pipeline parallel prefill", "Kimi serving"],
+      "summary": "Production serving architecture behind Kimi: prefill and decode run on separate clusters, and the KV cache lives in a disaggregated pool built from the CPU DRAM and SSD of the GPU servers, moved over RDMA. Long prompts are prefilled with chunked pipeline parallelism and layer-wise async KVCache transfer. Reported real-world effect: Kimi handles 75% more requests; simulations show 50%-525% throughput gains.",
+      "key_facts": [
+        "Up to 525% throughput increase in certain simulated scenarios; 50%-525% depending on scenario (arxiv.org/html/2407.00079)",
+        "In real production, Mooncake lets Kimi handle 75% more requests (arxiv.org/html/2407.00079)",
+        "KVCache pool built from CPU DRAM and SSD of GPU nodes; 80GB HBM per A800 GPU; 800 Gbps RDMA interconnect (arxiv.org/html/2407.00079)",
+        "Chunked Pipeline Parallelism (CPP) and layer-wise prefill with asynchronous KVCache transfer for long contexts (arxiv.org/html/2407.00079)",
+        "Context lengths tested 16k, 32k, 64k, 128k; production trace avg input 7,590 tokens, avg output 182 tokens, 23,608 requests over 1 hour (arxiv.org/html/2407.00079)",
+        "Cache hit ratio of about 50% achievable with adequate storage; SLOs TTFT_P90 = 10x baseline, TBT_P90 = 5x baseline (arxiv.org/html/2407.00079)"
+      ]
+    },
+    {
+      "title": "Mooncake open-source KVCache store and production trace (GitHub)",
+      "url": "https://github.com/kvcache-ai/Mooncake",
+      "type": "repo",
+      "year": 2025,
+      "venue_or_author": "kvcache-ai / Moonshot AI",
+      "topics": ["KV cache store", "disaggregated serving", "production trace dataset"],
+      "summary": "Repository linked from the Mooncake paper as the open-source home of the KVCache-centric serving components and the 1-hour Kimi production request trace used in the paper's evaluation.",
+      "key_facts": [
+        "Open-sources the Mooncake trace dataset of 23,608 production requests referenced in arXiv:2407.00079 (arxiv.org/html/2407.00079)"
+      ]
+    },
+    {
+      "title": "A Survey on Large Language Model Acceleration based on KV Cache Management",
+      "url": "https://arxiv.org/html/2412.19442",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Haoyang Li, Yiming Li, Anxin Tian et al. (arXiv 2412.19442v3, Jul 30 2025)",
+      "topics": ["KV cache", "token eviction", "KV quantization", "budget allocation", "system-level KV management", "taxonomy"],
+      "summary": "Taxonomy of KV-cache optimizations at token level (selection/eviction, budget allocation, merging, quantization, low-rank), model level, and system level (memory management, scheduling, hardware-aware). Useful as the map of serving-time compression techniques (H2O, SnapKV, StreamingLLM, KIVI, CacheGen, PyramidKV, InfiniGen, FlexGen) and gives the linear KV-growth formula that explains why long contexts are memory-bound.",
+      "key_facts": [
+        "KV cache extra memory is O(L*h*t_o*(d_k+d_v)*sizeof(Float16)): linear in cached tokens x layers x heads x head dims (arxiv.org/html/2412.19442)",
+        "H2O keeps 'Heavy Hitter' tokens chosen by cumulative attention scores; SnapKV uses an observation window to score important tokens (arxiv.org/html/2412.19442)",
+        "StreamingLLM keeps initial 'attention sink' tokens plus recent context via the attention mask (arxiv.org/html/2412.19442)",
+        "KIVI quantizes keys per-channel and values per-token, keeping recent KVs in full precision; CacheGen uses layer-wise asymmetric quantization with delta encoding (arxiv.org/html/2412.19442)",
+        "PyramidKV allocates larger KV budgets to lower layers, shrinking upward; InfiniGen prefetches salient KV indices asynchronously; FlexGen uses per-token KV quantization (arxiv.org/html/2412.19442)"
+      ]
+    },
+    {
+      "title": "Chain of Agents: Large language models collaborating on long-context tasks",
+      "url": "https://research.google/blog/chain-of-agents-large-language-models-collaborating-on-long-context-tasks/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Yusen Zhang and Ruoxi Sun, Google Research (Jan 23 2025)",
+      "topics": ["multi-agent decomposition", "chain-of-agents", "RAG vs long context", "interleaved read-process", "distribute the problem"],
+      "summary": "Evidence for the 'distribute the problem instead of the window' answer: a chain of worker agents each reads a chunk and passes accumulated evidence forward, and a manager synthesizes the answer. With only 8k-token workers it beat both RAG and 200k-window full-context baselines on all eight datasets, with gains growing sharply beyond 400k input tokens. Also states why RAG fails (multi-hop first-hop chunks lack semantic similarity to the query) and why long windows fail (ineffective context utilization, quadratic cost).",
+      "key_facts": [
+        "Up to 10% improvement over RAG and full-context baselines across all eight datasets (research.google blog, Jan 23 2025)",
+        "About 100% improvement when input exceeds 400k tokens (research.google blog)",
+        "CoA workers used 8k-token windows vs baselines at 8k and 200k tokens (research.google blog)",
+        "Evaluated on HotpotQA, MuSiQue, RepoBench-P, NarrativeQA, Qasper, QuALITY, QMSum, GovReport, BookSum with PaLM 2, Gemini Ultra, Claude 3 Haiku/Sonnet/Opus (research.google blog)",
+        "Paper link given in the post: https://openreview.net/pdf?id=LuCLf4BJsr (research.google blog)"
+      ]
+    },
+    {
+      "title": "Introducing NVIDIA Dynamo, A Low-Latency Distributed Inference Framework for Scaling Reasoning AI Models",
+      "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "NVIDIA Developer Blog (Mar 18 2025)",
+      "topics": ["disaggregated serving", "KV-aware routing", "KV offload to CPU/SSD/object storage", "NIXL", "GB200 NVL72", "prefill compute-bound vs decode memory-bound"],
+      "summary": "NVIDIA's open inference framework formalizes the distributed answer: a planner splits GPUs between prefill and decode, a radix-tree smart router sends requests to the GPU already holding the matching KV prefix, a distributed KV cache manager offloads cold blocks to host memory, local storage, or networked object storage, and NIXL moves KV between devices over UCX/GDS/S3 backends.",
+      "key_facts": [
+        "Up to 30x throughput for DeepSeek-R1 671B on GB200 NVL72 with Dynamo (developer.nvidia.com Dynamo blog, Mar 18 2025)",
+        "More than 2x throughput for Llama 70B on Hopper (developer.nvidia.com Dynamo blog)",
+        "Rationale: prefill is compute-bound, decode is memory-bound; use low tensor parallelism for prefill and high TP for decode (developer.nvidia.com Dynamo blog)",
+        "Smart Router tracks KV across GPUs with a Radix Tree and computes overlap scores to minimize recomputation (developer.nvidia.com Dynamo blog)",
+        "KV Cache Manager offloads less-used blocks to CPU host memory, local storage, or networked object storage; NIXL supports UCX, GDS, S3 backends (developer.nvidia.com Dynamo blog)"
+      ]
+    },
+    {
+      "title": "Asking an Encyclopedia-Sized Question: How To Make the World Smarter with Multi-Million Token Real-Time Inference (Helix Parallelism)",
+      "url": "https://developer.nvidia.com/blog/asking-an-encyclopedia-sized-question-how-to-make-the-world-smarter-with-multi-million-token-real-time-inference/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "NVIDIA Developer Blog (Jul 7 2025)",
+      "topics": ["Helix parallelism", "multi-million-token decode", "KV cache streaming bandwidth", "FFN weight loading", "HBM bandwidth", "NVL72"],
+      "summary": "The clearest statement of the decode-side hardware bottleneck at million-token contexts: every generated token must stream the whole KV history from DRAM and re-load FFN weights, saturating memory bandwidth and raising token-to-token latency. Helix Parallelism shards attention (KV) and FFN differently in a temporal pipeline across NVL72 to raise concurrency at fixed latency.",
+      "key_facts": [
+        "Two decode bottlenecks named: KV cache streaming from DRAM per sample and FFN weight loading per step (developer.nvidia.com Helix blog, Jul 7 2025)",
+        "Up to 32x more concurrent users at fixed latency and up to 1.5x lower minimum token-to-token latency (developer.nvidia.com Helix blog)",
+        "Tested at 1 million token context with DeepSeek-R1 671B, FP4, on a simulator calibrated to GB200 NVL72 (developer.nvidia.com Helix blog)",
+        "Helix Parallelism defined as a hybrid sharding strategy that disaggregates attention and FFN parallelism in a temporal pipeline (developer.nvidia.com Helix blog)"
+      ]
+    },
+    {
+      "title": "DeepSpeed-Ulysses: System Optimizations for Enabling Training of Extreme Long Sequence Transformer Models (blog)",
+      "url": "https://github.com/microsoft/DeepSpeed/blob/master/blogs/deepspeed-ulysses/README.md",
+      "type": "blog",
+      "year": 2023,
+      "venue_or_author": "Microsoft DeepSpeed team",
+      "topics": ["sequence parallelism", "all-to-all attention", "long-sequence training", "Megatron-LM SP comparison", "1M-token training"],
+      "summary": "Training-side sequence parallelism: each sample is split along the sequence dimension across GPUs; an all-to-all before attention gives each GPU the full sequence for a subset of heads, and a second all-to-all re-partitions by sequence. Enables over 1M-token training and beats Megatron-LM sequence parallelism on length and communication, but notes that local quadratic attention still dominates at extreme lengths.",
+      "key_facts": [
+        "Trains with over a million tokens of sequence length; 4x longer sequences than Megatron-LM SP (DeepSpeed-Ulysses README)",
+        "Over 10x communication reduction vs comparable approaches; 2.5x throughput, up to 175 TFLOPs/GPU (54% of peak) (DeepSpeed-Ulysses README)",
+        "Scalability test: 1.2B-parameter GPT at 1M tokens (DeepSpeed-Ulysses README)",
+        "Limitation: throughput primarily determined by local attention compute due to quadratic complexity for dense attention (DeepSpeed-Ulysses README)",
+        "Technical report: arXiv:2309.14509 (DeepSpeed-Ulysses README)"
+      ]
+    },
+    {
+      "title": "DeepSpeed Ulysses: System Optimizations for Enabling Training of Extreme Long Sequence Transformer Models (paper)",
+      "url": "https://arxiv.org/abs/2309.14509",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Microsoft DeepSpeed (arXiv 2309.14509)",
+      "topics": ["sequence parallelism", "all-to-all", "long context training"],
+      "summary": "arXiv technical report for DeepSpeed-Ulysses; URL derived from the arXiv ID cited in the DeepSpeed README fetched above. Facts are as reported in that README.",
+      "key_facts": [
+        "All-to-all on Q/K/V so each GPU holds the full sequence for a non-overlapping subset of attention heads (per DeepSpeed-Ulysses README citing arXiv:2309.14509)"
+      ]
+    },
+    {
+      "title": "Efficient Memory Management for Large Language Model Serving with PagedAttention (vLLM)",
+      "url": "https://arxiv.org/abs/2309.06180",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Woosuk Kwon, Zhuohan Li, Siyuan Zhuang, Ying Sheng, Lianmin Zheng et al., SOSP 2023 (submitted Sep 12 2023)",
+      "topics": ["PagedAttention", "KV cache paging", "vLLM", "memory sharing", "serving throughput"],
+      "summary": "Foundational serving-side KV memory management: the KV cache is stored in non-contiguous paged blocks like virtual memory, giving near-zero waste and enabling KV sharing across requests, which raised throughput 2-4x over FasterTransformer and Orca at equal latency. Basis for later prefix caching and KV offload work.",
+      "key_facts": [
+        "vLLM improves throughput of popular LLMs by 2-4x at the same latency vs FasterTransformer and Orca (arxiv.org/abs/2309.06180)",
+        "PagedAttention achieves near-zero waste in KV cache memory (arxiv.org/abs/2309.06180)",
+        "Published at SOSP 2023; arXiv submission Sep 12 2023 (arxiv.org/abs/2309.06180)"
+      ]
+    },
+    {
+      "title": "SGLang: Efficient Execution of Structured Language Model Programs (RadixAttention)",
+      "url": "https://arxiv.org/abs/2312.07104",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Lianmin Zheng et al. (arXiv 2312.07104), cited as ref [34] in Mooncake",
+      "topics": ["RadixAttention", "prefix caching", "KV cache reuse", "SGLang"],
+      "summary": "Cited by Mooncake as the RadixAttention prefix-sharing system; a radix tree over token prefixes lets multiple requests reuse the same KV cache. The same radix-tree idea reappears in NVIDIA Dynamo's KV-aware smart router. URL derived from the arXiv ID in the fetched Mooncake reference list; not fetched directly.",
+      "key_facts": [
+        "Cited in Mooncake (arXiv:2407.00079) as SGLang RadixAttention, arXiv:2312.07104 (arxiv.org/html/2407.00079)",
+        "Dynamo Smart Router uses a Radix Tree over distributed KV caches to compute overlap scores for routing (developer.nvidia.com Dynamo blog)"
+      ]
+    },
+    {
+      "title": "DistServe: Disaggregating Prefill and Decoding for Goodput-optimized LLM Serving",
+      "url": "https://arxiv.org/abs/2401.09670",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "arXiv 2401.09670, cited as ref [8] in Mooncake",
+      "topics": ["disaggregated prefill/decode", "goodput", "serving"],
+      "summary": "Cited by Mooncake as a prior prefill/decode disaggregation system. URL derived from the arXiv ID in the fetched Mooncake reference list; not fetched directly, so no independent numbers are claimed here.",
+      "key_facts": [
+        "Listed in Mooncake related work as DistServe, arXiv:2401.09670 (arxiv.org/html/2407.00079)"
+      ]
+    },
+    {
+      "title": "Splitwise: Efficient generative LLM inference using phase splitting",
+      "url": "https://arxiv.org/abs/2311.18677",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Patel et al., arXiv 2311.18677, cited as ref [7] in Mooncake",
+      "topics": ["phase splitting", "disaggregated prefill/decode", "heterogeneous GPUs"],
+      "summary": "Cited by Mooncake as a prior system that splits the prompt (prefill) and token-generation (decode) phases onto different machines. URL derived from the arXiv ID in the fetched Mooncake reference list; not fetched directly.",
+      "key_facts": [
+        "Listed in Mooncake related work as Splitwise, Patel et al., arXiv:2311.18677 (arxiv.org/html/2407.00079)"
+      ]
+    },
+    {
+      "title": "TetriInfer (inference serving with prefill/decode separation)",
+      "url": "https://arxiv.org/abs/2401.11181",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Hu et al., arXiv 2401.11181, cited as ref [9] in Mooncake",
+      "topics": ["disaggregated serving", "scheduling"],
+      "summary": "Cited by Mooncake among disaggregated serving systems. URL derived from the arXiv ID in the fetched Mooncake reference list; not fetched directly.",
+      "key_facts": [
+        "Listed in Mooncake related work as TetriInfer, Hu et al., arXiv:2401.11181 (arxiv.org/html/2407.00079)"
+      ]
+    },
+    {
+      "title": "AttentionStore (KV cache persistence across turns in hierarchical storage)",
+      "url": "https://arxiv.org/abs/2403.19708",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Gao et al., arXiv 2403.19708, cited as ref [35] in Mooncake",
+      "topics": ["KV cache offload", "multi-turn", "hierarchical storage"],
+      "summary": "Cited by Mooncake as related work on keeping KV caches outside GPU memory so they can be reused across conversation turns. URL derived from the arXiv ID in the fetched Mooncake reference list; not fetched directly.",
+      "key_facts": [
+        "Listed in Mooncake related work as AttentionStore, Gao et al., arXiv:2403.19708 (arxiv.org/html/2407.00079)"
+      ]
+    },
+    {
+      "title": "Sarathi-Serve / SARATHI (chunked prefill scheduling)",
+      "url": "https://arxiv.org/abs/2403.02310",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Agrawal et al., arXiv 2403.02310, cited as ref [15] in Mooncake",
+      "topics": ["chunked prefill", "batching", "throughput-latency tradeoff"],
+      "summary": "Cited by Mooncake as the chunked-prefill scheduling line of work, in which long prompts are split into chunks that are interleaved with decode steps so long prefills do not stall token generation. URL derived from the arXiv ID in the fetched Mooncake reference list; not fetched directly.",
+      "key_facts": [
+        "Listed in Mooncake related work as SARATHI, Agrawal et al., arXiv:2403.02310 (arxiv.org/html/2407.00079)"
+      ]
+    },
+    {
+      "title": "H2O: Heavy-Hitter Oracle for KV cache eviction",
+      "url": "unknown",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Described in the 2025 KV-cache survey arXiv:2412.19442 (ref [131]); original paper year and URL not confirmed in this sweep",
+      "topics": ["KV eviction", "heavy hitters", "attention scores"],
+      "summary": "Serving-time KV eviction: keeps a small set of 'heavy hitter' tokens identified by cumulative attention scores plus recent tokens, shrinking the KV cache so longer contexts fit in HBM. Description taken from the survey; no direct fetch.",
+      "key_facts": [
+        "Identifies high-impact tokens as Heavy Hitters using cumulative attention scores for dynamic retention (arxiv.org/html/2412.19442)"
+      ]
+    },
+    {
+      "title": "SnapKV: observation-window KV cache compression",
+      "url": "unknown",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Described in the 2025 KV-cache survey arXiv:2412.19442 (ref [138]); original paper year and URL not confirmed in this sweep",
+      "topics": ["KV compression", "prompt compression", "observation window"],
+      "summary": "Uses an observation window at the end of the prompt to score which prompt KV entries matter, keeping only those during decode. Description taken from the survey; no direct fetch.",
+      "key_facts": [
+        "Uses observation windows to detect important contextual tokens based on importance scores (arxiv.org/html/2412.19442)"
+      ]
+    },
+    {
+      "title": "StreamingLLM: attention sinks for streaming inference",
+      "url": "unknown",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Described in the 2025 KV-cache survey arXiv:2412.19442 (ref [141]); original paper year and URL not confirmed in this sweep",
+      "topics": ["attention sinks", "sliding window", "KV eviction"],
+      "summary": "Keeps the first few 'attention sink' tokens plus a recent window, enabling unbounded streaming at fixed KV memory at the cost of forgetting the middle. Description taken from the survey; no direct fetch.",
+      "key_facts": [
+        "Preserves initial sequence tokens (attention sinks) and recent context through attention mask design (arxiv.org/html/2412.19442)"
+      ]
+    },
+    {
+      "title": "KIVI: 2-bit asymmetric KV cache quantization",
+      "url": "unknown",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Described in the 2025 KV-cache survey arXiv:2412.19442 (ref [90]); original paper year and URL not confirmed in this sweep",
+      "topics": ["KV quantization", "per-channel keys", "per-token values"],
+      "summary": "Quantizes keys per-channel and values per-token while keeping the most recent KVs in full precision, cutting KV memory so more tokens or more concurrent requests fit per GPU. Description taken from the survey; no direct fetch.",
+      "key_facts": [
+        "Quantizes keys per-channel and values per-token; retains recent KVs in full precision (arxiv.org/html/2412.19442)"
+      ]
+    }
+  ],
+  "notes": "BUDGET NOTE: WebSearch was already exhausted session-wide (200/200) before this sweep started, so zero searches ran; all evidence comes from 8 WebFetch calls on canonical URLs plus reference lists inside those pages. Coverage achieved: multi-node prefill (Meta context parallelism), training sequence parallelism (DeepSpeed-Ulysses vs Megatron SP), disaggregated prefill/decode and KV offload (Mooncake, NVIDIA Dynamo), decode hardware bottleneck at 1M+ tokens (NVIDIA Helix), paging/prefix reuse (vLLM, SGLang/Dynamo radix routing), KV compression taxonomy (survey: H2O, SnapKV, StreamingLLM, KIVI, CacheGen, PyramidKV), and decomposition-over-window evidence (Chain-of-Agents). NOT COVERED due to budget: direct Ring Attention / Striped Attention papers, Megatron-Core context-parallel docs, LMCache, CacheBlend, MemGPT, TokenSkip, speculative decoding, and any 2026 model-window spec pages (GPT-5 default window, Claude/Gemini 1M) — the report should take those from other modalities. The four KV-compression entries with url=unknown are described only via the survey (their year field is the survey's year, not the original paper's). The Mooncake fetch mislabeled vLLM's arXiv ID (it gave the LLaMA-2 ID), which is why vLLM was fetched directly. SYSTEMS SYNTHESIS: (1) Prefill at 1M tokens is feasible but expensive: 77s on 128 H100s for a 405B model, i.e., roughly 2.7 GPU-hours per single 1M-token request, which is the TTFT/cost wall that makes providers cap or price long windows. (2) Decode at multi-million contexts is bounded by HBM bandwidth for streaming the KV history every step, not by FLOPs (Helix), so per-token latency degrades with context even when memory fits. (3) KV memory grows linearly per token x layers x heads (survey formula), so serving stacks page it (vLLM), share prefixes (RadixAttention, Dynamo router), spill it to DRAM/SSD/object storage over RDMA/NIXL (Mooncake, Dynamo), split prefill from decode onto different GPU pools (Mooncake +75% requests in production; Dynamo up to 30x on GB200 NVL72 for R1), chunk prefill (Sarathi), and compress/evict/quantize (H2O, SnapKV, KIVI). (4) The non-window answer has direct evidence: Chain-of-Agents with 8k-token workers beat both RAG and 200k full-context baselines on eight datasets, with ~100% gains above 400k input tokens, suggesting that beyond a few hundred thousand tokens, distributing the problem across agents can outperform widening the window."
+}

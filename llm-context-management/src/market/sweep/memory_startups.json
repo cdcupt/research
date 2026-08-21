@@ -1,0 +1,354 @@
+{
+  "sources": [
+    {
+      "title": "Mem0 raises $24M from YC, Peak XV and Basis Set to build the memory layer for AI apps",
+      "url": "https://techcrunch.com/2025/10/28/mem0-raises-24m-from-yc-peak-xv-and-basis-set-to-build-the-memory-layer-for-ai-apps/",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "TechCrunch",
+      "topics": ["Mem0", "funding", "traction", "wedge story", "incumbent move", "vendor lock-in", "gtm"],
+      "summary": "TechCrunch coverage of Mem0's $24M raise with founder backgrounds, the meditation-app origin story, traction metrics and the 'open, neutral memory' positioning against model vendors.",
+      "key_facts": [
+        "Mem0 raised $24M total: $3.9M seed led by Kindred Ventures plus $20M Series A led by Basis Set Ventures (Oct 28, 2025)",
+        "Other investors: Y Combinator, Peak XV Partners, GitHub Fund; angels Dharmesh Shah, Scott Belsky, Olivier Pomel (Datadog), Thomas Dohmke (ex-GitHub)",
+        "Traction: 41,000 GitHub stars, 13M Python downloads, 80,000+ cloud signups; API calls 35M (Q1 2025) to 186M (Q3 2025), ~30% monthly growth",
+        "Mem0 is the exclusive memory provider for AWS's Agent SDK",
+        "Wedge: CEO Taranjeet Singh built Embedchain (8,000+ stars); users of a viral meditation app complained 'the app doesn't remember that'",
+        "CTO Deshraj Yadav led AI Platform at Tesla Autopilot; founders previously built EvalAI (1.6K stars)",
+        "Competitors named by TechCrunch: Supermemory, Letta, Memories.ai",
+        "Positioning: developers need 'an open, neutral solution' as model vendors make memory 'one of their key moats'",
+        "Business model: open-source API plus cloud service; model-agnostic (OpenAI, Anthropic, open-source LLMs)"
+      ]
+    },
+    {
+      "title": "Mem0 Raises $24M Series A to Build Memory Layer for AI Agents",
+      "url": "https://www.prnewswire.com/news-releases/mem0-raises-24m-series-a-to-build-memory-layer-for-ai-agents-302597157.html",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "PR Newswire (Mem0 press release)",
+      "topics": ["Mem0", "funding", "traction", "integrations"],
+      "summary": "Mem0's own press release for the Series A, listing lead investors, strategic angels, integrations and download/star counts.",
+      "key_facts": [
+        "Press release: Seed led by Kindred Ventures, Series A led by Basis Set Ventures; Peak XV, GitHub Fund, YC participated",
+        "Strategic angels include CEOs of Datadog, Supabase, PostHog, Weights & Biases and ex-GitHub leadership",
+        "Integrated with CrewAI, Flowise and Langflow; 14M downloads and 41,000 GitHub stars cited",
+        "AWS selected Mem0 as exclusive AI memory provider for its new Agent SDK"
+      ]
+    },
+    {
+      "title": "Mem0 Raises $24M to Overcome AI Memory Challenges",
+      "url": "https://www.builtinsf.com/articles/mem0-raises-24m-AI-memory-infrastructure-20251103",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "Built In San Francisco",
+      "topics": ["Mem0", "funding"],
+      "summary": "Built In SF recap of the Mem0 round noting the launch timing and that the seed had been previously unannounced.",
+      "key_facts": [
+        "Search digest of Built In coverage: Mem0 launched January 2024; $3.9M seed was previously unannounced, $20M Series A new (Nov 3, 2025)"
+      ]
+    },
+    {
+      "title": "Mem0: The Memory layer for AI Agents | Y Combinator",
+      "url": "https://www.ycombinator.com/companies/mem0",
+      "type": "directory",
+      "year": 2026,
+      "venue_or_author": "Y Combinator company directory",
+      "topics": ["Mem0", "YC", "founders"],
+      "summary": "YC directory entry for Mem0 with founding year, founders and headcount.",
+      "key_facts": [
+        "YC directory: Mem0 'The Memory layer for AI Agents', founded 2023 by Taranjeet Singh and Deshraj Yadav, 10 employees, San Francisco",
+        "YC batch letter not confirmed in this sweep (directory snippet did not include it)"
+      ]
+    },
+    {
+      "title": "Berkeley AI Research Lab Spinout Letta Raises $10M Seed Financing Led by Felicis to Build AI with Memory",
+      "url": "https://www.prnewswire.com/news-releases/berkeley-ai-research-lab-spinout-letta-raises-10m-seed-financing-led-by-felicis-to-build-ai-with-memory-302257004.html",
+      "type": "news",
+      "year": 2024,
+      "venue_or_author": "PR Newswire (Letta press release)",
+      "topics": ["Letta", "MemGPT", "funding", "wedge story"],
+      "summary": "Foundational press release for Letta's seed round, framing it as the commercialisation of the MemGPT research project out of UC Berkeley.",
+      "key_facts": [
+        "Letta raised $10M seed led by Felicis, announced Sept 24, 2024; spinout of UC Berkeley AI research lab",
+        "Wedge: led by the same research team that created the MemGPT open-source project"
+      ]
+    },
+    {
+      "title": "Letta Emerges from Stealth with $10M to Build AI Agents with Advanced Memory",
+      "url": "https://www.hpcwire.com/bigdatawire/this-just-in/letta-emerges-from-stealth-with-10m-to-build-ai-agents-with-advanced-memory/",
+      "type": "news",
+      "year": 2024,
+      "venue_or_author": "BigDATAwire / HPCwire",
+      "topics": ["Letta", "funding", "valuation"],
+      "summary": "Trade-press coverage of Letta's stealth exit with valuation and investor syndicate details.",
+      "key_facts": [
+        "Letta seed: $10M at $70M post-money valuation; Felicis led, Founders Fund and Y Combinator participated, plus tech-industry angels"
+      ]
+    },
+    {
+      "title": "Letta - Learn AI (wiki)",
+      "url": "https://ai.miraheze.org/wiki/Letta",
+      "type": "other",
+      "year": 2026,
+      "venue_or_author": "ai.miraheze.org community wiki",
+      "topics": ["Letta", "MemGPT", "product timeline", "coding agents", "sleep-time compute"],
+      "summary": "Community wiki timeline of the MemGPT-to-Letta rename and 2025-2026 product/research releases.",
+      "key_facts": [
+        "MemGPT open-source project renamed Letta on Sept 23, 2024; 'MemGPT' now reserved for the agent design pattern",
+        "April 2025: Letta published sleep-time compute paper (agents reorganize memory during idle time)",
+        "Feb 2026: Letta released Context Repositories, a git-based memory system letting coding agents version and merge memory states"
+      ]
+    },
+    {
+      "title": "Zep - 2026 Company Profile, Team, Funding & Competitors",
+      "url": "https://tracxn.com/d/companies/zep/__poSadJnSfLWHjz05Xi3U5KwnpCMWSU3aDrihLX_8FLs",
+      "type": "directory",
+      "year": 2026,
+      "venue_or_author": "Tracxn",
+      "topics": ["Zep", "Graphiti", "funding", "headcount"],
+      "summary": "Tracxn profile for Zep showing a small disclosed seed, founding details and headcount as of mid-2026.",
+      "key_facts": [
+        "Zep raised $500K in one seed round, April 2024 (Tracxn); no later round disclosed",
+        "Founded 2023 by Daniel Chalef; San Francisco; 8 employees as of May 31, 2026",
+        "Open-sourced Graphiti, a Python library for temporal knowledge graphs that underpins Zep's memory layer",
+        "Product: combines chat history, business data and user memory into a temporal knowledge graph"
+      ]
+    },
+    {
+      "title": "AI Memory Problem 2026: How Mem0, Letta & Zep Give Agents Persistent Context",
+      "url": "https://valueaddvc.com/blog/the-ai-memory-problem-how-startups-are-solving-for-persistent-context",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Trace Cohen, Six Point Ventures (Value Add VC)",
+      "topics": ["Mem0", "Zep", "Letta", "pricing", "segmentation", "context drift", "investor view"],
+      "summary": "A VC's July 2026 landscape note segmenting Mem0 (bolt-on), Zep (temporal facts) and Letta (OS-style runtime), with pricing and a context-drift failure statistic.",
+      "key_facts": [
+        "Published July 22, 2026 by Trace Cohen, Co-Founder & GP at Six Point Ventures",
+        "Mem0: $24.5M total raised; 41,000-48,000 GitHub stars; 14M downloads; pricing free (first 10,000 memories) to $249/month",
+        "Zep: credit-based pricing starting $25/month; temporal knowledge graph powered by open-source Graphiti",
+        "Letta: $10M seed Sept 2024 led by Felicis; angels Jeff Dean and Clem Delangue; three-tier core/recall/archival memory",
+        "Claim: '65% of enterprise AI agent failures trace back to context drift'",
+        "Segmentation: Mem0 = bolt-on memory for existing stacks; Zep = facts that change over time; Letta = ground-up agent builds"
+      ]
+    },
+    {
+      "title": "AI Memory Solutions Compared: Q3 2026",
+      "url": "https://mnemoverse.com/docs/library/ai-memory-solutions-2026-q3",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Mnemoverse Docs",
+      "topics": ["Mem0", "Letta", "Zep", "Cognee", "Supermemory", "LangMem", "GitHub stars", "pricing", "benchmarks", "benchmark reproducibility", "temporal reasoning"],
+      "summary": "Q3 2026 side-by-side of the main open-source memory layers with star counts, pricing, licences, architecture and a warning that vendor benchmarks do not reproduce.",
+      "key_facts": [
+        "GitHub stars on July 20, 2026: Mem0 61,323; Graphiti 28,981; Cognee 28,786; Supermemory 28,509; Letta 23,887",
+        "Mem0 vendor benchmarks 92.5% LoCoMo / 94.4% LongMemEval; Maximem reproduction (May 27, 2026) measured 73.8% LongMemEval",
+        "Letta pricing: free tier (3 agents), $20/month for 20 agents; ~74% LoCoMo vendor claim; Apache-2.0",
+        "Zep pricing: free tier; Flex plan $1,250/year for 50,000 monthly credits, +$25 per 10,000 extra; Neo4j or FalkorDB storage",
+        "Supermemory: MIT clients/MCP but closed engine; 81.6% LongMemEval vendor-reported; local single-machine binary shipped June 2026",
+        "Cognee: Extract-Cognify-Load pipeline with 14 retrieval modes; publishes no LoCoMo or LongMemEval score",
+        "LangMem (LangChain): pre-1.0 (PyPI 0.0.30, Oct 2025); p95 latency 59.82s 'impractical for interactive agents'",
+        "Cross-cutting finding: 'vendor-published benchmark numbers do not survive independent reproduction'",
+        "Mem0 gap: 'no native temporal model: it stores timestamps but cannot answer what a fact was on a past date'",
+        "Zep/Graphiti differentiator: bi-temporal graph with valid_at / invalid_at on every fact"
+      ]
+    },
+    {
+      "title": "Supermemory - 2026 Company Profile, Team, Funding & Competitors",
+      "url": "https://tracxn.com/d/companies/supermemory/__pLAZAfS7jagHq_m-58u50kYrRLK-6lY70wYdV2t6F4Y",
+      "type": "directory",
+      "year": 2026,
+      "venue_or_author": "Tracxn",
+      "topics": ["Supermemory", "funding", "headcount", "wedge story"],
+      "summary": "Tracxn profile for Supermemory with founding year, investors, headcount and product positioning.",
+      "key_facts": [
+        "Supermemory founded 2024, San Francisco; founder/CEO Dhravya Shah; 13 employees as of June 30, 2026",
+        "Total raised $3M; seed round dated Oct 6, 2025; investors Susa Ventures, Browder Capital, SF1.vc plus angels",
+        "Product: 'universal memory API' giving long-term context 'by adding a single line of code'",
+        "Wedge: Shah started with an open-source 'second brain' application before the developer API"
+      ]
+    },
+    {
+      "title": "Supermemory, Inc. Asset Profile",
+      "url": "https://www.preqin.com/data/profile/asset/supermemory--inc-/772026",
+      "type": "directory",
+      "year": 2025,
+      "venue_or_author": "Preqin",
+      "topics": ["Supermemory", "funding"],
+      "summary": "Preqin deal record for Supermemory's October 2025 seed.",
+      "key_facts": [
+        "Oct 2025: Supermemory raised $3M seed led by Susa Ventures with Browder Capital and SF1.vc (Preqin)",
+        "Press-reported seed size varies between $2.6M and $3M across sources"
+      ]
+    },
+    {
+      "title": "Cognee Raises $7.5M Seed to Build Memory for AI Agents",
+      "url": "https://www.cognee.ai/blog/cognee-news/cognee-raises-seven-million-five-hundred-thousand-dollars-seed",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Cognee company blog",
+      "topics": ["Cognee", "funding", "traction", "enterprise", "European entrant", "knowledge graph", "context failures"],
+      "summary": "Cognee's own announcement of its $7.5M seed led by Pebblebed, with 2025 growth metrics, named enterprise customers and its ECL knowledge-graph pipeline.",
+      "key_facts": [
+        "Cognee raised $7.5M seed on Feb 19, 2026, led by Pebblebed (Pamela Vagata, Keith Adams); 42CAP and Vermilion Ventures participated",
+        "Angel investors from Google DeepMind, n8n and Snowplow",
+        "Founded 2024 in Berlin; founder/CEO Vasilije Markovic",
+        "Pipeline runs grew from ~2,000 to over 1 million in 2025 (500x); live in 70+ companies; 12,000+ GitHub stars, 80+ contributors",
+        "Named customers: Bayer (scientific research), University of Wyoming (policy analysis), Dilbloom, dltHub",
+        "ECL (Extract, Cognify, Load) pipeline ingests 38+ sources; integrates Claude Agent SDK, OpenAI Agents SDK, LangGraph, Neo4j, Amazon Neptune",
+        "Practitioner quote: 'Teams spend more time patching context failures than building features.'",
+        "Business model: open-source core plus cloud platform"
+      ]
+    },
+    {
+      "title": "German AI infrastructure startup Cognee lands €7.5 million to scale enterprise-grade memory technology",
+      "url": "https://www.eu-startups.com/2026/02/german-ai-infrastructure-startup-cognee-lands-e7-5-million-to-scale-enterprise-grade-memory-technology/",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "EU-Startups",
+      "topics": ["Cognee", "funding", "European entrant", "regulated industries"],
+      "summary": "European trade press on Cognee's seed, emphasising its regulated-industry, knowledge-intensive enterprise focus.",
+      "key_facts": [
+        "EU-Startups (Feb 2026): Cognee lands €7.5M seed to scale enterprise-grade memory; customers mainly in knowledge-intensive and regulated industries"
+      ]
+    },
+    {
+      "title": "Cognee: Berlin Startup Raises $7.5 million, Builds Long-Term Memory for AI Agents",
+      "url": "https://www.trendingtopics.eu/cognee-berlin-startup-raises-7-5-million-builds-long-term-memory-for-ai-agents/",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Trending Topics EU",
+      "topics": ["Cognee", "funding", "European entrant"],
+      "summary": "Coverage noting Pebblebed as lead and 42CAP as a follow-on investor in Cognee's seed.",
+      "key_facts": [
+        "Pebblebed led Cognee's $7.5M round; 42CAP joined as follow-on investor; existing and new angels participated"
+      ]
+    },
+    {
+      "title": "Plastic Labs: Introduction, Financing, Team and News",
+      "url": "https://sosovalue.com/project/plastic-labs-1911542590240710658",
+      "type": "directory",
+      "year": 2025,
+      "venue_or_author": "SoSoValue",
+      "topics": ["Plastic Labs", "Honcho", "funding"],
+      "summary": "Deal record for Plastic Labs' 2025 pre-seed with the investor list.",
+      "key_facts": [
+        "Plastic Labs raised $6M pre-seed on April 11, 2025: Variant Fund, White Star Capital, Betaworks, Greycroft, Differential Ventures, Seed Club Ventures"
+      ]
+    },
+    {
+      "title": "Plastic Labs has filed a notice of an exempt offering of securities to raise $15,399,978.00 in New Funding",
+      "url": "https://www.intelligence360.news/plastic-labs-has-filed-a-notice-of-an-exempt-offering-of-securities-to-raise-15399978-00-in-new-funding/",
+      "type": "filing",
+      "year": 2026,
+      "venue_or_author": "intelligence360 (SEC Form D digest)",
+      "topics": ["Plastic Labs", "Honcho", "funding", "filing"],
+      "summary": "SEC Form D digest showing Plastic Labs raising a new round of up to $15.4M in mid-2026.",
+      "key_facts": [
+        "Form D exempt-offering notice to raise $15,399,978 (reported July 24, 2026); amount sold not disclosed",
+        "Plastic Labs is NYC-based; President Courtland Leer; self-described 'engineering-driven AI lab' at ML/cognitive-science intersection",
+        "Honcho described as 'an AI-native memory solution powered by state-of-the-art reasoning models'"
+      ]
+    },
+    {
+      "title": "Honcho Review: Plastic Labs' Agent Memory Layer (2026)",
+      "url": "https://andrew.ooo/posts/honcho-plastic-labs-agent-memory-review/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "andrew.ooo (independent developer review)",
+      "topics": ["Honcho", "Plastic Labs", "Hindsight", "pricing", "benchmarks", "GitHub stars", "developer experience"],
+      "summary": "Independent May 2026 review of Honcho's reasoning-first memory, with pricing, star count, benchmark comparison to Mem0/Letta/Zep/Hindsight and setup-cost trade-offs.",
+      "key_facts": [
+        "Review dated May 26, 2026; Honcho at 4,301 GitHub stars (+644 that week); repo plastic-labs/honcho",
+        "Pricing: $100 free credits on api.honcho.dev; self-host free (Apache-2.0/AGPL-style); costs scale with LLM and embedding usage",
+        "Vendor claim: 90.4% on LongMem S using median 5% of context; review cites Mem0 ~65%, Letta 83.2%, Zep 63.8%",
+        "Hindsight reaches 91.4% on the same benchmark with single-binary simplicity; Mem0 wins on time-to-first-query",
+        "Setup ~30 minutes (PostgreSQL, Redis, LLM provider) versus Mem0's ~30 seconds",
+        "Architecture: reasoning-first 'peers' model (humans, agents, projects); background 'dreaming' deduction; MCP for Claude Code, Cursor, Cline, Windsurf"
+      ]
+    },
+    {
+      "title": "Plastic Labs",
+      "url": "https://plasticlabs.ai/",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Plastic Labs website",
+      "topics": ["Plastic Labs", "Honcho", "user modeling", "personalization"],
+      "summary": "Company site positioning Honcho as a plug-and-play user-modeling and personalization layer rather than a retrieval store.",
+      "key_facts": [
+        "Honcho pitched as 'plug-and-play platform' for personalizing any LLM app via 'rich, persistent user representations'",
+        "Described as 'a continual learning system for modeling personal identity, and soon a shared context layer for individual alignment'"
+      ]
+    },
+    {
+      "title": "AI Agent Memory Architectures: From Context Windows to Persistent Knowledge",
+      "url": "https://zylos.ai/research/2026-04-05-ai-agent-memory-architectures-persistent-knowledge/",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Zylos Research",
+      "topics": ["Mem0", "Letta", "Zep", "Cognee", "incumbent move", "security", "memory poisoning", "GDPR", "benchmarks", "unsolved problems", "hybrid vector+graph"],
+      "summary": "April 2026 research survey of memory architectures covering vendor claims, incumbent declarative-memory moves (Claude Code auto-memory, AutoDream), adversarial memory attacks, regulatory conflicts and open problems.",
+      "key_facts": [
+        "Mem0 called 'most widely deployed semantic memory layer as of mid-2026' at ~48,000 stars",
+        "Mem0 claims vs OpenAI native memory: 26% higher accuracy, 91% lower p95 latency, 90% fewer tokens; Mem0g graph variant +2% accuracy",
+        "Zep/Graphiti: P95 retrieval 300ms with no LLM calls at retrieval; 94.8% vs MemGPT's 93.4% on Deep Memory Retrieval",
+        "Incumbent move: Claude Code auto-memory visible from ~v2.0.64 (late 2025); AutoDream background consolidation Feb 2026",
+        "Declarative memory files (CLAUDE.md, AGENTS.md, .cursorrules) now a cross-tool pattern",
+        "Security: MINJA attack (2025) >95% injection success, 70% attack success on naive memory stores; A-MemGuard misses 66% of poisoned entries",
+        "EU AI Act fully applicable Aug 2026; 10-year audit-trail duty conflicts with GDPR Article 17 erasure",
+        "Unsolved: scalability over years of history, GDPR fit, evals ignoring procedural memory, weak temporal reasoning",
+        "'95% of RAG systems as of 2025 relied exclusively on vector embeddings'; consensus shifting to hybrid vector+graph",
+        "Academic baselines on LoCoMo: MAGMA 0.7, Nemori 0.59, A-MEM 0.58, MemoryOS 0.553; MemoryOS (EMNLP 2025) +49.11% F1"
+      ]
+    },
+    {
+      "title": "Y Combinator W26 batch",
+      "url": "https://www.extruct.ai/data-room/ycombinator-companies-w26/",
+      "type": "directory",
+      "year": 2026,
+      "venue_or_author": "Extruct AI data room",
+      "topics": ["YC", "batch size", "market context"],
+      "summary": "Batch-level listing for YC W26; no memory-specific startups surfaced in the snippet.",
+      "key_facts": [
+        "YC W26 batch contains 214 companies (Extruct); memory-layer entrants in W26/S26 not identified in this sweep"
+      ]
+    },
+    {
+      "title": "Y Combinator S25 Batch Analysis: 160 AI Startups & Founder Insights",
+      "url": "https://www.extruct.ai/blog/ycs25/",
+      "type": "directory",
+      "year": 2025,
+      "venue_or_author": "Extruct AI",
+      "topics": ["YC", "batch composition", "market context"],
+      "summary": "Batch composition analysis for YC S25 showing how AI-dominated the cohort is.",
+      "key_facts": [
+        "YC S25: 160 startups, 88% AI-native (Extruct)"
+      ]
+    },
+    {
+      "title": "YC AI Startups 2026: W26, Spring & Summer Tracker",
+      "url": "https://www.tldl.io/blog/yc-ai-startups-2026",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "TLDL",
+      "topics": ["YC", "2026 trends", "agent infrastructure"],
+      "summary": "Tracker of 2026 YC AI startups summarising the dominant themes across W26 and the spring/summer batches.",
+      "key_facts": [
+        "2026 YC AI startups cluster around agents that do work, infrastructure making agents safer, and software connecting AI to the physical world"
+      ]
+    },
+    {
+      "title": "This chip startup just raised $135M on a bet that AI's biggest bottleneck isn't compute -- it's memory",
+      "url": "https://techcrunch.com/2026/05/29/xcena-secures-135m-at-570m-valuation-betting-on-memory-as-ais-real-bottleneck/",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "TechCrunch",
+      "topics": ["adjacent hardware", "memory narrative", "funding", "disambiguation"],
+      "summary": "Adjacent signal only: a hardware 'memory' raise that shows how the 'memory is the bottleneck' narrative attracts capital, but is unrelated to LLM context management software.",
+      "key_facts": [
+        "XCENA (South Korea) raised $135M Series B at $570M valuation (May 29, 2026) for near-DRAM compute chips; hardware, not LLM memory software",
+        "Search noise: TechCrunch 'AI memory' queries return chip/DRAM stories; filter when sizing the software market"
+      ]
+    }
+  ],
+  "notes": "Ran 8 WebSearch queries (Mem0, Letta, Zep, Supermemory, Cognee, Plastic Labs/Honcho, YC memory batches, TechCrunch 2026 memory raises) before the session-wide WebSearch budget was exhausted (200/200), so 6 planned queries never executed. Used all 8 WebFetch calls (Value Add VC landscape, Mnemoverse Q3 2026 comparison, TechCrunch Mem0, Cognee seed blog, Zylos research, Honcho review, Plastic Labs Form D digest, Supermemory Tracxn). NOT covered: Memobase, Graphlit, Hindsight/Vectorize (only a benchmark mention via the Honcho review), Mastra memory, Langbase, Memora, MemoryOS-as-startup, Personal AI, Recall/Rewind/Limitless consumer memory, Memories.ai (only named as a Mem0 competitor), MemOS/MemTensor and other Chinese entrants, and specific YC W25/S25/W26/S26 memory startups. Unverified: Mem0's YC batch letter; Zep funding beyond the $500K April 2024 seed on Tracxn (Mnemoverse says YC-backed, no amount); Supermemory seed size ($2.6M vs $3M discrepancy across sources); Plastic Labs 2026 amount actually sold. ARR figures were not found for any company; traction is stars, downloads, API-call counts, signups and customer counts only."
+}

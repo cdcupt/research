@@ -1,0 +1,566 @@
+{
+  "sources": [
+    {
+      "title": "Mem0 Raises $24M Series A to Build Memory Layer for AI Agents",
+      "url": "https://www.prnewswire.com/news-releases/mem0-raises-24m-series-a-to-build-memory-layer-for-ai-agents-302597157.html",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "PR Newswire / Mem0",
+      "topics": [
+        "funding",
+        "mem0",
+        "memory layer",
+        "traction",
+        "incumbent move",
+        "AWS"
+      ],
+      "summary": "Press release for Mem0's $24M Series A (Oct 28, 2025). Gives investor list, traction metrics and the AWS Agent SDK exclusivity that anchors the 'memory layer is a funded category' narrative.",
+      "key_facts": [
+        "Mem0 raised $24M total: Series A led by Basis Set Ventures, seed led by Kindred Ventures (announced Oct 28, 2025)",
+        "Series A participants: Peak XV Partners, GitHub Fund, Y Combinator; angels Scott Belsky and Dharmesh Shah",
+        "Angel CEOs from Datadog, Supabase, PostHog, ex-GitHub and Weights & Biases also invested",
+        "Traction at announcement: 41,000 GitHub stars and 14M downloads",
+        "API calls grew from 35M in Q1 2025 to 186M in Q3 2025 (5.3x in two quarters)",
+        "AWS chose Mem0 as exclusive memory provider for its Agent SDK; CrewAI, Flowise, Langflow integrate natively"
+      ]
+    },
+    {
+      "title": "Mem0 funding, news & analysis",
+      "url": "https://sacra.com/c/mem0/",
+      "type": "directory",
+      "year": 2026,
+      "venue_or_author": "Sacra",
+      "topics": [
+        "funding",
+        "mem0",
+        "pricing",
+        "competitors",
+        "vector DB",
+        "incumbent move"
+      ],
+      "summary": "Sacra company profile for Mem0: funding history, business model and competitor map. No revenue/ARR estimate disclosed.",
+      "key_facts": [
+        "Mem0 total raised $24M across seed and Series A since founding in late 2023; CEO Taranjeet Singh, SF",
+        "Pricing is usage-based, billed on memory operations; deployments span cloud SaaS, private VPC, Kubernetes, air-gapped on-prem",
+        "Claimed economics: compressed memory snippets cut prompt token usage by up to 80% vs full conversation history",
+        "May 2025: AWS selected Mem0 as exclusive memory provider for Strands Agent SDK",
+        "Competitor map: vertically integrated labs (OpenAI, Anthropic, Google, Meta); Zep, Letta, LangMem, LlamaIndex Memory; vector DBs Pinecone, Weaviate, Chroma, Qdrant expanding into memory",
+        "No ARR, revenue or valuation figures disclosed"
+      ]
+    },
+    {
+      "title": "The AI Memory Problem: How Mem0, Letta & Zep Give Agents Persistent Context",
+      "url": "https://valueaddvc.com/blog/the-ai-memory-problem-how-startups-are-solving-for-persistent-context",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Value Add VC",
+      "topics": [
+        "funding",
+        "VC thesis",
+        "memory is the moat",
+        "mem0",
+        "letta",
+        "zep",
+        "pricing",
+        "context drift"
+      ],
+      "summary": "VC-authored comparison of the three funded memory startups, with a diligence framing on why a narrow infra layer every agent needs can compound into a moat.",
+      "key_facts": [
+        "Letta raised a $10M seed in September 2024 led by Felicis Ventures (angels incl. Jeff Dean, Clem Delangue per search snippet)",
+        "Mem0 cited at $24.5M total funding; 186M API calls in Q3 2025; 41k-48k GitHub stars; 14M downloads",
+        "Zep funding amount not disclosed in the article",
+        "Thesis quote: 'a narrow, hard infrastructure layer that every agent needs compounds a real [moat]'",
+        "Claim: 65% of enterprise AI agent failures trace to context drift, not model capability (attribution not given)",
+        "Pricing tiers: Mem0 free-$249/mo; Zep from $25/mo credit-based; Letta self-hosted or usage-based",
+        "Earliest paying adopters: support and internal-tools teams, because churn cost is measurable"
+      ]
+    },
+    {
+      "title": "Supermemory - 2026 Company Profile, Team, Funding & Competitors",
+      "url": "https://tracxn.com/d/companies/supermemory/__pLAZAfS7jagHq_m-58u50kYrRLK-6lY70wYdV2t6F4Y",
+      "type": "directory",
+      "year": 2026,
+      "venue_or_author": "Tracxn",
+      "topics": [
+        "funding",
+        "supermemory",
+        "memory API",
+        "seed"
+      ],
+      "summary": "Tracxn profile for Supermemory, a universal memory API for AI context personalization.",
+      "key_facts": [
+        "Supermemory raised $3M total over 1 round from 9 investors",
+        "Latest round: Seed on Oct 6, 2025",
+        "Positioned as a universal memory API for AI context personalization"
+      ]
+    },
+    {
+      "title": "Zep - 2026 Company Profile, Team, Funding & Competitors",
+      "url": "https://tracxn.com/d/companies/zep/__poSadJnSfLWHjz05Xi3U5KwnpCMWSU3aDrihLX_8FLs",
+      "type": "directory",
+      "year": 2026,
+      "venue_or_author": "Tracxn",
+      "topics": [
+        "funding",
+        "zep",
+        "context engineering",
+        "agent memory",
+        "seed"
+      ],
+      "summary": "Tracxn profile for Zep, self-described 'context engineering and agent memory platform'. Tracxn's disclosed total is small and may be incomplete.",
+      "key_facts": [
+        "Zep disclosed funding: $500K over 1 round from 1 investor; Seed in April 2024 (Tracxn; likely undercounts)",
+        "Zep describes itself as a context engineering and agent memory platform (temporal knowledge graph, Graphiti engine)"
+      ]
+    },
+    {
+      "title": "Agentic AI Orchestration and Memory Systems Market Size, Share | Industry Growth [2033]",
+      "url": "https://www.skyquestt.com/report/agentic-ai-orchestration-and-memory-systems-market",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "SkyQuest Technology",
+      "topics": [
+        "market size",
+        "agent memory",
+        "orchestration",
+        "context-management SDKs",
+        "observability",
+        "methodology quality"
+      ],
+      "summary": "Syndicated-research sizing of an 'agentic AI orchestration and memory systems' category that explicitly carves out memory layers/vector DBs, context-management SDKs and observability tooling as segments. Methodology is opaque and the named players are hyperscalers, not the startups actually selling memory layers, so treat as directional only.",
+      "key_facts": [
+        "Market valued at $4.55B (2024), $6.16B (2025), projected $69.13B by 2033; CAGR 35.3% over 2026-2033",
+        "Solution-type segments: orchestration frameworks; memory layers / vector DBs; workflow engines; context-management SDKs; observability & testing tools",
+        "Named leaders are OpenAI, Google DeepMind, IBM, Microsoft Azure AI, AWS, Palantir, DataRobot, C3.ai, UiPath - no memory-layer startups named",
+        "Restraints cited: data privacy/regulation, integration complexity with legacy systems, high compute cost",
+        "Methodology quality: low - no definition of revenue counted, no primary-research disclosure"
+      ]
+    },
+    {
+      "title": "Agentic AI Orchestration And Memory Systems Global Market Report 2026",
+      "url": "https://www.thebusinessresearchcompany.com/report/agentic-artificial-intelligence-ai-orchestration-and-memory-systems-market-report",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "The Business Research Company",
+      "topics": [
+        "market size",
+        "agent memory",
+        "orchestration",
+        "methodology quality"
+      ],
+      "summary": "Second syndicated sizing of the same category; numbers differ from SkyQuest by roughly 5-10% for 2025, illustrating methodology dispersion.",
+      "key_facts": [
+        "Market $6.49B in 2025 growing to $9.0B in 2026, CAGR 38.7%",
+        "Companion press release (natlawreview.com) projects $37.11B by 2030 at 40.2% CAGR",
+        "Cross-vendor dispersion: SkyQuest $6.16B vs TBRC $6.49B for 2025; long-range forecasts diverge ($37B by 2030 vs $69B by 2033)"
+      ]
+    },
+    {
+      "title": "Vector Database Market Report 2025-2030, by Solution, Geo, Tech",
+      "url": "https://www.marketsandmarkets.com/Market-Reports/vector-database-market-112683895.html",
+      "type": "report",
+      "year": 2025,
+      "venue_or_author": "MarketsandMarkets",
+      "topics": [
+        "market size",
+        "vector DB",
+        "RAG",
+        "regional split",
+        "incumbents",
+        "methodology quality"
+      ],
+      "summary": "MarketsandMarkets vector-database sizing with segment and regional detail; its player list shows incumbents (Microsoft, MongoDB, Elastic, Google, AWS) ranked above the pure-play vector DBs.",
+      "key_facts": [
+        "Vector DB market $2,006.2M (2024) -> $2,652.1M (2025) -> $8,945.7M (2030); CAGR 27.5%",
+        "North America 36.6% share in 2025, reaching $2,987.9M by 2030 at 25.2% CAGR; APAC fastest at 30.2% CAGR",
+        "Services segment fastest-growing offering at 32.7% CAGR; retail & e-commerce fastest vertical at 33.8% CAGR",
+        "Driver cited: RAG used in 51% of enterprise AI implementations",
+        "Major players: Microsoft, MongoDB, Elastic, Google, AWS; emerging: Redis, Zilliz, Pinecone, DataStax, SingleStore; startups: Weaviate, ClickHouse, Qdrant, LanceDB",
+        "Restraint: rapidly evolving embedding models force costly re-indexing; lack of indexing standardization"
+      ]
+    },
+    {
+      "title": "Vector Database Market Size & Share, 2026-2034 Trends",
+      "url": "https://www.gminsights.com/industry-analysis/vector-database-market",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Global Market Insights",
+      "topics": [
+        "market size",
+        "vector DB"
+      ],
+      "summary": "Alternate vector-DB sizing with a lower CAGR than MarketsandMarkets.",
+      "key_facts": [
+        "Vector DB market valued at $2.55B in 2025; projected CAGR 22.3% for 2026-2034"
+      ]
+    },
+    {
+      "title": "Vector Database Market Share, Size, Trend, 2034",
+      "url": "https://www.fortunebusinessinsights.com/vector-database-market-112428",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Fortune Business Insights",
+      "topics": [
+        "market size",
+        "vector DB"
+      ],
+      "summary": "Third vector-DB sizing; consistent ~$2.5-3.2B 2025/26 base across vendors, divergent long-range endpoints.",
+      "key_facts": [
+        "Vector DB market $3.2B in 2026 projected to $17.91B by 2034, CAGR 24%"
+      ]
+    },
+    {
+      "title": "Vector Database Market Report 2026",
+      "url": "https://www.researchandmarkets.com/reports/5948613/vector-database-market-report",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Research and Markets",
+      "topics": [
+        "market size",
+        "vector DB"
+      ],
+      "summary": "Fourth vector-DB sizing; near-term figures cluster with GMI and MarketsandMarkets.",
+      "key_facts": [
+        "Vector DB market $3.02B in 2025 to $3.73B in 2026, CAGR 23.5%"
+      ]
+    },
+    {
+      "title": "Forecast: Database Management Systems, Worldwide, 2023-2029, 2025 Update",
+      "url": "https://www.gartner.com/en/documents/7229830",
+      "type": "report",
+      "year": 2025,
+      "venue_or_author": "Gartner",
+      "topics": [
+        "market size",
+        "vector DB",
+        "Gartner",
+        "DBMS"
+      ],
+      "summary": "Gartner's paywalled DBMS forecast; the headline vector-DB growth figure surfaced via search snippet and should be verified against the primary document.",
+      "key_facts": [
+        "Gartner DBMS forecast: vector databases lead DBMS growth at 75.3% CAGR, fueled by GenAI, RAG and hybrid search (as quoted in search snippet; primary doc paywalled)"
+      ]
+    },
+    {
+      "title": "2025: The State of Generative AI in the Enterprise",
+      "url": "https://menlovc.com/perspective/2025-the-state-of-generative-ai-in-the-enterprise/",
+      "type": "report",
+      "year": 2025,
+      "venue_or_author": "Menlo Ventures",
+      "topics": [
+        "enterprise spend",
+        "survey",
+        "agents",
+        "RAG",
+        "context engineering",
+        "infrastructure",
+        "VC thesis"
+      ],
+      "summary": "Menlo's annual enterprise survey (N=495, Nov 2025) with a full spend stack-up. Key for this market: RAG is the #2 customization technique, context engineering is still 'niche', and only 16% of enterprise deployments are true agents.",
+      "key_facts": [
+        "Enterprise GenAI spend $37B in 2025, up from $11.5B in 2024 (3.2x) and ~$1.7B in 2023",
+        "Applications $19B (51%): departmental $7.3B, horizontal $8.4B, vertical $3.5B",
+        "Infrastructure $18B (49%): foundation model APIs $12.5B, model training infra $4.0B, other AI infra $1.5B",
+        "Only 16% of enterprise deployments and 27% of startup deployments are 'true agents' that plan, act, observe, adapt",
+        "Customization: prompt design dominant; RAG second-most common; context engineering, tool calling, fine-tuning, RL 'niche and used primarily by frontier teams'",
+        "Survey: 495 U.S. enterprise AI decision-makers, Nov 7-25, 2025",
+        "Report contains no explicit figures on vector DB adoption or memory-layer spend"
+      ]
+    },
+    {
+      "title": "Menlo Ventures' 2025 State of Generative AI Report: Enterprise Investment Hit $37B in 2025, Tripling in One Year",
+      "url": "https://www.globenewswire.com/news-release/2025/12/09/3202258/0/en/menlo-ventures-2025-state-of-generative-ai-report-enterprise-investment-hit-37b-in-2025-tripling-in-one-year.html",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "GlobeNewswire / Menlo Ventures",
+      "topics": [
+        "enterprise spend",
+        "survey"
+      ],
+      "summary": "Press release dated Dec 9, 2025 for the Menlo report; confirms headline numbers and publication date.",
+      "key_facts": [
+        "Headline: enterprise AI investment hit $37B in 2025, tripling in one year (released Dec 9, 2025)"
+      ]
+    },
+    {
+      "title": "Menlo Ventures estimates $19 billion in Gen AI spend during 2025",
+      "url": "https://www.nojitter.com/ai-automation/menlo-ventures-estimates-19-billion-in-gen-ai-spend-during-2025",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "No Jitter",
+      "topics": [
+        "enterprise spend",
+        "agents",
+        "agentic platforms"
+      ],
+      "summary": "Trade-press read of the Menlo application-layer data, with a figure for how little of app spend went to agentic platforms.",
+      "key_facts": [
+        "Applications captured $19B of 2025 enterprise AI spend",
+        "Only ~10% of that, about $750M, went to agentic AI platforms that act autonomously on users' behalf (as reported by No Jitter)"
+      ]
+    },
+    {
+      "title": "How 100 Enterprise CIOs Are Building and Buying Gen AI in 2025",
+      "url": "https://a16z.com/ai-enterprise-2025/",
+      "type": "report",
+      "year": 2025,
+      "venue_or_author": "a16z (Andreessen Horowitz)",
+      "topics": [
+        "enterprise spend",
+        "CIO survey",
+        "budgets",
+        "multi-model",
+        "switching costs",
+        "context windows",
+        "pricing"
+      ],
+      "summary": "a16z's May 2025 CIO survey. Relevant signals: LLM budgets growing ~75%, multi-model use rising (which raises the value of provider-agnostic memory/context layers), and agentic workflows raising switching costs. Notably silent on RAG, vector DBs, memory and observability.",
+      "key_facts": [
+        "100 CIOs across 15 industries surveyed plus 24+ in-depth buyer interviews (published May 8, 2025)",
+        "LLM budgets expected to grow ~75% over next year; innovation-budget share fell from 25% to 7% as spend moved to permanent lines",
+        "37% of respondents use 5+ models in production, up from 29% prior year",
+        "CIO quote: 'what I spent in 2023 I now spend in a week'",
+        "Switching costs rising because agentic workflows require significant re-engineering to move between models",
+        "Fine-tuning seen as less necessary due to better models and longer context windows",
+        "CIOs prefer usage-based pricing over outcome-based; over 90% testing third-party customer-support apps",
+        "No mention of RAG, vector databases, memory systems or observability tools anywhere in the survey"
+      ]
+    },
+    {
+      "title": "6 data predictions for 2026: RAG is dead, what's old is new again and the future of vector databases",
+      "url": "https://venturebeat.com/data/six-data-shifts-that-will-shape-enterprise-ai-in-2026",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "VentureBeat",
+      "topics": [
+        "M&A",
+        "incumbent move",
+        "vector DB",
+        "agent memory",
+        "RAG",
+        "Snowflake",
+        "Databricks",
+        "Supabase",
+        "PostgreSQL"
+      ],
+      "summary": "Year-end predictions piece arguing vectors are becoming a data type inside multimodel databases (narrowing pure-play vector DB use cases) while contextual memory becomes table stakes for agents. Also tallies 2025 data-infra M&A.",
+      "key_facts": [
+        "Prediction: contextual/agentic memory becomes 'table stakes' for operational agentic AI deployments in 2026",
+        "Memory systems that emerged in 2025: Hindsight, A-MEM, GAM, LangMem, Memobase",
+        "Vectors shifted from specialized database type to a data type in Oracle, Google databases and Amazon S3; purpose-built vector DB use cases will narrow in 2026",
+        "2025 M&A: Snowflake bought Crunchy Data for $250M; Databricks bought Neon for $1B; IBM to acquire Confluent for $11B; Salesforce bought Informatica for $8B",
+        "Supabase raised $100M Series E at a $5B valuation; Meta invested $14.3B in Scale AI",
+        "PostgreSQL became the default choice for GenAI solutions in 2025; Snowflake launched agentic document analytics extending RAG across thousands of sources",
+        "Thesis: durable data infrastructure, not clever prompts, determines which deployments scale in 2026"
+      ]
+    },
+    {
+      "title": "The Complete Guide to RAG and Vector Databases in 2026",
+      "url": "https://solvedbycode.ai/blog/complete-guide-rag-vector-databases-2026",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "SolvedByCode",
+      "topics": [
+        "M&A",
+        "MongoDB",
+        "Voyage AI",
+        "vector DB",
+        "embeddings",
+        "incumbent move"
+      ],
+      "summary": "Practitioner guide that records the MongoDB-Voyage AI deal as the marker of incumbent consolidation into embeddings/retrieval.",
+      "key_facts": [
+        "MongoDB acquired embedding-model startup Voyage AI in February 2025 (deal value not stated in source)",
+        "Voyage AI embeddings claimed to outperform OpenAI and Cohere by 9-20% across 100+ datasets"
+      ]
+    },
+    {
+      "title": "Vector Databases 2026: Trends and New Players",
+      "url": "https://app.ailog.fr/en/blog/news/vector-database-trends-2026",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Ailog",
+      "topics": [
+        "market size",
+        "M&A",
+        "vector DB",
+        "analyst prediction"
+      ],
+      "summary": "Vendor blog carrying an analyst consolidation prediction and a market-size claim; the analyst attribution could not be verified against a primary Forrester source, so treat the quote as unverified.",
+      "key_facts": [
+        "Quote attributed to Forrester analyst: 'We predict 2-3 major acquisitions by end of 2026' (unverified attribution)",
+        "Vector DB market claimed at $2.8B in 2025, expected $8.5B by 2028 (source of estimate not given)"
+      ]
+    },
+    {
+      "title": "OpenAI Acquires Rockset and Highlights Where Generative AI is Headed Next",
+      "url": "https://synthedia.substack.com/p/openai-acquires-rockset-and-highlights?open=false",
+      "type": "blog",
+      "year": 2024,
+      "venue_or_author": "Synthedia (Substack)",
+      "topics": [
+        "M&A",
+        "OpenAI",
+        "retrieval",
+        "incumbent move",
+        "foundational"
+      ],
+      "summary": "Foundational M&A datapoint: a frontier lab buying a real-time indexing/query database to own retrieval infrastructure in-house.",
+      "key_facts": [
+        "OpenAI acquired Rockset, a real-time analytics database founded 2016, for its indexing and querying capabilities (June 2024; price undisclosed)",
+        "Signal: frontier labs vertically integrate retrieval/memory rather than buy from third-party startups"
+      ]
+    },
+    {
+      "title": "Memory for AI Agents: A New Paradigm of Context Engineering",
+      "url": "https://thenewstack.io/memory-for-ai-agents-a-new-paradigm-of-context-engineering/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "The New Stack",
+      "topics": [
+        "memory is the moat",
+        "context engineering",
+        "agent memory",
+        "thesis"
+      ],
+      "summary": "Trade-press framing of agent memory as a context-engineering sub-discipline and as a moat for agent builders.",
+      "key_facts": [
+        "Quote: 'For today's AI agents, memory is a moat.'",
+        "Frames memory as active formation and updating of memories so agents use all past interactions, versus stateless LLM calls"
+      ]
+    },
+    {
+      "title": "a16z Big Ideas 2026: the shift from chat to agents (LinkedIn summary)",
+      "url": "https://www.linkedin.com/posts/alvinfsc_2026-ai-thesis-from-a16z-the-shift-from-activity-7453251351654084609-7por",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "LinkedIn / a16z Big Ideas 2026 (Sarah Wang)",
+      "topics": [
+        "VC thesis",
+        "a16z",
+        "system of record",
+        "agents",
+        "context"
+      ],
+      "summary": "Secondary summary of a16z's Big Ideas 2026 list; the system-of-record claim is the relevant thesis for memory/context startups (the agent's context store competes with the SoR).",
+      "key_facts": [
+        "Sarah Wang (a16z Growth) in Big Ideas 2026: 'the system of record will finally start to lose primacy'",
+        "a16z Jan 2025 thesis: per-seat SaaS rule 'no longer valid'; AI replaces labor, a larger TAM than software"
+      ]
+    },
+    {
+      "title": "a16z's Missing Piece: The Real AI Moat in 2026 (LinkedIn)",
+      "url": "https://www.linkedin.com/posts/huankaichen_why-the-ai-era-is-unlike-any-technology-shift-activity-7419406671812173826-5Rio",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "LinkedIn commentary on a16z",
+      "topics": [
+        "VC thesis",
+        "memory is the moat",
+        "context",
+        "a16z"
+      ],
+      "summary": "Commentary thread on a16z's moat framing; captures the 'context as moat' articulation that memory startups pitch against.",
+      "key_facts": [
+        "Framing attributed to a16z: agents may kill 'muscle memory' as a moat but not operational logic and context as a moat (secondary attribution)"
+      ]
+    },
+    {
+      "title": "AI Agent Memory 2026: Progress Benchmark Report",
+      "url": "https://mem0.ai/blog/state-of-ai-agent-memory-2026",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Mem0 (vendor)",
+      "topics": [
+        "benchmarks",
+        "adoption",
+        "Gartner",
+        "McKinsey",
+        "mem0",
+        "zep",
+        "letta",
+        "OpenAI memory",
+        "token cost"
+      ],
+      "summary": "Vendor-authored state-of-memory report; useful for third-party adoption stats it cites and for the cross-vendor benchmark table, with the caveat that Mem0 scores its own algorithm.",
+      "key_facts": [
+        "Gartner projection cited: 40% of enterprise applications will embed task-specific AI agents by end of 2026, up from <5% in 2025",
+        "McKinsey 2025 State of AI: 23% of organizations scaling agentic AI in at least one function; 39% still experimenting",
+        "Mem0 April 2026 algorithm: LoCoMo 92.5 at ~6,900 tokens/query; LongMemEval 94.4; BEAM-1M 64.1; BEAM-10M 48.6 (~25% drop at 10M)",
+        "Competitor scores cited: Zep 80.32% LoCoMo at 189ms; Letta 74.0; OpenAI Memory 52.9",
+        "Token efficiency: ~6,900 tokens/query vs ~26,000 tokens/conversation full-context baseline",
+        "Ecosystem breadth: 21 framework integrations and 20 vector-store backends supported"
+      ]
+    },
+    {
+      "title": "Agent Memory in Production 2026: Letta, Mem0, Zep, and Hindsight Benchmarked",
+      "url": "https://agentmarketcap.ai/blog/2026/04/11/agent-memory-architecture-production-2026",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "AgentMarketCap",
+      "topics": [
+        "reference startups",
+        "benchmarks",
+        "hindsight",
+        "letta",
+        "mem0",
+        "zep"
+      ],
+      "summary": "Independent April 2026 production comparison; its inclusion of Hindsight alongside the three funded incumbents marks the reference set analysts use.",
+      "key_facts": [
+        "Reference set benchmarked in April 2026: Letta, Mem0, Zep, Hindsight"
+      ]
+    },
+    {
+      "title": "AI Agents Market Size, Share And Trends Report, 2026-2033",
+      "url": "https://www.grandviewresearch.com/industry-analysis/ai-agents-market-report",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Grand View Research",
+      "topics": [
+        "market size",
+        "AI agents",
+        "TAM context"
+      ],
+      "summary": "Broader AI-agents TAM that memory/context layers sit beneath; included to bound the category size estimates.",
+      "key_facts": [
+        "AI agents market $7.6B (2025) -> $10.9B (2026) -> $182.9B (2033), CAGR 49.6% (per search snippet attribution)"
+      ]
+    },
+    {
+      "title": "Agentic AI Market Size, Share & Forecast Report, 2034",
+      "url": "https://www.fortunebusinessinsights.com/agentic-ai-market-114233",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Fortune Business Insights",
+      "topics": [
+        "market size",
+        "agentic AI",
+        "TAM context"
+      ],
+      "summary": "Second agentic-AI TAM estimate; together with Grand View and Precedence ($294.66B by 2035) shows a ~2x dispersion in long-range endpoints.",
+      "key_facts": [
+        "Agentic AI market $7.29B (2025) -> $9.14B (2026) -> $139.19B (2034), CAGR 40.5%",
+        "Precedence Research separately projects AI agents at $294.66B by 2035 (precedenceresearch.com/ai-agents-market)"
+      ]
+    },
+    {
+      "title": "Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory",
+      "url": "https://arxiv.org/abs/2504.19413",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv (Mem0 authors)",
+      "topics": [
+        "foundational",
+        "benchmarks",
+        "token cost",
+        "mem0"
+      ],
+      "summary": "The April 2025 paper that set the LoCoMo/full-context baseline later used in vendor marketing; foundational for the token-cost argument behind memory layers.",
+      "key_facts": [
+        "Establishes full-context baseline of ~26,000 tokens per conversation that memory layers benchmark savings against (as cited by Mem0 2026 report)"
+      ]
+    }
+  ],
+  "notes": "Searches run: 7 of 14 allowed before the session-wide WebSearch budget (200/200) was exhausted by prior agents; 6 further queries (Pinecone/Chroma/Weaviate/Qdrant funding, LLM observability funding incl. Langfuse/Arize/Braintrust, Sequoia/Bessemer/Redpoint/Lightspeed context-engineering theses, YC RFS, Snowflake/Databricks/MongoDB earnings commentary, a16z 2026 CIO survey) returned nothing. All 8 WebFetch calls used: Menlo 2025 report, Sacra Mem0, Value Add VC, Mem0 2026 report, SkyQuest, MarketsandMarkets, VentureBeat 2026 predictions, a16z CIO survey 2025. Found: disclosed memory-startup funding totals only Mem0 $24M (Series A Oct 2025, Basis Set), Letta $10M seed (Sept 2024, Felicis), Supermemory $3M seed (Oct 2025), Zep $500K (Tracxn, likely incomplete) - about $37.5M disclosed across the four; no 2026 rounds for memory startups surfaced. Market sizing: no Gartner/IDC primary figure for agent memory; only tier-2 syndicated reports (SkyQuest $6.16B 2025 -> $69B 2033 at 35.3%; TBRC $6.49B 2025 -> $9B 2026 at 38.7%) whose segment lists include memory layers/context SDKs/observability but name only hyperscalers - low methodology quality. Vector DB sizing clusters at $2.5-3.2B for 2025/26 across four vendors with 22-27.5% CAGR; Gartner 75.3% vector CAGR came via snippet only. Could NOT find: vector DB startup valuations/rounds 2025-26, LLM observability market size or rounds, Sequoia/Bessemer/Redpoint/Lightspeed/Conviction/Elad Gil memory theses, YC RFS text, public-company earnings quotes on vector/memory, 2026 M&A of memory startups, MongoDB-Voyage deal value. Two quotes carry weak attribution (Forrester 'Dr. Sophie Martin' on Ailog; a16z 'context as moat' via LinkedIn) and are flagged in-source. Stopped at caps as instructed."
+}

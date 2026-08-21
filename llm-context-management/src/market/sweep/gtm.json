@@ -1,0 +1,545 @@
+{
+  "sources": [
+    {
+      "title": "Mem0 raises $24M to build the memory layer for AI (company announcement)",
+      "url": "https://mem0.ai/series-a",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Mem0 (company blog)",
+      "topics": [
+        "mem0",
+        "funding",
+        "adoption metrics",
+        "open-source to cloud",
+        "incumbent move",
+        "channel: AWS",
+        "gtm"
+      ],
+      "summary": "Mem0's own Series A post: $24M total (Seed led by Kindred, Series A led by Basis Set) plus adoption metrics and the AWS Agent SDK partnership. Best primary evidence of OSS-to-cloud conversion velocity in this category.",
+      "key_facts": [
+        "Mem0 raised $24M total: Seed led by Kindred Ventures, Series A led by Basis Set Ventures (Oct 2025)",
+        "Other investors: Peak XV Partners, GitHub Fund, Y Combinator; angels incl. Scott Belsky, Dharmesh Shah, Datadog/Supabase/PostHog/W&B CEOs",
+        "Adoption: 'crossed 41,000 GitHub stars' and '14 million Python package downloads'",
+        "API calls grew from 35 million (Q1 2025) to 186 million (Q3 2025)",
+        "AWS selected Mem0 as 'exclusive memory provider for their new Agent SDK'",
+        "Native integrations in CrewAI, Flowise, Langflow; 'thousands of teams... Fortune 500 companies use us in production'",
+        "Post does not say how developers discovered the product or how funds will be used"
+      ]
+    },
+    {
+      "title": "Mem0 raises $24M from YC, Peak XV and Basis Set to build the memory layer for AI apps",
+      "url": "https://techcrunch.com/2025/10/28/mem0-raises-24m-from-yc-peak-xv-and-basis-set-to-build-the-memory-layer-for-ai-apps/?sidebar=a",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "TechCrunch",
+      "topics": [
+        "mem0",
+        "funding",
+        "market size",
+        "gtm"
+      ],
+      "summary": "Press coverage of Mem0's $24M raise (Oct 28, 2025), confirming investor list and positioning as a horizontal memory layer sold to agent builders.",
+      "key_facts": [
+        "TechCrunch dated Oct 28, 2025: Mem0 $24M combined seed + Series A",
+        "Series A led by Basis Set Ventures; participation from Peak XV, GitHub Fund, Y Combinator",
+        "Positioning: memory layer 'integrated with just three lines of code'"
+      ]
+    },
+    {
+      "title": "Mem0 Raises $24M Series A to Build Memory Layer for AI Agents (press release)",
+      "url": "https://www.prnewswire.com/news-releases/mem0-raises-24m-series-a-to-build-memory-layer-for-ai-agents-302597157.html",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "PR Newswire (Mem0)",
+      "topics": [
+        "mem0",
+        "funding",
+        "strategic angels",
+        "gtm"
+      ],
+      "summary": "Official press release listing strategic angel investors from infrastructure companies, a signal of the infra-founder channel Mem0 used for credibility.",
+      "key_facts": [
+        "Strategic angels: CEOs of Datadog, Supabase, PostHog, Weights & Biases, ex-GitHub CEO, Scott Belsky, Dharmesh Shah",
+        "Claims 'thousands of teams, from startups to Fortune 500 companies' in production"
+      ]
+    },
+    {
+      "title": "Mem0 Pricing",
+      "url": "https://mem0.ai/pricing",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Mem0",
+      "topics": [
+        "mem0",
+        "pricing",
+        "enterprise requirements",
+        "packaging"
+      ],
+      "summary": "Mem0's cloud tiers (fetched Aug 2026): request-metered plans from free to $249/mo, with on-prem, audit logs and SSO gated to Enterprise. Shows the add-vs-retrieve metering model and where enterprise features sit.",
+      "key_facts": [
+        "Hobby: free, 10,000 add requests/mo, 1,000 retrieval requests/mo, 1 project",
+        "Starter: $19/mo, 50,000 add + 5,000 retrieval requests/mo, 1 project",
+        "Pro: $249/mo, 500,000 add + 50,000 retrieval requests/mo, unlimited projects, graph memory, 'Dream (Memory Consolidation)', private Slack",
+        "Enterprise (custom): unlimited requests, on-prem deployment, audit logs, custom integrations & SSO, SLA support",
+        "Also offers 'usage-based pricing for teams whose traffic doesn't map cleanly to a fixed tier'"
+      ]
+    },
+    {
+      "title": "Letta Pricing (Letta Code / Cloud)",
+      "url": "https://docs.letta.com/letta-code/pricing",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Letta",
+      "topics": [
+        "letta",
+        "pricing",
+        "packaging",
+        "agents-as-unit",
+        "enterprise requirements"
+      ],
+      "summary": "Letta's pricing (letta.com/pricing now 301-redirects here, Aug 2026) is built around stateful agents as the billing unit, with seat-based team plans and an API plan per active agent. Notably no SOC2/on-prem/BYOC mentioned on the page.",
+      "key_facts": [
+        "Free: $0, max 3 stateful agents, limited Letta Auto usage, BYOK",
+        "Pro: $20/mo, up to 20 stateful agents, Letta Auto weekly+monthly quota, PAYG overage",
+        "API plan: $20/mo base + $0.10 per active agent/mo + $0.00015/sec tool execution, PAYG LLM usage",
+        "Teams Pro: $20/seat/mo; Enterprise: custom, volume pricing, RBAC, SAML/OIDC SSO",
+        "No SOC2, on-prem or BYOC options mentioned on pricing page as of Aug 2026",
+        "letta.com/pricing redirects to docs.letta.com/letta-code/pricing: Letta Code is now the front door"
+      ]
+    },
+    {
+      "title": "Zep Pricing",
+      "url": "https://www.getzep.com/pricing",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Zep",
+      "topics": [
+        "zep",
+        "pricing",
+        "enterprise requirements",
+        "SOC2",
+        "HIPAA",
+        "BYOC",
+        "MCP"
+      ],
+      "summary": "Zep's credit-metered cloud pricing (fetched Aug 2026) with annual-billed Flex tiers and an Enterprise tier that explicitly lists SOC 2 Type II, HIPAA BAA, BYOC and EU DPA, the most compliance-forward packaging among the memory vendors.",
+      "key_facts": [
+        "Free: 10,000 credits/mo, 2 projects, 1 Memory MCP Server seat",
+        "Flex: $1,250/yr (~$104/mo), 50,000 credits/mo then $25 per 10,000 credits, 600 req/min, 5 projects",
+        "Flex Plus: $3,750/yr (~$312/mo), 200,000 credits/mo then $75 per 40,000, 1,000 req/min, 10 projects",
+        "Credit unit: 'Episodes up to 350 bytes use 1 credit'; storage and retrieval unmetered",
+        "Enterprise: SOC 2 Type II, HIPAA BAA, 1-year audit/API logs, Cloud / Cloud+BYOK / BYOC (your VPC), DPA for EU",
+        "MCP Server seats are a packaging dimension (1 / 5 / 15 / custom)"
+      ]
+    },
+    {
+      "title": "Supermemory Pricing",
+      "url": "https://supermemory.ai/pricing",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Supermemory",
+      "topics": [
+        "supermemory",
+        "pricing",
+        "token-metered",
+        "self-host",
+        "connectors",
+        "enterprise requirements"
+      ],
+      "summary": "Supermemory's pricing (fetched Aug 2026) bundles usage credits with connectors (Drive, Notion, Gmail, GitHub) and plugins (Claude Code, OpenClaw, Hermes), and meters memory per 1K tokens; SOC2/HIPAA and self-hosting start at the $399 Scale tier.",
+      "key_facts": [
+        "Free: $0 with ~$5/mo usage credits, Supermemory MCP, Hermes plugin",
+        "Pro $19/mo (~$20 credits), Max $100/mo (~$130 credits), Scale $399/mo (~$600 credits, up to 10 teammates)",
+        "Usage rates: memory $0.005 per 1K tokens ($0.010 rich), SuperRAG $0.001 per 1K tokens, search $0.005 per 1K queries",
+        "Scale/Enterprise: SOC 2, HIPAA BAA, self-hosted option, 'air-gapped self-hosting'",
+        "Enterprise includes 'Forward Deployed engineer' and committed-spend pricing",
+        "Connectors (Gmail, Granola, GitHub, S3, web crawler) used as tier differentiators"
+      ]
+    },
+    {
+      "title": "Supermemory Raises $3M to Build AI Memory",
+      "url": "https://supermemory.ai/blog/supermemory-raises-3-million-and-building-the-best-memory-engine-for-llms",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Supermemory (company blog)",
+      "topics": [
+        "supermemory",
+        "funding",
+        "gtm",
+        "angels"
+      ],
+      "summary": "Supermemory's seed announcement (Oct 2025). Company states $3M while press snippets say $2.6M; lead Susa Ventures with notable big-tech angels, a credibility channel for a solo-founder memory API.",
+      "key_facts": [
+        "Seed announced Oct 2025: $3M per company blog, $2.6M per press/LinkedIn coverage",
+        "Led by Susa Ventures with Browder Capital and SF1.vc (per search snippet)",
+        "Angels: Jeff Dean (Google), Dane Knecht (Cloudflare CTO), Logan Kilpatrick (DeepMind), David Cramer (Sentry)",
+        "Product claim: sub-300ms contextual memory retrieval over unstructured data"
+      ]
+    },
+    {
+      "title": "Supermemory | Ry Walker Research",
+      "url": "https://rywalker.com/research/supermemory",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Ry Walker Research",
+      "topics": [
+        "supermemory",
+        "adoption metrics",
+        "open-source to cloud",
+        "pricing"
+      ],
+      "summary": "Independent teardown of Supermemory (mid-2026) describing an MIT-licensed core with the business on the hosted platform, and star counts as an adoption proxy.",
+      "key_facts": [
+        "Open-source core MIT-licensed with 26.8K GitHub stars as of June 2026 (per search snippet)",
+        "Business model: hosted platform; tiers Free / Pro $19 / Max $100 / Scale $399 / Enterprise air-gapped"
+      ]
+    },
+    {
+      "title": "Letta | Ry Walker Research",
+      "url": "https://rywalker.com/research/letta",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Ry Walker Research",
+      "topics": [
+        "letta",
+        "funding",
+        "pivot",
+        "pricing",
+        "Letta Code"
+      ],
+      "summary": "Teardown of Letta (mid-2026) tracing the MemGPT-paper origin, the $10M Felicis seed, and the 2026 shift of the company's center of gravity from memory infra toward Letta Code.",
+      "key_facts": [
+        "Letta founders (Packer, Fang, Wooders) raised $10M seed from Felicis in Sept 2024 (per search snippet)",
+        "Letta Code scored 42.5% on Terminal-Bench, claimed #1 model-agnostic open-source agent (per snippet)",
+        "Letta Code desktop app launched April 2026; 'Channels' replaced LettaBot May 2026",
+        "Letta memory tiers: core, recall, archival; productization of 2023 UC Berkeley MemGPT paper",
+        "Free tier allows local use with BYOK and no login"
+      ]
+    },
+    {
+      "title": "Mem0 vs Letta (MemGPT): AI Agent Memory Compared (2026)",
+      "url": "https://vectorize.io/articles/mem0-vs-letta",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Vectorize",
+      "topics": [
+        "mem0",
+        "letta",
+        "buyer comparison",
+        "architecture"
+      ],
+      "summary": "Vendor-neutral-ish buyer comparison contrasting Mem0's drop-in managed memory API with Letta's agent-runtime model where the agent manages its own memory tiers.",
+      "key_facts": [
+        "Frames the buyer choice as managed memory API (Mem0) vs stateful agent runtime (Letta)",
+        "Letta pricing cited: free 3 agents, Pro $20/mo 20 agents, API $20 + $0.10/active agent/mo"
+      ]
+    },
+    {
+      "title": "Zep vs Mem0: Benchmarks, Pricing, and When to Use Each",
+      "url": "https://atlan.com/know/zep-vs-mem0/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Atlan",
+      "topics": [
+        "zep",
+        "mem0",
+        "pricing",
+        "buyer comparison",
+        "enterprise requirements"
+      ],
+      "summary": "Buyer-oriented comparison from a data-governance vendor, summarizing Zep's credit tiers and compliance posture versus Mem0, and when each fits.",
+      "key_facts": [
+        "Zep: free 10k credits/mo, Flex ~$104/mo annual, Flex Plus ~$312/mo, Enterprise with SOC 2 Type II + HIPAA BAA",
+        "Positions Zep's temporal knowledge graph (Graphiti) as the differentiator vs Mem0's extraction-based memory"
+      ]
+    },
+    {
+      "title": "Zep Review (2026): AI Agent Memory & Knowledge Graph",
+      "url": "https://theaiagentindex.com/agents/zep",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "The AI Agent Index",
+      "topics": [
+        "zep",
+        "adoption metrics",
+        "enterprise requirements",
+        "regulated buyers",
+        "BYOC"
+      ],
+      "summary": "2026 review positioning Zep as the compliance shortcut for regulated-industry agents (finance, medical, legal) with cloud/BYOK/BYOC deployment and Graphiti star growth.",
+      "key_facts": [
+        "Graphiti repo surpassed 28,000 GitHub stars by Q3 2026 (per search snippet)",
+        "Zep Cloud: SOC 2 Type 2, HIPAA, GDPR; 'shortcut for financial, medical, and legal AI agents to pass enterprise RFPs'",
+        "Deployment options: cloud, BYOK, BYOC; positioned as 'context lake for AI agents'"
+      ]
+    },
+    {
+      "title": "Agent Memory at Scale 2026: Letta, Zep, Mem0, and LangMem Compared",
+      "url": "https://agentmarketcap.ai/blog/2026/04/10/agent-memory-vendor-landscape-2026-letta-zep-mem0-langmem",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "AgentMarketCap",
+      "topics": [
+        "vendor landscape",
+        "mem0",
+        "zep",
+        "letta",
+        "LangMem",
+        "enterprise requirements",
+        "compliance"
+      ],
+      "summary": "April 2026 vendor landscape comparing the three memory startups plus LangChain's LangMem, with emphasis on which vendor clears enterprise compliance and where on-prem/SSO sit in packaging.",
+      "key_facts": [
+        "Mem0 'has raised $24.5M and processes 186M API calls a quarter' (per article)",
+        "Zep described as the only vendor in 2026 with full GDPR, SOC 2 Type 2 and HIPAA certification",
+        "Letta launched Letta Code and a Conversations API (shared memory across parallel sessions) in April 2026",
+        "Mem0 gates SSO, on-prem deployment and audit logs to Enterprise; Letta's compliance route is self-hosting",
+        "LangChain's LangMem listed as framework-native incumbent alternative"
+      ]
+    },
+    {
+      "title": "Best AI Agent Memory Providers in 2026: Mem0 vs Zep vs Letta vs Cloudflare",
+      "url": "https://www.developersdigest.tech/blog/best-ai-agent-memory-providers-2026",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Developers Digest",
+      "topics": [
+        "incumbent move",
+        "Cloudflare",
+        "mem0",
+        "zep",
+        "letta",
+        "buyer comparison"
+      ],
+      "summary": "Developer-facing 2026 comparison that includes Cloudflare as a memory provider alongside the three startups, evidence that platform incumbents now ship agent memory natively.",
+      "key_facts": [
+        "Cloudflare listed as a first-class agent memory provider alongside Mem0, Zep, Letta in 2026",
+        "Comparison axes: managed vs self-hosted, latency, pricing model, framework integrations"
+      ]
+    },
+    {
+      "title": "Mem0 Integrations - LangChain, CrewAI, Vercel AI SDK & 25+ More",
+      "url": "https://mem0.ai/integrations",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Mem0",
+      "topics": [
+        "mem0",
+        "gtm",
+        "channel strategy",
+        "framework integrations",
+        "MCP",
+        "Vercel AI SDK",
+        "CrewAI",
+        "LangGraph"
+      ],
+      "summary": "Mem0's integration catalog is its distribution strategy: being the default memory provider inside every agent framework, IDE and voice stack, plus an MCP server for client-agnostic reach.",
+      "key_facts": [
+        "Integrations: LangGraph, LangChain, CrewAI, OpenAI Agents SDK, Vercel AI SDK, Claude Code, Cursor, LiveKit, ElevenLabs, AWS Bedrock",
+        "Ships a 'Mem0 AI SDK Provider' for Vercel AI SDK and an MCP server 'that works with ANY AI client'",
+        "Claims 25+ integrations; Python and JS SDKs"
+      ]
+    },
+    {
+      "title": "Show HN: Mem0 - open-source Memory Layer for AI apps",
+      "url": "https://news.ycombinator.com/item?id=41447317",
+      "type": "thread",
+      "year": 2024,
+      "venue_or_author": "Hacker News",
+      "topics": [
+        "mem0",
+        "developer complaints",
+        "open-source trust",
+        "PII",
+        "memory bloat",
+        "launch"
+      ],
+      "summary": "Mem0's original Show HN (Sept 4, 2024): 201 points, 61 comments. Critiques foreshadow today's buyer objections: OSS commitment, PII handling via prompts, relevancy scoring, memory bloat, over-engineering.",
+      "key_facts": [
+        "201 points, 61 comments, posted Sept 4, 2024",
+        "Critique: 'will you support the open source version as a first class citizen for the long term?'",
+        "Critique on PII: 'Do you just rely on the LLM to follow instructions perfectly?'",
+        "Critique: demo showed 9/10 relevancy for '100% duplication' of user input",
+        "Critique: 'memory bloat' and handling 'outdated or irrelevant memories over time'; 'Looks very over engineered'",
+        "Praise: 'solves a real problem'; hybrid datastore 'smart'; competitors cited: ChatGPT memory, Claude prompt caching"
+      ]
+    },
+    {
+      "title": "Ask HN: Mem0 stores memories, but doesn't learn user patterns",
+      "url": "https://news.ycombinator.com/item?id=46891715",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "Hacker News",
+      "topics": [
+        "mem0",
+        "letta",
+        "developer complaints",
+        "pain point: preference learning",
+        "user corrections",
+        "unmet need"
+      ],
+      "summary": "Feb 2026 thread from a YC W23 founder: Mem0/Letta solve fact storage plus semantic search but not implicit preference learning from user corrections; others report 'hitting same wall'. Small thread but a clear unmet-need signal.",
+      "key_facts": [
+        "9 points, 7 comments, ~Feb 2026; poster is YC W23 founder building agents for engineering labs",
+        "Complaint: Mem0 = 'key-value memory with semantic search', fails at learning patterns like repeated threshold edits 85%->80%",
+        "Poster built internal API: structured events -> LLM -> confidence-weighted preference profile",
+        "Commenter: 'user corrections are the highest-signal data'; 'chat history mining' sector underdeveloped",
+        "Another startup (Slice) reports 'hitting same wall' and asks for docs"
+      ]
+    },
+    {
+      "title": "Show HN: Mnemora - Serverless memory DB for AI agents (no LLM in your CRUD path)",
+      "url": "https://news.ycombinator.com/item?id=47260077",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "Hacker News",
+      "topics": [
+        "developer complaints",
+        "latency",
+        "token cost",
+        "mem0",
+        "zep",
+        "letta",
+        "new entrant"
+      ],
+      "summary": "2026 Show HN that positions against Mem0/Zep/Letta on latency and token cost: those products route every write through an LLM; Mnemora does direct DB CRUD. Shows the 'LLM-in-the-write-path' objection has become a wedge for new entrants.",
+      "key_facts": [
+        "Pitch: addresses 'latency and token cost issues of solutions like Mem0, Zep, and Letta'",
+        "Mechanism: direct database CRUD instead of routing data through an LLM on every operation"
+      ]
+    },
+    {
+      "title": "Show HN: Mnemosyne - Cognitive memory OS for AI agents (zero LLM calls)",
+      "url": "https://news.ycombinator.com/item?id=47143857",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "Hacker News",
+      "topics": [
+        "new entrant",
+        "deterministic memory",
+        "local embeddings",
+        "developer complaints"
+      ],
+      "summary": "Another 2026 entrant differentiating on zero LLM calls: a deterministic 12-step pipeline with local embeddings instead of LLM extraction, again targeting cost/latency/determinism complaints about incumbents.",
+      "key_facts": [
+        "Differentiator: deterministic 12-step pipeline with local embeddings, 'zero LLM calls'",
+        "Explicitly contrasts with systems that send text to an LLM for extraction"
+      ]
+    },
+    {
+      "title": "Show HN: SuperLocalMemory - AI memory that stays on your machine, forever free",
+      "url": "https://news.ycombinator.com/item?id=46926968",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "Hacker News",
+      "topics": [
+        "privacy",
+        "local-first",
+        "developer complaints",
+        "mem0",
+        "Claude Code"
+      ],
+      "summary": "2026 local-first alternative explicitly pitched against cloud memory (Mem0) for Claude users: privacy and 'forever free' as the wedge, signaling a segment that rejects hosted memory.",
+      "key_facts": [
+        "Pitch: local memory for Claude stored on your machine 'instead of requiring cloud storage like Mem0'",
+        "Wedge: privacy + free, aimed at coding-agent users"
+      ]
+    },
+    {
+      "title": "Show HN: Zep - Long-Term Memory Store for LLM Apps",
+      "url": "https://news.ycombinator.com/item?id=35889826",
+      "type": "thread",
+      "year": 2023,
+      "venue_or_author": "Hacker News",
+      "topics": [
+        "zep",
+        "launch",
+        "foundational",
+        "open-source to cloud"
+      ],
+      "summary": "Zep's 2023 launch thread (foundational): started as an open-source long-term memory store with summarization, vector search and SDKs before evolving into Graphiti plus a compliance-heavy cloud.",
+      "key_facts": [
+        "2023 launch features: long-term memory persistence, auto-summarization, vector search, token counting, Python + JS SDKs",
+        "Trajectory: OSS memory store (2023) -> Graphiti temporal graph + SOC2/HIPAA cloud (2026)"
+      ]
+    },
+    {
+      "title": "What Is a Context Engineer? The AI Job Title Replacing Prompt Engineers in 2026",
+      "url": "https://blog.theinterviewguys.com/what-is-a-context-engineer/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "The Interview Guys",
+      "topics": [
+        "demand signal",
+        "context engineer",
+        "job postings",
+        "Gartner"
+      ],
+      "summary": "Describes the emergence of 'Context Engineer' as a job title: late-2025 discourse, a Gartner definition in early 2026, and enterprise job listings, framed around the context-window-as-RAM metaphor.",
+      "key_facts": [
+        "'Context Engineer' title appeared late 2025; by early 2026 Gartner published a formal definition (per article)",
+        "Enterprise teams posting 'context engineer' job listings in 2026 (per article)",
+        "Role framing: LLM context window as RAM / working memory"
+      ]
+    },
+    {
+      "title": "LLM Engineer Salary Guide 2026: Pay by Level & City",
+      "url": "https://www.kore1.com/llm-engineer-salary-guide/",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "KORE1 (staffing firm)",
+      "topics": [
+        "demand signal",
+        "salaries",
+        "context engineering",
+        "hiring"
+      ],
+      "summary": "Staffing-firm salary guide: context/prompt design folded into the broader LLM engineer role rather than standalone titles; useful as a counter-signal to 'context engineer' hype.",
+      "key_facts": [
+        "US LLM engineer base pay $150,000-$265,000 (2026); lead/staff >$300,000 base; frontier-lab total comp >$700,000",
+        "Prompt and context design 'became one skill inside the larger LLM engineering role'",
+        "Glassdoor (Mar 2026): AI engineer median ~$141,000; 90th percentile >$220,000"
+      ]
+    },
+    {
+      "title": "AI Memory Problem 2026: How Mem0, Letta & Zep Give Agents Persistent Context",
+      "url": "https://valueaddvc.com/blog/the-ai-memory-problem-how-startups-are-solving-for-persistent-context",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Value Add VC",
+      "topics": [
+        "investor view",
+        "market thesis",
+        "context drift",
+        "mem0",
+        "letta",
+        "zep"
+      ],
+      "summary": "VC-side framing of the memory market thesis; cites a context-drift failure statistic (unsourced in snippet, treat as unverified) and maps the three startups' architectures.",
+      "key_facts": [
+        "Claims '65% of enterprise AI agent failures trace back to context drift, not model capability' (source not verified)",
+        "Frames Mem0 = managed API, Zep = temporal graph, Letta = agent OS with self-managed memory"
+      ]
+    },
+    {
+      "title": "The AI Agent Memory Landscape in 2026: Mapping Mem0, Zep, Letta, Cognee, and Where Embedded Engines Fit",
+      "url": "https://www.getfeather.store/theory/ai-agent-memory-frameworks-landscape-2026",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Feather DB",
+      "topics": [
+        "vendor landscape",
+        "embedded memory",
+        "Cognee",
+        "new entrant",
+        "positioning"
+      ],
+      "summary": "Landscape piece from an embedded-DB entrant arguing for an 'embedded engine' niche beneath the hosted memory APIs, naming Cognee alongside Mem0/Zep/Letta as reference points.",
+      "key_facts": [
+        "Reference set used by new entrants in 2026: Mem0, Zep, Letta, Cognee",
+        "Positions embedded/in-process memory engines as a segment distinct from hosted memory APIs"
+      ]
+    }
+  ],
+  "notes": "Searched (8 of 12 WebSearch before the session-wide search budget hit 200/200, which blocked the last 4 queries): Mem0 funding/adoption; Letta pricing/funding; Zep pricing/SOC2; Supermemory funding/pricing; HN Show HN memory threads; context/memory engineer job postings; framework integration channels (LangGraph/CrewAI/Vercel/MCP); customer case studies. Fetched (8 of 8): mem0.ai/pricing, getzep.com/pricing, supermemory.ai/pricing, docs.letta.com/letta-code/pricing (letta.com/pricing 301s there), HN Mem0 Show HN (201 pts), HN Ask HN Mem0 user-patterns thread, mem0.ai/series-a. COULD NOT COVER (caps hit before these ran): founder interviews on first customers (Latent Space/YC talks); LangSmith, Pinecone and Chroma Cloud pricing pages; AWS AgentCore Memory / OpenAI memory incumbent moves and PII-unlearning governance requirements; funding for Cognee/Hindsight/Honcho/Graphlit; named enterprise case studies (search results were comparison articles, none with first-party customer stories); Discord sizes; npm download counts. Attribution caveats: WebSearch returns aggregated snippets, so facts tagged 'per search snippet' (Letta $10M Felicis seed, Letta Code 42.5% Terminal-Bench, Graphiti 28K stars, Supermemory 26.8K stars, Susa-led seed) are attributed to the most likely source page but were not fetched directly. Supermemory seed amount conflicts: $3M (company blog) vs $2.6M (press/LinkedIn). Value Add VC's '65% of failures = context drift' has no visible primary source. Recurring buyer-need themes across sources: (1) LLM-in-the-write-path latency/token cost is the #1 wedge for 2026 entrants; (2) compliance (SOC2/HIPAA/BYOC) is a tier gate and Zep's core positioning; (3) OSS-first then hosted cloud is the universal GTM, with framework-integration catalogs (Mem0: 25+, AWS exclusive) as the distribution moat; (4) unmet need: implicit preference learning from user corrections, not just fact storage; (5) Letta's pivot toward Letta Code suggests pure memory-infra is hard to monetize standalone."
+}

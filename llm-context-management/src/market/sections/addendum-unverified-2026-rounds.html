@@ -1,0 +1,83 @@
+<section class="msection" id="addendum-unverified-2026-rounds">
+  <h2>Addendum: verifying the 2026 funding rows behind the capital argument</h2>
+  <p class="lede">The report's capital argument rests on rows the sweeps never fetched. This pass verified OpenRouter's $113M Series B (CapitalG-led, $1.3B post-money, May 2026), found no 2026 Mem0 or Letta round on either company blog as of August 21, 2026, and could not resolve Qdrant's round label, Portkey's deal terms or LangChain's $260M total. The "$51M across six memory startups" framing survives; OpenRouter also gained a reported $7B+ Stripe exit.</p>
+  <div class="kv">
+    <div><b>Key numbers</b><span>OpenRouter $113M Series B at $1.3B post-money (May 2026); Stripe reportedly acquiring OpenRouter for $7B+ (Aug 16, 2026); six memory startups still $51M disclosed, 2024–26; Plastic Labs Form D for up to $15.4M (Jul 2026); LangChain $1.25B valuation (Oct 2025), $260M total unsourced.</span></div>
+    <div><b>Confidence</b><span>medium — OpenRouter verified; Qdrant, Portkey, LangChain total remain secondary-only.</span></div>
+    <div><b>Evidence base</b><span>7 sources fetched (8 fetch calls, one redirect), 15 from earlier search results.</span></div>
+  </div>
+
+  <h3>Why this addendum exists</h3>
+  <p>Four sections (market, memory landscape, infra landscape, playbook) repeat one sentence: six memory-layer startups have raised about $51M between them, and single rounds at OpenRouter, LangChain, Glean, Braintrust and Contextual AI each exceed that total. The OpenRouter row came from a page that returned 403, the Qdrant row carried two contradictory round labels, the Portkey exit was a headline, the LangChain total did not reconcile with its listed rounds, and nobody had searched for a 2026 Mem0 or Letta follow-on. Any one of those could move the argument. The session's search budget was already exhausted when this pass began, so verification used eight direct fetches of primary pages (company blogs and TechCrunch), which is narrower than a search-backed check and is reflected in the confidence rating.</p>
+
+  <h3>Row-by-row verdicts</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Row</th><th>Claim in the report</th><th>What this pass found</th><th>Verdict</th><th>Edit to make</th></tr></thead>
+    <tbody>
+      <tr><td>OpenRouter $113M</td><td>"Raises $113M from Google and NVIDIA", May 2026; weekly tokens 5T to 25T</td><td><a href="https://techcrunch.com/2026/05/26/openrouter-more-than-doubles-valuation-to-1-3b-in-a-year/">TechCrunch, May 26, 2026</a>: $113M Series B led by CapitalG (Alphabet), with a16z, Menlo and Sequoia; $1.3B post-money per the NYT, up from $547M post-money at the June 2025 Series A; 8M users; 100T tokens per month, "5x" the 5T per week of six months earlier. NVIDIA is not named.</td><td>Amount, date and valuation verified; investor attribution wrong</td><td>Replace "from Google and NVIDIA" with "led by CapitalG"; keep the token figures (25T/week ≈ 100T/month).</td></tr>
+      <tr><td>Qdrant $50M</td><td>$50M, labelled Series B (Mar 2026, $87.8M total) in one snippet and Series C (Oct 2025, $200M valuation, Battery and Zetta) in another</td><td><a href="https://qdrant.tech/blog/">Qdrant's blog index</a> lists no funding post at all; the only sources remain the conflicting snippets behind the <a href="https://bigdataboutique.com/blog/vector-database-comparison-2026">vector-DB comparison</a>.</td><td>Unverified</td><td>Write "$50M round, 2025–26; label and date conflict in secondary sources" and use only as order of magnitude.</td></tr>
+      <tr><td>Portkey to Palo Alto Networks</td><td>Acquired April 2026 (listed as "reported, unverified")</td><td><a href="https://portkey.ai/blog">Portkey's blog</a> carries no announcement, but its site navigation now links to Palo Alto Networks' "Prisma AIRS AI Gateway" with a Portkey UTM tag.</td><td>Relationship corroborated; terms and date unverified</td><td>Keep as "reported; terms undisclosed"; do not cite a price.</td></tr>
+      <tr><td>LangChain $260M total</td><td>$260M raised to date; listed rounds sum to $160M</td><td><a href="https://techcrunch.com/2025/10/21/open-source-agentic-startup-langchain-hits-1-25b-valuation/">TechCrunch, Oct 21, 2025</a> confirms the $1.25B valuation headline; nothing fetched supports $260M.</td><td>Valuation verified; total unsourced</td><td>State "at least $160M across listed rounds" or drop the $260M.</td></tr>
+      <tr><td>Mem0 2026 follow-on</td><td>None listed; a Series B would break the framing</td><td><a href="https://mem0.ai/blog">mem0.ai/blog</a> has no funding post; newest posts dated Aug 12–18, 2026 are all product content.</td><td>No evidence of a 2026 round</td><td>Keep $24M (Oct 2025); add "no follow-on announced as of Aug 21, 2026".</td></tr>
+      <tr><td>Letta 2026 follow-on</td><td>None listed; a Series A would break the framing</td><td><a href="https://www.letta.com/blog">letta.com/blog</a> has no funding post; 2026 posts are Agents SDK (Aug), Mods (Jun), Letta Code App (Apr).</td><td>No evidence of a 2026 round</td><td>Keep $10M seed (Sep 2024); same caveat.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Does the $51M framing survive?</h3>
+  <p>Recomputing the six rows from the sweep sources gives exactly $51.0M, and none of the inputs changed in this pass.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Company</th><th>Disclosed funding</th><th>Date</th><th>Source</th><th>2026 signal</th></tr></thead>
+    <tbody>
+      <tr><td>Mem0</td><td>$24M ($3.9M seed + $20M Series A)</td><td>Oct 2025</td><td><a href="https://techcrunch.com/2025/10/28/mem0-raises-24m-from-yc-peak-xv-and-basis-set-to-build-the-memory-layer-for-ai-apps/">TechCrunch</a></td><td>No round on blog; a July 2026 VC note still cites $24.5M total</td></tr>
+      <tr><td>Letta</td><td>$10M seed at $70M post-money (BigDATAwire, unconfirmed)</td><td>Sep 2024</td><td><a href="https://www.prnewswire.com/news-releases/berkeley-ai-research-lab-spinout-letta-raises-10m-seed-financing-led-by-felicis-to-build-ai-with-memory-302257004.html">PR Newswire</a></td><td>No round on blog</td></tr>
+      <tr><td>Cognee</td><td>$7.5M seed</td><td>Feb 2026</td><td><a href="https://www.cognee.ai/blog/cognee-news/cognee-raises-seven-million-five-hundred-thousand-dollars-seed">Cognee blog</a></td><td>This is the 2026 round</td></tr>
+      <tr><td>Plastic Labs</td><td>$6M pre-seed</td><td>Apr 2025</td><td><a href="https://sosovalue.com/project/plastic-labs-1911542590240710658">SoSoValue</a></td><td><a href="https://www.intelligence360.news/plastic-labs-has-filed-a-notice-of-an-exempt-offering-of-securities-to-raise-15399978-00-in-new-funding/">Form D</a> for up to $15.4M, Jul 2026; amount sold undisclosed</td></tr>
+      <tr><td>Supermemory</td><td>$3M seed</td><td>Oct 2025</td><td><a href="https://tracxn.com/d/companies/supermemory/__pLAZAfS7jagHq_m-58u50kYrRLK-6lY70wYdV2t6F4Y">Tracxn</a></td><td>None found</td></tr>
+      <tr><td>Zep</td><td>$0.5M seed</td><td>Apr 2024</td><td><a href="https://tracxn.com/d/companies/zep/__poSadJnSfLWHjz05Xi3U5KwnpCMWSU3aDrihLX_8FLs">Tracxn</a></td><td>None found; 8 employees as of May 2026</td></tr>
+      <tr><td><b>Total</b></td><td><b>$51.0M</b></td><td>2024–26</td><td></td><td>Up to ~$66M if the Plastic Labs Form D is fully sold</td></tr>
+    </tbody>
+  </table></div>
+  <p>The sensitivity that matters is an unannounced Mem0 Series B. Mem0's own numbers (API calls from 35M to 186M a quarter across 2025, exclusive memory provider for AWS's Agent SDK) make a 2026 round plausible, and its blog publishes several times a week, so a round would normally surface there as it did in October 2025. That it has not is reasonable but not conclusive evidence: companies occasionally announce only through press or a filing. The <a href="https://valueaddvc.com/blog/the-ai-memory-problem-how-startups-are-solving-for-persistent-context">Six Point Ventures note</a> of July 22, 2026 still lists Mem0 at $24.5M and Letta at its $10M seed, which is the most recent third-party check available. Letta's 2026 output is product, not capital: an Agents SDK, a self-improvement mechanism and a coding app.</p>
+  <p>Arithmetic rather than estimate: the six companies would need a further $62M of follow-on to match OpenRouter's single Series B, and even the upside case with Plastic Labs is $47M short. The "seed-to-A category" label therefore holds as of today, with the explicit caveat that one search per company should be re-run when budget returns.</p>
+
+  <h3>What changed since the sweep: the OpenRouter exit</h3>
+  <p>The same TechCrunch check surfaced something the report does not yet contain. On August 16, 2026 TechCrunch reported that <a href="https://techcrunch.com/2026/08/16/stripe-will-reportedly-acquire-ai-gateway-startup-openrouter-for-7b/">Stripe will acquire OpenRouter for $7B+</a>, followed by an August 19 analysis piece on the rationale. This is reported, not closed, and no terms beyond the headline price were fetched. If it completes, it is the first large exit in the context-management stack and it lands in the gateway layer, about three months after a $1.3B post-money round. For the capital argument the comparison shifts from "a single round exceeds the memory category" to "a single reported exit is roughly 140 times the memory category's disclosed funding". For the incumbents section it is direct evidence that the gateway is where the metering and billing seat sits, which is consistent with the report's view that gateways commoditise model access rather than context.</p>
+
+  <h3>Edits to propagate</h3>
+  <ul>
+    <li>Market section, OpenRouter row: change the investor attribution to "Series B led by CapitalG with a16z, Menlo and Sequoia; $1.3B post-money"; add the Stripe report with a "reported" flag.</li>
+    <li>Market and infra sections, Qdrant row: replace the round label with "$50M round, 2025–26, label and date unverified".</li>
+    <li>Infra and cases sections: replace "$260M" for LangChain with "at least $160M across listed rounds" or cite a source for the larger figure.</li>
+    <li>Memory landscape section: add the line "no Mem0 or Letta follow-on announced as of Aug 21, 2026; Plastic Labs has a Form D for up to $15.4M" so the framing carries its own expiry date.</li>
+    <li>Playbook: the "single rounds elsewhere exceed it" sentence can stand; the stronger version now cites the OpenRouter exit.</li>
+  </ul>
+
+  <h3>Implications for a new entrant</h3>
+  <ul>
+    <li>The memory layer is still financed at seed-to-A scale ($51M across six companies, none with a disclosed 2026 growth round), so a new entrant is not competing against war chests and can win on product rather than spend.</li>
+    <li>Capital concentrates where usage is metered: OpenRouter's 100T tokens a month drew a $113M round and a reported $7B+ bid, which argues for building the memory or context product on top of a billing seat you can measure, not beside it.</li>
+    <li>Mem0's silence on funding despite 30% monthly API growth in 2025 is the single row to re-check before any investor conversation that relies on this report's numbers.</li>
+    <li>Plastic Labs' $15.4M Form D shows that follow-on capital for memory exists but is arriving quietly through filings, so track SEC Form D digests, not only press.</li>
+    <li>Treat every third-party funding snippet with a round label as suspect until the company's own post confirms it; Qdrant's $50M carries two labels and two dates in the same result set.</li>
+  </ul>
+
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://techcrunch.com/2026/05/26/openrouter-more-than-doubles-valuation-to-1-3b-in-a-year/">OpenRouter more than doubles valuation to $1.3B in a year</a> <span class="src-type news">news</span> — TechCrunch, 2026</li>
+    <li><a href="https://techcrunch.com/2026/08/16/stripe-will-reportedly-acquire-ai-gateway-startup-openrouter-for-7b/">Stripe will reportedly acquire AI gateway startup OpenRouter for $7B+</a> <span class="src-type news">news</span> — TechCrunch, 2026</li>
+    <li><a href="https://techcrunch.com/tag/openrouter/">OpenRouter coverage index</a> <span class="src-type news">news</span> — TechCrunch, 2026</li>
+    <li><a href="https://techcrunch.com/2025/10/21/open-source-agentic-startup-langchain-hits-1-25b-valuation/">Open source agentic startup LangChain hits $1.25B valuation</a> <span class="src-type news">news</span> — TechCrunch, 2025</li>
+    <li><a href="https://portkey.ai/blog">Portkey blog (navigation links to Palo Alto Networks Prisma AIRS AI Gateway)</a> <span class="src-type blog">blog</span> — Portkey, 2026</li>
+    <li><a href="https://qdrant.tech/blog/">Qdrant blog index (no funding post listed)</a> <span class="src-type blog">blog</span> — Qdrant, 2026</li>
+    <li><a href="https://mem0.ai/blog">Mem0 blog index (no 2026 funding post)</a> <span class="src-type blog">blog</span> — Mem0, 2026</li>
+    <li><a href="https://www.letta.com/blog">Letta blog index (no funding post)</a> <span class="src-type blog">blog</span> — Letta, 2026</li>
+    <li><a href="https://techcrunch.com/2025/10/28/mem0-raises-24m-from-yc-peak-xv-and-basis-set-to-build-the-memory-layer-for-ai-apps/">Mem0 raises $24M from YC, Peak XV and Basis Set</a> <span class="src-type news">news</span> — TechCrunch, 2025</li>
+    <li><a href="https://www.prnewswire.com/news-releases/berkeley-ai-research-lab-spinout-letta-raises-10m-seed-financing-led-by-felicis-to-build-ai-with-memory-302257004.html">Letta raises $10M seed led by Felicis</a> <span class="src-type news">news</span> — PR Newswire, 2024</li>
+    <li><a href="https://www.cognee.ai/blog/cognee-news/cognee-raises-seven-million-five-hundred-thousand-dollars-seed">Cognee raises $7.5M seed</a> <span class="src-type blog">blog</span> — Cognee, 2026</li>
+    <li><a href="https://www.intelligence360.news/plastic-labs-has-filed-a-notice-of-an-exempt-offering-of-securities-to-raise-15399978-00-in-new-funding/">Plastic Labs files Form D to raise $15,399,978</a> <span class="src-type report">report</span> — intelligence360 (SEC Form D digest), 2026</li>
+    <li><a href="https://sosovalue.com/project/plastic-labs-1911542590240710658">Plastic Labs: financing and team</a> <span class="src-type directory">directory</span> — SoSoValue, 2025</li>
+    <li><a href="https://tracxn.com/d/companies/supermemory/__pLAZAfS7jagHq_m-58u50kYrRLK-6lY70wYdV2t6F4Y">Supermemory company profile</a> <span class="src-type directory">directory</span> — Tracxn, 2026</li>
+    <li><a href="https://tracxn.com/d/companies/zep/__poSadJnSfLWHjz05Xi3U5KwnpCMWSU3aDrihLX_8FLs">Zep company profile</a> <span class="src-type directory">directory</span> — Tracxn, 2026</li>
+    <li><a href="https://valueaddvc.com/blog/the-ai-memory-problem-how-startups-are-solving-for-persistent-context">AI Memory Problem 2026: How Mem0, Letta and Zep give agents persistent context</a> <span class="src-type blog">blog</span> — Six Point Ventures, 2026</li>
+  </ol>
+</section>

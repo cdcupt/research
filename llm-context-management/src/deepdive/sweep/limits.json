@@ -1,0 +1,608 @@
+{
+  "sources": [
+    {
+      "title": "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness",
+      "url": "https://arxiv.org/abs/2205.14135",
+      "type": "paper",
+      "year": 2022,
+      "venue_or_author": "Dao et al., NeurIPS 2022 (Semantic Scholar: 5,072 citations)",
+      "topics": [
+        "quadratic attention",
+        "compute bottleneck",
+        "exact attention kernels"
+      ],
+      "summary": "States the root bottleneck plainly: self-attention time and memory are quadratic in sequence length. FlashAttention does not change that asymptote; it makes exact attention IO-aware (tiling between HBM and SRAM) so long sequences become practical, and its block-sparse variant is the ancestor of today's sparse-attention routes.",
+      "key_facts": [
+        "Self-attention time and memory complexity are quadratic in sequence length (paper's framing of the core problem).",
+        "IO-aware tiling gives 3x speedup on GPT-2 (seq 1K) and 2.4x on Long Range Arena (1K-4K) without approximation.",
+        "Block-sparse FlashAttention is faster than any approximate attention method tested; enables longer context and better perplexity.",
+        "Semantic Scholar citation count 5,072 (fetched 2026-08-21)."
+      ]
+    },
+    {
+      "title": "Mastering LLM Techniques: Inference Optimization",
+      "url": "https://developer.nvidia.com/blog/mastering-llm-techniques-inference-optimization/",
+      "type": "blog",
+      "year": 2023,
+      "venue_or_author": "NVIDIA Technical Blog",
+      "topics": [
+        "KV cache memory",
+        "prefill vs decode",
+        "serving economics"
+      ],
+      "summary": "Canonical formula for KV-cache growth and the prefill/decode asymmetry. KV cache grows linearly per token with layers x hidden size; prefill is compute-bound (matrix-matrix), decode is memory-bandwidth-bound (matrix-vector) because every generated token must re-read the whole cache. This is why serving 1M-token contexts is dominated by memory, not FLOPs.",
+      "key_facts": [
+        "KV cache bytes per token = 2 * num_layers * (num_heads * dim_head) * precision_bytes (factor 2 = keys and values).",
+        "Worked example: Llama 2 7B FP16, batch 1, 4,096 tokens -> 1*4096*2*32*4096*2 bytes = ~2 GB.",
+        "Prefill is compute-bound (saturates GPU); decode is memory-bound, latency dominated by moving weights/KV from memory.",
+        "Derived via formula with Llama 3 70B constants (80 layers, 8 KV heads, dim 128): ~0.33 MB/token FP16, ~328 GB at 1M tokens."
+      ]
+    },
+    {
+      "title": "Jamba: A Hybrid Transformer-Mamba Language Model",
+      "url": "https://arxiv.org/abs/2403.19887",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "AI21 Labs (Semantic Scholar: 492 citations)",
+      "topics": [
+        "KV cache",
+        "SSM hybrid",
+        "Mamba",
+        "256K context"
+      ],
+      "summary": "First production-scale Transformer-Mamba hybrid. Its Table 1 is the clearest published KV-cache comparison: at 256K context in 16-bit, a vanilla 7B Transformer needs 128 GB of KV cache while Jamba needs 4 GB, because most attention layers are replaced by Mamba layers with constant-size state.",
+      "key_facts": [
+        "KV cache at 256K context, 16-bit: LLaMA-2 7B 128 GB; Mistral 7B 32 GB; Mixtral 32 GB; Jamba 52B 4 GB.",
+        "Jamba's design goal: 8x smaller KV cache than a vanilla Transformer; fits one 80 GB GPU.",
+        "Supports 256K-token context; performance comparable to Mixtral-8x7B and Llama-2 70B.",
+        "Paper states: 'When scaling Transformer models to long contexts, the KV cache becomes a limiting factor.'"
+      ]
+    },
+    {
+      "title": "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model",
+      "url": "https://arxiv.org/abs/2405.04434",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "DeepSeek-AI (Semantic Scholar: 1,389 citations)",
+      "topics": [
+        "Multi-head Latent Attention",
+        "KV cache compression",
+        "128K context"
+      ],
+      "summary": "Introduces Multi-head Latent Attention (MLA), which compresses keys and values into a low-rank latent vector so the per-token KV footprint collapses. MLA is the KV-side lever that DeepSeek-V3 and V3.2 build on, and it is complementary to sparse attention (which reduces how many cached tokens are read).",
+      "key_facts": [
+        "MLA reduces KV cache by 93.3% versus DeepSeek 67B and raises max generation throughput 5.76x.",
+        "236B total / 21B active parameters; 128K-token context; pretrained on 8.1T tokens.",
+        "Saves 42.5% of training cost versus DeepSeek 67B."
+      ]
+    },
+    {
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "url": "https://arxiv.org/abs/2307.03172",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Liu et al., TACL 2024 (Semantic Scholar: 4,724 citations)",
+      "topics": [
+        "attention dilution",
+        "positional bias",
+        "effective context"
+      ],
+      "summary": "The foundational 'quality decays before the limit' result: accuracy depends on where the relevant passage sits, forming a U-shaped curve (primacy and recency bias). Shows extended-context model variants are often no better at using information than their short-context counterparts.",
+      "key_facts": [
+        "U-shaped curve: performance highest when relevant info is at the very beginning or end, lowest in the middle.",
+        "GPT-3.5-Turbo with the answer in the middle scores below its closed-book (no documents) baseline of 56.1%.",
+        "Extended-context models often show identical performance to base models, i.e. bigger windows do not imply better use.",
+        "Semantic Scholar citation count 4,724 (2026-08-21)."
+      ]
+    },
+    {
+      "title": "RULER: What's the Real Context Size of Your Long-Context Language Models?",
+      "url": "https://arxiv.org/abs/2404.06654",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Hsieh et al., NVIDIA (Semantic Scholar: 1,189 citations)",
+      "topics": [
+        "effective context length",
+        "benchmark",
+        "claimed vs effective"
+      ],
+      "summary": "Defines 'effective context length' (longest length at which a model still beats Llama2-7B's 4K score of 85.6%) and shows almost every model's effective length is far below its advertised one. The standard citation for 'claimed 128K, effective 32-64K'.",
+      "key_facts": [
+        "17 models, 13 tasks, lengths 4K-128K; almost all models show large drops as length grows despite perfect vanilla NIAH.",
+        "Threshold = Llama2-7B at 4K (85.6% average accuracy).",
+        "Claimed vs effective: GPT-4 128K -> 64K; Llama3.1-70B 128K -> 64K; Qwen2-72B 128K -> 32K; Gemini-1.5-Pro 1M -> >128K.",
+        "Extreme cases: GradientAI Llama3-70B claims 1M, effective 16K; LWM-7B claims 1M, effective <4K.",
+        "Only half of models claiming >=32K maintain satisfactory performance at 32K."
+      ]
+    },
+    {
+      "title": "NoLiMa: Long-Context Evaluation Beyond Literal Matching",
+      "url": "https://arxiv.org/abs/2502.05167",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Modarressi et al., Adobe/LMU, ICML 2025 (Semantic Scholar: 118 citations)",
+      "topics": [
+        "attention dilution",
+        "effective context",
+        "semantic retrieval"
+      ],
+      "summary": "Removes lexical overlap between needle and question so the model must reason rather than string-match. With that one change, effective context lengths collapse to single-digit thousands of tokens even for 1M-2M-window models, attributed to attention struggling in long contexts without literal anchors.",
+      "key_facts": [
+        "13 models claiming >=128K; at 32K, 11 of 13 fall below 50% of their short-context baseline.",
+        "GPT-4o drops from 99.3% base to 69.7% at 32K; effective length 8K (threshold = 85% of base).",
+        "Effective lengths: Llama 3.3 70B 2K; Llama 3.1 405B 2K; Gemini 1.5 Pro (claimed 2M) 2K; Claude 3.5 Sonnet 4K; Gemini 2.0 Flash 4K.",
+        "Reasoning models and CoT prompting do not rescue long-context performance."
+      ]
+    },
+    {
+      "title": "Context Rot: How Increasing Input Tokens Impacts LLM Performance",
+      "url": "https://www.trychroma.com/research/context-rot",
+      "type": "report",
+      "year": 2025,
+      "venue_or_author": "Chroma Research (Hong, Troynikov, Huber), 2025-07-14",
+      "topics": [
+        "context rot",
+        "degradation with length",
+        "distractors",
+        "frontier models"
+      ],
+      "summary": "Coined 'context rot'. Tests 18 frontier models (Claude 4, GPT-4.1, o3, Gemini 2.5, Qwen3) on controlled tasks and finds performance degrades monotonically with input length even on trivially simple tasks, worse with distractors and with low lexical similarity. Evidence that the 2025 frontier still does not treat the 1M window uniformly.",
+      "key_facts": [
+        "18 models tested: 5 Anthropic (Opus 4, Sonnet 4, 3.7, 3.5, Haiku 3.5), 7 OpenAI (o3, GPT-4.1 family, 4o, 4-Turbo, 3.5), 3 Gemini, 3 Qwen3.",
+        "Tasks: NIAH variants (semantic vs lexical, with/without distractors), LongMemEval (113K-token conversations), repeated-words replication up to 10,000 words.",
+        "Even one distractor reduces accuracy; four distractors cause further significant decline across all models.",
+        "GPT models showed hallucination rates above 40% under distractor conditions; Claude Opus 4 abstained in 2.89% of attempts.",
+        "Shuffled haystacks consistently scored higher than logically coherent ones across all 18 models."
+      ]
+    },
+    {
+      "title": "Context Length Alone Hurts LLM Performance Despite Perfect Retrieval",
+      "url": "https://arxiv.org/abs/2510.05381",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "EMNLP 2025 (Semantic Scholar: 140 citations)",
+      "topics": [
+        "context rot",
+        "length-induced degradation",
+        "attention dilution"
+      ],
+      "summary": "Isolates length from retrieval: even when models can perfectly retrieve every relevant token, or when irrelevant tokens are replaced by whitespace or masked out entirely, accuracy still falls as input grows. Shows the problem is not only 'finding the needle' but raw input length inside the claimed window.",
+      "key_facts": [
+        "5 open- and closed-source LLMs on math, QA, coding: accuracy drops 13.9%-85% as length increases, well within claimed limits.",
+        "Degradation persists when irrelevant tokens are replaced with whitespace, and even when masked so attention sees only relevant tokens.",
+        "Placing all evidence immediately before the question does not remove the drop."
+      ]
+    },
+    {
+      "title": "Long Context RAG Performance of LLMs",
+      "url": "https://www.databricks.com/blog/long-context-rag-performance-llms",
+      "type": "blog",
+      "year": 2024,
+      "venue_or_author": "Databricks Mosaic Research, 2024-08-12",
+      "topics": [
+        "long context vs RAG",
+        "degradation point",
+        "failure modes"
+      ],
+      "summary": "Practical measurement of where adding more retrieved context stops helping: most 2024 models peak between 16K and 64K tokens and then degrade, with distinct failure modes (wrong answers, refusals, ignoring instructions, repetition). Frequently cited for 'diminishing returns vs retrieval'.",
+      "key_facts": [
+        "13 models tested (GPT-4o, GPT-4-turbo, Claude 3.5 Sonnet, Claude 3 family, Llama-3.1-405B, Mixtral, DBRX...).",
+        "Peaks: Llama-3.1-405B 32K; GPT-4-turbo 64K; GPT-4 16K; Claude-3-Sonnet 16K; Mixtral-8x7B 4K; DBRX 8K; GPT-4o and Claude-3.5-Sonnet roughly stable.",
+        "Claude-3-Sonnet copyright refusals rose from 3.7% at 16K to 49.5% at 64K.",
+        "DBRX 'failed to follow instructions' rose from 5.2% at 8K to 50.4% at 32K."
+      ]
+    },
+    {
+      "title": "Why Does the Effective Context Length of LLMs Fall Short?",
+      "url": "https://arxiv.org/abs/2410.18745",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "An et al., ICLR 2025 (Semantic Scholar: 64 citations)",
+      "topics": [
+        "effective context",
+        "relative position distribution",
+        "RoPE",
+        "STRING"
+      ],
+      "summary": "Explains why effective length is typically under half of training length: relative-position frequencies seen during pretraining are heavily left-skewed, so distant positions are under-trained. Proposes STRING, which shifts well-trained positions over under-trained ones at inference with no retraining.",
+      "key_facts": [
+        "Open-source LLMs' effective context typically does not exceed half of their training length.",
+        "Cause: left-skewed frequency distribution of relative positions during pretraining and post-training.",
+        "STRING improves Llama3.1-70B and Qwen2-72B by over 10 points on RULER and InfiniteBench without training."
+      ]
+    },
+    {
+      "title": "Extending Context Window of Large Language Models via Positional Interpolation",
+      "url": "https://arxiv.org/abs/2306.15595",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Chen et al., Meta (Semantic Scholar: 834 citations)",
+      "topics": [
+        "RoPE",
+        "position interpolation",
+        "length generalization"
+      ],
+      "summary": "Origin of the RoPE-rescaling family. Instead of extrapolating to unseen positions (which produces catastrophic attention scores), linearly down-scale position indices into the trained range and briefly fine-tune. Still the base technique behind Gemma 3's and Llama 3's context extension.",
+      "key_facts": [
+        "Extends LLaMA 7B-65B from 2K to 32,768 tokens with under 1,000 fine-tuning steps.",
+        "Theoretical bound on interpolation error is at least ~600x smaller than for extrapolation.",
+        "Extrapolating RoPE beyond trained length yields catastrophically high attention scores that break self-attention."
+      ]
+    },
+    {
+      "title": "YaRN: Efficient Context Window Extension of Large Language Models",
+      "url": "https://arxiv.org/abs/2309.00071",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Peng, Quesnelle, Fan, Shippole, ICLR 2024 (Semantic Scholar: 612 citations)",
+      "topics": [
+        "RoPE",
+        "NTK-aware scaling",
+        "YaRN",
+        "Dynamic NTK"
+      ],
+      "summary": "Formalizes NTK-aware, NTK-by-parts and Dynamic NTK interpolation and combines them with attention temperature scaling. Defines the scale factor s = L'/L and treats RoPE dimensions by wavelength so high-frequency (local) information is preserved while low-frequency dimensions are interpolated. Widely adopted (Qwen, DeepSeek, many open models).",
+      "key_facts": [
+        "Requires 10x fewer tokens and 2.5x fewer training steps than prior extension methods.",
+        "Extends Llama 2 7B/13B to a 128K context window; s=32 model trained on 64K data extrapolates to 128K.",
+        "Scale factor defined as s = L'/L (target length over pretrained length); interpolates per-dimension by RoPE wavelength."
+      ]
+    },
+    {
+      "title": "LongRoPE: Extending LLM Context Window Beyond 2 Million Tokens",
+      "url": "https://arxiv.org/abs/2402.13753",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Ding et al., Microsoft, ICML 2024 (Semantic Scholar: 378 citations)",
+      "topics": [
+        "RoPE rescaling",
+        "2M context",
+        "search-based interpolation",
+        "scarcity of long text"
+      ],
+      "summary": "Names the three reasons windows were stuck around 128K (fine-tuning cost, scarcity of long texts, catastrophic values at new positions) and reaches 2,048K tokens by searching per-dimension RoPE rescaling factors and progressively extending. Follow-up LongRoPE2 (arXiv 2502.20082) hits 128K effective on LLaMA3-8B with 10B tokens, 80x fewer than Meta's recipe.",
+      "key_facts": [
+        "States extended windows are limited to ~128K due to fine-tuning cost, scarcity of long texts, and catastrophic new-position values.",
+        "Extends to 2,048K tokens with at most 1K fine-tuning steps at <=256K training lengths.",
+        "Non-uniform interpolation search enables 8x extension with no fine-tuning.",
+        "LongRoPE2 (2025): 128K effective context on LLaMA3-8B using 10B tokens, retaining >98.5% short-context performance."
+      ]
+    },
+    {
+      "title": "Data Engineering for Scaling Language Models to 128K Context",
+      "url": "https://arxiv.org/abs/2402.10171",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Fu et al., ICML 2024 (Semantic Scholar: 230 citations)",
+      "topics": [
+        "long-context continual pretraining",
+        "data mixture",
+        "length upsampling"
+      ],
+      "summary": "Argues the ability to use information at arbitrary positions is mostly acquired in ordinary pretraining and can be unlocked to 128K with lightweight continual pretraining, provided the data mix is domain-balanced and length-upsampled. Complements Meta's 'Effective Long-Context Scaling' (arXiv 2309.16039) finding that abundant long texts are not the key.",
+      "key_facts": [
+        "500M to 5B tokens of continual pretraining suffice for retrieval anywhere in a 128K context.",
+        "Naively upsampling books hurts; balanced domain mixture plus length upsampling is required.",
+        "Extending 4K to 128K via 1B-5B tokens of full-model continual pretraining closes the gap to GPT-4 128K on their suite."
+      ]
+    },
+    {
+      "title": "The Llama 3 Herd of Models",
+      "url": "https://arxiv.org/abs/2407.21783",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Meta AI",
+      "topics": [
+        "long-context training cost",
+        "staged extension",
+        "RoPE base",
+        "KV cache sizing"
+      ],
+      "summary": "Documents what a frontier lab spends to go from 8K to 128K: a six-stage continual pretraining curriculum on ~800B tokens, advancing only when short-context evals recover and NIAH is perfect. Also gives the architecture constants needed to size KV caches (80 layers / 8 KV heads for 70B; 126 layers for 405B).",
+      "key_facts": [
+        "Llama 3 405B context extended in six stages from 8K to 128K using ~800B training tokens.",
+        "Stage advance criteria: short-context evals fully recovered and needle-in-a-haystack solved perfectly at that length.",
+        "RoPE base frequency raised to 500,000 to support longer contexts.",
+        "Architecture: 70B = 80 layers, 8 KV heads, dim 8192; 405B = 126 layers, 8 KV heads, dim 16,384 (GQA)."
+      ]
+    },
+    {
+      "title": "Qwen2.5-1M Technical Report",
+      "url": "https://arxiv.org/abs/2501.15383",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Qwen Team, Alibaba (Semantic Scholar: 190 citations)",
+      "topics": [
+        "1M context",
+        "synthetic long data",
+        "progressive extension",
+        "Dual Chunk Attention",
+        "sparse prefill"
+      ],
+      "summary": "End-to-end recipe for an open 1M-token model: synthetic long-dependency pretraining data, progressive length stages with rising RoPE base, agent-generated long instruction data to cover the scarcity of natural long SFT data, training only to 256K then extrapolating 4x to 1M via Dual Chunk Attention, and sparse attention (MInference) for prefill.",
+      "key_facts": [
+        "Stages expand to 65,536 / 131,072 / 262,144 tokens with RoPE base 1,000,000 / 5,000,000 / 10,000,000; 75% of data at current max length.",
+        "Trained to 256K and extended to 1M without further training using Dual Chunk Attention (DCA) plus YaRN attention scaling.",
+        "Post-training 'addresses the scarcity of long-instruction datasets' with agent-generated synthetic long instructions.",
+        "Sparse attention + chunked prefill gives 3x-7x prefill speedup at 1M tokens."
+      ]
+    },
+    {
+      "title": "Gemini 1.5: Unlocking multimodal understanding across millions of tokens of context",
+      "url": "https://arxiv.org/abs/2403.05530",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Gemini Team, Google DeepMind (Semantic Scholar: 3,911 citations)",
+      "topics": [
+        "10M context",
+        "needle recall",
+        "MoE",
+        "frontier long context"
+      ],
+      "summary": "The report that reset expectations: a sparse-MoE Transformer with near-perfect needle recall to 1M tokens in text, video and audio and >99% to 10M in text internally. It established 1M as the public frontier window while showing the lab could already run 10M in research.",
+      "key_facts": [
+        "Gemini 1.5 Pro: >99.7% needle recall up to 1M tokens in all modalities; >99% up to at least 10M tokens in text.",
+        "Described as a generational leap over Claude 3.0 (200K) and GPT-4 Turbo (128K) at the time.",
+        "Architecture: sparse mixture-of-experts Transformer; continued improvement in next-token prediction up to 10M tokens."
+      ]
+    },
+    {
+      "title": "What is a long context window? (Gemini 1.5 Pro)",
+      "url": "https://blog.google/innovation-and-ai/products/long-context-window-ai-models/",
+      "type": "blog",
+      "year": 2024,
+      "venue_or_author": "Google (The Keyword), 2024-02-16",
+      "topics": [
+        "1M plateau",
+        "serving economics",
+        "TPU limits",
+        "default vs preview context"
+      ],
+      "summary": "Google's own account of why 1M shipped as a limited preview while 128K was the default: the full 1M window was 'computationally intensive' with latency still being optimized, and 10M was 'close to the thermal limit' of TPUs. Direct primary-source evidence that the plateau is serving cost, not modeling ability.",
+      "key_facts": [
+        "Progression: 128,000 -> 512,000 -> 1 million tokens, then 10 million tokens in internal research.",
+        "Quote: 'The full 1 million token context window is computationally intensive and still requires further optimizations to improve latency.'",
+        "Savinov: '10 million tokens at once is already close to the thermal limit of our Tensor Processing Units.'",
+        "Shipped 128K as standard; 1M only to a limited group of developers and enterprise customers (Feb 2024)."
+      ]
+    },
+    {
+      "title": "The Llama 4 herd: The beginning of a new era of natively multimodal AI innovation",
+      "url": "https://ai.meta.com/blog/llama-4-multimodal-intelligence/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Meta AI, 2025-04-05",
+      "topics": [
+        "10M context",
+        "iRoPE",
+        "length generalization",
+        "no positional embeddings"
+      ],
+      "summary": "Llama 4 Scout claims a 10M-token window while being trained only to 256K, via 'iRoPE': interleaved attention layers with no positional embeddings alongside RoPE layers, plus inference-time attention temperature scaling. Illustrates that advertised windows now far exceed training lengths and rely on extrapolation.",
+      "key_facts": [
+        "Llama 4 Scout: 17B active / 109B total parameters, 16 experts, 'industry leading 10M' context (vs 128K for Llama 3).",
+        "Pre-trained and post-trained with a 256K context length; 10M reached through length generalization.",
+        "iRoPE = interleaved attention layers without positional embeddings + inference-time temperature scaling of attention.",
+        "Validation cited: NIAH retrieval and cumulative NLL over 10M tokens of code."
+      ]
+    },
+    {
+      "title": "Native Sparse Attention: Hardware-Aligned and Natively Trainable Sparse Attention",
+      "url": "https://arxiv.org/abs/2502.11089",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Yuan et al., DeepSeek, ACL 2025 (Semantic Scholar: 471 citations)",
+      "topics": [
+        "sparse attention",
+        "NSA",
+        "trainable sparsity",
+        "decode speedup"
+      ],
+      "summary": "DeepSeek's sparse attention trained from scratch rather than bolted on: coarse token compression + fine-grained top-block selection + sliding window, with kernels designed for arithmetic intensity. Matches or beats full attention on benchmarks while cutting long-context cost in training and decoding.",
+      "key_facts": [
+        "Pretrained a 27B-parameter backbone on 260B tokens with NSA; lower loss than full attention, matches/exceeds on benchmarks.",
+        "At 64K context: up to 11.6x decoding speedup, 9.0x forward and 6.0x backward speedup versus FlashAttention-2.",
+        "Decode memory access at 64K: full attention reads 65,536 tokens, NSA reads 5,632 (Table 4).",
+        "Hierarchical design: compressed coarse tokens + selected fine-grained blocks + local sliding window."
+      ]
+    },
+    {
+      "title": "DeepSeek-V3.2: Pushing the Frontier of Open Large Language Models",
+      "url": "https://arxiv.org/abs/2512.02556",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "DeepSeek-AI, 2025-12-02",
+      "topics": [
+        "DeepSeek Sparse Attention",
+        "lightning indexer",
+        "continued training",
+        "inference cost"
+      ],
+      "summary": "Production deployment of sparse attention at frontier scale: DSA adds a cheap 'lightning indexer' that scores prior tokens and selects a fixed 2,048 key-value tokens per query under MLA, retrofitted onto V3.1-Terminus through continued training. V3.2-Exp (API news 2025-09-29) shipped with a >50% API price cut on the strength of this.",
+      "key_facts": [
+        "Only architectural change from V3.1-Terminus is DSA: lightning indexer + fine-grained token selection.",
+        "Sparse training selects 2,048 KV tokens per query; 15,000 steps x 480 sequences x 128K tokens = 943.7B tokens.",
+        "V3.2-Exp benchmarks on par with V3.1-Terminus (e.g., MMLU-Pro 85.0 vs 85.0; AIME 2025 89.3 vs 88.4) per GitHub README.",
+        "DeepSeek API announcement 2025-09-29: V3.2-Exp API prices cut by more than 50% (https://api-docs.deepseek.com/news/news250929/)."
+      ]
+    },
+    {
+      "title": "MoBA: Mixture of Block Attention for Long-Context LLMs",
+      "url": "https://arxiv.org/abs/2502.13189",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Moonshot AI (Kimi), NeurIPS 2025 (Semantic Scholar: 187 citations)",
+      "topics": [
+        "sparse attention",
+        "block routing",
+        "MoE-style attention",
+        "Kimi"
+      ],
+      "summary": "Applies MoE gating to attention: each query routes to top-k KV blocks, so the model learns where to attend without fixed window or sink biases, and can switch between sparse and full attention. Deployed for Kimi's long-context serving; demonstrates sub-quadratic scaling to 10M tokens.",
+      "key_facts": [
+        "Up to 6.5x speedup over FlashAttention when prefilling 1M tokens.",
+        "Scaled to 10M-token context with constant sparsity by fixing top-k block count.",
+        "Deployed in production for Kimi's long-context requests; code open-sourced (MoonshotAI/MoBA)."
+      ]
+    },
+    {
+      "title": "Gemma 3 Technical Report",
+      "url": "https://arxiv.org/abs/2503.19786",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Gemma Team, Google DeepMind (Semantic Scholar: 1,731 citations)",
+      "topics": [
+        "sliding window + global hybrid",
+        "KV cache reduction",
+        "RoPE base",
+        "128K context"
+      ],
+      "summary": "Concrete hybrid-attention recipe for taming KV cache: 5 local sliding-window layers (span 1,024) for every global layer, global layers' RoPE base raised 10k -> 1M and position-interpolated by 8x. The abstract explicitly motivates this with KV-cache memory that 'tends to explode with long context'.",
+      "key_facts": [
+        "5:1 interleaving of local sliding-window (span 1,024 tokens) to global attention layers; only global layers see long context.",
+        "Context 128K for 4B/12B/27B models; 32K for 1B.",
+        "Global layers' RoPE base raised from 10k to 1M; local layers keep 10k; positional interpolation scale factor 8.",
+        "Memory at 32K context (Table 3): 4B model bf16 8.0 GB weights -> 12.7 GB with KV; 1B 2.0 -> 2.9 GB.",
+        "Mistral 7B (https://mistral.ai/news/announcing-mistral-7b/) is the earlier SWA precedent: each layer attends to previous 4,096 states with rotating KV buffer."
+      ]
+    },
+    {
+      "title": "Mamba: Linear-Time Sequence Modeling with Selective State Spaces",
+      "url": "https://arxiv.org/abs/2312.00752",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Gu and Dao (Semantic Scholar: 8,662 citations)",
+      "topics": [
+        "state space models",
+        "linear-time",
+        "constant-size state",
+        "attention alternative"
+      ],
+      "summary": "The SSM that made linear-time sequence modeling competitive on language by making state parameters input-dependent (selective). Constant per-token memory means no KV cache growth, which is why Mamba layers are mixed into Jamba, Nemotron-H-style hybrids and later Gated DeltaNet / Kimi Linear designs.",
+      "key_facts": [
+        "Linear scaling in sequence length; 5x higher inference throughput than Transformers.",
+        "Performance improves on real data up to million-length sequences.",
+        "No attention or MLP blocks; hardware-aware parallel scan for recurrent mode.",
+        "Semantic Scholar citation count 8,662 (2026-08-21)."
+      ]
+    },
+    {
+      "title": "MiniMax-01: Scaling Foundation Models with Lightning Attention",
+      "url": "https://arxiv.org/abs/2501.08313",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "MiniMax (Semantic Scholar: 168 citations)",
+      "topics": [
+        "linear attention",
+        "hybrid 7:1",
+        "4M context",
+        "single-node serving constraint"
+      ],
+      "summary": "First large-scale linear-attention frontier model: 7 lightning (linear) attention blocks per softmax block, 456B MoE. Notable for stating the economic constraint explicitly: total parameters were chosen so that >1M tokens fit on one 8-GPU, 640 GB node in 8-bit.",
+      "key_facts": [
+        "Architecture: one softmax-attention block after every 7 linear (lightning) attention blocks; 80 layers; 64 heads x 128 dim.",
+        "456B total / 45.9B active parameters, 32 experts.",
+        "Context 1M tokens in training, extrapolates to 4M tokens at inference; 20-32x longer than GPT-4o/Claude 3.5 Sonnet at release.",
+        "Model size set by constraint: process >1M tokens on a single machine with up to 8 GPUs and 640 GB memory using 8-bit quantization."
+      ]
+    },
+    {
+      "title": "Kimi Linear: An Expressive, Efficient Attention Architecture",
+      "url": "https://arxiv.org/abs/2510.26692",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Moonshot AI, 2025-10-30",
+      "topics": [
+        "linear attention",
+        "Gated DeltaNet",
+        "KV cache reduction",
+        "hybrid MLA"
+      ],
+      "summary": "Hybrid of Kimi Delta Attention (a finer-gated Gated DeltaNet) with MLA layers that claims to beat full attention under matched training while slashing KV cache. Representative of the 2025 trend (with Qwen3-Next's Gated DeltaNet + gated attention hybrid, 262,144 native / 1,010,000 extended) toward linear-attention hybrids for long context.",
+      "key_facts": [
+        "48B total / 3B active parameters; layerwise hybrid of KDA and MLA.",
+        "Reduces KV cache usage by up to 75%; up to 6x decoding throughput at 1M context versus full MLA.",
+        "Claims to outperform full attention across short-context, long-context and RL regimes with identical training recipe.",
+        "Qwen3-Next-80B-A3B (HF card): Gated DeltaNet + gated attention hybrid; 262,144 native context, extensible to 1,010,000 tokens."
+      ]
+    },
+    {
+      "title": "Titans: Learning to Memorize at Test Time",
+      "url": "https://arxiv.org/abs/2501.00663",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Behrouz, Zhong, Mirrokni, Google Research, NeurIPS 2025 (Semantic Scholar: 308 citations)",
+      "topics": [
+        "neural memory",
+        "test-time learning",
+        "memory layers",
+        "2M+ context"
+      ],
+      "summary": "Treats attention as short-term memory and adds a neural long-term memory module whose weights are updated at test time, prioritizing 'surprising' tokens (gradient magnitude) with decay. Scales beyond 2M tokens with better NIAH accuracy than Transformers and linear-recurrent baselines. The 'memory rather than bigger window' route.",
+      "key_facts": [
+        "Scales to larger than 2M-token context with higher needle-in-haystack accuracy than baselines.",
+        "Memory writes weighted by 'surprise' = gradient of associative memory loss w.r.t. input, with adaptive decay/forgetting.",
+        "Three variants for integrating memory (as context, as gate, as layer); outperforms Transformers and modern linear RNNs on LM/reasoning/genomics/time series."
+      ]
+    },
+    {
+      "title": "Leave No Context Behind: Efficient Infinite Context Transformers with Infini-attention",
+      "url": "https://arxiv.org/abs/2404.07143",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "Munkhdalai et al., Google (Semantic Scholar: 228 citations)",
+      "topics": [
+        "compressive memory",
+        "bounded memory",
+        "streaming inference",
+        "1M passkey"
+      ],
+      "summary": "Adds a compressive (associative-matrix) memory and linear long-term attention inside each block next to local masked attention, so a model processes unbounded input with fixed memory. Demonstrates 1M-length passkey retrieval and 500K book summarization with small models, at 114x memory compression.",
+      "key_facts": [
+        "114x memory compression ratio versus Memorizing Transformers while achieving better perplexity.",
+        "1B model scales to 1M sequence length passkey retrieval; 8B model handles 500K-length book summarization.",
+        "Bounded memory and compute per segment; enables fast streaming inference."
+      ]
+    },
+    {
+      "title": "Ring Attention with Blockwise Transformers for Near-Infinite Context",
+      "url": "https://arxiv.org/abs/2310.01889",
+      "type": "paper",
+      "year": 2023,
+      "venue_or_author": "Liu, Zaharia, Abbeel, UC Berkeley, ICLR 2024 (Semantic Scholar: 563 citations)",
+      "topics": [
+        "distributed attention",
+        "sequence parallelism",
+        "context scales with devices"
+      ],
+      "summary": "The distributed-systems answer to context limits: shard the sequence across devices and pass KV blocks around a ring while overlapping communication with blockwise attention. Context length scales linearly with device count with no approximation, which is how million-token training runs are made feasible; cost still scales quadratically in total.",
+      "key_facts": [
+        "Enables sequences up to device-count times longer than prior memory-efficient Transformers, with exact attention.",
+        "Fully overlaps KV-block communication with blockwise attention/feedforward computation.",
+        "Demonstrated million-token context on language modeling and RL tasks."
+      ]
+    },
+    {
+      "title": "Effective context engineering for AI agents",
+      "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Anthropic Engineering, 2025-09-29",
+      "topics": [
+        "attention budget",
+        "context rot",
+        "compaction",
+        "sub-agents",
+        "retrieval"
+      ],
+      "summary": "A frontier lab's operational stance on why you should not fill the window even when you can: attention is a finite budget, n-squared pairwise relationships stretch thin, and training data is dominated by short sequences. Recommends compaction, structured notes, sub-agent contexts and just-in-time retrieval instead of larger windows.",
+      "key_facts": [
+        "States that as tokens in context increase, the model's ability to accurately recall information decreases ('context rot').",
+        "Explains every token attends to every other: n^2 pairwise relationships, so attention stretches thin as context grows.",
+        "Models have less training signal for long-range dependencies because shorter sequences predominate in training data.",
+        "Recommended mitigations: compaction, structured note-taking, sub-agent architectures, just-in-time retrieval via identifiers."
+      ]
+    }
+  ],
+  "notes": "MODALITY: limits. Session WebSearch budget was already exhausted (200/200) before this task started, so zero searches ran; all URLs were verified instead through the arXiv export API / arXiv HTML, Semantic Scholar batch API (citation counts fetched 2026-08-21), curl status checks, and 8 WebFetch calls (Chroma, Meta Llama 4, DeepSeek GitHub, NVIDIA blog, Anthropic, Google blog, Databricks, DeepSeek API news). Every arXiv ID above resolved to the stated title via the API; no URL is guessed.\n\nSTORYLINE THE SOURCES SUPPORT: (1) Root cost is not mysterious: attention FLOPs scale n^2 (FlashAttention) and KV cache scales linearly with n times layers x KV-heads x head-dim x bytes (NVIDIA formula). Derived numbers using Llama 3 constants: 70B at 1M tokens needs ~328 GB of FP16 KV cache (0.33 MB/token) and ~2.6e18 attention-score FLOPs for one prefill; 405B ~516 GB. Jamba's table makes the same point empirically (7B vanilla Transformer = 128 GB KV at 256K). Decode is memory-bandwidth bound, so every generated token re-reads that cache -> cost per output token grows with context; this is why GPT-5-class APIs default to much smaller effective budgets and why 1M tiers carry premium pricing (pricing itself belongs to the market modality). (2) Quality decays far before the nominal limit: Lost-in-the-Middle (U-curve), RULER (GPT-4 128K -> 64K effective), NoLiMa (GPT-4o effective 8K, Gemini 1.5 Pro 2M-claimed -> 2K when lexical overlap removed), Chroma context rot (18 frontier models, July 2025), and 'Context Length Alone Hurts' (13.9-85% drop even with perfect retrieval, Oct 2025). STRING explains mechanism: effective length usually < half of training length because relative-position frequencies are left-skewed. (3) Extension is a positional-encoding plus data problem: PI -> NTK-aware/YaRN -> LongRoPE(2) rescale RoPE; Llama 3 spent ~800B tokens over six stages to reach 128K; Qwen2.5-1M trained to 256K then extrapolated 4x with DCA and used synthetic long data because natural long instruction data is scarce (LongRoPE abstract names 'scarcity of long texts' as a limiting factor); Llama 4 Scout advertises 10M while trained at 256K (iRoPE). (4) Architectural routes that change the asymptote: trainable sparse attention (DeepSeek NSA 11.6x decode at 64K; DSA in V3.2 selects 2,048 KV tokens/query and enabled >50% API price cut; Kimi MoBA 6.5x at 1M prefill), local/global hybrids (Gemma 3 5:1 with 1,024 window; Mistral SWA 4,096), KV compression (DeepSeek-V2 MLA -93.3%), linear/SSM hybrids (Mamba, Jamba 4 GB KV at 256K, MiniMax-01 7:1 lightning attention to 4M, Kimi Linear -75% KV and 6x decode at 1M, Qwen3-Next Gated DeltaNet hybrid 262K native/1.01M extended), and memory modules (Titans >2M with test-time learned memory; Infini-attention 114x compression, 1M passkey with a 1B model). (5) Distributed: Ring Attention shards the sequence across devices so context scales with device count (exact, but total cost still quadratic) - it is how 1M-10M training runs exist. (6) Why ~1M is the practical plateau: Google's Feb-2024 blog states 1M was 'computationally intensive' (shipped 128K default, 1M in limited preview) and 10M was 'close to the thermal limit' of TPUs; MiniMax sized its model so 1M fits one 8-GPU 640 GB node in 8-bit; evaluation shows effective length << claimed (RULER/NoLiMa), so vendors cannot honestly market beyond what quality holds; Databricks shows most 2024 models peak at 16-64K in RAG settings; Anthropic's Sept-2025 guidance is to treat context as a finite 'attention budget' and use compaction, notes, sub-agents and just-in-time retrieval instead of bigger windows. Extra verified URLs not given their own entry (all resolved via arXiv API/curl): ALiBi https://arxiv.org/abs/2108.12409 (train 1024, extrapolate 2048, 11% faster, 1,349 cites); RoFormer/RoPE https://arxiv.org/abs/2104.09864 (6,179 cites); GQA https://arxiv.org/abs/2305.13245 (1,686 cites); RWKV https://arxiv.org/abs/2305.13048 (14B dense RNN, 1,183 cites); Effective Long-Context Scaling (Llama 2 Long) https://arxiv.org/abs/2309.16039 (abundant long text 'not the key'; continual pretraining cheaper than from-scratch, 355 cites); LongRoPE2 https://arxiv.org/abs/2502.20082; Controlled Study on Long Context Extension https://arxiv.org/abs/2409.12181 (approximate attention methods systematically underperform; exact fine-tuning works within range, extrapolation hard); UltraLong 128K->4M https://arxiv.org/abs/2504.06214 (NVIDIA, Llama3.1-8B to 1M/2M/4M); LongBench v2 https://arxiv.org/abs/2412.15204 (503 questions up to 2M words; best model 50.1%, o1-preview 57.7%, humans 53.7%); Gated DeltaNet https://arxiv.org/abs/2412.06464 (ICLR 2025, 429 cites); Gemini 2.5 report https://arxiv.org/abs/2507.06261; DeepSeek-V3 https://arxiv.org/abs/2412.19437 (2.788M H800 GPU-hours); DeepSeek-V3.2-Exp GitHub https://github.com/deepseek-ai/DeepSeek-V3.2-Exp; Qwen3-Next card https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct; Mistral 7B https://mistral.ai/news/announcing-mistral-7b/. UNKNOWNS: exact publication dates of the NVIDIA blog and Mistral 7B post were not shown in the fetched text (years given from content context); no primary-source statement from OpenAI on why GPT-5 defaults to a smaller window was gathered in this modality (search budget unavailable) - leave to the market modality."
+}

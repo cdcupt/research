@@ -1,0 +1,185 @@
+{
+  "sources": [
+    {
+      "title": "RULER: What's the Real Context Size of Your Long-Context Language Models? (NVIDIA results table)",
+      "url": "https://github.com/NVIDIA/RULER",
+      "type": "repo",
+      "year": 2025,
+      "venue_or_author": "NVIDIA (Hsieh et al.), arXiv 2404.06654; README table updated with 2025 models",
+      "topics": [
+        "effective context length",
+        "RULER",
+        "NIAH variants",
+        "claimed vs effective",
+        "open-weight models"
+      ],
+      "summary": "RULER is a synthetic long-context suite (NIAH variants, multi-hop tracing, aggregation, QA). Its README publishes a claimed-vs-effective context table for ~45 models at 4K-128K. Effective length is the longest length at which the average score stays above the Llama-2-7B 4K baseline (85.6%). Many models advertising 128K-1M windows are effective only to 16K-64K; only a handful (Gemini 1.5 Pro, Jamba 1.5, Qwen2.5-1M, Qwen3 14B/32B/235B, EXAONE 4.0 32B) stay above the bar through 128K. The table does not include GPT-5, Claude 4.x, Gemini 2.5/3 or Llama 4.",
+      "key_facts": [
+        "Effective length = longest context where average RULER score exceeds Llama-2-7B's 4K score of 85.6%",
+        "Gemini-1.5-Pro: claimed 1M, effective >128K; 96.7 at 4K, 94.4 at 128K",
+        "Jamba-1.5-large 94B: claimed 256K, effective >128K; 95.1 at 128K (highest 128K score in table)",
+        "Qwen3-235B: claimed 128K, effective >128K; 97.7 at 4K, 90.6 at 128K; Qwen3-32B 85.6 at 128K",
+        "Qwen2.5-14B-1M: claimed 1M, effective >128K; 92.2 at 128K; Qwen2.5-7B-1M 84.4 at 128K",
+        "GPT-4-1106-preview: claimed 128K, effective 64K; 87.0 at 64K, 81.2 at 128K",
+        "Llama-3.1-70B: claimed 128K, effective 64K; 88.4 at 64K, 66.6 at 128K",
+        "Llama-3.1-8B: claimed 128K, effective 32K; 84.7 at 64K, 77.0 at 128K",
+        "Mistral-Large-2411: claimed 128K, effective 64K; falls to 48.1 at 128K; Mistral-Large-2407 23.7 at 128K",
+        "Claimed-1M models with tiny effective windows: GLM4-9B 64K, GradientAI Llama3-70B 16K, InternLM2.5-7B 4K, LWM-7B <4K",
+        "Qwen3-30B: claimed 128K, effective 64K (79.2 at 128K); Qwen3-8B effective 64K (77.4 at 128K); Qwen3-4B effective 64K (66.0 at 128K)",
+        "Table stops at 128K; no measurements at 256K-1M, and no GPT-5 / Claude 4.x / Gemini 2.5-3 / Llama 4 / DeepSeek rows"
+      ]
+    },
+    {
+      "title": "Context Rot: How Increasing Input Tokens Impacts LLM Performance",
+      "url": "https://www.trychroma.com/research/context-rot",
+      "type": "report",
+      "year": 2025,
+      "venue_or_author": "Chroma Research",
+      "topics": [
+        "context rot",
+        "long-context degradation",
+        "NIAH variants",
+        "distractors",
+        "LongMemEval",
+        "frontier models 2025"
+      ],
+      "summary": "Chroma's July 2025 technical report evaluates 18 frontier models (Claude 4/3.x, o3, GPT-4.1 family, GPT-4o, Gemini 2.5/2.0, Qwen3) on controlled tasks that isolate input length from task difficulty. All models degrade non-uniformly as input grows, even on trivial retrieval; degradation worsens when the needle is semantically distant from the question, when distractors are present, and (counterintuitively) when the haystack is logically coherent rather than shuffled. On LongMemEval, a ~300-token focused prompt beats the ~113k-token full prompt for every model family. The report is the most-cited 2025 evidence that nominal window size is not usable context.",
+      "key_facts": [
+        "Published July 14, 2025; 18 models: Claude Opus 4, Sonnet 4, Sonnet 3.7, Sonnet 3.5, Haiku 3.5; o3, GPT-4.1/mini/nano, GPT-4o, GPT-4 Turbo, GPT-3.5 Turbo; Gemini 2.5 Pro/Flash, 2.0 Flash; Qwen3-235B-A22B/32B/8B",
+        "Performance declines with input length on all 18 models even on simple retrieval; decline is non-uniform across lengths",
+        "Needle-question semantic similarity drives the slope: low-similarity pairs (cosine 0.445-0.775 PG essays, 0.521-0.829 arXiv) degrade much faster with length",
+        "Shuffled haystacks outperform logically coherent haystacks across all 18 models",
+        "Adding distractors lowers accuracy and effects compound; Claude models abstain most and hallucinate least, GPT models hallucinate most",
+        "LongMemEval: ~300-token focused prompts beat ~113k-token full prompts for every model family; thinking modes help but gap persists",
+        "Repeated-words task degrades from 25 to 10,000 words; refusal rates 2.89% (Claude Opus 4) and 2.55% (GPT-4.1)"
+      ]
+    },
+    {
+      "title": "NoLiMa: Long-Context Evaluation Beyond Literal Matching",
+      "url": "https://arxiv.org/abs/2502.05167",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Modarressi, Deilamsalehy, Dernoncourt, Bui, Rossi, Yoon, Schuetze (LMU Munich / Adobe Research), arXiv",
+      "topics": [
+        "NoLiMa",
+        "effective context length",
+        "non-lexical retrieval",
+        "long-context degradation",
+        "reasoning models"
+      ],
+      "summary": "NoLiMa removes lexical overlap between needle and question so the model must infer an associative link rather than pattern-match. Tested on 13 LLMs claiming >=128K context, it shows that effective context collapses far below nominal: most models lose more than half their short-context accuracy by 32K tokens, and reasoning-enhanced models or CoT prompting do not rescue performance. It is the sharpest demonstration that NIAH-style benchmarks overstate usable context.",
+      "key_facts": [
+        "Submitted Feb 7, 2025; last revised Jul 9, 2025",
+        "13 popular LLMs claiming support for at least 128K tokens evaluated",
+        "At 32K tokens, 11 of 13 models fall below 50% of their strong short-context (<1K) baseline",
+        "GPT-4o drops from 99.3% at short context to 69.7% at 32K",
+        "Models with reasoning capabilities or CoT prompting still struggle to maintain performance at long context",
+        "Per-model effective-length numbers for Llama 3.3 70B, Gemini 1.5 Pro, Claude 3.5 Sonnet were not in the fetched abstract (unknown from this source)"
+      ]
+    },
+    {
+      "title": "LongBench v2 leaderboard",
+      "url": "https://longbench2.github.io/",
+      "type": "other",
+      "year": 2025,
+      "venue_or_author": "Tsinghua University / THUDM",
+      "topics": [
+        "LongBench v2",
+        "long-context reasoning",
+        "leaderboard",
+        "human baseline",
+        "Gemini 2.5",
+        "DeepSeek R1"
+      ],
+      "summary": "LongBench v2 is a 503-question multiple-choice benchmark of realistic long-context reasoning tasks spanning 8k to 2M words. Human experts reach only 53.7% under a 15-minute limit; the best model on the leaderboard (last updated May 6, 2025) is Gemini 2.5 Pro at 63.3% with CoT. The leaderboard predates GPT-5, Claude 4.x and Gemini 3, so it documents the mid-2025 state rather than 2026 frontier models.",
+      "key_facts": [
+        "503 multiple-choice questions across 6 task categories; context 8k-2M words, majority under 128k",
+        "Human expert baseline 53.7% accuracy with 15-minute time limit",
+        "Leaderboard last updated May 6, 2025",
+        "Gemini 2.5 Pro (CoT) 63.3% overall: short 75.0 / medium 67.2 / long 71.0",
+        "Gemini 2.5 Flash 62.1% overall, long 55.7; Qwen3-235B Thinking 60.6%, long 58.1",
+        "DeepSeek R1 58.3% (long 59.3); o1-preview 57.7% (long 58.1)",
+        "GPT-4o (Nov 2024) 51.4% (long 43.5); Claude 3.5 Sonnet 46.7% (long 44.4)",
+        "No GPT-5, Claude 4.x, Gemini 3, Llama 4 entries as of last update"
+      ]
+    },
+    {
+      "title": "Claude API Pricing (Anthropic developer docs)",
+      "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Anthropic",
+      "topics": [
+        "long-context pricing",
+        "1M context",
+        "prompt caching",
+        "Claude Opus 5",
+        "Claude Sonnet 5",
+        "tokenizer",
+        "cost per request"
+      ],
+      "summary": "Anthropic's official pricing page as of August 2026. Key change for long context: Claude 4.6 and later models (and Claude Mythos Preview) include the full 1M-token window at standard per-token pricing, with no surcharge above 200K tokens; caching and batch discounts apply across the full window. Also documents that Claude 4.7+ models use a new tokenizer producing ~30% more tokens for the same text, which effectively shrinks how much text fits in a window. Provides per-model rates needed for cost-per-request examples.",
+      "key_facts": [
+        "Claude 4.6+ models and Claude Mythos Preview include the full 1M-token context at standard pricing; a 900k-token request is billed at the same per-token rate as a 9k request (no >200K surcharge)",
+        "Claude Opus 5 / Opus 4.8 / 4.7 / 4.6 / 4.5: $5 input, $25 output per MTok; cache read $0.50; 5-min cache write $6.25; 1-h cache write $10",
+        "Claude Sonnet 5: $2 / $10 per MTok, introductory price made permanent (planned Sep 1, 2026 rise to $3/$15 cancelled); Sonnet 4.6 and 4.5: $3 / $15",
+        "Claude Fable 5 and Claude Mythos 5: $10 input / $50 output per MTok; cache read $1",
+        "Claude Haiku 4.5: $1 / $5 per MTok; Opus 4.1 and Opus 4 (retired on first-party API) were $15 / $75",
+        "Prompt caching multipliers: 5-min write 1.25x, 1-hour write 2x, cache hit 0.1x base input; Batch API 50% off both input and output",
+        "Claude 4.7+ and Mythos Preview tokenizer produces ~30% more tokens for the same text than Sonnet 4.6 and earlier",
+        "Fast mode (Opus 5 / Opus 4.8, research preview): $10 / $50 per MTok, applies across full window including >200k input",
+        "Worked cost: a full 1M-token uncached input = $5 on Opus 5, $2 on Sonnet 5, $10 on Fable 5; a 1M cache hit = $0.50 / $0.20 / $1",
+        "inference_geo 'us' data residency adds a 1.1x multiplier on Claude 4.6+"
+      ]
+    },
+    {
+      "title": "Gemini API pricing (Google AI for Developers)",
+      "url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Google",
+      "topics": [
+        "long-context pricing",
+        ">200K tier",
+        "Gemini 2.5 Pro",
+        "Gemini 3.x Flash",
+        "context caching",
+        "cost per request"
+      ],
+      "summary": "Google's official Gemini API price list as of August 2026. Gemini 2.5 Pro retains the two-tier long-context scheme (higher input and output rates for prompts over 200K tokens), while the 2026 Gemini 3.5/3.6/3.7 Flash models are listed at flat rates with a scheduled doubling on Jan 1, 2027. Context window sizes and Gemini 3 Pro pricing were not present in the fetched extract.",
+      "key_facts": [
+        "Gemini 2.5 Pro: input $1.25/MTok for prompts <=200K vs $2.50/MTok >200K; output $10/MTok <=200K vs $15/MTok >200K; context caching $0.125/MTok <=200K",
+        "Gemini 2.5 Flash: $0.30 input / $2.50 output per MTok, caching $0.03; Gemini 2.5 Flash-Lite: $0.10 / $0.40",
+        "Gemini 3.7 Flash and 3.6 Flash: $0.75 input / $3.75 output per MTok through Dec 31, 2026, rising to $1.50 / $7.50 on Jan 1, 2027; caching $0.075 -> $0.15",
+        "Gemini 3.5 Flash: $1.50 input / $9.00 output per MTok, caching $0.15; Gemini 3.5 Flash-Lite: $0.30 / $2.50",
+        "Worked cost: a 1M-token prompt on Gemini 2.5 Pro at the >200K tier costs $2.50 input, double the $1.25/MTok rate for <=200K prompts",
+        "Gemini 3 Pro pricing and per-model context window sizes not in the fetched page extract (unknown)"
+      ]
+    },
+    {
+      "title": "GPT-5 model page (OpenAI API docs)",
+      "url": "https://developers.openai.com/api/docs/models/gpt-5",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "OpenAI",
+      "topics": [
+        "GPT-5",
+        "context window",
+        "400K",
+        "OpenAI pricing",
+        "cached input",
+        "GPT-5.6"
+      ],
+      "summary": "OpenAI's model card for GPT-5 (snapshot gpt-5-2025-08-07) as served in August 2026. It confirms the API model has a 400,000-token total context window (not 1M) with 128K max output, priced at $1.25 input / $10 output per 1M tokens with 90%-discounted cached input. The page now points to GPT-5.6 as the recommended successor; its window size was not in the fetched content.",
+      "key_facts": [
+        "GPT-5 (gpt-5-2025-08-07, released Aug 7, 2025): 400,000-token total context window; 128,000 max output tokens",
+        "GPT-5 pricing: $1.25 input, $0.125 cached input, $10 output per 1M tokens",
+        "GPT-5 mini: $0.25 / $2 per 1M tokens; GPT-5 nano: $0.05 / $0.40 per 1M tokens (windows not stated)",
+        "Knowledge cutoff Sep 30, 2024",
+        "Page recommends the newer GPT-5.6 as the latest model (Aug 2026); GPT-5.6 context window not in fetched content (unknown)",
+        "Worked cost: filling GPT-5's full 400K window uncached = $0.50 input; same input as a cache hit = $0.05"
+      ]
+    }
+  ],
+  "notes": "CONSTRAINTS: The session's WebSearch budget (200/200) was already exhausted before my first query, so zero searches ran. All 7 sources are canonical URLs verified by WebFetch (8 fetches + 3 redirect completions: chroma, anthropic pricing, openai model page). Fiction.LiveBench (fiction.live story page) is JS-rendered and returned only navigation chrome, so no Fiction.LiveBench scores captured. NOT CAPTURED (unknown): HELMET, LOFT, RULER/NoLiMa numbers for GPT-5 / Claude 4.x / Gemini 2.5-3 / Llama 4 / DeepSeek; any 2026 context-rot follow-ups; independent TTFT/latency measurements at 100K/500K/1M; OpenAI 1M-window model (GPT-4.1) pricing page; Gemini 3 Pro pricing and context sizes. KEY TAKEAWAYS for the section: (1) Effective << nominal: RULER shows most 128K-1M-claimed open models effective only to 16K-64K; NoLiMa shows 11/13 >=128K models lose >50% of short-context accuracy by 32K (GPT-4o 99.3 -> 69.7); Chroma shows all 18 frontier models (incl. Claude Opus 4, o3, Gemini 2.5 Pro) degrade with length and a 300-token focused prompt beats a 113k full prompt. (2) Vendor specs Aug 2026: GPT-5 API = 400K window (not 1M); Claude 4.6+ = 1M at flat pricing (the earlier >200K premium is gone for 4.6+; from memory, unverified here, Sonnet 4's 1M beta charged 2x input/1.5x output above 200K); Gemini 2.5 Pro still charges 2x input / 1.5x output above 200K. (3) Anthropic's 4.7+ tokenizer emits ~30% more tokens per text, so a nominal 1M window holds ~23% less text than a 1M window on older models. (4) Cost-per-request at 1M input: Opus 5 $5, Sonnet 5 $2, Fable 5 $10, Gemini 2.5 Pro $2.50; cache hits cut input to 10%. Because search was unavailable the source count (7) is below the 15-22 target; the orchestrator should run a follow-up sweep for Fiction.LiveBench, HELMET, LOFT, and latency data."
+}

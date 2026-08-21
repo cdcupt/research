@@ -282,6 +282,100 @@ def svg_repo_stars(repos, cats_by_slug):
         out.append(t(lx + 17, ly, st['name'], 11.5, INK2)); lx += 17 + 7.2 * len(st['name']) + 22
     out.append('</svg>'); return ''.join(out)
 
+# ---------------- Deep dive figures (context limits) ----------------
+import math as _m
+RAMP3 = ['#86b6ef', '#2a78d6', '#104281']
+def fmt_tok(n):
+    n = int(n or 0)
+    return f'{n/1e6:g}M' if n >= 1e6 else (f'{n//1000}K' if n >= 1000 else str(n))
+def svg_context_dumbbell(models):
+    rows = sorted([m for m in models if m.get('nominal_context')], key=lambda m: -m['nominal_context'])
+    W = 1000; lab_w = 250; x0 = lab_w + 10; pw = W - x0 - 215; rh = 40; top = 30; lo, hi = 4.0, 7.4
+    def X(v): return x0 + pw * (_m.log10(max(v, 10000)) - lo) / (hi - lo)
+    n = len(rows); H = top + rh * n + 96
+    out = [svg_open(W, H, 'Nominal versus effective context window per model (log scale)', minw=760)]
+    for v, lab in [(1e4, '10K'), (1e5, '100K'), (1e6, '1M'), (1e7, '10M')]:
+        gx = X(v); out.append(f'<line x1="{gx:.1f}" y1="{top - 8}" x2="{gx:.1f}" y2="{top + rh*n}" stroke="{HAIR}"/>'); out.append(t(gx, top + rh * n + 16, lab, 11, MUTED, 400, 'middle'))
+    out.append(t(x0 + pw / 2, top + rh * n + 34, 'context window, tokens (log scale)', 11, MUTED, 600, 'middle'))
+    for i, m in enumerate(rows):
+        y = top + i * rh; cy = y + rh / 2
+        if i % 2 == 0: out.append(f'<rect x="0" y="{y}" width="{W}" height="{rh}" fill="{BG}"/>')
+        out.append(t(12, cy - 2, m['model'], 12.5, INK, 600)); out.append(t(12, cy + 11, m.get('vendor', ''), 10.5, MUTED, 500))
+        xn = X(m['nominal_context']); eff = m.get('effective_context') or 0; dflt = m.get('default_context') or 0
+        if eff:
+            xe = X(eff); out.append(f'<line x1="{xe:.1f}" y1="{cy:.1f}" x2="{xn:.1f}" y2="{cy:.1f}" stroke="{RAMP3[1]}" stroke-width="3" stroke-opacity="0.35"/>')
+            out.append(f'<circle cx="{xe:.1f}" cy="{cy:.1f}" r="7" fill="{RAMP3[1]}" stroke="{SURFACE}" stroke-width="2"><title>{esc(m["model"])}: effective ≈ {fmt_tok(eff)} ({esc(m.get("effective_source", ""))})</title></circle>')
+        if dflt and dflt != m['nominal_context']:
+            xd = X(dflt); out.append(f'<polygon points="{xd:.1f},{cy-8:.1f} {xd+7:.1f},{cy:.1f} {xd:.1f},{cy+8:.1f} {xd-7:.1f},{cy:.1f}" fill="#eb6834" stroke="{SURFACE}" stroke-width="1.5"><title>{esc(m["model"])}: default {fmt_tok(dflt)}</title></polygon>')
+        out.append(f'<circle cx="{xn:.1f}" cy="{cy:.1f}" r="7" fill="{SURFACE}" stroke="{INK}" stroke-width="2"><title>{esc(m["model"])}: nominal {fmt_tok(m["nominal_context"])}</title></circle>')
+        lab = fmt_tok(m['nominal_context']) + (f' · eff ≈ {fmt_tok(eff)}' if eff else ' · eff n/a') + (f' · default {fmt_tok(dflt)}' if dflt and dflt != m['nominal_context'] else '')
+        out.append(t(x0 + pw + 12, cy + 4, lab, 11, INK2, 600))
+    ly = H - 34; lx = 12
+    out.append(f'<circle cx="{lx+7}" cy="{ly-4}" r="7" fill="{SURFACE}" stroke="{INK}" stroke-width="2"/>'); out.append(t(lx + 20, ly, 'nominal window (vendor spec)', 11, INK2)); lx += 200
+    out.append(f'<circle cx="{lx+7}" cy="{ly-4}" r="7" fill="{RAMP3[1]}"/>'); out.append(t(lx + 20, ly, 'effective length (independent benchmark)', 11, INK2)); lx += 250
+    out.append(f'<polygon points="{lx+7},{ly-12} {lx+14},{ly-4} {lx+7},{ly+4} {lx},{ly-4}" fill="#eb6834"/>'); out.append(t(lx + 20, ly, 'default / main-tier window when lower', 11, INK2))
+    out.append('</svg>'); return ''.join(out)
+
+def svg_kv_memory(kv_models):
+    rows = sorted([k for k in kv_models if k.get('kv_bytes_per_token')], key=lambda k: -k['kv_bytes_per_token'])
+    W = 880; lab_w = 260; x0 = lab_w + 10; pw = W - x0 - 90; rh = 42; top = 70
+    gb = [k['kv_bytes_per_token'] * 1e6 / 1e9 for k in rows]; mx = max(gb + [160]) * 1.08; n = len(rows); H = top + rh * n + 70
+    def X(v): return x0 + pw * v / mx
+    out = [svg_open(W, H, 'KV-cache memory needed per 1M tokens of context, by model, versus one GPU', minw=720)]
+    step = 100 if mx > 400 else 50
+    v = 0
+    while v <= mx:
+        out.append(f'<line x1="{X(v):.1f}" y1="{top - 8}" x2="{X(v):.1f}" y2="{top + rh*n}" stroke="{HAIR}"/>'); out.append(t(X(v), top + rh * n + 16, f'{v:g}', 11, MUTED, 400, 'middle')); v += step
+    out.append(t(x0 + pw / 2, top + rh * n + 34, 'GB of KV cache per 1M tokens (bf16 unless noted)', 11, MUTED, 600, 'middle'))
+    for j, (ref, lab) in enumerate([(80, 'H100 80 GB'), (141, 'H200 141 GB'), (192, 'B200 192 GB')]):
+        if ref < mx:
+            ly_ = top - 14 - 15 * j
+            out.append(f'<line x1="{X(ref):.1f}" y1="{ly_ + 4}" x2="{X(ref):.1f}" y2="{top + rh*n}" stroke="#eb6834" stroke-width="1.5"/>'); out.append(t(X(ref) + 5, ly_, lab, 10.5, '#eb6834', 700, 'start'))
+    for i, (k, g) in enumerate(zip(rows, gb)):
+        y = top + i * rh; bh = 20; by = y + rh / 2 - bh / 2
+        out.append(t(12, y + rh / 2 - 2, k['model'], 12.5, INK, 600)); out.append(t(12, y + rh / 2 + 11, f"{k['layers']} layers · {k['kv_heads']} KV heads · d{k['head_dim']} · {k['bytes_per_value']:g} B", 10.5, MUTED, 500))
+        w = pw * g / mx
+        out.append(f'<path d="M{x0},{by:.1f} h{max(w-4,0):.1f} a4,4 0 0 1 4,4 v{bh-8} a4,4 0 0 1 -4,4 h-{max(w-4,0):.1f} z" fill="{RAMP3[1]}"><title>{esc(k["model"])}: {g:.0f} GB per 1M tokens — {esc(k.get("note", ""))}</title></path>')
+        out.append(t(x0 + w + 8, y + rh / 2 + 4, f'{g:.0f} GB', 11.5, INK2, 600))
+    out.append('</svg>'); return ''.join(out)
+
+def svg_approach_map(approaches):
+    LAYERS = [('architecture', 'Model architecture'), ('position-and-training', 'Positional encoding & training'), ('serving-systems', 'Serving systems'), ('distributed-inference', 'Distributed inference'), ('application-layer', 'Application layer')]
+    MAT = {'research': (RAMP3[0], 'research'), 'emerging': (RAMP3[1], 'emerging'), 'production': (RAMP3[2], 'production')}
+    W = 1120; lab_w = 230; y = 14; out = [svg_open(W, 10, 'Approaches to longer context, by layer and maturity', minw=900)]
+    for key, name in LAYERS:
+        items = [a for a in approaches if a.get('layer') == key]
+        if not items: continue
+        x = lab_w + 10; cy = y + 26; chips = []
+        for a in items:
+            lab = a['name']; w = 7 * len(lab) + 26
+            if x + w > W - 12: x = lab_w + 10; cy += 30
+            chips.append((x, cy, w, a)); x += w + 8
+        h = (cy - y) + 24
+        out.append(f'<rect x="8" y="{y}" width="{W-16}" height="{h}" rx="5" fill="{BG if LAYERS.index((key, name)) % 2 == 0 else SURFACE}" stroke="{HAIR}"/>')
+        out.append(tlines(18, y + 22, wrap(name, 24, 2), 12.5, 14, INK, 700))
+        for cx, cy2, w, a in chips:
+            col = MAT.get(a.get('maturity'), MAT['emerging'])[0]
+            out.append(f'<rect x="{cx:.1f}" y="{cy2 - 17}" width="{w:.1f}" height="24" rx="12" fill="{SURFACE}" stroke="{col}" stroke-width="1.4"><title>{esc(a["name"])} — {esc(a.get("what_it_fixes", ""))}; used by {esc(", ".join(a.get("used_by") or []))}</title></rect>')
+            out.append(f'<circle cx="{cx + 12}" cy="{cy2 - 5}" r="4.5" fill="{col}"/>')
+            out.append(t(cx + 22, cy2 - 1, a['name'], 11.5, INK, 600))
+        y += h + 8
+    ly = y + 16; lx = 18; out.append(t(lx, ly, 'Maturity:', 11, MUTED, 600)); lx += 66
+    for k, (col, lab) in MAT.items():
+        out.append(f'<circle cx="{lx + 5}" cy="{ly - 4}" r="5" fill="{col}"/>'); out.append(t(lx + 16, ly, lab, 11, INK2)); lx += 100
+    out[0] = out[0].replace(f'viewBox="0 0 {W} 10"', f'viewBox="0 0 {W} {ly + 12}"'); out.append('</svg>'); return ''.join(out)
+
+def svg_causes(causes):
+    n = len(causes); rh = 84; H = 20 + rh * n + 10; W = 1080
+    nodes = []; edges = []
+    for i, c in enumerate(causes):
+        y = 20 + i * rh
+        nodes.append(dict(id=f'c{i}', kind='q', x=20, y=y, w=300, h=60, text=c['cause'], chars=34, size=12.5))
+        nodes.append(dict(id=f'e{i}', kind='a', stage='foundations', x=400, y=y, w=340, h=60, text=c['effect'], chars=40, size=12))
+        edges.append({'from': f'c{i}', 'to': f'e{i}'}); edges.append({'from': f'e{i}', 'to': 'end'})
+    nodes.append(dict(id='end', kind='start', x=820, y=20 + (rh * n - 64) / 2, w=240, h=64, text='Vendors cap windows near 1M and price long context higher', chars=26, size=12))
+    return svg_flow(dict(title='Why context windows are capped: causes and effects', w=W, h=H, minw=860, nodes=nodes, edges=edges))
+
 # ---------------- fragment hygiene ----------------
 def clean_fragment(frag):
     frag = re.sub(r'<script\b.*?</script>', '', frag, flags=re.S | re.I)
@@ -362,6 +456,27 @@ def main():
         frag = re.sub(r'(<h3>)', rail + r'\1', frag, count=1)
         sections_html.append(frag)
 
+    # ---- deep dive: context limits ----
+    deep_html = ''
+    dd_dir = os.path.join(DIR, 'deepdive'); dd_res = os.path.join(dd_dir, 'result.json'); dd_frag = os.path.join(dd_dir, 'sections', 'context-limits.html')
+    if os.path.exists(dd_res) and os.path.exists(dd_frag):
+        dd = json.load(open(dd_res)); w = dd.get('writer') or {}
+        frag = clean_fragment(open(dd_frag, encoding='utf-8').read())
+        def fig(svg, num, cap): return f'<figure class="breakout"><div class="scroll">{svg}</div><figcaption><span class="swipe">Swipe sideways to see the whole figure. </span><b>Figure {num}.</b> {cap}</figcaption></figure>'
+        inj = {}
+        if w.get('models'): inj['What the frontier actually offers'] = fig(svg_context_dumbbell(w['models']), 6, 'Nominal context windows (hollow) against independently measured effective length (filled) on a log scale; the diamond marks a lower default or main-tier window where one exists. Hover a marker for the source.')
+        if w.get('causes') or w.get('kv_models'):
+            inj['Why the window is capped'] = (fig(svg_causes(w['causes']), 7, 'Where the ceiling comes from: each mechanical cause on the left produces an engineering or quality consequence, and together they explain why vendors stop near 1M tokens and tier their pricing.') if w.get('causes') else '') + (fig(svg_kv_memory(w['kv_models']), 8, 'Memory is the hard wall: the KV cache grows linearly with context, so a 1M-token request needs this much accelerator memory per model before any batching — compared with single-GPU capacity (orange lines). Multi-head latent attention (DeepSeek) shrinks it by an order of magnitude.') if w.get('kv_models') else '')
+        if w.get('approaches'): inj['How labs extend context'] = fig(svg_approach_map(w['approaches']), 9, 'The ways to push past the ceiling, by layer; dot colour shows maturity. Hover a chip for what it fixes and who uses it.')
+        for key, html_ in inj.items():
+            m = re.search(r'<h3>[^<]*' + re.escape(key) + r'[^<]*</h3>', frag)
+            if m: frag = frag[:m.start()] + html_ + frag[m.start():]
+            else: frag = re.sub(r'(<h3>)', html_ + r'\1', frag, count=1)
+        meta = '<div class="meta-row"><span class="stage-chip"><i class="dot" style="background:' + STAGES['foundations']['color'] + '"></i>Deep dive · foundations</span><span>Added ' + esc(dd.get('date', TODAY)) + ' · ' + str(dd.get('totalUniqueSources', '')) + ' sources</span></div>'
+        frag = re.sub(r'(</h2>)', r'\1' + meta, frag, count=1)
+        deep_html = frag
+        gp = os.path.join(dd_dir, 'sections', 'addendum-context-limits.html')
+        if os.path.exists(gp): deep_html += clean_fragment(open(gp, encoding='utf-8').read())
     decision = json.load(open(os.path.join(DIR, 'decision.json'))) if os.path.exists(os.path.join(DIR, 'decision.json')) else None
     repos = json.load(open(os.path.join(DIR, 'repos.json'))) if os.path.exists(os.path.join(DIR, 'repos.json')) else None
 
@@ -370,6 +485,7 @@ def main():
         n = re.split(r'\s[\(—–-]\s|\(', n)[0].strip(); return n if len(n) <= 30 else n[:29].rstrip() + '…'
     nav = ['<li><a href="#glance">At a glance</a></li>'] + \
           [f'<li><a href="#{esc(c["slug"])}">{c.get("rank")}. {esc(sname(c))}</a></li>' for c in cats if c['slug'] in sums_by_slug or os.path.exists(os.path.join(DIR, 'sections', c['slug'] + '.html'))]
+    if deep_html: nav.append('<li><a href="#context-limits">★ Deep dive: context limits</a></li>')
     if decision: nav.append('<li><a href="#decide">Which one when</a></li>')
     if repos: nav.append('<li><a href="#repos">Open-source landscape</a></li>')
     nav.append('<li><a href="#method">Method &amp; sources</a></li>')
@@ -456,6 +572,7 @@ def main():
   <ul class="framings">{framings_html}</ul>
 </section>
 {''.join(f'<div class="wrap">{s}</div>' for s in sections_html)}
+{('<div class="wrap">' + deep_html + '</div>') if deep_html else ''}
 {fig_decide}
 {fig_repos}
 <section class="part wrap" id="method">

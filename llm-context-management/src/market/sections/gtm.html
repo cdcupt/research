@@ -1,0 +1,88 @@
+<section class="msection" id="gtm">
+  <h2>How a startup should enter — the playbook</h2>
+  <p class="lede">Do not build another memory store or a better compactor; the clouds and model vendors own both. Enter as the neutral party that measures memory and context quality, give the harness away, and monetise the thing the measurement reveals: a write-gate and a policy-pinning layer that sit between any agent and any store. Land with measurement, expand into enforcement.</p>
+  <div class="kv">
+    <div><b>Key numbers</b><span>$1.5B of $37B enterprise GenAI spend sits in non-model, non-training infrastructure (vector DBs, gateways, memory, observability) versus $12.5B for model APIs (2025); Mem0 reached 186M API calls in Q3 2025 and 41,000 stars at the Series A (Oct 2025), 61,323 by Jul 2026, on $24M raised; 97.8% of 10,134 audited Mem0 entries were junk (Mar 2026); policy violations go 0% → 30% after compaction and pinning restores 0% (Jun 2026); Braintrust raised $80M for evals (Feb 2026).</span></div>
+    <div><b>Confidence</b><span>medium — wedge scores come from trackers and pricing pages, not buyer interviews</span></div>
+    <div><b>Evidence base</b><span>10 primary sources fetched and verified, 24 GTM items plus other sections' evidence from the sweeps; web search unavailable this run</span></div>
+  </div>
+
+  <h3>Where not to play</h3>
+  <p>The problems section ranks pain; this one ranks entry. Compaction mechanics and tool bloat belong to the harness vendors: Anthropic shipped server-side compaction with custom instructions and pause-after-compaction in January 2026 (<a href="https://platform.claude.com/docs/en/build-with-claude/compaction">docs</a>), OpenAI followed in February, and code execution cuts 150,000 tool tokens to 2,000 (<a href="https://www.anthropic.com/engineering/code-execution-with-mcp">Anthropic</a>). IDE session memory is bundled everywhere. A hosted memory API is the lane with six funded entrants, no disclosed revenue and two hyperscalers billing for the same thing (AWS AgentCore since Oct 2025 and Google Memory Bank since Feb 2026); Letta's drift from runtime to Letta Code (<a href="https://docs.letta.com/letta-code/pricing">pricing</a>) shows what happens when a memory engine cannot find a standalone buyer. Vertical memory is deferred to wedge 5 as expansion after measurement, and portability is excluded because nobody pays for it yet (problems row 14).</p>
+
+  <h3>Seven candidate wedges</h3>
+  <p>Attractiveness weighs pain, budget and buyer count; difficulty weighs build and sales effort; platform risk is the chance a model vendor or cloud absorbs it within 18 months. Wedges score well where the buyer already pays for the service and nobody neutral measures or governs it.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>#</th><th>Wedge</th><th>Problems</th><th>ICP</th><th>Why now</th><th>Who is near it</th><th>Attract.</th><th>Diff.</th><th>Plat. risk</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Neutral memory and context quality CI: replay real traces against any store, score recall, staleness, update propagation, conflict resolution and constraint survival</td><td>eval-gap, stale-memory</td><td>Teams shipping memory-backed agents; platform leads choosing a vendor</td><td>Benchmark wars (<a href="https://blog.getzep.com/lies-damn-lies-statistics-is-mem0-really-sota-in-agent-memory/">Zep vs Mem0</a>); metrics requested in <a href="https://github.com/mem0ai/mem0/issues/5235">mem0 #5235</a> (May 2026); Memory Bank and AgentCore now bill per record</td><td>Braintrust, LangSmith, Langfuse (generic); lhl grep baseline; no neutral scorer</td><td>5</td><td>3</td><td>2</td></tr>
+      <tr><td>2</td><td>Memory write-gate: store-agnostic proxy that dedups, detects extraction loops, scrubs PII, stamps provenance and quarantines before a record is paid for</td><td>memory-junk, stale-memory, memory-poisoning</td><td>Operators of persistent assistants paying per memory record</td><td>97.8% junk audit (<a href="https://github.com/mem0ai/mem0/issues/4573">#4573</a>, Mar 2026); AgentCore $0.75 per 1,000 records; metered vendors have no incentive to reject</td><td>Google Memory Bank consolidation; Mnemora, Mnemosyne (no-LLM write path)</td><td>4</td><td>3</td><td>3</td></tr>
+      <tr><td>3</td><td>Policy pinning sidecar: pins constraints across any vendor's compaction with behavioural verification (probe the agent after compaction and re-inject on failure), logs violations for audit</td><td>governance-decay, memory-poisoning, memory-retention</td><td>Security and compliance owners running multi-vendor long-horizon agents</td><td><a href="https://arxiv.org/abs/2606.22528">ConstraintRot</a> (Jun 2026); <a href="https://github.com/anthropics/claude-code/issues/24460">claude-code #24460</a> closed as not planned (Feb 2026); compaction instructions are now an API parameter</td><td>Constraint Pinning (paper only); guardrail models; vendor custom instructions</td><td>4</td><td>4</td><td>4</td></tr>
+      <tr><td>4</td><td>Serving-time retrieval failure detection: abstain or escalate when a confident answer has weak grounding</td><td>silent-retrieval</td><td>Legal, support and finance RAG teams</td><td>No error signal exists; legal tools hallucinate 17–33% (Stanford RegLab, 2024); retrieval moved into managed cloud services, detection did not</td><td>Vectara hallucination detection; Contextual AI; cloud guardrails</td><td>3</td><td>3</td><td>3</td></tr>
+      <tr><td>5</td><td>Compliance-grade memory for regulated buyers: retention, deletion proof, provenance, BYOC</td><td>memory-retention, memory-poisoning, memory-lockin</td><td>Finance, health, EU data controllers</td><td>AgentCore cannot expire events under 7 days; no shipped layer has rollback or provenance</td><td><a href="https://www.getzep.com/pricing">Zep</a> (SOC 2 Type II, HIPAA BAA, BYOC); Cognee; Supermemory</td><td>3</td><td>4</td><td>2</td></tr>
+      <tr><td>6</td><td>Context cost attribution: cross-vendor ledger of input tokens, cache hits, compaction iterations and server-side state per feature or tenant</td><td>cost-opacity, tool-bloat</td><td>Platform and FinOps teams</td><td>100:1 input ratios; compaction billed as a separate iteration; Azure cannot show chained-state tokens</td><td>OpenRouter, Portkey, Langfuse, vendor dashboards</td><td>2</td><td>2</td><td>4</td></tr>
+      <tr><td>7</td><td>Shared decision ledger for multi-agent systems: decisions, not messages, with consistency semantics</td><td>multi-agent-handoff</td><td>Teams running orchestrator-subagent systems in production</td><td>Frameworks still pass messages</td><td>Letta Conversations API; LangGraph state; Cognition's single-thread advice</td><td>2</td><td>4</td><td>3</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The recommended wedge: measure first, then gate</h3>
+  <p>Lead with wedge 1 and build wedge 2 on its findings, with wedge 3 as the enterprise expansion. Four reasons.</p>
+  <p>First, lowest platform risk. Model vendors do not grade third-party memory, and memory vendors cannot grade themselves credibly: Zep's critique shows a full-context baseline (~73%) beating Mem0's best configuration (~68%) on 16,000–26,000-token conversations, while Mem0 self-reports 92.5%, benchmark unspecified on Mem0's page and distinct from its 94.4% LongMemEval claim (<a href="https://mem0.ai/blog/ai-memory-benchmarks-in-2026">Mem0</a>). A neutral scorer is something every vendor needs and none can be.</p>
+  <p>Second, the budget line exists. AWS AgentCore since Oct 2025 and Google Memory Bank since Feb 2026 bill for memory (<a href="https://aws.amazon.com/bedrock/agentcore/pricing/">AgentCore pricing</a>); Mem0 Pro is $249/mo, Zep Flex $1,250/yr. Anyone paying those bills can be asked what share is junk; #4573 says 97.8%, and the gate that fixes it is the recurring-revenue product.</p>
+  <p>Third, evals are funded. Braintrust's $80M Series B (<a href="https://siliconangle.com/2026/02/17/braintrust-lands-80m-series-b-funding-round-become-observability-layer-ai/">SiliconANGLE</a>, Feb 2026) and LangSmith prove the budget; the risk is they extend into memory metrics. So do not compete on tracing: ship as a scorer inside their traces and hold the asset they lack, a labelled corpus of real memory failures.</p>
+  <p>Fourth, it compounds. The harness shows which failure classes matter; the gate enforces them at write time; ConstraintRot shows pinning returns violations to 0% from 30% after compaction (38% when the constraint is dropped from the summary), and the sidecar that checks survival can re-inject. Each product sells to the same platform owner on evidence the previous one produced.</p>
+
+  <h3>Pricing and open source</h3>
+  <p>Open-source the harness, metric definitions and trace format under Apache-2.0 and keep them first-class; the first objection on Mem0's Show HN (<a href="https://news.ycombinator.com/item?id=41447317">2024</a>) was whether the OSS version would stay supported, and it still is. Keep the hosted CI, failure corpus and learned gate rules proprietary: Supermemory's open clients around a closed engine.</p>
+  <p>Meter on evaluated episodes and gated writes, never on stored records; per-record pricing is the incentive that produced the junk. Proposed anchors: free under 1,000 episodes a month; a team tier at $200–500/mo beside Mem0 Pro ($249) and Zep Flex Plus (~$312); enterprise with SOC 2 Type II, audit logs, SSO and BYOC, which Zep's eight-person team cleared and Mem0 still gates behind sales (<a href="https://mem0.ai/pricing">Mem0 pricing</a>). Margin depends on judge tokens per episode, so track cost per episode from week one.</p>
+
+  <h3>Distribution</h3>
+  <p>Mem0 grew by being the default inside 25+ frameworks and an MCP server, not from its launch (<a href="https://mem0.ai/integrations">integrations</a>); AWS naming it exclusive Strands memory provider followed. Copy the mechanism with a scorer instead of a store:</p>
+  <ul>
+    <li>Framework adapters first: LangGraph, OpenAI Agents SDK, Vercel AI SDK, Claude Agent SDK, CrewAI, and a Microsoft Agent Framework context provider, whose pluggable backends (<a href="https://devblogs.microsoft.com/agent-framework/microsoft-agent-framework-version-1-0/">1.0</a>) make every store swappable and so measurable.</li>
+    <li>An MCP server so Claude Code or Cursor users can audit a Mem0 or Zep store from the editor; Zep already sells MCP seats, so the channel is proven.</li>
+    <li>The memory vendors as a channel: invite all six to submit to a public leaderboard with reproducible runs; vendors that lost the benchmark wars gain from a referee.</li>
+    <li>Observability platforms as hosts: ship as a Langfuse, Braintrust and LangSmith scorer rather than a rival dashboard.</li>
+    <li>Cloud marketplaces beside Memory Bank and AgentCore Memory, where the bill already exists.</li>
+    <li>Enterprise via security owners for the pinning sidecar: sell the audit trail and the multi-vendor case no single model vendor will serve.</li>
+  </ul>
+
+  <h3>First 90 days and what to watch</h3>
+  <ol>
+    <li>Days 1–30: Apache-2.0 harness that replays recorded traces against Mem0, Zep, Cognee, Letta, Memory Bank, AgentCore and a filesystem-grep baseline; five metrics; GitHub Action.</li>
+    <li>Days 15–30: publish the leaderboard with reproducible runs and launch on Hacker News, where both Mem0 and Zep launched.</li>
+    <li>Days 31–60: hosted CI, three framework adapters, MCP audit server; ten design partners given free audits in exchange for failure traces.</li>
+    <li>Days 61–90: write-gate beta (dedup, loop detection, PII, provenance) from design-partner findings; constraint-survival check for Anthropic and OpenAI compaction; pricing page live; first five paying teams.</li>
+  </ol>
+  <p>Metrics, in priority order: episodes evaluated per week (the usage metric investors accepted for Mem0 and Cognee, not stars); share of runs on stores you do not own; vendor submissions to the leaderboard (target three of six); design-partner to paid conversion (target five of ten); junk rate in gated versus ungated stores against the 97.8% baseline; constraint survival after compaction against ConstraintRot's 0%/30%; time to first score under 30 minutes; judge cost per episode; net revenue retention once the gate ships.</p>
+
+  <h3>Implications for a new entrant</h3>
+  <ul>
+    <li>The only durable position in this chain is the one no vendor can hold, the neutral measurer; start there even though the largest bills sit elsewhere.</li>
+    <li>Price on work done (episodes, gated writes), never on records stored, because per-record metering is the root cause of the junk you are selling against.</li>
+    <li>Distribution is framework adapters plus an MCP server, in that order; the launch post is a news hook, not a channel.</li>
+    <li>Treat evals platforms as hosts and memory vendors as submitters; the moment either sees you as a rival, the wedge narrows.</li>
+    <li>Hold compliance certs early: an eight-person team (Zep) owns the regulated lane because better-funded rivals gated it behind sales.</li>
+    <li>Do not touch compaction mechanics, tool loading or IDE session memory; the platform vendors shipped, and they iterate faster than you can.</li>
+  </ul>
+
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://mem0.ai/series-a">Mem0 raises $24M to build the memory layer for AI</a> <span class="src-type blog">blog</span> — Mem0, 2025</li>
+    <li><a href="https://mem0.ai/pricing">Mem0 Pricing</a> <span class="src-type docs">docs</span> — Mem0, 2026</li>
+    <li><a href="https://mem0.ai/integrations">Mem0 Integrations - LangChain, CrewAI, Vercel AI SDK &amp; 25+ More</a> <span class="src-type docs">docs</span> — Mem0, 2026</li>
+    <li><a href="https://www.getzep.com/pricing">Zep Pricing</a> <span class="src-type docs">docs</span> — Zep, 2026</li>
+    <li><a href="https://blog.getzep.com/lies-damn-lies-statistics-is-mem0-really-sota-in-agent-memory/">Lies, Damn Lies, Statistics: Is Mem0 Really SOTA in Agent Memory?</a> <span class="src-type blog">blog</span> — Zep, 2025 (updated 2026)</li>
+    <li><a href="https://arxiv.org/abs/2606.22528">Governance Decay: How Context Compaction Silently Erases Safety Constraints in Long-Horizon LLM Agents</a> <span class="src-type paper">paper</span> — arXiv, 2026</li>
+    <li><a href="https://arxiv.org/abs/2503.03704">Memory Injection Attacks on LLM Agents via Query-Only Interaction (MINJA)</a> <span class="src-type paper">paper</span> — arXiv, 2025</li>
+    <li><a href="https://github.com/mem0ai/mem0/issues/4573">What we found after auditing 10,134 mem0 entries: 97.8% were junk</a> <span class="src-type thread">thread</span> — GitHub, 2026</li>
+    <li><a href="https://github.com/mem0ai/mem0/issues/5235">Feature: evaluation toolkit for agent memory quality and retrieval reliability</a> <span class="src-type thread">thread</span> — GitHub, 2026</li>
+    <li><a href="https://github.com/anthropics/claude-code/issues/24460">CLAUDE.md context lost after /compact — re-inject project instructions</a> <span class="src-type thread">thread</span> — GitHub, 2026</li>
+    <li><a href="https://menlovc.com/perspective/2025-the-state-of-generative-ai-in-the-enterprise/">2025: The State of Generative AI in the Enterprise</a> <span class="src-type report">report</span> — Menlo Ventures, 2025</li>
+    <li><a href="https://platform.claude.com/docs/en/build-with-claude/compaction">Compaction (compact-2026-01-12)</a> <span class="src-type docs">docs</span> — Anthropic, 2026</li>
+    <li><a href="https://siliconangle.com/2026/02/17/braintrust-lands-80m-series-b-funding-round-become-observability-layer-ai/">Braintrust lands $80M Series B to become the observability layer for AI</a> <span class="src-type news">news</span> — SiliconANGLE, 2026</li>
+    <li><a href="https://news.ycombinator.com/item?id=41447317">Show HN: Mem0 - open-source Memory Layer for AI apps</a> <span class="src-type thread">thread</span> — Hacker News, 2024</li>
+    <li><a href="https://devblogs.microsoft.com/agent-framework/microsoft-agent-framework-version-1-0/">Microsoft Agent Framework 1.0</a> <span class="src-type blog">blog</span> — Microsoft, 2026</li>
+    <li><a href="https://aws.amazon.com/bedrock/agentcore/pricing/">Amazon Bedrock AgentCore Pricing</a> <span class="src-type docs">docs</span> — AWS, 2025</li>
+  </ol>
+</section>

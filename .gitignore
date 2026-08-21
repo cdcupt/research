@@ -3,3 +3,7 @@
 *.bak-*
 llm-context-management/src/llm-context-management.html
 llm-context-management/src/llm-context-management.artifact.html
+llm-context-management/src/market/market-report.html
+llm-context-management/src/market/market-report.artifact.html
+llm-context-management/src/market/demo/
+llm-context-management/src/deepdive/demo-shots/

@@ -1,0 +1,80 @@
+<section class="msection" id="addendum-missing-memory-eval-entrants">
+  <h2>Addendum: memory and eval entrants missing from the landscape sections</h2>
+  <p class="lede">Eight primary pages were checked after the search budget ran out. No verified, funded company sells neutral, store-agnostic memory-quality CI (wedge 1), but four evaluation vendors sit one product decision away from it, and Patronus AI pairs a $50M Series B with explicit "agentic memory" language. The recommendation holds; the "who is near it" cell and the host list must change.</p>
+  <div class="kv">
+    <div><b>Key numbers</b><span>Patronus AI: $50M Series B stated on its site (2026); Mastra: $22M Series A, 30 staff, YC W25 (Apr 2026); DeepEval: 12k+ stars, 3M monthly downloads, 2M evaluations a day (2026); MemOS: 10.9k stars, self-reported LongMemEval 89.20 (Aug 2026); Limitless: acquired by Meta, service sunset 5 Dec 2025.</span></div>
+    <div><b>Confidence</b><span>medium — eight primary pages; no YC batch sweep; several rounds unknown</span></div>
+    <div><b>Evidence base</b><span>8 sources fetched, 0 from search results (session search budget exhausted), 12 reused from the earlier sweeps</span></div>
+  </div>
+
+  <h3>Coverage and method</h3>
+  <p>This addendum checks names that landscape I (seven US/EU memory APIs) and landscape II (observability and evals) skipped. The session's web-search budget was exhausted before this section ran, so the method was direct fetches of company, YC and GitHub pages (eight, the cap) plus evidence the sweeps had already gathered. Unstated funding figures are recorded as unknown. A systematic pass over the YC W25 to S26 directories was still not possible: the batch sizes are known (160 companies in S25, 88 percent AI-native; 214 in W26, per <a href="https://www.extruct.ai/blog/ycs25/">Extruct S25</a> and <a href="https://www.extruct.ai/data-room/ycombinator-companies-w26/">Extruct W26</a>), but memory entrants inside them were not enumerated.</p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th>Entrant</th><th>Category</th><th>What the primary page shows</th><th>Disclosed capital (source)</th><th>Distance from wedge 1</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://www.patronus.ai/">Patronus AI</a></td><td>Eval vendor</td><td>Agent evaluation for long-horizon planning, multi-turn dialogue, deep research and "agentic memory with context windows"; Percival, Lynx, GLIDER; RL environments and digital world models claiming 30 to 40 percent lift on long-horizon tasks</td><td>$50M Series B (company site; date not shown)</td><td>Closest: funded and names memory; no memory-specific metrics shown</td></tr>
+      <tr><td><a href="https://galileo.ai/">Galileo</a></td><td>Eval and observability</td><td>"Offline evals become production guardrails"; 20+ evaluators for RAG, agents, safety, security; distilled Luna judges at a claimed 96 percent lower cost; SaaS, VPC, on-prem</td><td>Not stated on site; unknown</td><td>Adjacent: guardrail framing matches wedge 2 more than wedge 1</td></tr>
+      <tr><td><a href="https://www.ycombinator.com/companies/confident-ai">Confident AI (DeepEval)</a></td><td>Eval vendor, YC W25</td><td>7 staff; DeepEval 12k+ stars, 3M monthly downloads, 2M evaluations a day; customers BCG, AstraZeneca, AXA, Microsoft</td><td>YC only; further rounds unknown</td><td>Adjacent: best distribution for a metric pack; no memory metric named on the page</td></tr>
+      <tr><td><a href="https://github.com/explodinggradients/ragas">Ragas</a></td><td>OSS eval library</td><td>15.4k stars, Apache-2.0; agent evals listed as "coming soon"; commercial side is consulting (Vibrant Labs)</td><td>None disclosed; unknown</td><td>Far: no agent or memory metrics shipped</td></tr>
+      <tr><td><a href="https://www.ycombinator.com/companies/mastra">Mastra</a></td><td>Agent framework, YC W25</td><td>TypeScript framework with memory, workflows, RAG and evals; founded 2024 by the Gatsby team; 30 staff</td><td>$22M Series A, April 2026 (YC page)</td><td>Different layer: bundles memory; a submitter, not a rival</td></tr>
+      <tr><td>Langbase</td><td>Agent framework</td><td>Not fetched (cap reached)</td><td>unknown</td><td>Unassessed</td></tr>
+      <tr><td><a href="https://github.com/MemTensor/MemOS">MemTensor / MemOS</a></td><td>Chinese OSS memory system</td><td>10.9k stars, Apache 2.0; self-reported LoCoMo 88.83, LongMemEval 89.20, HaluMem 80.91, PersonaMem v2 40.58; MemOS Cloud; plugins for DeepSeek Harness, OpenClaw, Hermes; news dated 17 Aug 2026</td><td>unknown</td><td>A submitter: adds to the benchmark wars that wedge 1 referees</td></tr>
+      <tr><td><a href="https://memories.ai/">Memories.ai</a></td><td>Visual memory infrastructure</td><td>Large Visual Memory Model; Video Intelligence and Visual Search APIs; partners Microsoft, NVIDIA, Samsung, Lenovo, Qualcomm, Ring; "100M+ cameras"; Project LUCI at Microsoft Build 2026</td><td>Not stated on site; unknown</td><td>Different market (video and devices)</td></tr>
+      <tr><td><a href="https://www.limitless.ai/">Limitless</a></td><td>Consumer pendant</td><td>Acquired by Meta; service sunset in most regions by 5 Dec 2025; Pendant customers supported free through 2026</td><td>unknown</td><td>Exited; consumer memory absorbed by a platform</td></tr>
+      <tr><td>Hindsight (Vectorize)</td><td>Memory vendor and benchmark publisher</td><td>Already a signal in landscape I: 91 to 94 percent LongMemEval claims; measured Zep at 63.8 percent</td><td>unknown</td><td>Publishes vendor-run comparisons, the thing wedge 1 replaces with neutral ones</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Evaluation vendors: near the wedge, not on it</h3>
+  <p>The four eval vendors sit closest. <a href="https://www.patronus.ai/">Patronus AI</a> lists "agentic memory with context windows" among the agent behaviours it evaluates and states a $50M Series B; its RL environments and digital world models point its roadmap at agent training signal rather than memory stores. <a href="https://galileo.ai/">Galileo</a> frames everything as "offline evals become production guardrails" with 20+ packaged evaluators and distilled Luna judges; that is the gate of wedge 2 built on generic metrics, not memory-specific ones. <a href="https://www.ycombinator.com/companies/confident-ai">Confident AI</a> (YC W25, seven staff) is the distribution threat: DeepEval reports 3 million monthly downloads and 2 million evaluations a day, and its model is "write custom metrics locally, compare on the cloud", which is the shape a memory metric pack would take. <a href="https://github.com/explodinggradients/ragas">Ragas</a>, at 15.4k stars, still lists agent evaluation as "coming soon" and monetises through consulting.</p>
+  <p>None of the four pages names recall after update, staleness, update propagation, conflict resolution or constraint survival, the metrics users asked Mem0 for in <a href="https://github.com/mem0ai/mem0/issues/5235">issue #5235</a> (May 2026) and the ones wedge 1 is built on. That absence is the finding: the budget and the host surfaces exist, the memory-specific content does not.</p>
+
+  <h3>Frameworks that bundle memory</h3>
+  <p><a href="https://www.ycombinator.com/companies/mastra">Mastra</a> is the clearest case of a framework selling memory as a feature rather than a product: YC W25, 30 staff, a $22M Series A in April 2026, with memory, RAG and evals inside one TypeScript package. For a memory API it is platform risk of the kind landscape II flagged for LangMem; for a neutral evaluator it is a submitter, because a framework with built-in evals wants to show its memory holds up against external stores. Langbase could not be checked within the cap and is recorded as unknown.</p>
+
+  <h3>Chinese, visual and consumer entrants</h3>
+  <p><a href="https://github.com/MemTensor/MemOS">MemOS</a>, from Shanghai-based MemTensor, is the one Chinese entrant verified. It has 10.9k stars under Apache 2.0, a hosted MemOS Cloud, plugins for DeepSeek Harness, OpenClaw and Hermes, and a README that self-reports LoCoMo 88.83, LongMemEval 89.20 and HaluMem 80.91. Those figures sit far above the 75.14 percent <a href="https://blog.getzep.com/lies-damn-lies-statistics-is-mem0-really-sota-in-agent-memory/">Zep</a> reported for its own corrected LoCoMo run and the 74.0 percent a plain filesystem agent scored in <a href="https://github.com/lhl/agentic-memory/tree/main/benchmarks">lhl's benchmarks</a>, and nothing on the page says who ran them or under what setup. MemOS also adds a benchmark of its own, HaluMem, to the leaderboard set. Funding is not stated on the repo and is unknown.</p>
+  <p><a href="https://memories.ai/">Memories.ai</a> and <a href="https://www.limitless.ai/">Limitless</a> are different markets. Memories.ai sells video memory (Video Intelligence and Visual Search APIs) to device and camera partners including Microsoft, NVIDIA, Samsung, Lenovo, Qualcomm and Ring and claims 100M+ cameras through integrations; no round is stated on its site. Limitless was acquired by Meta, with its service sunset in most regions by 5 December 2025 and Pendant owners supported free through 2026. The read-across is that consumer personal memory is being absorbed into platforms, which supports the report's B2B infrastructure focus rather than weakening it.</p>
+
+  <h3>What remains unverified</h3>
+  <ul>
+    <li>YC W25 to S26: only Mastra and Confident AI (both W25) were confirmed by direct page; no enumeration of memory-tagged companies in S25, W26 or S26 was done.</li>
+    <li>Funding is unknown for Galileo (not on its site), Confident AI beyond YC, Ragas, MemTensor, Memories.ai, Limitless, Langbase and Hindsight; the Patronus Series B date is not on its page.</li>
+    <li>DeepEval's metric catalogue was not read; whether it already ships conversational or memory metrics needs a docs check before it is treated as host or rival.</li>
+    <li>MemOS benchmark figures are vendor-reported and unreproduced, as with Mem0 and Zep.</li>
+  </ul>
+
+  <h3>Does this change the wedge-1 recommendation?</h3>
+  <p>No, but it changes two cells in the GTM table. The test was whether a funded competitor already sells neutral, store-agnostic memory-quality CI. None was found: the funded parties are eval platforms with generic agent metrics (Patronus, Galileo, Confident AI), a framework that bundles memory (Mastra), and memory vendors that publish their own scores (MemOS, Hindsight, <a href="https://techcrunch.com/2025/10/28/mem0-raises-24m-from-yc-peak-xv-and-basis-set-to-build-the-memory-layer-for-ai-apps/">Mem0</a>, Zep). The "who is near it" cell for wedge 1 should read Patronus, Galileo, Confident AI/DeepEval and Ragas plus the vendor leaderboards, and the host list should add DeepEval alongside Langfuse, Braintrust and LangSmith. The risk that moves is absorption speed: DeepEval's plugin model means a memory metric pack can be copied in weeks, so the durable asset is the replay harness across stores and the labelled corpus of real memory failures, not the metric definitions. <a href="https://arxiv.org/html/2602.10715v1">LoCoMo-Plus</a> and the <a href="https://arxiv.org/abs/2606.30306">Always-On Agents</a> protocol make the same case academically: string-match benchmarks miss state mutation and stale-preference reuse. Patronus is the one to watch: a $50M company that already says "agentic memory" can fund the corpus if it decides to.</p>
+
+  <h3>Implications for a new entrant</h3>
+  <ul>
+    <li>Add Patronus, Galileo, Confident AI/DeepEval and Ragas to wedge 1's "who is near it" cell and re-score platform risk from the eval side, not only the model-vendor side.</li>
+    <li>Ship the first memory metrics as a DeepEval and Ragas plugin as well as a Langfuse or Braintrust scorer; DeepEval's 3 million monthly downloads is the cheapest distribution on the list.</li>
+    <li>Recruit MemOS and Mastra as submitters in the first public replay: both have published claims (LongMemEval 89.20; bundled memory) they would want independently confirmed.</li>
+    <li>Do a short docs check of DeepEval's conversational metrics and Patronus's Percival before the seed deck; if either already scores staleness or update propagation, lead with constraint survival and cross-store replay instead.</li>
+    <li>Skip consumer and visual memory: Limitless's exit to Meta and Memories.ai's device partnerships show those are platform features and hardware channels, not a startup wedge.</li>
+    <li>Finish the YC W25 to S26 enumeration (three batches, roughly 500 companies) before fundraising; this addendum could not do it.</li>
+  </ul>
+
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://www.patronus.ai/">Patronus AI: product and research pages</a> <span class="src-type docs">docs</span> — Patronus AI, 2026</li>
+    <li><a href="https://galileo.ai/">Galileo: AI observability and eval engineering platform</a> <span class="src-type docs">docs</span> — Galileo, 2026</li>
+    <li><a href="https://www.ycombinator.com/companies/confident-ai">Confident AI: The LLM Eval and Observability Platform</a> <span class="src-type directory">directory</span> — Y Combinator, 2026</li>
+    <li><a href="https://github.com/explodinggradients/ragas">Ragas: Supercharge Your LLM Application Evaluations</a> <span class="src-type repo">repo</span> — GitHub explodinggradients/ragas, 2026</li>
+    <li><a href="https://www.ycombinator.com/companies/mastra">Mastra: The Javascript framework for building AI agents</a> <span class="src-type directory">directory</span> — Y Combinator, 2026</li>
+    <li><a href="https://github.com/MemTensor/MemOS">MemOS: Self-evolving memory OS for LLM and AI Agents</a> <span class="src-type repo">repo</span> — GitHub MemTensor/MemOS, 2026</li>
+    <li><a href="https://memories.ai/">Memories.ai: multimodal memory infrastructure for AI</a> <span class="src-type docs">docs</span> — Memories.ai, 2026</li>
+    <li><a href="https://www.limitless.ai/">Limitless: acquisition by Meta and service sunset notice</a> <span class="src-type docs">docs</span> — Limitless, 2025</li>
+    <li><a href="https://github.com/mem0ai/mem0/issues/5235">Feature: evaluation toolkit for agent memory quality and retrieval reliability (mem0 #5235)</a> <span class="src-type thread">thread</span> — GitHub mem0ai/mem0, 2026</li>
+    <li><a href="https://blog.getzep.com/lies-damn-lies-statistics-is-mem0-really-sota-in-agent-memory/">Lies, Damn Lies, Statistics: Is Mem0 Really SOTA in Agent Memory?</a> <span class="src-type blog">blog</span> — Zep, 2025</li>
+    <li><a href="https://github.com/lhl/agentic-memory/tree/main/benchmarks">agentic-memory benchmarks</a> <span class="src-type repo">repo</span> — GitHub lhl/agentic-memory, 2025</li>
+    <li><a href="https://arxiv.org/html/2602.10715v1">LoCoMo-Plus: Beyond-Factual Cognitive Memory Evaluation Framework for LLM Agents</a> <span class="src-type paper">paper</span> — arXiv, 2026</li>
+    <li><a href="https://arxiv.org/abs/2606.30306">Always-On Agents: A Survey of Persistent Memory, State, and Governance in LLM Agents</a> <span class="src-type paper">paper</span> — arXiv, 2026</li>
+    <li><a href="https://techcrunch.com/2025/10/28/mem0-raises-24m-from-yc-peak-xv-and-basis-set-to-build-the-memory-layer-for-ai-apps/">Mem0 raises $24M from YC, Peak XV and Basis Set to build the memory layer for AI apps</a> <span class="src-type news">news</span> — TechCrunch, 2025</li>
+    <li><a href="https://www.extruct.ai/blog/ycs25/">Y Combinator S25 Batch Analysis: 160 AI Startups</a> <span class="src-type directory">directory</span> — Extruct AI, 2025</li>
+    <li><a href="https://www.extruct.ai/data-room/ycombinator-companies-w26/">Y Combinator W26 batch</a> <span class="src-type directory">directory</span> — Extruct AI, 2026</li>
+  </ol>
+</section>

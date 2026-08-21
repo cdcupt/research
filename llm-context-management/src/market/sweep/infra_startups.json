@@ -1,0 +1,485 @@
+{
+  "sources": [
+    {
+      "title": "Contextual AI raises $80M to boost AI accuracy",
+      "url": "https://btw.media/en/contextual-ai-raises-80m-to-boost-ai-accuracy",
+      "type": "news",
+      "year": 2024,
+      "venue_or_author": "BTW Media",
+      "topics": ["Contextual AI", "funding", "RAG platform", "grounded generation", "enterprise RAG"],
+      "summary": "Contextual AI (CEO Douwe Kiela, co-author of the original RAG paper) raised an $80M Series A led by Greycroft to build enterprise RAG agents; positioning is accuracy/grounding for regulated enterprises.",
+      "key_facts": [
+        "Contextual AI raised $80M Series A led by Greycroft, with Bain Capital Ventures and Lightspeed (Aug 2024)",
+        "Total raised ~$100M including a $20M seed in 2023",
+        "PitchBook estimated valuation ~$609M; company declined to disclose post-money",
+        "Early customers/collaborators named: HSBC and Qualcomm",
+        "Product: RAG-based enterprise agent platform positioned on reducing hallucinations via curated retrieved context"
+      ]
+    },
+    {
+      "title": "Contextual AI Revenue 2025: $10.2M Est. ARR",
+      "url": "https://getlatka.com/companies/contextual.ai",
+      "type": "directory",
+      "year": 2025,
+      "venue_or_author": "Latka",
+      "topics": ["Contextual AI", "revenue estimate", "enterprise RAG"],
+      "summary": "Third-party revenue estimate for Contextual AI; low-confidence directory data, useful only as an order-of-magnitude check against the ~$100M raised.",
+      "key_facts": [
+        "Latka estimates Contextual AI ARR at $10.2M (2025) — unverified third-party estimate"
+      ]
+    },
+    {
+      "title": "From RAG to Context - A 2025 year-end review of RAG",
+      "url": "https://ragflow.io/blog/rag-review-2025-from-rag-to-context",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "RAGFlow (InfiniFlow)",
+      "topics": ["context engineering", "agentic RAG", "lost in the middle", "GraphRAG cost", "tool retrieval", "memory", "RAGFlow"],
+      "summary": "Vendor year-end review arguing RAG is being reframed as a 'Context Engine' whose core is intelligent retrieval; catalogs the pain points (fragmented chunks, GraphRAG token blow-up, tool-selection overload, memory) driving context-engineering tooling.",
+      "key_facts": [
+        "Frames 2025 shift from RAG pattern to 'a Context Engine with intelligent retrieval as its core capability'",
+        "GraphRAG entity extraction consumes 'several to dozens of times more tokens than original text'",
+        "Claims a two-order-of-magnitude cost gap between long-context and full RAG approaches",
+        "Identifies tool retrieval (semantic search over tool descriptions, Top-3) as a new context problem MCP does not solve",
+        "Names memory management over dynamic interaction logs as a new retrieval category",
+        "Cites Claude Code's index-free grep-based retrieval and TreeRAG 'locate precisely first, then expand to read'"
+      ]
+    },
+    {
+      "title": "Best Enterprise RAG Platforms for 2026: A Buyer's Guide",
+      "url": "https://onyx.app/insights/enterprise-rag-platforms-2026",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Onyx",
+      "topics": ["market size", "enterprise RAG", "Onyx", "Glean", "Contextual AI", "Vectara", "buyer landscape"],
+      "summary": "Vendor-authored buyer's guide to enterprise RAG platforms; appeared in the same result set as the enterprise-RAG market-size claim.",
+      "key_facts": [
+        "Search-result snippet: enterprise RAG market $1.94B in 2025, projected $9.86B by 2030 at 38.4% CAGR (originating page unverified)"
+      ]
+    },
+    {
+      "title": "Vectara Secures $25M Series A Funding to Advance RAG Trustworthiness with New Mockingbird LLM",
+      "url": "https://www.hpcwire.com/bigdatawire/this-just-in/vectara-secures-25m-series-a-funding-to-advance-rag-trustworthiness-with-new-mockingbird-llm/",
+      "type": "news",
+      "year": 2024,
+      "venue_or_author": "BigDATAwire / HPCwire",
+      "topics": ["Vectara", "funding", "RAG-as-a-service", "hallucination detection"],
+      "summary": "Vectara's $25M Series A (July 2024) and launch of Mockingbird, a RAG-tuned LLM; positioning is trustworthy enterprise RAG with hallucination evaluation.",
+      "key_facts": [
+        "Vectara raised $25M Series A in July 2024 alongside launch of Mockingbird RAG-tuned LLM"
+      ]
+    },
+    {
+      "title": "Vectara - 2026 Company Profile, Team, Funding & Competitors",
+      "url": "https://tracxn.com/d/companies/vectara/__B2HorZ0b9oeKtrr4S1EDjqD-0h8QipBkMx5sL3VtgNk",
+      "type": "directory",
+      "year": 2026,
+      "venue_or_author": "Tracxn",
+      "topics": ["Vectara", "funding", "investors", "RAG-as-a-service"],
+      "summary": "Tracxn funding profile for Vectara listing cumulative raise and investor set.",
+      "key_facts": [
+        "Vectara has raised $73.5M over three rounds: $28M (May 2023) and $25M (July 2024)",
+        "Investors include FPV Ventures, Race Capital, Alumni Ventures, WVV Capital, Samsung NEXT, Fusion Fund, Green Sands Equity, Mack Ventures"
+      ]
+    },
+    {
+      "title": "Vectara launches open-source framework to evaluate enterprise RAG systems",
+      "url": "https://siliconangle.com/2025/04/08/vectara-launches-open-source-framework-evaluate-enterprise-rag-systems/",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "SiliconANGLE",
+      "topics": ["Vectara", "RAG evals", "open source", "retrieval quality"],
+      "summary": "Vectara released an open-source evaluation framework for enterprise RAG pipelines (April 2025), a sign that retrieval-quality measurement is becoming a wedge for retrieval vendors.",
+      "key_facts": [
+        "Vectara launched an open-source enterprise RAG evaluation framework on 2025-04-08"
+      ]
+    },
+    {
+      "title": "RAG as a Service in 2026: 15 Platforms Compared",
+      "url": "https://forage.ai/blog/rag-as-a-service-platforms/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Forage.ai",
+      "topics": ["RAG-as-a-service", "Ragie", "Vectara", "pricing", "competitive dynamics"],
+      "summary": "Comparison of 15 managed RAG platforms; same result set carried Ragie pricing tiers and the claim that Ragie is poaching Vectara customers with discounted onboarding.",
+      "key_facts": [
+        "Ragie publishes $100 to $500/month managed RAG tiers (search snippet; originating page unverified)",
+        "Snippet: Ragie is 'actively migrating Vectara customers with discounted onboarding' — sign of price competition in pure-play RAG"
+      ]
+    },
+    {
+      "title": "LlamaIndex Secures $19 Million Series A to Power Enterprise-Grade Knowledge Agents",
+      "url": "https://www.prnewswire.com/news-releases/llamaindex-secures-19-million-series-a-to-power-enterprise-grade-knowledge-agents-302390936.html",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "PR Newswire (LlamaIndex)",
+      "topics": ["LlamaIndex", "funding", "LlamaCloud", "document parsing", "knowledge agents"],
+      "summary": "LlamaIndex raised a $19M Series A (March 2025) led by Norwest Venture Partners with Greylock to build LlamaCloud, its commercial parse/extract/index platform.",
+      "key_facts": [
+        "LlamaIndex raised $19M Series A led by Norwest Venture Partners with Greylock (Mar 2025); total funding $27.5M",
+        "Funds earmarked to expand team and accelerate its GenAI agent development platform"
+      ]
+    },
+    {
+      "title": "Series A Funding And LlamaParse GA Update",
+      "url": "https://www.llamaindex.ai/blog/announcing-our-series-a-and-llamacloud-general-availability",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "LlamaIndex",
+      "topics": ["LlamaIndex", "LlamaCloud", "LlamaParse", "document parsing", "context ingestion"],
+      "summary": "Company post announcing LlamaCloud general availability — connect, parse, extract, index unstructured data — and LlamaParse as an 'agentic OCR' pipeline; ingestion quality is positioned as the upstream half of context management.",
+      "key_facts": [
+        "LlamaCloud GA: commercial platform to connect, parse, extract and index PDFs, PowerPoints, images, charts",
+        "LlamaParse described as agentic OCR combining computer vision, specialized VLMs and LLM reasoning for tables/charts/handwriting"
+      ]
+    },
+    {
+      "title": "Glean Raises $150M Series F at $7.2B Valuation to Accelerate Enterprise AI Agent Innovation Globally",
+      "url": "https://www.glean.com/press/glean-raises-150m-series-f-at-7-2b-valuation-to-accelerate-enterprise-ai-agent-innovation-globally",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "Glean Press",
+      "topics": ["Glean", "funding", "valuation", "enterprise search", "incumbent move"],
+      "summary": "Glean's $150M Series F at a $7.2B valuation (June 2025) led by Wellington Management; Glean is the scaled incumbent for enterprise knowledge retrieval feeding agents.",
+      "key_facts": [
+        "Glean raised $150M Series F at $7.2B valuation led by Wellington Management (June 2025)",
+        "Tracxn: Glean total funding $768.2M across 6 rounds"
+      ]
+    },
+    {
+      "title": "Glean revenue, funding & news",
+      "url": "https://sacra.com/c/glean/",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Sacra",
+      "topics": ["Glean", "revenue", "enterprise search", "growth"],
+      "summary": "Sacra revenue estimates for Glean showing enterprise search/retrieval for AI compounding quickly through 2025-2026.",
+      "key_facts": [
+        "Sacra estimates Glean hit $300M ARR in May 2026, up from $208M at end of 2025 (+89% YoY)",
+        "Glean crossed $100M ARR in FY ended Jan 31 2025 and $200M ARR in Dec 2025"
+      ]
+    },
+    {
+      "title": "Onyx Raises $10M To Help Teams Find Knowledge Faster with Open Source AI Agents",
+      "url": "https://www.globenewswire.com/news-release/2025/03/12/3041638/0/en/Onyx-Raises-10M-To-Help-Teams-Find-Knowledge-Faster-with-Open-Source-AI-Agents.html",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "GlobeNewswire (Onyx)",
+      "topics": ["Onyx", "funding", "open source", "enterprise search", "connectors"],
+      "summary": "Onyx (formerly Danswer), an open-source enterprise search/agent platform, raised a $10M seed co-led by Khosla Ventures and First Round Capital in March 2025.",
+      "key_facts": [
+        "Onyx raised $10M seed co-led by Khosla Ventures and First Round Capital (Mar 12, 2025)",
+        "Founded 2023 by Yuhong Sun and Chris Weaver; indexes data across 40+ tools incl. Salesforce, SharePoint, GitHub, Gong",
+        "Open-source positioning vs Glean: Crunchbase profile still under 'danswer' slug"
+      ]
+    },
+    {
+      "title": "Why Onyx thinks its open source solution will win enterprise search",
+      "url": "https://www.techcrunch.com/2025/03/12/why-onyx-thinks-its-open-source-solution-will-win-enterprise-search/",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "TechCrunch",
+      "topics": ["Onyx", "open source", "gtm", "enterprise search", "Glean"],
+      "summary": "TechCrunch coverage of Onyx's seed and its open-source-first go-to-market against Glean.",
+      "key_facts": [
+        "TechCrunch (2025-03-12) frames Onyx as open-source challenger to Glean in enterprise search"
+      ]
+    },
+    {
+      "title": "Firecrawl - 2026 Company Profile, Team, Funding & Competitors",
+      "url": "https://tracxn.com/d/companies/firecrawl/__AUIyUTgBhP2fuJfSidYDmsLSkPNv7XqK1ZuBMuVi3yw",
+      "type": "directory",
+      "year": 2026,
+      "venue_or_author": "Tracxn",
+      "topics": ["Firecrawl", "funding", "web data for agents", "open source"],
+      "summary": "Firecrawl (website-to-LLM-ready-markdown API, open-source core) raised a Series A in August 2025 from Nexus Venture Partners.",
+      "key_facts": [
+        "Firecrawl raised $16.2M total; Series A closed Aug 19, 2025 with Nexus Venture Partners among 5 investors",
+        "Product: API converting entire websites into clean, LLM-ready markdown for agent context"
+      ]
+    },
+    {
+      "title": "Firecrawl vs Exa vs Tavily: Web Data API Guide 2026",
+      "url": "https://apiscout.dev/guides/firecrawl-vs-exa-vs-tavily-web-data-apis-2026",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "APIScout",
+      "topics": ["Tavily", "Exa", "Firecrawl", "web search for agents", "incumbent move", "Nebius"],
+      "summary": "Comparison of the three leading web-data APIs for agents; the result set also surfaced that Tavily was acquired by Nebius.",
+      "key_facts": [
+        "Search snippet: Tavily acquired by Nebius, announced Feb 2026, continues under its own brand (originating page unverified)",
+        "Exa, Tavily and Firecrawl are the three names repeatedly listed as leading agent web-search/data APIs in 2026"
+      ]
+    },
+    {
+      "title": "Agentic Search in 2026: Benchmark 8 Search APIs for Agents",
+      "url": "https://aimultiple.com/agentic-search",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "AIMultiple",
+      "topics": ["agentic search", "Exa", "Tavily", "Firecrawl", "benchmark"],
+      "summary": "Independent benchmark of eight search APIs built for agents; useful as evidence that 'retrieval for agents' is now a measurable, commoditizing category.",
+      "key_facts": [
+        "AIMultiple benchmarks 8 agent-oriented search APIs in 2026"
+      ]
+    },
+    {
+      "title": "Vector Database Comparison 2026: Pinecone vs Weaviate vs Qdrant vs OpenSearch vs Chroma",
+      "url": "https://bigdataboutique.com/blog/vector-database-comparison-2026",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "BigData Boutique",
+      "topics": ["Pinecone", "Weaviate", "Qdrant", "Chroma", "funding", "vector database", "pricing"],
+      "summary": "2026 vector-DB comparison; the surrounding result set carried recent funding/traction claims for Qdrant, Pinecone, Weaviate and Chroma (originating pages not individually verified).",
+      "key_facts": [
+        "Snippet: Qdrant closed $50M Series B in March 2026, total raised $87.8M",
+        "Snippet (conflicting): Qdrant $50M Series C Oct 2025 at $200M valuation led by Battery Ventures and Zetta — needs verification",
+        "Snippet: Pinecone has raised $138M+ and hit 4,000 paying customers in March 2026",
+        "Snippet: Weaviate Series C (2023) $50M, total $100M+",
+        "Snippet: Chroma raised $18M seed from Quiet Capital; launched Chroma Cloud in 2025 on AWS, GCP, Azure"
+      ]
+    },
+    {
+      "title": "Vector Database Pricing Comparison 2026: Real Cost Breakdown",
+      "url": "https://ranksquire.com/2026/03/04/vector-database-pricing-comparison-2026/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "RankSquire",
+      "topics": ["pricing", "vector database", "Pinecone", "Qdrant", "Weaviate", "Chroma"],
+      "summary": "Pricing-focused comparison of managed vector databases as of March 2026; reference for cost-of-context analysis.",
+      "key_facts": [
+        "Published 2026-03-04; compares managed vector DB price points (details not extracted within caps)"
+      ]
+    },
+    {
+      "title": "Zilliz - 2026 Company Profile, Team, Funding & Competitors",
+      "url": "https://tracxn.com/d/companies/zilliz/__3kmvnTH8wUTuKs-hu5_rNyYWcfxlWLOAW0urecWctVY",
+      "type": "directory",
+      "year": 2026,
+      "venue_or_author": "Tracxn",
+      "topics": ["Zilliz", "Milvus", "funding", "vector database", "open source"],
+      "summary": "Tracxn profile for Zilliz, the company behind open-source Milvus.",
+      "key_facts": [
+        "Zilliz has raised $113M over 4 rounds from 14 investors incl. Aramco Ventures, 5Y Capital, Prosperity7 Ventures"
+      ]
+    },
+    {
+      "title": "LanceDB - 2026 Company Profile, Team, Funding & Competitors",
+      "url": "https://tracxn.com/d/companies/lancedb/__ie1HuEEUoPOIc3tEX5yowY9yMJz9kdNTH01mwCePxLw",
+      "type": "directory",
+      "year": 2026,
+      "venue_or_author": "Tracxn",
+      "topics": ["LanceDB", "funding", "vector database", "lakehouse", "open source"],
+      "summary": "Tracxn profile for LanceDB (Lance format + embedded/serverless vector DB).",
+      "key_facts": [
+        "LanceDB has raised $41M over 3 rounds; latest Series A on Jun 24, 2025 with 7 investors"
+      ]
+    },
+    {
+      "title": "Turbopuffer revenue, funding & news",
+      "url": "https://sacra.com/c/turbopuffer/",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Sacra",
+      "topics": ["turbopuffer", "funding", "revenue", "Cursor", "coding-agent context", "object-storage vector search", "pricing"],
+      "summary": "Sacra profile of turbopuffer, the object-storage-native vector/full-text search engine that underpins Cursor's codebase indexing; near-zero primary capital raised against ~$100M annualized revenue.",
+      "key_facts": [
+        "turbopuffer raised <$1M primary capital as of May 2026: angel round early 2024 (Lachy Groom), Dec 2025 seed with Thrive Capital",
+        "Revenue $100M annualized (Mar 2026); $75M ARR at end-2025; ~2,400% YoY growth",
+        "Cursor is largest customer: 'over a trillion chunks of code across more than 80 million namespaces'",
+        "Notion migrated 10B+ vectors (Oct 2024) and dropped per-user AI charges afterwards",
+        "Customers: Anthropic, Bridgewater, TELUS, Harvey, Ramp, Linear, Vercel, Atlassian",
+        "Pricing: Launch $64/mo min, Scale $256/mo, Enterprise $4,096+; ~$0.02/GB vs $3,600/TB/mo RAM-era architectures",
+        "Agent sessions 'fire dozens to hundreds of parallel search queries rather than a single retrieval call'"
+      ]
+    },
+    {
+      "title": "Turbopuffer 2026 Company Profile: Valuation, Funding & Investors",
+      "url": "https://pitchbook.com/profiles/company/589424-68",
+      "type": "directory",
+      "year": 2026,
+      "venue_or_author": "PitchBook",
+      "topics": ["turbopuffer", "funding", "investors"],
+      "summary": "PitchBook profile corroborating turbopuffer's December 2025 seed with Thrive Capital (amount undisclosed).",
+      "key_facts": [
+        "Tracxn/PitchBook: turbopuffer latest round undisclosed amount, Dec 19, 2025; Thrive Capital new investor, Lachy Groom doubled down"
+      ]
+    },
+    {
+      "title": "LangChain raises $125M to build the platform for agent engineering",
+      "url": "https://www.langchain.com/blog/series-b",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "LangChain",
+      "topics": ["LangChain", "LangSmith", "LangGraph", "funding", "valuation", "agent observability", "open source"],
+      "summary": "LangChain's Series B post: $125M at $1.25B led by IVP; positions itself as the 'agent engineering' platform with LangSmith observability/evals and LangGraph durable execution.",
+      "key_facts": [
+        "LangChain raised $125M at $1.25B valuation led by IVP (Oct 20, 2025); CapitalG and Sapphire new; Sequoia, Benchmark, Amplify existing",
+        "Strategic backers: ServiceNow, Workday, Cisco, Datadog, Databricks ventures and Frontline",
+        "'90M monthly downloads' for langchain + langgraph; '35 percent of the Fortune 500 use our services'",
+        "'Monthly trace volume for our commercial LangSmith platform has 12x'd year over year'",
+        "Shipped LangChain and LangGraph 1.0, Insights Agent (auto behavior categorization), Agent Builder (no-code, private preview)"
+      ]
+    },
+    {
+      "title": "AI agent tooling provider LangChain raises $125M at $1.25B valuation",
+      "url": "https://siliconangle.com/2025/10/20/ai-agent-tooling-provider-langchain-raises-125m-1-25b-valuation/",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "SiliconANGLE",
+      "topics": ["LangChain", "funding", "valuation", "LangSmith"],
+      "summary": "Press coverage of LangChain's Series B with full funding history.",
+      "key_facts": [
+        "LangChain total funding $260M; Series A $25M led by Sequoia at $200M valuation (Feb 2024); seed $10M led by Benchmark (Apr 2023)",
+        "LangSmith captures traces of LLM calls, costs, latency; includes prompt playground, datasets, human annotation"
+      ]
+    },
+    {
+      "title": "Braintrust lands $80M funding round to become the observability layer for AI",
+      "url": "https://siliconangle.com/2026/02/17/braintrust-lands-80m-series-b-funding-round-become-observability-layer-ai/",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "SiliconANGLE",
+      "topics": ["Braintrust", "funding", "valuation", "LLM observability", "evals", "context tracing"],
+      "summary": "Braintrust raised an $80M Series B at $800M post-money led by Iconiq; its tracing explicitly captures retrieved context per step, making it one of the clearest 'context observability' products.",
+      "key_facts": [
+        "Braintrust raised $80M Series B led by Iconiq at $800M post-money (Feb 17, 2026); a16z, Greylock, basecase, Elad Gil participated",
+        "Tracxn: Braintrust total $121M over 3 rounds from 17 investors; Series A was $36M",
+        "Customers: Notion, Replit, Cloudflare, Ramp, Dropbox",
+        "Tracing captures 'prompts, tool calls, retrieved context and metadata on latency and cost' per agent step",
+        "Brainstore proprietary trace DB claimed '80% faster at querying complex AI traces'; AI assistant mines traces to suggest prompt fixes"
+      ]
+    },
+    {
+      "title": "Top LLM Observability and Evaluation Platforms in 2026: Langfuse, LangSmith, Braintrust, Arize, and More Compared",
+      "url": "https://www.marktechpost.com/2026/08/09/top-llm-observability-and-evaluation-platforms-in-2026-langfuse-langsmith-braintrust-arize-and-more-compared/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "MarkTechPost",
+      "topics": ["Langfuse", "LangSmith", "Braintrust", "Arize Phoenix", "Helicone", "incumbent move", "ClickHouse", "open source", "pricing", "context observability"],
+      "summary": "August 2026 comparison of LLM observability platforms; notes Langfuse's acquisition by ClickHouse, Phoenix's licence/downloads, and that none of the platforms yet offers dedicated context-window tracking beyond token counts.",
+      "key_facts": [
+        "Langfuse (MIT-licensed core, 'self-host leader') was acquired by ClickHouse (date/terms not given)",
+        "LangSmith 2026: 'Unified cost view across the full agent workflow — LLM calls plus custom costs for retrieval, tools, and external APIs'",
+        "Arize Phoenix: source-available Elastic License 2.0, 'over two million monthly downloads'; Arize Series C $70M",
+        "Helicone positioned as open-source AI gateway focused on 'cost, tokens, and latency'; no deep context tracing",
+        "W&B Weave pricing $0.10 per MB ingested beyond 1 GB/month free tier",
+        "Gap: no platform listed offers dedicated context-window/context-rot tracking; token counts per span is the norm"
+      ]
+    },
+    {
+      "title": "5 AI Observability Platforms Compared: Maxim AI, Arize, Helicone, Galileo, Langfuse",
+      "url": "https://www.getmaxim.ai/articles/5-ai-observability-platforms-compared-maxim-ai-arize-helicone-braintrust-langfuse/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Maxim AI",
+      "topics": ["Arize", "funding", "Helicone", "Langfuse", "observability", "gateway"],
+      "summary": "Vendor comparison from Maxim AI; the result set around it carried the Arize Series C figure and the framing that Helicone/Portkey/LiteLLM act as proxies adding logging, caching and routing.",
+      "key_facts": [
+        "Snippet: Arize AI secured $70M Series C in February 2025 (originating page unverified)",
+        "Helicone, Portkey and LiteLLM 'sit as a proxy between the application and model providers, adding logging, caching, cost tracking, and routing'"
+      ]
+    },
+    {
+      "title": "AI Gateway OpenRouter Raises $113M From Google and NVIDIA to Route Between Their Models",
+      "url": "https://www.techtimes.com/articles/317353/20260529/ai-gateway-openrouter-raises-113m-google-nvidia-route-between-their-models.htm",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Tech Times",
+      "topics": ["OpenRouter", "funding", "valuation", "AI gateway", "token volume", "prompt caching"],
+      "summary": "OpenRouter raised $113M (May 2026) with Google and NVIDIA's venture arms participating, roughly a year after a ~$547M-valuation Series A; gateway token volume grew 5x in six months (page returned 403 on fetch; figures from search snippet).",
+      "key_facts": [
+        "Headline: OpenRouter raises $113M from Google and NVIDIA (published 2026-05-29)",
+        "Snippet: Series A led by a16z and Menlo with Sequoia closed at ~$547M post-money (June 2025)",
+        "Snippet: new round includes NVentures, ServiceNow Ventures, MongoDB Ventures, Snowflake Ventures, Databricks Ventures; valuation 'more than doubled in eleven months'",
+        "Snippet: weekly token volume grew 5T to 25T over six months; user base 8 million"
+      ]
+    },
+    {
+      "title": "LiteLLM vs Portkey vs OpenRouter vs Requesty: Best LLM Gateway and Router in 2026",
+      "url": "https://www.requesty.ai/blog/litellm-vs-portkey-vs-openrouter-best-llm-gateway-2026",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Requesty",
+      "topics": ["Portkey", "LiteLLM", "OpenRouter", "AI gateway", "incumbent move", "Palo Alto Networks", "open source"],
+      "summary": "Gateway comparison; the surrounding result set carried the Palo Alto Networks–Portkey acquisition and the note that LiteLLM is open-source with no disclosed venture round.",
+      "key_facts": [
+        "Snippet: Palo Alto Networks announced intent to acquire Portkey on Apr 30, 2026, expected close in PANW fiscal Q4 (originating page unverified)",
+        "LiteLLM: open-source gateway/proxy; no 2025-2026 funding or valuation surfaced in search"
+      ]
+    },
+    {
+      "title": "Understanding Portkey AI Gateway Pricing For 2026",
+      "url": "https://www.truefoundry.com/blog/portkey-pricing-guide",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "TrueFoundry",
+      "topics": ["Portkey", "pricing", "AI gateway"],
+      "summary": "Competitor-authored breakdown of Portkey's 2026 gateway pricing tiers (details not extracted within caps).",
+      "key_facts": [
+        "Reference for Portkey gateway pricing tiers as of 2026"
+      ]
+    },
+    {
+      "title": "7 Best AI Gateways in 2026, Compared",
+      "url": "https://vercel.com/i/best-ai-gateways",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Vercel",
+      "topics": ["Vercel AI Gateway", "incumbent move", "AI gateway", "Portkey", "OpenRouter", "LiteLLM"],
+      "summary": "Vercel's own gateway comparison — evidence that platform incumbents (Vercel, Cloudflare) now ship gateways with caching/routing, squeezing standalone gateway startups.",
+      "key_facts": [
+        "Vercel markets its own AI Gateway against Portkey, OpenRouter and LiteLLM in 2026"
+      ]
+    },
+    {
+      "title": "Top 5 Exa Alternatives for AI Web Search and Data Extraction in 2026",
+      "url": "https://www.firecrawl.dev/blog/exa-alternatives",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Firecrawl",
+      "topics": ["Exa", "Firecrawl", "web search for agents", "gtm"],
+      "summary": "Firecrawl's comparison-page SEO play against Exa; shows how retrieval-API vendors compete on content marketing for the same agent-developer buyer.",
+      "key_facts": [
+        "Firecrawl publishes 'Exa alternatives' comparison content targeting agent developers in 2026"
+      ]
+    },
+    {
+      "title": "Build Reliable RAG Apps with Unstructured and Vectara",
+      "url": "https://unstructured.io/blog/building-reliable-genai-applications-with-unstructured-and-vectara",
+      "type": "blog",
+      "year": 2024,
+      "venue_or_author": "Unstructured",
+      "topics": ["Unstructured", "Vectara", "ingestion", "partnership", "RAG pipeline"],
+      "summary": "Partnership post showing the ingestion (Unstructured) + retrieval (Vectara) split of the context pipeline; no 2025-2026 Unstructured funding surfaced within caps.",
+      "key_facts": [
+        "Unstructured and Vectara co-market an ingestion-to-retrieval pipeline; Unstructured 2025-2026 funding not found within caps"
+      ]
+    },
+    {
+      "title": "The 12 Best Enterprise RAG Platforms and Tools in 2026 — A Compliance-First Comparison",
+      "url": "https://www.sphereinc.com/blogs/best-enterprise-rag-platforms-2026",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Sphere Inc.",
+      "topics": ["enterprise RAG", "compliance", "buyer landscape", "Vectara", "Contextual AI"],
+      "summary": "Systems-integrator view of enterprise RAG platform selection framed around compliance, indicating regulated-industry buyers are a key segment for retrieval vendors.",
+      "key_facts": [
+        "Enterprise RAG buyers' guides in 2026 lead with compliance criteria (SI-authored, 12 platforms)"
+      ]
+    },
+    {
+      "title": "LangChain is about to become a unicorn, sources say",
+      "url": "https://techcrunch.com/2025/07/08/langchain-is-about-to-become-a-unicorn-sources-say",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "TechCrunch",
+      "topics": ["LangChain", "valuation", "funding"],
+      "summary": "TechCrunch pre-reporting (July 2025) of LangChain's unicorn round, later confirmed at $1.25B in October 2025.",
+      "key_facts": [
+        "TechCrunch reported on 2025-07-08 that LangChain was raising at a ~$1B+ valuation; confirmed $1.25B in Oct 2025"
+      ]
+    }
+  ],
+  "notes": "Searches used: 10 of 14 cap; the 11th-14th calls failed because the SESSION-level WebSearch budget (200/200) was exhausted, not my task cap. WebFetch: 8/8 used (one 403 on TechTimes/OpenRouter, one useless fetch on newmarketpitch homepage). COVERED with primary/secondary sources: Contextual AI, Vectara, LlamaIndex, Glean, Onyx, Firecrawl, turbopuffer, LangChain/LangSmith, Braintrust, Langfuse (ClickHouse acquisition), Arize, OpenRouter, Portkey (PANW acquisition), LiteLLM (no funding), Zilliz, LanceDB, Qdrant/Pinecone/Weaviate/Chroma (search snippets only). NOT COVERED (search budget died before these queries ran): coding-agent context products (Cursor/Anysphere, Cognition/Windsurf, Augment Code, Sourcegraph Amp, Continue, Cline) except indirect Cursor facts via turbopuffer; agent frameworks (CrewAI, Mastra, Pydantic AI); Exa and Tavily funding specifics; Ragie and Unstructured funding; Helicone funding; GitHub star counts for any OSS project (no GitHub fetches possible). CAVEATS: (1) Contextual AI: search summary said 'May 2026' for the $80M Series A, but the fetched article is dated Aug 2024 — trust Aug 2024. (2) Qdrant: two conflicting snippets (Series B $50M Mar 2026 vs Series C $50M Oct 2025 at $200M) — verify before use. (3) Facts marked 'snippet' came from WebSearch result summaries where the originating page was not individually opened; treat as needing confirmation. (4) Enterprise-RAG market size ($1.94B 2025 -> $9.86B 2030, 38.4% CAGR) appeared in a search summary without a verified source page. Cross-cutting signals: observability platforms trace retrieved context but none offers dedicated context-window/context-rot tracking (MarkTechPost Aug 2026); incumbents are absorbing context infra (ClickHouse->Langfuse, PANW->Portkey, Nebius->Tavily, Vercel gateway); turbopuffer shows object-storage retrieval for coding agents can reach ~$100M run-rate on <$1M raised."
+}

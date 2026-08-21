@@ -1,0 +1,346 @@
+{
+  "sources": [
+    {
+      "title": "Memory for Autonomous LLM Agents: Mechanisms, Evaluation, and Emerging Frontiers",
+      "url": "https://arxiv.org/abs/2603.07670",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "Pengfei Du (arXiv, Mar 2026)",
+      "topics": ["agent memory survey", "open problems", "memory consolidation", "forgetting", "retrieval", "privacy"],
+      "summary": "Survey of agent memory mechanisms 2022–early 2026 covering five mechanism families, four benchmarks and five application domains, ending with an explicit list of open challenges.",
+      "key_facts": [
+        "Open challenges named: continual consolidation, causally grounded retrieval, trustworthy reflection, learned forgetting, multimodal embodied memory.",
+        "Engineering challenges flagged: write-path filtering, contradiction handling, latency budgets, privacy governance.",
+        "Surveys five mechanism families, four recent benchmarks that 'reveal system gaps', five domains where memory is differentiating.",
+        "Domains where memory differentiates: personal assistants, coding agents, open-world games, scientific reasoning, multi-agent teamwork."
+      ]
+    },
+    {
+      "title": "A Survey on Long-Term Memory Security in LLM Agents: Attacks, Defenses, and Governance Across the Memory Lifecycle (Toward Mnemonic Sovereignty)",
+      "url": "https://arxiv.org/abs/2604.16548",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "Lin, Hao, Fu, Cui, Chen, Li, Li, Xiong (arXiv, Apr 2026, rev. Jun 2026)",
+      "topics": ["memory security", "memory poisoning", "prompt injection via memory", "multi-agent shared memory", "unlearning", "governance", "open problems"],
+      "summary": "Security survey that frames long-term memory threats as persistent, stateful and propagating, organizes them over a six-phase memory lifecycle, and argues security must be built in at storage time.",
+      "key_facts": [
+        "Threat landscape defined by three properties: 'persistence, statefulness, and propagation'.",
+        "Memory Lifecycle Framework: six phases (Write, Store, Retrieve, Execute, Share & Propagate, Forget & Rollback), four objectives (Integrity, Confidentiality, Availability, Governance).",
+        "Claim: 'robust Long-Term Memory security cannot be retrofitted at retrieval or execution time alone'.",
+        "Proposes Verifiable Memory Governance (VMG) requiring five architectural primitives; security 'anchored in storage-time provenance, versioning, and policy-aware retention'.",
+        "Covers memory poisoning, injection, RAG corruption, memory extraction/privacy leakage, shared multi-agent memory, forgetting/unlearning."
+      ]
+    },
+    {
+      "title": "Governance Decay: How Context Compaction Silently Erases Safety Constraints in Long-Horizon LLM Agents",
+      "url": "https://arxiv.org/abs/2606.22528",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "Shiyang Chen (arXiv, Jun 2026)",
+      "topics": ["compaction quality", "information loss", "safety", "context management", "benchmark"],
+      "summary": "Shows that summarization-based context compaction silently drops in-context governance constraints, causing agents to perform prohibited tool actions; introduces the ConstraintRot benchmark and a pinning mitigation.",
+      "key_facts": [
+        "ConstraintRot benchmark: 1,323 episodes across seven model families with deterministic tool-call grading.",
+        "Violations rise from 0% with full policy context to 30% after compaction; up to 59% for some models.",
+        "When constraints survive summarization: 0% violations; when dropped: 38% violation rate.",
+        "Constraint Pinning (training-free) quarantines constraints from lossy compaction and restores violations to 0%.",
+        "Positions 'context management as a first-class governance surface for deployed LLM agents'."
+      ]
+    },
+    {
+      "title": "Context Rot: How Increasing Input Tokens Impacts LLM Performance",
+      "url": "https://www.trychroma.com/research/context-rot",
+      "type": "report",
+      "year": 2025,
+      "venue_or_author": "Kelly Hong, Anton Troynikov, Jeff Huber (Chroma)",
+      "topics": ["context rot", "effective context", "LongMemEval", "NIAH", "open problems"],
+      "summary": "Empirical study of 18 frontier models showing non-uniform performance degradation as input length grows, even on simple tasks, with stated gaps around mechanism and context construction.",
+      "key_facts": [
+        "Published July 14, 2025; tested 18 LLMs including GPT-4.1, Claude 4, Gemini 2.5, Qwen3.",
+        "LongMemEval: focused inputs (~300 tokens) vs full inputs (~113k tokens); 'significantly higher performance on focused prompts' across all models.",
+        "Claude Opus 4 showed largest focused/full gap; degradation persists with thinking modes enabled.",
+        "Single distractor reduces performance; four distractors compound degradation; Claude lowest hallucination, GPT highest.",
+        "'Models perform worse when the haystack preserves a logical flow of ideas'; shuffled haystacks improved all 18 models.",
+        "Open questions: degradation mechanisms unexplained, need 'mechanistic interpretability'; context construction/management under-explored."
+      ]
+    },
+    {
+      "title": "Beyond a Million Tokens: Benchmarking and Enhancing Long-Term Memory in LLMs (BEAM / LIGHT)",
+      "url": "https://arxiv.org/abs/2510.27246",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Tavakoli, Salemi, Ye, Abdalla, Zamani, Mitchell (arXiv, Oct 2025, rev. Feb 2026)",
+      "topics": ["memory evaluation", "BEAM", "benchmark", "long context", "memory architecture"],
+      "summary": "Introduces BEAM, a long-term memory benchmark with conversations up to 10M tokens, and LIGHT, a three-component memory framework; finds 1M-context models and retrieval both struggle as dialogues lengthen.",
+      "key_facts": [
+        "BEAM: 100 conversations up to 10 million tokens, 2,000 validated questions, ten memory abilities.",
+        "'Even LLMs with 1M token context windows (with and without retrieval-augmentation) struggle as dialogues lengthen.'",
+        "Existing benchmarks 'often lack narrative coherence, cover narrow domains, and only test simple recall-oriented tasks'.",
+        "LIGHT = long-term episodic memory + short-term working memory + scratchpad of salient facts; +3.5%–12.69% over strongest baselines."
+      ]
+    },
+    {
+      "title": "Always-On Agents: A Survey of Persistent Memory, State, and Governance in LLM Agents",
+      "url": "https://arxiv.org/abs/2606.30306",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "Ding, Nannapaneni, Liu, Zhang (arXiv, Jun 2026)",
+      "topics": ["agent memory survey", "governance", "forgetting", "state management", "evaluation", "open problems"],
+      "summary": "Survey of 435 works on persistent state in agents (memories, ledgers, permissions, credentials, provenance) that finds the field over-invests in accumulation/retrieval and under-invests in governing, recovering and relinquishing state.",
+      "key_facts": [
+        "Coded corpus of 435 works; state evaluated on six axes: authority, scope, mutability, provenance, recoverability, actionability.",
+        "Finding: literature 'concentrates more heavily on accumulating and retrieving state than on governing, recovering, or relinquishing it'.",
+        "Calls for links to databases, distributed systems, formal methods, capability security, machine unlearning.",
+        "Proposes Always-On Evaluation Protocol (AOEP-v0) addressing 'state mutation and recovery obligations'."
+      ]
+    },
+    {
+      "title": "Multi-Agent Memory from a Computer Architecture Perspective: Visions and Challenges Ahead",
+      "url": "https://arxiv.org/abs/2603.10062",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "Yu, Yu, Zhang, Ni, Yin, Yang, Zhao, Zhao (arXiv, Mar 2026)",
+      "topics": ["multi-agent shared memory", "memory hierarchy", "consistency", "access control", "open problems"],
+      "summary": "Position paper reframing multi-agent memory as a computer-architecture problem with a three-layer hierarchy and shared vs distributed paradigms; names consistency as the most pressing open challenge.",
+      "key_facts": [
+        "Proposes three-layer memory hierarchy (I/O, cache, memory) and shared vs distributed memory paradigms for agents.",
+        "Two protocol gaps identified: cache sharing across agents and structured memory access control.",
+        "'The most pressing open challenge is multi-agent memory consistency' (coherence/consistency analogues)."
+      ]
+    },
+    {
+      "title": "A Survey of Context Engineering for Large Language Models",
+      "url": "https://arxiv.org/abs/2507.13334",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "Lingrui Mei et al. (arXiv, Jul 2025)",
+      "topics": ["context engineering survey", "open problems", "comprehension-generation gap", "RAG", "memory systems", "multi-agent"],
+      "summary": "Formalizes context engineering (retrieval/generation, processing, management; RAG, memory, tool-integrated reasoning, multi-agent) from 1,300+ papers and names the comprehension-generation asymmetry as the central open gap.",
+      "key_facts": [
+        "Systematic analysis of over 1,300 research papers; defines context engineering as a formal discipline beyond prompt design.",
+        "Core open challenge: comprehension-generation gap — models comprehend complex contexts but 'exhibit pronounced limitations in generating equally sophisticated, long-form outputs'.",
+        "Taxonomy: foundational components (retrieval/generation, processing, management) and system implementations (RAG, memory systems, tool-integrated reasoning, multi-agent)."
+      ]
+    },
+    {
+      "title": "Memory Injection Attacks on LLM Agents via Query-Only Interaction (MINJA)",
+      "url": "https://arxiv.org/abs/2503.03704",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv (Mar 2025)",
+      "topics": ["memory security", "MINJA", "memory injection", "prompt injection via memory"],
+      "summary": "Demonstrates that an attacker can poison an agent's memory bank purely through queries and observed outputs, without store access, using bridging steps, an indication prompt and progressive shortening.",
+      "key_facts": [
+        "98.2% injection success rate and 76.8% attack success rate via query-only interaction.",
+        "Attack uses bridging steps, an indication prompt, and a progressive shortening strategy to plant malicious records.",
+        "Recommended defenses: memory isolation, strong user authentication, secure memory management, advanced prompt filtering."
+      ]
+    },
+    {
+      "title": "Memory Poisoning Attack and Defense on Memory Based LLM-Agents",
+      "url": "https://arxiv.org/abs/2601.05504",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv (Jan 2026)",
+      "topics": ["memory security", "memory poisoning", "defense"],
+      "summary": "2026 follow-up to MINJA-style work studying both poisoning attacks and defenses for memory-based agents (details beyond title not retrieved).",
+      "key_facts": [
+        "Jan 2026 arXiv paper pairing memory poisoning attacks with defenses for memory-based LLM agents (v2 available)."
+      ]
+    },
+    {
+      "title": "MEMSAD: Gradient-Coupled Anomaly Detection for Memory Poisoning in Retrieval-Augmented Agents",
+      "url": "https://arxiv.org/pdf/2605.03482",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv (May 2026)",
+      "topics": ["memory security", "memory poisoning", "anomaly detection", "RAG"],
+      "summary": "Proposes anomaly detection for poisoned entries in retrieval-augmented agent memory, indicating defenses are moving toward store-side monitoring (details beyond title not retrieved).",
+      "key_facts": [
+        "May 2026 defense paper targeting memory poisoning in retrieval-augmented agents via gradient-coupled anomaly detection."
+      ]
+    },
+    {
+      "title": "Parallel Context Compaction for Long-Horizon LLM Agent Serving",
+      "url": "https://arxiv.org/abs/2605.23296",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv (May 2026)",
+      "topics": ["compaction quality", "latency", "serving", "information loss"],
+      "summary": "Treats compaction as a serving-systems problem: LLM summarization is lossy and blocking, so the paper runs compaction in parallel to bound summary volume and latency.",
+      "key_facts": [
+        "'Summarization is inherently lossy and the blocking call stalls agent inference for tens of seconds.'",
+        "Parallel compaction aims to give operators 'fine-grained, predictable control over summary volume'."
+      ]
+    },
+    {
+      "title": "CompactionRL: Reinforcement Learning with Context Compaction for Long-Horizon Agents",
+      "url": "https://arxiv.org/abs/2607.05378",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv (Jul 2026)",
+      "topics": ["compaction quality", "RL", "long-horizon agents", "open problems"],
+      "summary": "Argues compaction inside RL training is underexplored and jointly trains task execution and summary generation so agents learn from compacted trajectories.",
+      "key_facts": [
+        "'Incorporating compaction into reinforcement learning remains underexplored.'",
+        "Method: token-level loss normalization plus cross-trajectory generalized advantage estimation over compacted rollouts."
+      ]
+    },
+    {
+      "title": "Addressable Recall Compaction for Long Context-Window Control in AI Agents (ARC)",
+      "url": "https://arxiv.org/html/2607.25066",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv (Jul 2026)",
+      "topics": ["compaction quality", "information loss", "lossless compaction", "retrieval"],
+      "summary": "Proposes lossless compaction via addressable pointers and on-demand recall, claiming it beats summarization- and RAG-based compaction on context-overflow failures.",
+      "key_facts": [
+        "Existing compaction (discard/summarize/retrieve) 'may remove task-critical details or fail to recover them reliably'.",
+        "ARC: addressable pointers + on-demand recall; outperforms summarization- and RAG-based baselines on overflow prevention."
+      ]
+    },
+    {
+      "title": "Agentic Unlearning: When LLM Agent Meets Machine Unlearning",
+      "url": "https://arxiv.org/abs/2602.17692",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv (Feb 2026)",
+      "topics": ["unlearning", "privacy", "agent memory", "forgetting"],
+      "summary": "Shows sensitive information persists in both model parameters and external memory stores, so deletion must be synchronized across both to prevent recontamination.",
+      "key_facts": [
+        "Problem: information 'backflow' — unlearned data re-enters via the other pathway (parameters vs external memory).",
+        "Proposes Synchronized Backflow Unlearning (SBU), a dual-pathway framework coordinating parametric and memory-store forgetting."
+      ]
+    },
+    {
+      "title": "MemLeak: Diagnosing Information Leaks in Multimodal Agent Memory",
+      "url": "https://arxiv.org/pdf/2606.29788",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv (Jun 2026)",
+      "topics": ["privacy", "memory leakage", "multimodal memory", "benchmark"],
+      "summary": "Diagnoses information leakage from multimodal long-term agent memory and introduces a benchmark (Mem-Gallery) for multimodal conversational memory.",
+      "key_facts": [
+        "Introduces Mem-Gallery benchmark for multimodal long-term conversational memory in MLLM agents.",
+        "Frames privacy leakage from stored multimodal memory as an open diagnostic problem."
+      ]
+    },
+    {
+      "title": "Control-Plane Placement Shapes Forgetting: An Architectural Study of Agent Memory Across Thirteen System Configurations",
+      "url": "https://arxiv.org/pdf/2606.15903",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv (Jun 2026)",
+      "topics": ["forgetting", "memory architecture", "consolidation"],
+      "summary": "Empirical architecture study showing that where the memory control plane sits changes what the agent forgets, across thirteen configurations.",
+      "key_facts": [
+        "Compares thirteen agent-memory system configurations; control-plane placement is a determinant of forgetting behaviour."
+      ]
+    },
+    {
+      "title": "Governing Evolving Memory in LLM Agents: Risks, Mechanisms, and the Stability and Safety Governed Memory (SSGM) Framework",
+      "url": "https://arxiv.org/pdf/2603.11768",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv (Mar 2026)",
+      "topics": ["memory governance", "memory security", "stability", "consolidation"],
+      "summary": "Frames self-evolving agent memory as a governance risk and proposes the SSGM framework for stability and safety of memory evolution.",
+      "key_facts": [
+        "Mar 2026 framework paper treating evolving memory as a risk surface requiring stability and safety governance (SSGM)."
+      ]
+    },
+    {
+      "title": "AI Memory Benchmarks 2026: LoCoMo, LongMemEval & BEAM",
+      "url": "https://mem0.ai/blog/ai-memory-benchmarks-in-2026",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Mem0 (vendor blog, Aug 21, 2026)",
+      "topics": ["memory evaluation", "LoCoMo", "LongMemEval", "BEAM", "mem0", "cost/latency"],
+      "summary": "Vendor explainer of the three dominant memory benchmarks with Mem0's self-reported scores; concedes LoCoMo's limitations but does not mention the DMR benchmark.",
+      "key_facts": [
+        "LongMemEval: 500 questions; five abilities incl. abstention; LongMemEval_S ~115k tokens/~40 sessions, _M ~500 sessions.",
+        "LoCoMo: 1,540 questions (single-hop, multi-hop, open-domain, temporal).",
+        "LoCoMo limits per Mem0: 'average context length is modest by 2026 standards' and 'does not explicitly score knowledge updates'.",
+        "Mem0 self-reported: LoCoMo 92.5%, LongMemEval 94.4%, BEAM-1M 62%, 6.7K–7.0K tokens per retrieval.",
+        "No mention of DMR benchmark or Zep/Mem0 dispute on this page."
+      ]
+    },
+    {
+      "title": "Your 1M Context Window Is Lying: What Chroma's Context Rot Study Proves",
+      "url": "https://particula.tech/blog/chroma-context-rot-long-context-degradation",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Particula (practitioner blog; figures per search digest of context-rot cluster)",
+      "topics": ["context rot", "effective context", "RULER", "NoLiMa"],
+      "summary": "Practitioner synthesis of Chroma, RULER and NoLiMa findings arguing advertised windows overstate usable context; RULER/NoLiMa numbers below came from the search digest of this result cluster, not a direct fetch.",
+      "key_facts": [
+        "RULER: effective context defined as longest input above fixed quality threshold; 17 models tested.",
+        "RULER: Yi-34B 200K claimed, 32K effective (16%); GPT-4 128K claimed, 64K effective (50%); effective ~50–65% of advertised.",
+        "NoLiMa: at 32K tokens, 11 of 13 models fell below half their short-context score; GPT-4o 99.3% to 69.7%."
+      ]
+    },
+    {
+      "title": "Agent Memory Architectures: Vector, Graph & Episodic",
+      "url": "https://blog.sandbase.ai/agent-memory-architectures-compared-2026/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "SandBase blog (practitioner; attribution per search digest)",
+      "topics": ["knowledge graph vs vector memory", "latency", "hybrid memory", "multi-agent shared memory"],
+      "summary": "Practitioner comparison of vector, graph and episodic memory trade-offs, claiming production agents in 2026 layer all three.",
+      "key_facts": [
+        "'Vector memory is fast and cheap but forgets relationships; graph memory captures structure but adds 200-400ms per lookup.'",
+        "Episodic buffers keep temporal order but 'blow up your context window'; 2026 production agents layer vector+graph+episodic.",
+        "Multiple agents needing consistent entity views is cited as the trigger for adding a shared memory layer."
+      ]
+    },
+    {
+      "title": "[Memory]: Defend against memory injection attacks (vllm-project/semantic-router issue #1386)",
+      "url": "https://github.com/vllm-project/semantic-router/issues/1386",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "GitHub issue, vllm-project/semantic-router",
+      "topics": ["memory security", "MINJA", "community signal", "open-source"],
+      "summary": "Open-source router project tracking MINJA-style memory injection as a defense requirement, indicating memory security has reached infra maintainers' backlogs.",
+      "key_facts": [
+        "Issue in vllm-project/semantic-router explicitly scopes defending against memory injection attacks in the memory module."
+      ]
+    },
+    {
+      "title": "Context Is Not Comprehension",
+      "url": "https://arxiv.org/pdf/2506.04907",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv (Jun 2025)",
+      "topics": ["effective context", "long-context evaluation", "context rot"],
+      "summary": "Argues that long-context recall benchmarks do not measure comprehension, supporting the case that effective context must be measured on reasoning tasks rather than retrieval.",
+      "key_facts": [
+        "Surfaced alongside the Mei survey as foundational to the claim that context length ≠ comprehension."
+      ]
+    },
+    {
+      "title": "Evaluating Memory Condensation Strategies for Coding Agents in Data-Driven Scientific Discovery",
+      "url": "https://arxiv.org/pdf/2605.18854",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv (May 2026)",
+      "topics": ["compaction quality", "coding agents", "memory condensation", "evaluation"],
+      "summary": "Evaluates condensation/compaction strategies specifically for coding agents on long scientific-discovery tasks, a domain-specific angle on compaction information loss.",
+      "key_facts": [
+        "May 2026 empirical comparison of memory condensation strategies for coding agents in data-driven scientific discovery."
+      ]
+    },
+    {
+      "title": "Memory-R1: Enhancing Large Language Model Agents to Manage and Utilize Memories via Reinforcement Learning",
+      "url": "https://arxiv.org/pdf/2508.19828",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv (Aug 2025)",
+      "topics": ["memory management", "RL", "consolidation", "LoCoMo"],
+      "summary": "Early work training agents with RL to decide memory add/update/delete operations, a precursor to the 2026 wave (Mem-T, DeferMem, CompactionRL) of learned memory management.",
+      "key_facts": [
+        "Uses RL to learn memory management (add/update/delete) and utilization rather than hand-written heuristics."
+      ]
+    }
+  ],
+  "notes": "Searched: memory benchmarks (LongMemEval/LoCoMo/MemBench/BEAM), context rot (Chroma/RULER/NoLiMa), compaction information loss, MINJA/memory injection, agent-memory surveys and future directions, Mei et al. context-engineering survey, KG-vs-vector and multi-agent shared memory, forgetting/unlearning/privacy. Fetched abstracts for the 2603.07670 survey, 2604.16548 security survey, Governance Decay, Chroma context-rot, BEAM, Always-On Agents survey, 2603.10062 multi-agent memory, and the Mem0 benchmark blog. Caps: session-wide WebSearch budget (200/200) was exhausted after my 8th search, so the three planned follow-ups (DMR/Zep-vs-Mem0 dispute, retrieval cost/latency papers, LoCoMo annotation-error critiques) never ran; all 8 WebFetch calls used. Could not find: any primary source on the DMR benchmark dispute (Mem0's benchmark page does not mention DMR); a dedicated cost/latency-of-memory-retrieval paper (only the Mem0 6.7K–7.0K tokens/retrieval figure and the SandBase 200–400 ms graph-lookup claim); MemBench paper URL (only a description in search digest). RULER/NoLiMa numbers and the vector/graph/episodic quote came from search digests of the context-rot and memory-architecture result clusters and are attributed to the most plausible page in that cluster, not verified by fetch. Several 2026 arXiv entries (2601.05504, 2605.03482, 2606.15903, 2603.11768, 2605.18854, 2606.29788) are title/abstract-level only."
+}

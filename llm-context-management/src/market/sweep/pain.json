@@ -1,0 +1,741 @@
+{
+  "sources": [
+    {
+      "title": "Context Rot: How increasing input tokens impacts LLM performance (HN discussion)",
+      "url": "https://news.ycombinator.com/item?id=44564248",
+      "type": "thread",
+      "year": 2025,
+      "venue_or_author": "Hacker News",
+      "topics": [
+        "context rot",
+        "compaction",
+        "coding agents",
+        "Claude Code",
+        "Cursor",
+        "quality collapse"
+      ],
+      "summary": "HN thread on Chroma's context-rot study; practitioners report coding-agent quality degrading across long sessions and after repeated compactions.",
+      "key_facts": [
+        "260 points, 59 comments, July 14 2025",
+        "posnet: \"Claude Code with Opus or Sonnet gets worse the more compactions happen, quality regresses.\"",
+        "milchek: \"The longer a conversation goes on in Cursor about a feature, the worse output gets consistently.\"",
+        "boesboes: \"Claude loses ability to distinguish between its own mistakes and instructions once confused.\"",
+        "Workaccount2: good instance fumbles for ~20k tokens then session is 'heavily rotted'; needs manual pruning",
+        "irskep: \"Compactions reduce transcripts to summaries, losing information beyond just context rot effects.\"",
+        "mikeve: long transcripts make models return generic summaries instead of answering"
+      ]
+    },
+    {
+      "title": "Context rot: the emerging challenge that could hold back LLM progress",
+      "url": "https://www.understandingai.org/p/context-rot-the-emerging-challenge",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Understanding AI",
+      "topics": [
+        "context rot",
+        "long context",
+        "benchmarks"
+      ],
+      "summary": "Explainer on Chroma's context-rot research: performance degrades as input grows across all 18 models tested, well before the advertised window.",
+      "key_facts": [
+        "Term 'context rot' coined June 2025 by an HN commenter, then measured by Chroma",
+        "Chroma tested 18 models incl. GPT-4.1, Claude 4 family, Gemini 2.5, Qwen3",
+        "Accuracy drops non-uniformly with input length, sometimes 30-50% before documented limit (per search summary)",
+        "Positional bias: relevant info buried mid-context is handled worst"
+      ]
+    },
+    {
+      "title": "Sarah Wooders (Letta) on 'context rot' and sleeptime agents",
+      "url": "https://x.com/sarahwooders/status/1935485477563548015",
+      "type": "thread",
+      "year": 2025,
+      "venue_or_author": "X / Sarah Wooders, Letta co-founder",
+      "topics": [
+        "context rot",
+        "Letta",
+        "memory layer",
+        "long-running agents"
+      ],
+      "summary": "Letta co-founder endorses the term and describes their mitigation: asynchronous 'sleeptime' agents that rewrite context blocks.",
+      "key_facts": [
+        "\"'context rot' is a good term and something we've seen a lot with long-running agents\"",
+        "Letta mitigates by using sleeptime agents to re-write context blocks asynchronously",
+        "Positions memory-block rewriting as the vendor answer to long-session degradation"
+      ]
+    },
+    {
+      "title": "Auto-compact triggers mid-task causing context loss and hallucinations (claude-code #10948)",
+      "url": "https://github.com/anthropics/claude-code/issues/10948",
+      "type": "thread",
+      "year": 2025,
+      "venue_or_author": "GitHub anthropics/claude-code",
+      "topics": [
+        "compaction",
+        "Claude Code",
+        "lost work",
+        "hallucination",
+        "user control"
+      ],
+      "summary": "Canonical Claude Code complaint: auto-compaction fires mid-task with no warning, summary drops file edits and decisions, agent derails.",
+      "key_facts": [
+        "Opened Nov 4 2025",
+        "\"Auto-compact triggers ... no user control, no warning before compaction, and no way to disable or configure.\"",
+        "\"Claude loses track of what was actually done vs what needs to be done\"",
+        "Summary \"loses track of file modifications, intermediate decisions, specific technical details, and conflates what was planned vs implemented\"",
+        "Workarounds: /rewind (loses subsequent work), fresh chat with manual context, or 'elaborate checkpoint/handover workflows'",
+        "Requested fixes: disable via settings, better summarization fidelity, prompt before compaction"
+      ]
+    },
+    {
+      "title": "Claude Skills context completely lost after auto-compaction (claude-code #13919)",
+      "url": "https://github.com/anthropics/claude-code/issues/13919",
+      "type": "thread",
+      "year": 2025,
+      "venue_or_author": "GitHub anthropics/claude-code",
+      "topics": [
+        "compaction",
+        "Claude Code",
+        "skills",
+        "repeated errors"
+      ],
+      "summary": "After auto-compaction Claude Code forgets the Skills it was actively using, causing repeated errors and 'massive productivity loss'.",
+      "key_facts": [
+        "Reporter: skills context 'completely lost after auto-compaction, causing repeated errors and massive productivity loss'",
+        "Related #27955: in plan mode, auto-compact loses plan context and executes partial work without creating plan file",
+        "Related #13112: 'Auto-Compact causes context loss and degraded performance'"
+      ]
+    },
+    {
+      "title": "CLAUDE.md context lost after /compact - re-inject project instructions (claude-code #24460)",
+      "url": "https://github.com/anthropics/claude-code/issues/24460",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "GitHub anthropics/claude-code",
+      "topics": [
+        "compaction",
+        "Claude Code",
+        "instructions",
+        "system prompt"
+      ],
+      "summary": "Project-level instructions (CLAUDE.md) drop out of the window after compaction; users ask for automatic re-injection.",
+      "key_facts": [
+        "Request: automatically re-inject CLAUDE.md after /compact",
+        "Shows compaction discards not only history but standing instructions",
+        "Related #28721: 'Conversation compaction causes context loss and performance degradation'"
+      ]
+    },
+    {
+      "title": "Auto compact does not trigger at 100% context window and Claude Code stops itself (claude-code #66144)",
+      "url": "https://github.com/anthropics/claude-code/issues/66144",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "GitHub anthropics/claude-code",
+      "topics": [
+        "compaction",
+        "Claude Code",
+        "reliability",
+        "hard stop"
+      ],
+      "summary": "Mid-2026 report: compaction fails to fire, session hits 100% and halts; related issue says auto-compact option disappeared and responses slow as context grows.",
+      "key_facts": [
+        "Reported June 2026 (per search summary)",
+        "At limit, 'no automatic compaction happens ... simply reaches 100% context and stops'",
+        "Related #37914: 'Auto-compact option missing after recent update - context grows large and responses become very slow'",
+        "Related #26858: Claude Code freezes before auto-compaction triggers inside Cursor (Sonnet 4.6)"
+      ]
+    },
+    {
+      "title": "Aggressive context compaction with opus-4.6:1m (cline #9181)",
+      "url": "https://github.com/cline/cline/issues/9181",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "GitHub cline/cline",
+      "topics": [
+        "compaction",
+        "Cline",
+        "1M context",
+        "lost work"
+      ],
+      "summary": "Cline auto-compacts under 200K even on a 1M-context model; users report the agent 'gets a little lost' after compaction during execution.",
+      "key_facts": [
+        "Compaction began when context reached under 200K despite opus-4.6:1m",
+        "\"Cline gets a little lost afterwards\"",
+        "Users see context bar run backwards; Cline then 'tries to redo already-completed tasks or forgets important information'"
+      ]
+    },
+    {
+      "title": "Cline auto compacts context silently even with autocompacting setting disabled (cline #10637)",
+      "url": "https://github.com/cline/cline/issues/10637",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "GitHub cline/cline",
+      "topics": [
+        "compaction",
+        "Cline",
+        "user control",
+        "local models"
+      ],
+      "summary": "Cline compacts without consent; companion issue #13127 shows local-model summaries truncated at 1024 tokens so compaction silently skips.",
+      "key_facts": [
+        "Auto-compaction runs even with the setting disabled",
+        "#13127: summaries for long contexts cut at 1024 tokens -> parse failure -> 'Compaction skipped'",
+        "Pattern: compaction is opaque and uncontrollable across tools"
+      ]
+    },
+    {
+      "title": "Cursor's compression isn't a bug. It's how it works.",
+      "url": "https://pickles.news/posts/cursor-context-compression/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "pickles.news",
+      "topics": [
+        "compaction",
+        "Cursor",
+        "summarization",
+        "quality collapse"
+      ],
+      "summary": "Argues Cursor's prompt-based summarization structurally changes the context the model was reasoning in, so degradation after compaction is by design.",
+      "key_facts": [
+        "Cursor compression = prompt-based summarization",
+        "Post-compaction context is 'structurally different from the one the model was reasoning in earlier'",
+        "Practitioner framing: after compaction the model is 'like waking up after sleep with memory loss' (per search summary)"
+      ]
+    },
+    {
+      "title": "Delete partial.json before compaction to avoid losing the summary (coder/mux PR #1007)",
+      "url": "https://github.com/coder/mux/pull/1007",
+      "type": "repo",
+      "year": 2026,
+      "venue_or_author": "GitHub coder/mux",
+      "topics": [
+        "compaction",
+        "race condition",
+        "agent harness"
+      ],
+      "summary": "A harness-level race condition where the compaction summary itself could be lost from context due to stale partial files.",
+      "key_facts": [
+        "Compaction summary could be dropped from context because of stale partial.json",
+        "Fix: delete partial.json before compaction",
+        "Shows compaction plumbing is fragile even in third-party harnesses"
+      ]
+    },
+    {
+      "title": "Memory Injection Attacks on LLM Agents via Query-Only Interaction (MINJA)",
+      "url": "https://arxiv.org/abs/2503.03704",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv / NeurIPS 2025",
+      "topics": [
+        "memory poisoning",
+        "MINJA",
+        "security",
+        "agent memory"
+      ],
+      "summary": "Shows an attacker can poison an agent's long-term memory using only ordinary queries, no write access, with very high success.",
+      "key_facts": [
+        "MINJA achieves over 95% injection success rate",
+        "Works via 'bridging steps', an 'indication prompt', and 'progressive shortening'",
+        "Attacker needs no elevated access: any regular user can poison memory",
+        "NeurIPS 2025 poster (Sept 18 2025)",
+        "Poisoned memory survives session restarts, context resets and model updates"
+      ]
+    },
+    {
+      "title": "Memory Poisoning Attack and Defense on Memory Based LLM-Agents",
+      "url": "https://arxiv.org/abs/2601.05504",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv",
+      "topics": [
+        "memory poisoning",
+        "security",
+        "defense"
+      ],
+      "summary": "2026 follow-up formalising attacks and defenses on memory-based agents; part of a growing defense literature.",
+      "key_facts": [
+        "Defense papers cluster in 2026: SMSR (arXiv 2606.12703, 'certified defence'), MEMSAD (2605.03482), MemAudit (2605.23723), forensic trajectory signatures (2606.30566)",
+        "Signals that memory security is now a recognised sub-field, not a one-off"
+      ]
+    },
+    {
+      "title": "AI Memory Security: Best Practices and Implementation",
+      "url": "https://mem0.ai/blog/ai-memory-security-best-practices",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Mem0",
+      "topics": [
+        "memory poisoning",
+        "privacy",
+        "enterprise governance",
+        "Mem0"
+      ],
+      "summary": "Vendor guidance on securing memory stores against injection and data leakage; shows incumbents responding to poisoning/privacy concern.",
+      "key_facts": [
+        "Frames memory poisoning as persistent: survives context resets",
+        "Vendor acknowledgement that memory security is a buying concern"
+      ]
+    },
+    {
+      "title": "Context engineering for AI agents in 2026 (LangChain State of Agent Engineering findings)",
+      "url": "https://www.reactify-solutions.com/articles/context-engineering-ai-agents-2026",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Reactify Solutions summarising LangChain 2026 State of Agent Engineering",
+      "topics": [
+        "survey",
+        "context engineering",
+        "enterprise",
+        "LangChain",
+        "memory"
+      ],
+      "summary": "Summarises LangChain's 2026 survey: large enterprises name context engineering at scale as the top agent challenge.",
+      "key_facts": [
+        "LangChain 2026 State of Agent Engineering surveyed 1,300+ professionals",
+        "57% of organisations run agents in production, another 30% building toward it",
+        "Enterprises with 10,000+ employees cited 'context engineering and managing context at scale' as the top challenge",
+        "\"Quality, not capability, is the bottleneck - and quality at agent scale is a context problem.\"",
+        "Official langchain.com report URL not retrieved (search budget); LinkedIn recap: linkedin.com/posts/coltonbaker88_state-of-ai-agents-activity-7429646732030005249-7ybE"
+      ]
+    },
+    {
+      "title": "The State of AI Agent Memory in 2026: What the Research Actually Shows",
+      "url": "https://dev.to/vektor_memory_43f51a32376/the-state-of-ai-agent-memory-2026-what-the-research-actually-shows-3aja",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "DEV Community",
+      "topics": [
+        "memory",
+        "forgetting",
+        "survey",
+        "governance"
+      ],
+      "summary": "Practitioner round-up of memory research; stresses the remember/forget decision and absent enterprise governance.",
+      "key_facts": [
+        "Agents accumulate so much 'important' info that searching memory becomes slower than processing full context",
+        "Frameworks lack enterprise governance features like glossary, lineage, entity resolution",
+        "Framework fragmentation: 13 agent-framework integrations cited as symptom"
+      ]
+    },
+    {
+      "title": "AI Agent Memory 2026: Progress Benchmark Report Evaluations",
+      "url": "https://mem0.ai/blog/state-of-ai-agent-memory-2026",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Mem0",
+      "topics": [
+        "memory",
+        "benchmarks",
+        "Mem0",
+        "incumbent move"
+      ],
+      "summary": "Mem0's own 2026 state-of-memory report; vendor framing of benchmark progress.",
+      "key_facts": [
+        "Vendor-authored benchmark report; treat scores as marketing until independently reproduced",
+        "Mem0 cloud memory criticised elsewhere as lock-in: no portability, no cryptographic integrity (per O'Reilly/Medium coverage)"
+      ]
+    },
+    {
+      "title": "Context Engineering for AI Agents: Lessons from Building Manus",
+      "url": "https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Manus / Yichao 'Peak' Ji",
+      "topics": [
+        "KV cache",
+        "token cost",
+        "context engineering",
+        "tool bloat",
+        "compaction",
+        "lessons from production"
+      ],
+      "summary": "Foundational production post: cache hit rate is the key metric, tool-list churn invalidates cache, and irreversible compression is dangerous.",
+      "key_facts": [
+        "Published July 18 2025; framework rebuilt 4 times ('Stochastic Graduate Descent')",
+        "Average input:output token ratio ~100:1; ~50 tool calls per task",
+        "Claude Sonnet cached $0.30/MTok vs uncached $3/MTok - 10x",
+        "\"Even a single-token difference can invalidate the cache from that token onward.\"",
+        "Mask tools, don't remove: adding/removing tools invalidates KV-cache",
+        "\"You can't reliably predict which observation might become critical ten steps later.\" -> use file system as context, keep compression restorable",
+        "Keep the wrong stuff in: \"Without evidence, the model can't adapt.\"",
+        "Few-shot rut: \"The model will tend to follow that pattern, even when it's no longer optimal.\""
+      ]
+    },
+    {
+      "title": "Don't Build Multi-Agents",
+      "url": "https://cognition.com/blog/dont-build-multi-agents",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Cognition / Walden Yan",
+      "topics": [
+        "multi-agent",
+        "shared context",
+        "handoff",
+        "compaction",
+        "context engineering"
+      ],
+      "summary": "Argues parallel subagents fail because they lack shared context and traces; proposes dedicated compression models for long tasks.",
+      "key_facts": [
+        "Published June 12 2025",
+        "Principle 1: share context and full agent traces, not just individual messages",
+        "Principle 2: actions carry implicit decisions; conflicting decisions produce poor results",
+        "Flappy Bird example: one subagent builds a Super Mario background, the other an incompatible bird",
+        "\"Context engineering is the next level of this. It is about doing this automatically in a dynamic system.\"",
+        "For tasks exceeding the window, compress history with a specialised model - 'demands significant domain-specific refinement'"
+      ]
+    },
+    {
+      "title": "How and when to build multi-agent systems",
+      "url": "https://www.langchain.com/blog/how-and-when-to-build-multi-agent-systems",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "LangChain",
+      "topics": [
+        "multi-agent",
+        "shared context",
+        "handoff",
+        "LangGraph"
+      ],
+      "summary": "LangChain's response to Cognition: multi-agent works when context engineering is done deliberately; otherwise handoffs lose decisions.",
+      "key_facts": [
+        "Positions context engineering as the #1 job of agent builders",
+        "Counterpoint to 'don't build multi-agents': the failure is context sharing, not parallelism per se"
+      ]
+    },
+    {
+      "title": "What we found after auditing 10,134 mem0 entries: 97.8% were junk (mem0 #4573)",
+      "url": "https://github.com/mem0ai/mem0/issues/4573",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "GitHub mem0ai/mem0",
+      "topics": [
+        "memory quality",
+        "junk memories",
+        "extraction",
+        "Mem0",
+        "hallucination"
+      ],
+      "summary": "A user audit of a production Mem0 store found almost all entries were noise; extraction prompt, not the model, was the bottleneck.",
+      "key_facts": [
+        "Opened March 27 2026; 10,134 entries audited, 97.8% junk",
+        "Only 38 entries usable as-is, 186 after rewriting",
+        "Junk: boot-file/system-prompt restating ~3,200 (52.7%), heartbeat noise ~700, architecture dumps ~500, transient task state ~450, hallucinated user profiles ~315",
+        "\"The extraction prompt is the bottleneck, not the model.\"",
+        "\"Any hallucination that gets stored once will be re-extracted indefinitely.\"",
+        "\"Indiscriminate memory storage performs worse than using no memory at all.\"",
+        "\"The prompt teaches what to extract but never what to skip.\""
+      ]
+    },
+    {
+      "title": "ADD-only extraction in v3 may surface stale/contradictory facts for time-sensitive attributes (mem0 #4956)",
+      "url": "https://github.com/mem0ai/mem0/issues/4956",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "GitHub mem0ai/mem0",
+      "topics": [
+        "stale memory",
+        "contradiction",
+        "recency",
+        "Mem0"
+      ],
+      "summary": "Mutable attributes (employer, city, relationship) accumulate contradictions and stale facts rank first because scoring ignores recency.",
+      "key_facts": [
+        "Contradictory memories accumulate instead of newer fact superseding older",
+        "Retrieval can return outdated info as top candidate because scoring lacks recency",
+        "Related #5867 (ADD-only creates conflicting memories), #4896 (no conflict resolution), #4536, discussion #4787 (dedup/contradiction at scale)"
+      ]
+    },
+    {
+      "title": "hash-dedup TOCTOU race in add() creates duplicate memories under concurrency (mem0 #6531)",
+      "url": "https://github.com/mem0ai/mem0/issues/6531",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "GitHub mem0ai/mem0",
+      "topics": [
+        "duplicate memories",
+        "concurrency",
+        "Mem0",
+        "reliability"
+      ],
+      "summary": "Concurrent add() calls both pass the dedup check and write identical memories with different IDs.",
+      "key_facts": [
+        "V3 pipeline snapshots memories early, checks dedup after LLM round-trip -> TOCTOU race",
+        "Related #5330: no built-in expiration or decay; stale entries pollute context"
+      ]
+    },
+    {
+      "title": "Feature: evaluation toolkit for agent memory quality and retrieval reliability (mem0 #5235)",
+      "url": "https://github.com/mem0ai/mem0/issues/5235",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "GitHub mem0ai/mem0",
+      "topics": [
+        "evaluation gap",
+        "memory",
+        "staleness",
+        "regression testing"
+      ],
+      "summary": "Users ask for a memory-specific eval module because RAG metrics miss forgetting, update propagation, temporal relevance and conflicts.",
+      "key_facts": [
+        "Opened May 22 2026",
+        "\"memory is one of the most common sources of subtle, hard-to-reproduce failures\"",
+        "\"the agent should remember a preference but silently retrieves stale or conflicting information instead\"",
+        "\"Regressions in memory behavior go undetected until they affect user experience\"",
+        "\"There's no way to benchmark different embedding models or retrieval strategies for memory use cases\"",
+        "Proposed metrics: recall rate, staleness score, conflict-resolution accuracy, update-propagation rate"
+      ]
+    },
+    {
+      "title": "Lies, Damn Lies, Statistics: Is Mem0 Really SOTA in Agent Memory?",
+      "url": "https://blog.getzep.com/lies-damn-lies-statistics-is-mem0-really-sota-in-agent-memory/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Zep",
+      "topics": [
+        "evaluation gap",
+        "LoCoMo",
+        "Mem0",
+        "Zep",
+        "benchmarks"
+      ],
+      "summary": "Zep rebuts Mem0's benchmark claims and argues LoCoMo cannot discriminate memory systems since full-context beats them.",
+      "key_facts": [
+        "Published May 6 2025 (modified June 3 2026)",
+        "Zep correct implementation 75.14% vs Mem0 Graph ~68% vs full-context baseline ~73% on LoCoMo",
+        "Mem0's paper reported Zep at 65.99% due to setup errors (single-user model, timestamps appended to messages, sequential searches)",
+        "LoCoMo conversations only 16k-26k tokens; fails to test knowledge updates; has missing ground truths",
+        "\"If simply providing all the text yields better results than the specialized memory system, the benchmark isn't adequately stressing memory capabilities.\"",
+        "Calls for LongMemEval-style benchmarks (avg 115k tokens)"
+      ]
+    },
+    {
+      "title": "agentic-memory benchmarks (lhl)",
+      "url": "https://github.com/lhl/agentic-memory/tree/main/benchmarks",
+      "type": "repo",
+      "year": 2025,
+      "venue_or_author": "GitHub lhl/agentic-memory",
+      "topics": [
+        "evaluation gap",
+        "LoCoMo",
+        "filesystem memory",
+        "Mem0"
+      ],
+      "summary": "Independent benchmark showing a plain filesystem+grep agent beats a specialised memory system on LoCoMo.",
+      "key_facts": [
+        "Filesystem agent using grep/search_files on gpt-4o-mini scored 74.0% on LoCoMo, above Mem0",
+        "Suggests tool-use capability matters more than the retrieval mechanism underneath",
+        "LoCoMo scores above ~93% described as suspect; 'directional signal' only"
+      ]
+    },
+    {
+      "title": "Locomo-Plus: Beyond-Factual Cognitive Memory Evaluation Framework for LLM Agents",
+      "url": "https://arxiv.org/html/2602.10715v1",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv",
+      "topics": [
+        "evaluation gap",
+        "benchmarks",
+        "memory"
+      ],
+      "summary": "New benchmark arguing string-match metrics and explicit task prompting misrepresent real memory use; tests cue-trigger semantic disconnect.",
+      "key_facts": [
+        "Conventional string-matching metrics 'misaligned with realistic scenarios'",
+        "Companion 2026 work: AMA-Bench (2602.22769) for long-horizon agent memory; A-TMA (2607.01935) on state-aware memory failures",
+        "Critique (per search summary): LoCoMo assumes stationary user intent, ignores stale preference reuse, incorrect overwrites, unsafe retention"
+      ]
+    },
+    {
+      "title": "Actually, MCP wastes a lot of tokens when compared to regular tool calling (HN)",
+      "url": "https://news.ycombinator.com/item?id=45954572",
+      "type": "thread",
+      "year": 2025,
+      "venue_or_author": "Hacker News",
+      "topics": [
+        "tool-result bloat",
+        "MCP",
+        "token cost",
+        "code execution"
+      ],
+      "summary": "HN thread where practitioners quantify how tool schemas and intermediate results flood the window and propose code-execution instead.",
+      "key_facts": [
+        "Parent submission: 'What if you don't need MCP at all?'",
+        "rcarmo: MCP 'wastes a lot of tokens ... for locked down/local/cheap models it makes very little sense'",
+        "cstrahan: tool descriptions can mean 'hundreds of thousands of tokens before reading a request'",
+        "cstrahan: every intermediate result passes through the model; transcript 'flows through twice ... could mean 50,000 tokens'",
+        "Alternative: code reads a 50,000-token file and returns 20 tokens to the LLM",
+        "didibus: protocol has no mechanism to pipe one tool's output into another"
+      ]
+    },
+    {
+      "title": "MCP Tool Schema Bloat: The Hidden Token Tax (and How to Fix It)",
+      "url": "https://layered.dev/mcp-tool-schema-bloat-the-hidden-token-tax-and-how-to-fix-it/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Layered System",
+      "topics": [
+        "tool-result bloat",
+        "MCP",
+        "token cost",
+        "observability"
+      ],
+      "summary": "Measures how much of the window MCP schemas consume before any user input.",
+      "key_facts": [
+        "7 MCP servers = 67,300 tokens of tool definitions = 33.7% of a 200k window",
+        "GitHub official MCP server = 17,600 tokens per request",
+        "StackOne: MCP definitions can burn 55,000+ tokens before first user message; distinguishes schema bloat vs response bloat (stackone.com/blog/mcp-token-optimization)"
+      ]
+    },
+    {
+      "title": "Code execution with MCP: building more efficient AI agents",
+      "url": "https://www.anthropic.com/engineering/code-execution-with-mcp",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Anthropic Engineering",
+      "topics": [
+        "tool-result bloat",
+        "MCP",
+        "incumbent move",
+        "progressive disclosure"
+      ],
+      "summary": "Anthropic's incumbent response to tool bloat: load tools on demand and run them as code so intermediate results stay out of context.",
+      "key_facts": [
+        "Three interventions Nov 2025-Feb 2026: Anthropic Tool Search Tool, Cloudflare Code Mode, MCP code-execution pattern",
+        "Shared idea: stop loading tool definitions you aren't using",
+        "HN 'MCP is dead?' debate: 195 points, 174 comments (per The Agent Report, May 2026)"
+      ]
+    },
+    {
+      "title": "Production RAG: Why Retrieval Fails and How to Fix It",
+      "url": "https://mudassirkhan.me/blog/production-rag-guide-2026",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Mudassir Khan",
+      "topics": [
+        "RAG",
+        "retrieval quality",
+        "reranking",
+        "hybrid search"
+      ],
+      "summary": "Practitioner guide: most RAG failures are retrieval failures; hybrid + reranker is the floor.",
+      "key_facts": [
+        "Naive RAG (fixed chunks + single-vector) fails to retrieve correct context ~40% of the time",
+        "Identifier blindness: dense-only retrieval misses exact-match clause IDs",
+        "Right chunk at rank 4, generator latches onto rank 1 -> missing reranker",
+        "A ~50 ms rerank step lifts answer quality 10-25% on production traffic",
+        "Hybrid + contextual techniques cut error ~69% vs naive vector-only"
+      ]
+    },
+    {
+      "title": "Why RAG Systems Fail in Production",
+      "url": "https://www.digitalocean.com/community/conceptual-articles/why-rag-systems-fail-in-production",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "DigitalOcean",
+      "topics": [
+        "RAG",
+        "silent failure",
+        "observability",
+        "retrieval quality"
+      ],
+      "summary": "Silent failures are the defining trait of production RAG: confident answers, no error signal, discovered weeks later.",
+      "key_facts": [
+        "\"The system answers confidently. No error signal is returned.\" Users discover bad answers weeks or months later",
+        "Chunking at 512 tokens breaks paragraphs and separates questions from answers",
+        "Embedding similarity != relevance; top-K is crude",
+        "Stanford Law 2025 evaluation: legal RAG tools hallucinated 17-33% on 200 queries (per Atlan summary)"
+      ]
+    },
+    {
+      "title": "Six Lessons Learned Building RAG Systems in Production",
+      "url": "https://towardsdatascience.com/six-lessons-learned-building-rag-systems-in-production/",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Towards Data Science",
+      "topics": [
+        "RAG",
+        "lessons from production",
+        "chunking",
+        "evaluation"
+      ],
+      "summary": "Lessons-from-production post on RAG; complements the failure-mode guides with evaluation and chunking advice.",
+      "key_facts": [
+        "2025 clinical study: adaptive chunking 87% retrieval accuracy vs 13% fixed-size on same dataset (per search summary)",
+        "Industry surveys cited: 70-85% of agents fail in production; AI project failures up 42% 2024->2025 (per search summary)"
+      ]
+    },
+    {
+      "title": "Whoever Owns the Memory Owns the Agent",
+      "url": "https://baheet.medium.com/whoever-owns-the-memory-owns-the-agent-b2fc5b726457",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Medium / Baheet",
+      "topics": [
+        "vendor lock-in",
+        "memory portability",
+        "Mem0",
+        "governance"
+      ],
+      "summary": "Aug 2026 essay arguing hosted memory is the new lock-in point and memory should be user-owned and portable.",
+      "key_facts": [
+        "Mem0 cloud memory: stored in vendor infra, 'no cryptographic verification of memory integrity', no portability to other systems",
+        "Vendor SDKs 'remove orchestration friction and lock the agent to one provider's API'"
+      ]
+    },
+    {
+      "title": "Portable Agent Memory: A Protocol for Provenance-Verified Memory Transfer Across Heterogeneous LLM Agents",
+      "url": "https://arxiv.org/html/2605.11032v1",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv",
+      "topics": [
+        "vendor lock-in",
+        "memory portability",
+        "provenance",
+        "open standard"
+      ],
+      "summary": "Proposes an open protocol to serialise, transport and re-hydrate agent memory across systems with cryptographic integrity.",
+      "key_facts": [
+        "Aims at cross-vendor memory transfer with provenance verification",
+        "Parallel effort: MemoryLake 'memory passport for agents' (platform-neutral, user-owned layer)",
+        "Cognee (Apache 2.0, 14,000+ GitHub stars) cited as reference open-source memory without lock-in (per XLR8 roundup)"
+      ]
+    },
+    {
+      "title": "The AI Agents Stack (2026 Edition)",
+      "url": "https://www.oreilly.com/radar/the-ai-agents-stack-2026-edition/",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "O'Reilly Radar",
+      "topics": [
+        "market map",
+        "memory layer",
+        "vendor lock-in",
+        "architecture"
+      ],
+      "summary": "Analyst view: memory is now a first-class architectural layer outside the prompt, with three tiers; lock-in of vendor SDKs flagged.",
+      "key_facts": [
+        "Production agents in 2026 keep memory in a dedicated layer outside the prompt",
+        "Memory described as 'first-class architectural primitive with three distinct tiers'",
+        "Companion: O'Reilly 'Open Source Agent Toolkit in 2026' lists per-layer OSS alternatives"
+      ]
+    },
+    {
+      "title": "Context rot explained (& how to prevent it)",
+      "url": "https://redis.io/blog/context-rot/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Redis",
+      "topics": [
+        "context rot",
+        "incumbent move",
+        "memory layer"
+      ],
+      "summary": "Infrastructure incumbent (Redis) publishing context-rot guidance, signalling the problem has mainstream vendor attention.",
+      "key_facts": [
+        "Agents accumulate noise during search, exploration and backtracking that degrades every subsequent output",
+        "Incumbent databases positioning as the fix for context rot"
+      ]
+    }
+  ],
+  "notes": "Modality: practitioner pain points. Searches run: 12 of 14 allowed before the session-level WebSearch budget (200/200) was exhausted; the final two queries (official langchain.com State of Agent Engineering 2026 URL; token-cost blow-up / context observability practitioner posts) did not execute. WebFetch: 8 of 8 used (HN context-rot thread, claude-code #10948, mem0 #4573, Zep LoCoMo rebuttal, HN MCP thread, Cognition, Manus, mem0 #5235). Not found / thin: direct X posts beyond Sarah Wooders; Codex CLI and opencode compaction issues; explicit 'no observability of what is in the window' tooling complaints (only indirect via MCP schema-bloat measurements); Menlo/Vercel/Retool survey numbers; enterprise data-governance case studies for memory. LangChain 2026 survey figures (1,300+ respondents, 57% in production, enterprise top challenge = context engineering at scale) come from secondary summaries, not the primary report. Dates for several GitHub issues are inferred from issue-number ordering (year only) where the page was not fetched; facts marked 'per search summary' come from search-result snippets rather than fetched pages and should be re-verified before quoting in the final report."
+}

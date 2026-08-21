@@ -7,7 +7,8 @@ into the report, and the multi-agent workflow script that gathered it.
 
 | Topic | Date | Report | Summary |
 |---|---|---|---|
-| [llm-context-management](llm-context-management/) | 2026-08-20 | [report.html](llm-context-management/report.html) | How engineers manage an LLM's context window: 8 ranked techniques + 2 addenda from 164 papers, blogs, docs, talks and threads, each with an implementation recipe, code and sources. |
+| [llm-context-management](llm-context-management/) | 2026-08-20 | [report.html](llm-context-management/report.html) | How engineers manage an LLM's context window: 8 ranked techniques + 2 addenda from 164 papers, blogs, docs, talks and threads, each with an implementation recipe, code and sources; plus the open-source landscape (30 repos). |
+| [llm-context-management](llm-context-management/) | 2026-08-21 | [market-report.html](llm-context-management/market-report.html) | Context Market Map: the problems worth solving, the startup and incumbent landscape with funding, and a go-to-market playbook for a new entrant — 195 sources. |
 
 ## Conventions
 

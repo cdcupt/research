@@ -1,0 +1,412 @@
+{
+  "sources": [
+    {
+      "title": "Compaction - Claude Platform Docs",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/compaction",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Anthropic / Claude Platform Docs",
+      "topics": ["compaction", "Anthropic", "incumbent move", "server-side summarization", "token accounting", "pricing"],
+      "summary": "Anthropic's server-side compaction automatically summarizes older conversation content when input tokens cross a threshold, emitting a compaction block that replaces prior history. Anthropic now recommends it over client-side SDK compaction.",
+      "key_facts": [
+        "compact_20260112 edit enabled via context_management.edits; beta header anthropic-beta: compact-2026-01-12",
+        "Default trigger 150,000 input tokens; minimum allowed trigger value 50,000 tokens",
+        "pause_after_compaction flag lets client adjust messages after summary; custom instructions fully replace default summarization prompt",
+        "Supported models: Opus 4.6/4.7/4.8, Sonnet 4.6, Opus 5, Sonnet 5, Fable 5, Mythos; beta on API, Bedrock, Google Cloud, Microsoft Foundry",
+        "Compaction pass billed separately: usage.iterations shows e.g. 180,000 input tokens for compaction; top-level usage excludes it",
+        "Anthropic: 'Server-side compaction is the recommended strategy'; client-side SDK compaction deprecated",
+        "ZDR-eligible; count_tokens returns original_input_tokens vs post-compaction input_tokens",
+        "Recommends cache_control breakpoint on system prompt so only the summary is rewritten to cache after compaction"
+      ]
+    },
+    {
+      "title": "Context editing - Claude Platform Docs",
+      "url": "https://platform.claude.com/docs/en/build-with-claude/context-editing",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Anthropic / Claude Platform Docs",
+      "topics": ["context editing", "tool result clearing", "thinking clearing", "Anthropic", "incumbent move", "prompt caching"],
+      "summary": "Server-side context editing lets developers declaratively clear old tool results and thinking blocks before the prompt reaches Claude, while the client keeps full history. Absorbs a common hand-rolled pruning pattern.",
+      "key_facts": [
+        "clear_tool_uses_20250919: default trigger 100,000 input tokens, keep 3 most recent tool uses; exclude_tools and clear_tool_inputs options",
+        "clear_at_least parameter sets minimum tokens to clear so cache-write cost is justified",
+        "clear_thinking_20251015 keeps N recent thinking turns; Opus 4.5+ and Sonnet 4.6+ keep all prior thinking by default",
+        "Beta header anthropic-beta: context-management-2025-06-27; available on all supported Claude models",
+        "Response returns applied_edits with cleared_tool_uses and cleared_input_tokens (e.g. 50,000 tokens cleared)",
+        "Tool result clearing invalidates cached prefixes; docs flag the tension between editing and prompt caching",
+        "Designed to pair with memory tool so Claude saves facts before tool results are cleared"
+      ]
+    },
+    {
+      "title": "Memory tool - Claude Platform Docs",
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Anthropic / Claude Platform Docs",
+      "topics": ["memory layer", "memory tool", "Anthropic", "incumbent move", "cross-session memory"],
+      "summary": "Anthropic's memory tool lets Claude treat memory as local files it reads and writes under a /memories directory, with the developer owning storage. Docs position it as the complement to compaction for long-running agents.",
+      "key_facts": [
+        "memory_20250818 tool released September 29, 2025 (per search summary); Claude reads/writes memory as files",
+        "Docs: use compaction and memory together — compaction keeps active context small, memory preserves what must survive summarization",
+        "Storage is client-side: the developer implements file backend, so the vendor does not host the memory store"
+      ]
+    },
+    {
+      "title": "Claude Memory Tool in Practice: The Complete Guide to Giving Your Agent Cross-Session Memory",
+      "url": "https://apito.ai/en/blog/dev-guides/claude-memory-tool-guide/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Apito",
+      "topics": ["memory tool", "Anthropic", "context editing", "performance claims", "Claude Code"],
+      "summary": "Third-party implementation guide for Anthropic's memory tool, summarizing Anthropic's stated internal results and the recommended memory-plus-context-editing pattern.",
+      "key_facts": [
+        "Cites Anthropic using memory tool plus context editing internally in Claude Code with 29-39% performance improvement reported",
+        "Guide frames memory as developer-hosted files, positioning the tool as a protocol rather than a hosted memory service"
+      ]
+    },
+    {
+      "title": "Feature: Anthropic Context Editing API Integration — Server-Side, Cache-Friendly Tool/Thinking Cleanup (hermes-agent #526)",
+      "url": "https://github.com/NousResearch/hermes-agent/issues/526",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "NousResearch / GitHub",
+      "topics": ["context editing", "open-source agent frameworks", "adoption signal", "Anthropic"],
+      "summary": "Open-source agent framework issue requesting native integration of Anthropic's server-side context editing, a signal that vendor-side pruning is being adopted downstream instead of framework-level heuristics.",
+      "key_facts": [
+        "Issue frames Anthropic context editing as 'server-side, cache-friendly tool/thinking cleanup' worth integrating into hermes-agent",
+        "Signal: OSS harnesses prefer delegating pruning to the vendor API rather than maintaining client-side logic"
+      ]
+    },
+    {
+      "title": "Claude pricing in 2026: every plan, API rate, and what it actually costs",
+      "url": "https://www.cloudzero.com/blog/claude-pricing/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "CloudZero",
+      "topics": ["pricing", "1M context", "prompt caching", "Anthropic", "commoditization"],
+      "summary": "Pricing roundup showing Anthropic folded 1M-token context into standard per-token pricing for 4.6+ models and that prompt-cache reads are discounted 90%, compressing the economic case for external context-shrinking tools.",
+      "key_facts": [
+        "Claude Opus 4.6: $5.00 per million input tokens, $25.00 per million output tokens",
+        "Claude Sonnet 4.6: $3.00 input / $15.00 output; 1M context at standard pricing, no long-context premium",
+        "A 900k-token request billed at the same per-token rate as a 9k-token request",
+        "Prompt cache reads cost 90% less; Sonnet 4.6 cached read $0.30/MTok vs $3.00",
+        "Article contrasts Claude 90% caching discount with OpenAI 50% cached-input discount"
+      ]
+    },
+    {
+      "title": "Claude 1M Context GA: Practical Rollout Guide",
+      "url": "https://claudeai.dev/blog/claude-1m-context-practical-rollout-guide/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "claudeai.dev",
+      "topics": ["1M context", "Anthropic", "incumbent move", "long context"],
+      "summary": "Rollout guide marking the date Anthropic moved 1M-token context from beta to general availability on its 4.6 models.",
+      "key_facts": [
+        "Anthropic announced 1M context GA for Opus 4.6 and Sonnet 4.6 on March 13, 2026",
+        "As of March 14, 2026 the guide describes 1M context as production-ready for 4.6 long-context workloads"
+      ]
+    },
+    {
+      "title": "Compaction | OpenAI API",
+      "url": "https://developers.openai.com/api/docs/guides/compaction",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "OpenAI",
+      "topics": ["compaction", "OpenAI", "Responses API", "incumbent move", "previous_response_id", "ZDR"],
+      "summary": "OpenAI's Responses API offers automatic server-side compaction via context_management.compact_threshold plus an explicit /responses/compact endpoint; compacted state is an encrypted item carried forward into the next turn.",
+      "key_facts": [
+        "Server-side compaction released February 11, 2026 via the Responses API (per search summary)",
+        "Set context_management with compact_threshold; compaction runs automatically when rendered tokens cross threshold, no separate call",
+        "Compaction item is encrypted and 'carries forward key prior state and reasoning into the next run using fewer tokens'",
+        "ZDR-friendly when store=false on Responses create requests",
+        "With previous_response_id chaining pass only the new user message; 'do not manually prune'",
+        "Stateless chaining may drop items before the latest compaction item to cut request size and tail latency",
+        "/responses/compact output is 'the canonical next context window'; examples reference gpt-5.3-codex and gpt-5.6",
+        "Docs list no pricing or explicit token accounting for the compaction pass"
+      ]
+    },
+    {
+      "title": "Conversation state | OpenAI API",
+      "url": "https://developers.openai.com/api/docs/guides/conversation-state",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "OpenAI",
+      "topics": ["Responses API", "previous_response_id", "Conversations API", "server-side state", "OpenAI"],
+      "summary": "OpenAI's conversation-state guide documents server-held state via previous_response_id chaining and the Conversations API, so developers need not ship full history each turn.",
+      "key_facts": [
+        "previous_response_id chaining: send only the new user message each turn; server reconstructs prior context",
+        "Server-side state plus compaction together absorb the 'history store + summarizer' layer many startups sold in 2024-2025"
+      ]
+    },
+    {
+      "title": "[Feature Request] Support OpenAI server-side compaction (context_management) in @ai-sdk/openai (vercel/ai #12486)",
+      "url": "https://github.com/vercel/ai/issues/12486",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "Vercel AI SDK / GitHub",
+      "topics": ["compaction", "OpenAI", "framework lag", "adoption signal", "Vercel AI SDK"],
+      "summary": "Feature request for the Vercel AI SDK to surface OpenAI's server-side compaction, showing that vendor-native compaction outpaces framework support and that developers want it exposed rather than reimplemented.",
+      "key_facts": [
+        "Request asks @ai-sdk/openai to pass through OpenAI context_management compaction settings",
+        "Signal: middleware/framework layers must expose vendor compaction or risk being bypassed"
+      ]
+    },
+    {
+      "title": "Azure OpenAI Response API: Input Token Counting with previous_response_id and Support for Server-Side Context Compaction",
+      "url": "https://learn.microsoft.com/en-us/answers/questions/5791830/azure-openai-response-api-input-token-counting-wit",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "Microsoft Q&A",
+      "topics": ["Azure OpenAI", "token accounting", "previous_response_id", "compaction", "pain point: billing opacity"],
+      "summary": "Azure customer question about how input tokens are counted under previous_response_id chaining and whether server-side compaction is available on Azure, illustrating cost-observability confusion created by server-held state.",
+      "key_facts": [
+        "Customers cannot easily see how many input tokens server-side state contributes per turn under previous_response_id",
+        "Azure availability of OpenAI server-side compaction lags the first-party API, per the question"
+      ]
+    },
+    {
+      "title": "Compaction API (/responses/compact) - TrueFoundry Docs",
+      "url": "https://www.truefoundry.com/docs/ai-gateway/compaction",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "TrueFoundry",
+      "topics": ["AI gateway", "compaction", "commoditization", "OpenAI"],
+      "summary": "An AI-gateway vendor documents passthrough support for OpenAI's /responses/compact, showing compaction becoming a gateway checkbox feature rather than a differentiated product.",
+      "key_facts": [
+        "TrueFoundry AI Gateway exposes OpenAI /responses/compact through its proxy",
+        "Signal: gateways absorb compaction as a pass-through feature, narrowing standalone compaction products"
+      ]
+    },
+    {
+      "title": "Compact a Response with Previous Response ID - OpenAI Developer Community",
+      "url": "https://community.openai.com/t/compact-a-response-with-previous-response-id/1372502",
+      "type": "thread",
+      "year": 2026,
+      "venue_or_author": "OpenAI Developer Community",
+      "topics": ["compaction", "previous_response_id", "developer confusion", "OpenAI", "pain point"],
+      "summary": "Developer forum threads asking how /responses/compact interacts with previous_response_id and the Conversations API, showing that vendor compaction shipped with rough edges around state-chaining modes.",
+      "key_facts": [
+        "Companion thread 1378730 asks the same question for the Conversations API",
+        "Pain point: three state modes (stateless input array, previous_response_id, Conversations) have different compaction rules"
+      ]
+    },
+    {
+      "title": "Agent memory - OpenAI Agents SDK (sandbox memory)",
+      "url": "https://openai.github.io/openai-agents-python/sandbox/memory/",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "OpenAI Agents SDK docs",
+      "topics": ["memory layer", "OpenAI Agents SDK", "file-based memory", "incumbent move", "cross-run learning"],
+      "summary": "OpenAI's Agents SDK added sandbox memory that distills lessons from prior runs into workspace markdown files, separate from Session message history, replicating the file-based memory pattern popularized by coding agents.",
+      "key_facts": [
+        "Default layout: memories/memory_summary.md injected at run start, memories/MEMORY.md keyword index, raw_memories/, rollout_summaries/, sessions/*.jsonl",
+        "Two-phase pipeline: conversation extraction model then consolidation agent writes MEMORY.md and memory_summary.md",
+        "MemoryGenerateConfig.max_raw_memories_for_consolidation defaults to 256; extra_prompt for domain guidance",
+        "Recency-based forgetting removes older raw memories past the configured limit",
+        "Memory reads require Shell() capability; live updates require Filesystem(); sandbox agents are in beta",
+        "Stated goal: reduce agent cost, user cost and context cost for future runs"
+      ]
+    },
+    {
+      "title": "Sessions - OpenAI Agents SDK",
+      "url": "https://openai.github.io/openai-agents-python/sessions/",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "OpenAI Agents SDK docs",
+      "topics": ["sessions", "conversation history", "OpenAI Agents SDK", "incumbent move"],
+      "summary": "Agents SDK Sessions persist conversation history keyed by session_id with SQLite, SQLAlchemy, Redis and encrypted backends, making short-term memory a built-in SDK primitive.",
+      "key_facts": [
+        "SQLiteSession defaults to in-memory DB lost at process end; pass a file path for persistence",
+        "Backends listed: SQLite, SQLAlchemy, Redis, encrypted sessions; same session_id means the agent remembers",
+        "Session history is injected automatically into runs, making memory 'invisible infrastructure'"
+      ]
+    },
+    {
+      "title": "OpenAI Agents SDK Sandboxes Harness and Memory — AgentPatterns.ai",
+      "url": "https://agentpatterns.ai/tools/openai-agents-sdk/",
+      "type": "directory",
+      "year": 2026,
+      "venue_or_author": "AgentPatterns.ai",
+      "topics": ["OpenAI Agents SDK", "memory layer", "harness", "incumbent move"],
+      "summary": "Directory entry summarizing the April 2026 Agents SDK update that bundled a model-native harness, sandbox execution and configurable memory into OpenAI's own agent stack.",
+      "key_facts": [
+        "OpenAI Agents SDK update dated 2026-04-15 consolidates three primitives: model-native harness, native sandbox execution, configurable memory",
+        "Two memory systems: Session (SQLAlchemy, SQLite, Redis, encrypted) and sandbox memory (filesystem-distilled lessons across runs)"
+      ]
+    },
+    {
+      "title": "OpenAI Agents Forget Everything Between Runs. Here's the Fix.",
+      "url": "https://hindsight.vectorize.io/blog/2026/04/17/openai-agents-persistent-memory",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Hindsight (Vectorize)",
+      "topics": ["Hindsight", "Vectorize", "memory layer", "gtm", "positioning against incumbent"],
+      "summary": "A memory-layer startup publishes a how-to positioning its product as the persistent-memory fix for the OpenAI Agents SDK two days after OpenAI's own memory update, illustrating the 'plug the vendor gap' go-to-market.",
+      "key_facts": [
+        "Published April 17, 2026, two days after the 2026-04-15 Agents SDK memory update",
+        "GTM pattern: vendor-specific integration tutorials targeting developers of the incumbent SDK"
+      ]
+    },
+    {
+      "title": "Vertex AI Memory Bank in public preview",
+      "url": "https://cloud.google.com/blog/products/ai-machine-learning/vertex-ai-memory-bank-in-public-preview",
+      "type": "blog",
+      "year": 2025,
+      "venue_or_author": "Google Cloud Blog",
+      "topics": ["Memory Bank", "Google", "Vertex AI Agent Engine", "ADK", "memory layer", "incumbent move"],
+      "summary": "Google launched Memory Bank, a managed long-term memory service that asynchronously extracts, consolidates and retrieves user memories from Agent Engine Sessions using Gemini, with ADK integration and API access for LangGraph and CrewAI.",
+      "key_facts": [
+        "Announced July 8, 2025 as public preview inside Vertex AI Agent Engine",
+        "Uses Gemini to extract key facts and preferences asynchronously from Agent Engine Sessions conversation history",
+        "Consolidates new memories with existing ones and resolves contradictions; retrieval by all-facts or embedding similarity search",
+        "Out-of-the-box ADK integration; LangGraph and CrewAI supported via API",
+        "Grounded in Google Research method accepted at ACL 2025 (arxiv 2503.08026)",
+        "Free tier via express mode with a Gmail API key; $300 credit for new Google Cloud customers"
+      ]
+    },
+    {
+      "title": "Gemini Enterprise Agent Platform pricing | Google Cloud",
+      "url": "https://cloud.google.com/vertex-ai/pricing",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Google Cloud",
+      "topics": ["pricing", "Memory Bank", "sessions", "Agent Engine", "Google"],
+      "summary": "Google's pricing page sets usage-based rates for Agent Engine Sessions and Memory Bank, turning managed agent memory into a metered cloud line item.",
+      "key_facts": [
+        "Sessions and Memory Bank billing began February 11, 2026",
+        "Sessions and Memory Bank: $0.25 per 1,000 events or memories",
+        "Agent Engine runtime: $0.0864 per vCPU-hour and $0.0090 per GB-hour"
+      ]
+    },
+    {
+      "title": "Google Vertex AI Pricing: Complete Enterprise Guide (2026)",
+      "url": "https://www.cloudzero.com/blog/google-vertex-ai-pricing/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "CloudZero",
+      "topics": ["pricing", "context caching", "Gemini", "Google", "commoditization"],
+      "summary": "Enterprise pricing guide noting Gemini context caching on Vertex AI discounts cached tokens by 90%, a direct lever against the cost of very long contexts.",
+      "key_facts": [
+        "Vertex AI context caching priced at a 90% discount versus standard input pricing",
+        "Positions caching as the main tool for managing long context windows efficiently"
+      ]
+    },
+    {
+      "title": "Vertex AI Agent Builder: 2026 guide to Google's enterprise AI agent platform",
+      "url": "https://uibakery.io/blog/vertex-ai-agent-builder",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "UI Bakery",
+      "topics": ["ADK", "Agent Engine", "sessions", "Google", "managed runtime"],
+      "summary": "Overview of Google's agent stack where ADK is the model-agnostic code framework and Agent Engine is the managed runtime owning sessions, memory, autoscaling and long-running execution.",
+      "key_facts": [
+        "ADK is model-agnostic: usable with Gemini, Claude or open models; deploys to any container or Kubernetes",
+        "Agent Engine managed runtime handles autoscaling, sub-second cold starts, session management and long-running execution"
+      ]
+    },
+    {
+      "title": "Amazon Bedrock AgentCore Pricing: 12 Components Breakdown",
+      "url": "https://cloudburn.io/blog/amazon-bedrock-agentcore-pricing",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Cloud Burn",
+      "topics": ["AgentCore Memory", "AWS", "pricing", "memory layer", "incumbent move"],
+      "summary": "Component-level breakdown of AgentCore pricing, including short-term event pricing and the two long-term memory storage tiers that price Amazon's managed agent memory.",
+      "key_facts": [
+        "AgentCore reached general availability on October 13, 2025",
+        "Short-term memory: $0.25 per 1,000 new events (one event per CreateEvent call)",
+        "Long-term memory built-in automatic extraction: $0.75 per 1,000 records/month; self-managed or override strategy: $0.25 per 1,000 records/month",
+        "Long-term memory retrieval: $0.50 per 1,000 retrievals, charged regardless of storage strategy",
+        "Built-in extraction bundles model inference into the per-record rate, a 67% storage cost gap vs self-managed",
+        "Short-term event expiration cannot be set below 7 days"
+      ]
+    },
+    {
+      "title": "Add memory to your Amazon Bedrock AgentCore agent",
+      "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/memory.html",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "AWS Documentation",
+      "topics": ["AgentCore Memory", "AWS", "short-term memory", "long-term memory"],
+      "summary": "AWS developer guide for AgentCore Memory, which splits session-scoped short-term memory from cross-session long-term memory populated by extraction strategies.",
+      "key_facts": [
+        "Short-term memory keeps coherence within a single session; long-term memory persists preferences across days, weeks or months",
+        "Pay-per-use with no upfront costs or minimum commitments"
+      ]
+    },
+    {
+      "title": "Amazon Bedrock AgentCore Pricing (2026): What Actually Drives the Bill",
+      "url": "https://www.cipherprojects.com/blog/posts/amazon-bedrock-agentcore-pricing-2026/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Cipher Projects",
+      "topics": ["AgentCore Memory", "AWS", "pricing", "cost drivers", "pain point"],
+      "summary": "2026 cost analysis finding that runtime duration and long-term memory dominate AgentCore bills and flagging retention rules that lock in memory storage costs.",
+      "key_facts": [
+        "As of June 2026 in us-east-1, runtime duration and long-term Memory are the dominant cost lines for production agents",
+        "Short-term events cannot expire in under 7 days and 30/90-day retention cannot be force-expired"
+      ]
+    },
+    {
+      "title": "Microsoft Agent Framework Version 1.0",
+      "url": "https://devblogs.microsoft.com/agent-framework/microsoft-agent-framework-version-1-0/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Microsoft Agent Framework blog",
+      "topics": ["Microsoft", "Agent Framework", "Semantic Kernel", "AutoGen", "context providers", "memory layer", "Mem0", "incumbent move", "roadmap"],
+      "summary": "Microsoft shipped Agent Framework 1.0, merging Semantic Kernel and AutoGen, with pluggable context providers for memory and first-party connectors to Foundry Memory, Mem0, Redis and Neo4j.",
+      "key_facts": [
+        "Released April 3, 2026 as a single open-source SDK unifying Semantic Kernel and AutoGen",
+        "Agent Memory and Context Providers are pluggable: conversational history, key-value state, vector-based retrieval",
+        "Memory backends: Memory in Foundry Agent Service, Mem0, Redis, Neo4j, custom stores",
+        "Connectors for Foundry, Azure OpenAI, OpenAI, Anthropic Claude, Amazon Bedrock, Google Gemini, Ollama; A2A and MCP support",
+        "Foundry integration includes managed tools, memory services, OpenTelemetry observability and evaluation dashboards",
+        "Roadmap: graduate preview features, expand connectors and skills, deepen Foundry integration; 'Version 1.0 is a beginning, not a destination'",
+        "Mem0 ships as an official provider package (agent-framework-mem0), validating startup memory layers inside incumbent frameworks"
+      ]
+    },
+    {
+      "title": "GitHub Copilot Memory: How to Make Copilot Remember Your Project",
+      "url": "https://memnexus.ai/blog/2026-02-20-github-copilot-persistent-memory",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "MemNexus",
+      "topics": ["GitHub Copilot", "IDE memory", "copilot-instructions.md", "MemNexus", "gtm", "pain point: session reset"],
+      "summary": "Memory startup's write-up on GitHub Copilot's native persistence, arguing that copilot-instructions.md is static and that session reset is universal across Cursor, Claude Code and Windsurf, which is the wedge for external memory layers.",
+      "key_facts": [
+        "Published February 20, 2026",
+        ".github/copilot-instructions.md 'loads into every Copilot Chat conversation automatically' but is 'static text' maintained manually with 'no concept of time'",
+        "Author: 'Every AI coding assistant on the market has the same constraint — Cursor, Claude Code, Windsurf'",
+        "Pain cited: architectural decisions, team conventions and debugging investigations must be re-established each session"
+      ]
+    },
+    {
+      "title": "Cursor vs Windsurf vs GitHub Copilot in 2026: Which AI Code Editor Actually Wins?",
+      "url": "https://codeant.ai/blogs/best-ai-code-editor-cursor-vs-windsurf-vs-copilot",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "CodeAnt AI",
+      "topics": ["Cursor", "Windsurf", "GitHub Copilot", "IDE memory", "Cascade", "codebase indexing"],
+      "summary": "2026 IDE comparison describing Windsurf's persistent Memories and Cascade context tracking versus Cursor's codebase indexing and Copilot's narrower project-wide capabilities.",
+      "key_facts": [
+        "Windsurf Memories persist context across conversations; Cascade tracks edits, commands, clipboard and terminal output to infer intent",
+        "Article claims Copilot lacks an advanced project-wide assistant comparable to Cursor Agent Mode or Windsurf Cascade",
+        "Cursor relies on codebase indexing; article says Windsurf Memories persist across sessions more effectively"
+      ]
+    },
+    {
+      "title": "Windsurf IDE: Setup, Cascade Agent, and How It Compares to Cursor (2026)",
+      "url": "https://www.aimadetools.com/blog/windsurf-complete-guide/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "AI Made Tools",
+      "topics": ["Windsurf", "Cascade Memories", "IDE memory", "Codeium"],
+      "summary": "Guide to Windsurf's Cascade agent and its built-in Cascade Memories, showing IDE vendors bundling session memory natively.",
+      "key_facts": [
+        "Windsurf (Codeium) launched Cascade in late 2024 as an agentic flow engine with real-time workspace awareness",
+        "Cascade Memories is a persistent session memory that remembers past actions across longer coding sessions"
+      ]
+    }
+  ],
+  "notes": "Searched (8 returned, 4 refused by session WebSearch budget): Anthropic compaction/context editing/memory tool; OpenAI Responses compaction/previous_response_id; Google ADK Memory Bank/Agent Engine pricing; AWS AgentCore Memory pricing; Microsoft Agent Framework/SK; Cursor/Copilot/Windsurf memories; Claude 1M GA/pricing/caching; OpenAI Agents SDK sessions/memory. Refused queries (no results): Claude Code auto-compact/CLAUDE.md/Agent Skills engineering blog; Meta Llama 4 long context; Hacker News context-rot discussion; Cursor/Copilot official memory changelogs. Fetched 8 pages: Anthropic compaction docs, Anthropic context editing docs, OpenAI compaction guide, Google Memory Bank blog, Microsoft Agent Framework 1.0 blog, Cloud Burn AgentCore pricing, OpenAI Agents SDK sandbox memory docs, MemNexus Copilot memory post. GAPS: no primary source for ChatGPT consumer memory, Cursor official memories docs, GitHub Copilot coding-agent memory, Microsoft Copilot memory, Meta Llama long context, Claude Code auto-compact/Agent Skills, or OpenAI compaction pricing (docs list none). Dates marked 'per search summary' (Anthropic memory tool Sept 29 2025; OpenAI compaction Feb 11 2026) came from search-result summaries, not fetched primary pages. Years for undated aggregator posts are best-effort. No funding figures were in scope or found; none invented. Caps hit: 12/12 WebSearch, 8/8 WebFetch."
+}

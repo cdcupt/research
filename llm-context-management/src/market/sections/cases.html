@@ -1,0 +1,75 @@
+<section class="msection" id="cases">
+  <h2>Reference startups: how they started and what it teaches</h2>
+  <p class="lede">Every durable entrant began with a narrow, free artifact (a paper, a library, a consumer tool) and converted attention into a hosted API 12 to 24 months later. Rounds were justified by usage (API calls, pipeline runs), not stars. The mistakes to avoid: vendor benchmarks that do not reproduce, infrastructure companies drifting into apps, and treating a flat launch as the end.</p>
+  <div class="kv">
+    <div><b>Key numbers</b><span>Mem0 API calls 35M to 186M (Q1 to Q3 2025), $24M raised (Oct 2025); Cognee pipeline runs ~2,000 to 1M+ (2025), $7.5M seed (Feb 2026); LangChain $125M at $1.25B (Oct 2025); Zep Show HN 7 points (May 2023) vs Graphiti 30.2k stars (Aug 2026); Mem0 LongMemEval 94.4% claimed vs 73.8% reproduced (May 2026)</span></div>
+    <div><b>Confidence</b><span>medium — funding and dates primary-sourced; star counts and pivots from secondary trackers</span></div>
+    <div><b>Evidence base</b><span>11 sources fetched (9 pages plus 2 Hacker News API records), 20 more from sweep search results</span></div>
+  </div>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th>Startup</th><th>Wedge artifact</th><th>First public event</th><th>Disclosed capital</th><th>Stars 20 Jul 2026</th><th>Where it went</th></tr></thead>
+    <tbody>
+      <tr><td>Mem0</td><td>Drop-in memory API (Apache-2.0)</td><td>Launch Jan 2024; Show HN Sept 2024, 201 pts</td><td>$24M (seed $3.9M + A $20M, Oct 2025)</td><td>61,323</td><td>Integrations everywhere; AWS Agent SDK; benchmark dispute</td></tr>
+      <tr><td>Letta</td><td>MemGPT paper and repo</td><td>Paper 12 Oct 2023</td><td>$10M seed (Sept 2024)</td><td>23,887</td><td>Letta Cloud, then Letta Code (Dec 2025)</td></tr>
+      <tr><td>Zep</td><td>OSS memory store</td><td>Show HN 10 May 2023, 7 pts</td><td>$500K seed (Apr 2024, Tracxn)</td><td>28,981 (Graphiti)</td><td>Graphiti temporal graph; SOC 2 / HIPAA / BYOC cloud</td></tr>
+      <tr><td>Supermemory</td><td>Consumer OSS second brain</td><td>Summer 2024</td><td>$3M seed (company blog; $2.6M per press) (Oct 2025)</td><td>28,509</td><td>Developer API, closed engine, local binary (Jun 2026)</td></tr>
+      <tr><td>Cognee</td><td>Graph ECL pipeline (Apache-2.0)</td><td>Founded 2024, Berlin</td><td>$7.5M seed (Feb 2026)</td><td>28,786</td><td>Regulated enterprise; cloud and Rust edge engine</td></tr>
+      <tr><td>LangChain</td><td>Orchestration library</td><td>Seed Apr 2023</td><td>$160M across the three disclosed rounds; $1.25B valuation (Oct 2025)</td><td>n/a</td><td>LangSmith observability; LangMem bundled memory</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Mem0: a complaint from a side project became the default memory API</h3>
+  <p>Taranjeet Singh and Deshraj Yadav had built Embedchain (8,000+ stars) and a meditation app whose users complained that "the app doesn't remember"; Mem0 launched in January 2024 (<a href="https://techcrunch.com/2025/10/28/mem0-raises-24m-from-yc-peak-xv-and-basis-set-to-build-the-memory-layer-for-ai-apps/">TechCrunch</a>). The <a href="https://news.ycombinator.com/item?id=41447317">Show HN</a> on 4 Sept 2024 drew 201 points, and commenters already raised today's objections: open-source commitment, PII handled by prompting, memory bloat. A $3.9M seed led by Kindred went unannounced; the $20M Series A led by Basis Set was disclosed on 28 Oct 2025 with API calls up from 35M (Q1 2025) to 186M (Q3 2025), 80,000+ cloud signups and AWS naming Mem0 the exclusive memory provider for its Agent SDK. By 20 July 2026 the repository had 61,323 stars (<a href="https://mnemoverse.com/docs/library/ai-memory-solutions-2026-q3">Mnemoverse</a>).</p>
+  <p>What worked: a three-line integration, 25+ framework integrations and an MCP server as distribution. What did not: credibility. Mem0 reports 94.4% on LongMemEval; an independent reproduction (Maximem, 27 May 2026) measured 73.8%, and a February 2026 <a href="https://news.ycombinator.com/item?id=46891715">Ask HN</a> from a YC founder called it "key-value memory with semantic search" that cannot learn preferences.</p>
+
+  <h3>Letta: paper, then open source, then cloud, then a drift toward an app</h3>
+  <p>The <a href="https://arxiv.org/abs/2310.08560">MemGPT paper</a> (UC Berkeley) appeared on 12 Oct 2023. The repository was renamed Letta on 23 Sept 2024 and a $10M seed led by Felicis was announced the next day, with angels including Jeff Dean and Clem Delangue (<a href="https://www.prnewswire.com/news-releases/berkeley-ai-research-lab-spinout-letta-raises-10m-seed-financing-led-by-felicis-to-build-ai-with-memory-302257004.html">press release</a>); <a href="https://www.hpcwire.com/bigdatawire/this-just-in/letta-emerges-from-stealth-with-10m-to-build-ai-agents-with-advanced-memory/">BigDATAwire</a> reported a $70M post-money valuation. Then the centre of gravity moved: Letta Code launched in December 2025 (42.5% on Terminal-Bench), a desktop app in April 2026, LettaBot was folded into Letta Code in May 2026, and letta.com/pricing now redirects to Letta Code pricing (<a href="https://rywalker.com/research/letta">Ry Walker</a>, <a href="https://docs.letta.com/letta-code/pricing">Letta docs</a>). At 23,887 stars in July 2026 it is the smallest repository of the five despite the earliest research.</p>
+  <p>The lesson: research credibility buys a seed and strong angels, but a runtime billed per active agent is a harder sell than a drop-in API, and the company followed usage into coding agents.</p>
+
+  <h3>Zep: a flat launch, then a second act in temporal graphs and compliance</h3>
+  <p>Daniel Chalef's <a href="https://news.ycombinator.com/item?id=35889826">Show HN</a> on 10 May 2023 earned 7 points for an open-source memory store. <a href="https://tracxn.com/d/companies/zep/__poSadJnSfLWHjz05Xi3U5KwnpCMWSU3aDrihLX_8FLs">Tracxn</a> shows one disclosed $500K seed (April 2024) and 8 employees in May 2026. The second act is <a href="https://github.com/getzep/graphiti">Graphiti</a>, an Apache-2.0 temporal knowledge-graph engine backed by the "Zep: A Temporal Knowledge Graph Architecture for Agent Memory" paper (arXiv 2501.13956, January 2025); it reached 28,981 stars by July 2026 and 30.2k by August, more than Letta. Commercially Zep went up-market: Enterprise lists SOC 2 Type II, HIPAA BAA, BYOC and an EU DPA, Flex is credit-metered at $1,250 a year (<a href="https://www.getzep.com/pricing">Zep pricing</a>), and <a href="https://agentmarketcap.ai/blog/2026/04/10/agent-memory-vendor-landscape-2026-letta-zep-mem0-langmem">AgentMarketCap</a> calls it the only vendor with the full GDPR, SOC 2 and HIPAA set in 2026.</p>
+  <p>The lesson: a weak launch is survivable, an engine can out-star its company, and compliance is a wedge a small team can own while better-funded rivals gate it behind "contact sales".</p>
+
+  <h3>Supermemory: consumer pull converted into a developer API</h3>
+  <p>Dhravya Shah started Supermemory in summer 2024 as a consumer open-source "second brain"; it reached 10,000 stars and 50,000+ users, and companies asked for the underlying infrastructure. A $3M seed led by Susa Ventures with Browder Capital and SF1.vc was announced on 6 Oct 2025 (press reported $2.6M), with angels including Cloudflare CTO Dane Knecht and Sentry's David Cramer (<a href="https://supermemory.ai/blog/supermemory-raises-3-million-and-building-the-best-memory-engine-for-llms">company blog</a>). The repository stood at 28,509 stars in July 2026, MIT-licensed clients around a closed engine; a free single-machine local binary shipped in June 2026. Pricing is token-metered from $19 to $399 a month with connectors as tier differentiators (<a href="https://supermemory.ai/pricing">pricing</a>).</p>
+  <p>The lesson: a consumer tool is a cheap discovery channel for infrastructure demand, and open clients around a closed engine trade developer trust for defensibility.</p>
+
+  <h3>Cognee: a later, graph-first, enterprise entrant from Berlin</h3>
+  <p>Founded in 2024 by Vasilije Markovic, Cognee sells an Extract-Cognify-Load pipeline that turns 38+ sources into a knowledge graph. Pipeline runs grew from about 2,000 to over 1 million during 2025; it is live in 70+ companies including Bayer and the University of Wyoming; and it had 12,000+ stars and 80+ contributors when the $7.5M seed led by Pebblebed (Pamela Vagata, Keith Adams) with 42CAP and Vermilion was announced on 19 Feb 2026 (<a href="https://www.cognee.ai/blog/cognee-news/cognee-raises-seven-million-five-hundred-thousand-dollars-seed">Cognee</a>). Stars reached 28,786 by July 2026. Cognee publishes no LoCoMo or LongMemEval score.</p>
+  <p>The lesson: entering two years after Mem0 still produced a large seed by picking the structured, regulated-enterprise lane and reporting a usage metric (pipeline runs) investors accepted.</p>
+
+  <h3>LangChain (adjacent): the framework that bundles memory as a feature</h3>
+  <p>LangChain raised a $10M seed led by Benchmark (April 2023), a $25M Series A led by Sequoia at $200M (February 2024) and a $125M Series B led by IVP at $1.25B on 20 Oct 2025, with strategic backers including ServiceNow, Datadog and Databricks (<a href="https://www.langchain.com/blog/series-b">LangChain</a>, <a href="https://siliconangle.com/2025/10/20/ai-agent-tooling-provider-langchain-raises-125m-1-25b-valuation/">SiliconANGLE</a>). It cites 90M monthly downloads, 35% of the Fortune 500 and a 12x rise in LangSmith trace volume. The library is free; the business is observability and evals. LangMem is its framework-native memory.</p>
+  <p>The lesson: the framework will bundle memory, so either become the default integration inside it (Mem0's approach) or be something a framework cannot be: a compliance-grade store, a temporal graph, a runtime.</p>
+
+  <h3>Implications for a new entrant</h3>
+  <ul>
+    <li>Ship a free artifact first and expect 12 to 24 months before a priced round: Mem0, Supermemory and Cognee all followed that lag.</li>
+    <li>Report usage, not stars: the rounds cited API calls per quarter (Mem0) and pipeline runs (Cognee), while the team that led with research (Letta) has the fewest stars today.</li>
+    <li>Do not lead with a vendor benchmark nobody has reproduced; Mem0's 94.4% against Maximem's 73.8% is now quoted in every comparison.</li>
+    <li>Pick a billing unit that matches the buyer: requests (Mem0), credits (Zep), active agents (Letta) or tokens (Supermemory) each signal a different customer.</li>
+    <li>Compliance (SOC 2 Type II, HIPAA BAA, BYOC, EU DPA) is a wedge an 8-person company owns today; regulated buyers pay for it before they pay for benchmark points.</li>
+    <li>Assume frameworks and platforms will bundle memory (LangMem, Cloudflare, Claude Code auto-memory); be the default integration inside them or be structurally different.</li>
+  </ul>
+
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://techcrunch.com/2025/10/28/mem0-raises-24m-from-yc-peak-xv-and-basis-set-to-build-the-memory-layer-for-ai-apps/">Mem0 raises $24M from YC, Peak XV and Basis Set to build the memory layer for AI apps</a> <span class="src-type news">news</span> — TechCrunch, 2025</li>
+    <li><a href="https://news.ycombinator.com/item?id=41447317">Show HN: Mem0 – open-source Memory Layer for AI apps</a> <span class="src-type thread">thread</span> — Hacker News, 2024</li>
+    <li><a href="https://news.ycombinator.com/item?id=46891715">Ask HN: Mem0 stores memories, but doesn't learn user patterns</a> <span class="src-type thread">thread</span> — Hacker News, 2026</li>
+    <li><a href="https://mnemoverse.com/docs/library/ai-memory-solutions-2026-q3">AI Memory Solutions Compared: Q3 2026</a> <span class="src-type docs">docs</span> — Mnemoverse, 2026</li>
+    <li><a href="https://arxiv.org/abs/2310.08560">MemGPT: Towards LLMs as Operating Systems</a> <span class="src-type paper">paper</span> — Packer, Wooders et al., UC Berkeley, 2023</li>
+    <li><a href="https://www.prnewswire.com/news-releases/berkeley-ai-research-lab-spinout-letta-raises-10m-seed-financing-led-by-felicis-to-build-ai-with-memory-302257004.html">Berkeley AI Research Lab Spinout Letta Raises $10M Seed Financing Led by Felicis</a> <span class="src-type news">news</span> — PR Newswire (Letta), 2024</li>
+    <li><a href="https://rywalker.com/research/letta">Letta | Ry Walker Research</a> <span class="src-type report">report</span> — Ry Walker Research, 2026</li>
+    <li><a href="https://news.ycombinator.com/item?id=35889826">Show HN: Zep – Long-Term Memory Store for LLM Apps</a> <span class="src-type thread">thread</span> — Hacker News, 2023</li>
+    <li><a href="https://github.com/getzep/graphiti">getzep/graphiti: Build Temporal Context Graphs for AI Agents</a> <span class="src-type repo">repo</span> — GitHub, 2026</li>
+    <li><a href="https://tracxn.com/d/companies/zep/__poSadJnSfLWHjz05Xi3U5KwnpCMWSU3aDrihLX_8FLs">Zep - 2026 Company Profile, Team, Funding &amp; Competitors</a> <span class="src-type directory">directory</span> — Tracxn, 2026</li>
+    <li><a href="https://www.getzep.com/pricing">Zep Pricing</a> <span class="src-type docs">docs</span> — Zep, 2026</li>
+    <li><a href="https://agentmarketcap.ai/blog/2026/04/10/agent-memory-vendor-landscape-2026-letta-zep-mem0-langmem">Agent Memory at Scale 2026: Letta, Zep, Mem0, and LangMem Compared</a> <span class="src-type blog">blog</span> — AgentMarketCap, 2026</li>
+    <li><a href="https://supermemory.ai/blog/supermemory-raises-3-million-and-building-the-best-memory-engine-for-llms">Supermemory Raises $3M to Build AI Memory</a> <span class="src-type blog">blog</span> — Supermemory, 2025</li>
+    <li><a href="https://www.cognee.ai/blog/cognee-news/cognee-raises-seven-million-five-hundred-thousand-dollars-seed">Cognee Raises $7.5M Seed to Build Memory for AI Agents</a> <span class="src-type blog">blog</span> — Cognee, 2026</li>
+    <li><a href="https://www.langchain.com/blog/series-b">LangChain raises $125M to build the platform for agent engineering</a> <span class="src-type blog">blog</span> — LangChain, 2025</li>
+    <li><a href="https://siliconangle.com/2025/10/20/ai-agent-tooling-provider-langchain-raises-125m-1-25b-valuation/">AI agent tooling provider LangChain raises $125M at $1.25B valuation</a> <span class="src-type news">news</span> — SiliconANGLE, 2025</li>
+  </ol>
+</section>

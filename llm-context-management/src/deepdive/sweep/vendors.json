@@ -1,0 +1,439 @@
+{
+ "sources": [
+  {
+   "title": "Gemini Developer API pricing",
+   "url": "https://ai.google.dev/gemini-api/docs/pricing",
+   "type": "docs",
+   "year": 2026,
+   "venue_or_author": "Google AI for Developers",
+   "topics": [
+    "pricing",
+    "long-context tiers",
+    "context caching",
+    "Gemini"
+   ],
+   "summary": "Official Gemini API price table (fetched 2026-08-21). Gemini 2.5 Pro is the model with an explicit two-tier price split at 200K prompt tokens; newer 3.x Flash models are listed at flat per-token rates with separate context-caching and per-hour cache-storage charges. The page does not state per-model context-window sizes.",
+   "key_facts": [
+    "Gemini 2.5 Pro: $1.25 input / $10 output per 1M tokens for prompts <=200K; $2.50 / $15 for prompts >200K (fetched 2026-08-21)",
+    "Gemini 2.5 Pro context caching $0.125-$0.25 per 1M tokens plus $4.50 per 1M tokens per hour storage",
+    "Gemini 3.5 Flash: $1.50 input / $9.00 output per 1M; caching $0.15; storage $1.00 per 1M tokens per hour",
+    "Gemini 3.6 and 3.7 Flash: $0.75 / $3.75 promotional through Dec 31 2026, then $1.50 / $7.50; caching $0.075 then $0.15",
+    "Batch mode is a 50% discount on both 2.5 Pro price tiers; Gemini 2.5 Flash $0.30 / $2.50, caching $0.03",
+    "Per-model context window sizes not stated on pricing page; windows live on the Models page (not fetched, unknown)"
+   ]
+  },
+  {
+   "title": "Long context (Gemini API guide)",
+   "url": "https://ai.google.dev/gemini-api/docs/long-context",
+   "type": "docs",
+   "year": 2026,
+   "venue_or_author": "Google AI for Developers",
+   "topics": [
+    "long context",
+    "latency",
+    "retrieval accuracy",
+    "context caching",
+    "many-shot ICL"
+   ],
+   "summary": "Google's own guide to using 1M+ token windows (fetched 2026-08-21). It frames the cap as a cost/latency/retrieval-accuracy tradeoff rather than a hard technical wall: single-needle retrieval is ~99% but multi-needle degrades, longer prompts raise time-to-first-token, and caching is the recommended lever (~4x cheaper input).",
+   "key_facts": [
+    "'Many Gemini models come with large context windows of 1 million or more tokens' (doc fetched 2026-08-21)",
+    "1M tokens ~= 50,000 lines of code at 80 chars/line, 8 English novels, or 200+ podcast transcripts",
+    "Single-needle retrieval ~99% accuracy; Google warns multi-needle retrieval 'does not perform with the same accuracy'",
+    "Google: 'Generally longer queries will have higher latency (time to first token)'",
+    "Context caching makes input ~4x cheaper per Google; 'inherent tradeoff between getting the right information retrieved and cost'",
+    "Many-shot in-context learning with hundreds of thousands of examples can match fine-tuned model performance"
+   ]
+  },
+  {
+   "title": "The Llama 4 herd: The beginning of a new era of natively multimodal AI innovation",
+   "url": "https://ai.meta.com/blog/llama-4-multimodal-intelligence/",
+   "type": "blog",
+   "year": 2025,
+   "venue_or_author": "Meta AI",
+   "topics": [
+    "Llama 4",
+    "10M context claim",
+    "iRoPE",
+    "length generalization",
+    "MoE"
+   ],
+   "summary": "Meta's launch post (April 5, 2025) claims an 'industry leading 10M' token window for Llama 4 Scout. The blog itself concedes the model was trained at 256K and that 10M rests on length generalization via iRoPE (interleaved no-position-embedding attention layers plus inference-time attention temperature scaling), with evidence limited to needle-in-haystack and code NLL.",
+   "key_facts": [
+    "Llama 4 Scout: 17B active params, 16 experts (109B total), 'industry leading 10M' token context; released April 5, 2025",
+    "Scout was pre-trained and post-trained at 256K context; 10M is length generalization, not the trained length",
+    "iRoPE: interleaved attention layers without positional embeddings plus inference-time attention temperature scaling; 'i' alludes to 'infinite' context",
+    "Llama 4 Maverick: 17B active, 128 experts (400B total); Behemoth 288B active, ~2T total",
+    "Maverick context not stated on the blog; long-context evidence is needle-in-haystack retrieval and NLL over 10M code tokens"
+   ]
+  },
+  {
+   "title": "Llama 4 smells bad",
+   "url": "https://fastml.com/llama-4-smells-bad/",
+   "type": "blog",
+   "year": 2025,
+   "venue_or_author": "FastML",
+   "topics": [
+    "Llama 4",
+    "nominal vs effective context",
+    "long-context benchmarks"
+   ],
+   "summary": "Independent critique (verified by a sibling sweep in this project) arguing the Llama 4 Scout 10M window is nominal: Meta published only needle-in-haystack results, and third-party long-context tests such as Fiction.LiveBench showed steep degradation at far shorter lengths.",
+   "key_facts": [
+    "Meta published only NIAH for Llama 4 long context, no RULER or NoLiMa (per sibling-sweep summary)",
+    "Fiction.LiveBench and similar tests showed steep degradation well below the 10M nominal window"
+   ]
+  },
+  {
+   "title": "xAI API models and pricing",
+   "url": "https://docs.x.ai/docs/models",
+   "type": "docs",
+   "year": 2026,
+   "venue_or_author": "xAI",
+   "topics": [
+    "Grok",
+    "context window",
+    "long-context surcharge",
+    "pricing"
+   ],
+   "summary": "xAI's model table (fetched 2026-08-21). Current Grok models ship either 500K (grok-4.6, grok-4.5) or 1M (grok-4.3, grok-4.20 family) windows, and every model applies a 2x price multiplier once a prompt reaches 200K tokens. Max output tokens and release dates are not listed.",
+   "key_facts": [
+    "grok-4.6 and grok-4.5: 500K context; input $2.00-$4.00, output $6.00-$12.00 per 1M (fetched 2026-08-21)",
+    "grok-4.3, grok-4.20-0309 reasoning/non-reasoning, grok-4.20-multi-agent-0309: 1M context; $1.25-$2.50 input, $2.50-$5.00 output per 1M",
+    "All listed Grok models: prompts >=200K tokens billed at 2x the base input and output price",
+    "grok-build-0.1: 256K context, $1.00-$2.00 input, $2.00-$4.00 output per 1M",
+    "Cached input $0.20-$0.40 per 1M on 1M-context Grok models; max output tokens and release dates not listed (unknown)"
+   ]
+  },
+  {
+   "title": "100M Token Context Windows",
+   "url": "https://magic.dev/blog/100m-token-context-windows",
+   "type": "blog",
+   "year": 2024,
+   "venue_or_author": "Magic.dev",
+   "topics": [
+    "LTM-2-mini",
+    "100M context",
+    "KV cache memory",
+    "HashHop",
+    "non-attention architecture"
+   ],
+   "summary": "Magic's August 29, 2024 post claiming a 100M-token context for LTM-2-mini. Its most useful vendor-side quantification of the bottleneck: a standard transformer (Llama 3.1 405B) would need 638 H100s per user just to hold one 100M-token KV cache, which is why Magic replaced attention's sequence-dimension cost with a ~1000x cheaper mechanism and proposed HashHop to replace semantically-leaky needle tests.",
+   "key_facts": [
+    "LTM-2-mini claims 100M-token context ~= 10 million lines of code or ~750 novels; published August 29, 2024",
+    "Sequence-dimension algorithm 'roughly 1000x cheaper' than Llama 3.1 405B attention at 100M context",
+    "Llama 3.1 405B would need 638 H100s per user just to store a single 100M-token KV cache",
+    "LTM needs a small fraction of one H100's memory for the same 100M context",
+    "HashHop eval uses incompressible hash pairs to avoid semantic hints in needle-in-haystack tests"
+   ]
+  },
+  {
+   "title": "Qwen2.5-1M: Deploy Your Own Qwen with Context Length up to 1M Tokens",
+   "url": "https://qwenlm.github.io/blog/qwen2.5-1m/",
+   "type": "blog",
+   "year": 2025,
+   "venue_or_author": "Qwen team (Alibaba)",
+   "topics": [
+    "Qwen",
+    "1M context",
+    "progressive context extension",
+    "Dual Chunk Attention",
+    "VRAM requirements",
+    "sparse attention"
+   ],
+   "summary": "Qwen's January 27, 2025 release of 7B and 14B 1M-context open models. The post documents the standard recipe for extending windows (progressive 4K->256K pretraining with RoPE base scaling, then training-free extrapolation to 1M via Dual Chunk Attention) and quantifies the serving bottleneck: 120-320 GB of VRAM per 1M-token request plus sparse-attention prefill acceleration.",
+   "key_facts": [
+    "Qwen2.5-7B-Instruct-1M and Qwen2.5-14B-Instruct-1M released January 27, 2025, first open Qwen models with 1M context",
+    "Pretraining context grown 4K->256K with RoPE base raised 10,000->10,000,000; RL only on sequences <=8K",
+    "256K->1M reached by Dual Chunk Attention length extrapolation, which remaps relative positions to smaller values",
+    "Serving 1M tokens needs >=120GB VRAM for 7B and >=320GB for 14B (total across GPUs)",
+    "Sparse-attention inference framework gives 3.2x-6.7x prefill speedup at 1M tokens",
+    "Passkey retrieval near-perfect at 1M; RULER/LV-Eval/LongbenchChat significantly beat the 128K versions"
+   ]
+  },
+  {
+   "title": "DeepSeek API docs: Your First API Call (model list)",
+   "url": "https://api-docs.deepseek.com/quick_start/pricing",
+   "type": "docs",
+   "year": 2026,
+   "venue_or_author": "DeepSeek",
+   "topics": [
+    "DeepSeek",
+    "model names"
+   ],
+   "summary": "The URL now serves the 'Your First API Call' quickstart (fetched 2026-08-21) naming the current V4 model family, but not context length, output limits, or pricing; DeepSeek's 128K window and MLA details could not be confirmed within this sweep's budget.",
+   "key_facts": [
+    "Page lists current models deepseek-v4-flash, deepseek-v4-pro, deepseek-v4-flash-vision-exp (fetched 2026-08-21)",
+    "Context length, max output, max CoT tokens, and prices not on the fetched page; DeepSeek 128K / MLA figures unknown here"
+   ]
+  },
+  {
+   "title": "GPT-5 model page (OpenAI API docs, redirect target)",
+   "url": "https://developers.openai.com/api/docs/models/gpt-5",
+   "type": "docs",
+   "year": 2026,
+   "venue_or_author": "OpenAI",
+   "topics": [
+    "GPT-5",
+    "context window",
+    "OpenAI docs"
+   ],
+   "summary": "platform.openai.com/docs/models/gpt-5 now 301-redirects to this developers.openai.com URL (observed 2026-08-21); the redirect target was not fetched within the call cap, so GPT-5's API context-window, input, and output limits remain unverified in this sweep.",
+   "key_facts": [
+    "platform.openai.com/docs/models/gpt-5 returns 301 to developers.openai.com/api/docs/models/gpt-5 (observed 2026-08-21)",
+    "GPT-5 / GPT-5.x API context window, 272K input, 128K output, 400K total figures: unknown (not verified in this sweep)",
+    "ChatGPT per-plan context (32K/128K/196K) unverified: openai.com/chatgpt/pricing returned HTTP 403 on 2026-08-21"
+   ]
+  },
+  {
+   "title": "Introducing GPT-4.1 in the API",
+   "url": "https://openai.com/index/gpt-4-1/",
+   "type": "blog",
+   "year": 2025,
+   "venue_or_author": "OpenAI",
+   "topics": [
+    "GPT-4.1",
+    "1M context",
+    "API vs ChatGPT gap"
+   ],
+   "summary": "OpenAI's April 2025 launch of GPT-4.1 with a 1M-token API context window (verified by a sibling sweep; direct fetch returned 403 in the project link check). Notable because the consumer product stayed far smaller, illustrating that 'default' context is a product/serving decision distinct from the model's nominal window.",
+   "key_facts": [
+    "GPT-4.1 family (April 2025) ships a 1M-token context window in the API (per sibling-sweep summary)",
+    "ChatGPT remained capped at 32K context at the time, showing the API-vs-product effective-context gap",
+    "openai.com/index/gpt-4-1/ returned HTTP 403 in this project's link check; content from sibling sweep"
+   ]
+  },
+  {
+   "title": "Compaction (OpenAI API guide)",
+   "url": "https://developers.openai.com/api/docs/guides/compaction",
+   "type": "docs",
+   "year": 2026,
+   "venue_or_author": "OpenAI",
+   "topics": [
+    "server-side compaction",
+    "Responses API",
+    "context management",
+    "GPT-5.6"
+   ],
+   "summary": "OpenAI's answer to finite windows is server-side: the Responses API compacts automatically when rendered tokens cross context_management.compact_threshold, or via an explicit /responses/compact endpoint, carrying an encrypted compaction item forward. Verified by a sibling sweep in this project.",
+   "key_facts": [
+    "Server-side compaction released February 11, 2026 via the Responses API (per sibling-sweep summary)",
+    "context_management.compact_threshold triggers automatic compaction when rendered tokens cross the threshold; no separate call",
+    "Compaction item is encrypted and 'carries forward key prior state and reasoning into the next run using fewer tokens'",
+    "/responses/compact output is 'the canonical next context window'; examples reference gpt-5.3-codex and gpt-5.6",
+    "Docs list no pricing or explicit token accounting for the compaction pass"
+   ]
+  },
+  {
+   "title": "Prompt caching (OpenAI API guide)",
+   "url": "https://developers.openai.com/api/docs/guides/prompt-caching",
+   "type": "docs",
+   "year": 2026,
+   "venue_or_author": "OpenAI",
+   "topics": [
+    "prompt caching",
+    "cached input pricing",
+    "cache retention",
+    "OpenAI"
+   ],
+   "summary": "OpenAI's prefix caching (verified by a sibling sweep): automatic for prompts >=1024 tokens, cached input billed at 0.1x, cache writes free before GPT-5.6 and 1.25x after, with retention from 5-10 minutes up to 24h on newer models. Caching is the main vendor lever that makes repeatedly re-sending large contexts affordable.",
+   "key_facts": [
+    "Automatic prefix caching for prompts >=1024 tokens, in 128-token increments (per sibling-sweep summary)",
+    "Cached input billed at 0.1x; cache writes free before GPT-5.6, 1.25x after",
+    "Retention 5-10 min in-memory up to 1h; extended retention up to 24h on newer models",
+    "prompt_cache_key steers routing, roughly 15 requests per minute per key"
+   ]
+  },
+  {
+   "title": "Conversation state (OpenAI API guide)",
+   "url": "https://developers.openai.com/api/docs/guides/conversation-state",
+   "type": "docs",
+   "year": 2026,
+   "venue_or_author": "OpenAI",
+   "topics": [
+    "server-held state",
+    "previous_response_id",
+    "Conversations API"
+   ],
+   "summary": "OpenAI documents server-held conversation state via previous_response_id chaining and the Conversations API, so clients send only the new turn; combined with compaction this is OpenAI's structural alternative to ever-larger windows (verified by a sibling sweep).",
+   "key_facts": [
+    "previous_response_id chaining: send only the new user message each turn; server reconstructs prior context",
+    "With chaining plus compaction, OpenAI advises 'do not manually prune' history"
+   ]
+  },
+  {
+   "title": "Context windows (Claude Platform Docs, redirect target)",
+   "url": "https://platform.claude.com/docs/en/build-with-claude/context-windows",
+   "type": "docs",
+   "year": 2026,
+   "venue_or_author": "Anthropic / Claude Platform Docs",
+   "topics": [
+    "Claude",
+    "1M context",
+    "200K context",
+    "max output",
+    "pricing",
+    "Models API"
+   ],
+   "summary": "docs.claude.com's context-windows page now 302-redirects here (observed 2026-08-21); the target was not fetched within the cap. The Claude figures below come from the local claude-api reference bundled with Claude Code (cache dated 2026-06-24), not from the page itself, and should be re-verified against it.",
+   "key_facts": [
+    "docs.claude.com context-windows URL 302-redirects to platform.claude.com/docs/en/build-with-claude/context-windows (observed 2026-08-21)",
+    "Local claude-api reference (cached 2026-06-24): Claude Fable 5, Opus 5, Opus 4.8/4.7/4.6, Sonnet 5, Sonnet 4.6 list 1M context; Haiku 4.5 200K",
+    "Cached prices per 1M: Opus 5 $5/$25, Sonnet 5 $3/$15 ($2/$10 intro through 2026-08-31), Fable 5 $10/$50, Haiku 4.5 $1/$5",
+    "Max output 128K tokens on Fable 5, Opus 5, Opus 4.6-4.8, Sonnet 5, Sonnet 4.6; SDKs require streaming at that size",
+    "Claude Fable 5: 1M context where 'the maximum is also the default' (local reference, 2026-06-24)",
+    "Models API exposes max_input_tokens (context window) and max_tokens (output cap) per model since Mar 2026; no context_window field",
+    "Historical long-context premium above 200K (pre-GA beta) not re-verified in this sweep: unknown"
+   ]
+  },
+  {
+   "title": "Context windows (Claude Platform Docs, legacy URL)",
+   "url": "https://docs.anthropic.com/en/docs/build-with-claude/context-windows",
+   "type": "docs",
+   "year": 2025,
+   "venue_or_author": "Anthropic Claude Platform Docs",
+   "topics": [
+    "context accounting",
+    "extended thinking",
+    "Claude"
+   ],
+   "summary": "Legacy URL (HTTP 200 in this project's link check) explaining how input, output, and extended-thinking tokens accumulate across turns, how prior-turn thinking blocks are stripped, and how to reason about the effective window; now redirects to platform.claude.com.",
+   "key_facts": [
+    "Prior-turn thinking blocks are stripped from context so they do not consume the window on later turns (per sibling-sweep summary)",
+    "Context window = input + output + thinking tokens of the current request; effective window must be budgeted against max_tokens"
+   ]
+  },
+  {
+   "title": "1M context is now generally available for Opus 4.6 and Sonnet 4.6",
+   "url": "https://claude.com/blog/1m-context-ga",
+   "type": "blog",
+   "year": 2026,
+   "venue_or_author": "Anthropic",
+   "topics": [
+    "Claude",
+    "1M context GA",
+    "pricing policy",
+    "long-context surcharge"
+   ],
+   "summary": "Anthropic's March 2026 announcement (verified by a sibling sweep) moving the 1M-token window from beta to GA for Claude Opus 4.6 and Sonnet 4.6 at standard pricing with no long-context surcharge, explicitly positioning whole-codebase and multi-document requests as in scope.",
+   "key_facts": [
+    "1M token context GA for Claude Opus 4.6 and Sonnet 4.6 in March 2026 (per sibling-sweep summary)",
+    "GA at standard pricing with no long-context surcharge above 200K, unlike Gemini 2.5 Pro and Grok tiering",
+    "Anthropic frames whole-codebase and multi-document requests as the target workloads for 1M"
+   ]
+  },
+  {
+   "title": "Compaction (Claude Platform Docs)",
+   "url": "https://platform.claude.com/docs/en/build-with-claude/compaction",
+   "type": "docs",
+   "year": 2026,
+   "venue_or_author": "Anthropic / Claude Platform Docs",
+   "topics": [
+    "server-side compaction",
+    "context management",
+    "Claude",
+    "billing"
+   ],
+   "summary": "Anthropic's server-side compaction (verified by a sibling sweep): when input tokens cross a threshold (default 150K, minimum 50K) the API summarizes older history into a compaction block, billed as a separate iteration. Anthropic now calls this the recommended strategy over client-side SDK compaction, i.e. the vendor-preferred way to live inside a finite window.",
+   "key_facts": [
+    "compact_20260112 edit via context_management.edits; beta header anthropic-beta: compact-2026-01-12",
+    "Default trigger 150,000 input tokens; minimum allowed trigger 50,000 tokens",
+    "Supported models: Opus 4.6/4.7/4.8, Sonnet 4.6, Opus 5, Sonnet 5, Fable 5, Mythos; beta on API, Bedrock, Google Cloud, Microsoft Foundry",
+    "Compaction pass billed separately; usage.iterations shows e.g. 180,000 input tokens for the compaction call",
+    "Anthropic: 'Server-side compaction is the recommended strategy'; client-side SDK compaction deprecated"
+   ]
+  },
+  {
+   "title": "Managing context on the Claude Developer Platform",
+   "url": "https://claude.com/blog/context-management",
+   "type": "blog",
+   "year": 2025,
+   "venue_or_author": "Anthropic / Claude blog",
+   "topics": [
+    "context editing",
+    "memory tool",
+    "agent performance",
+    "Claude"
+   ],
+   "summary": "Anthropic's 2025 announcement of context editing (server-side clearing of stale tool results and thinking blocks as limits approach) and the file-based memory tool, with a vendor-reported 39% agentic-search improvement from memory plus editing (29% from editing alone). Verified by a sibling sweep.",
+   "key_facts": [
+    "Memory tool + context editing improved agentic search performance 39% over baseline; context editing alone 29% (Anthropic, 2025)",
+    "Context editing clears stale tool results / thinking blocks server-side as the window limit approaches"
+   ]
+  },
+  {
+   "title": "Using Claude Code: session management and 1M context",
+   "url": "https://claude.com/blog/using-claude-code-session-management-and-1m-context",
+   "type": "blog",
+   "year": 2026,
+   "venue_or_author": "Anthropic (Claude blog)",
+   "topics": [
+    "Claude Code",
+    "1M context",
+    "compaction",
+    "subagents"
+   ],
+   "summary": "Anthropic's 2026 guidance (verified by a sibling sweep) that even with a 1M window the right pattern is proactive /compact with instructions on what to keep, plus delegating to subagents that start with a clean context and return only results; long context is treated as headroom, not a substitute for context management.",
+   "key_facts": [
+    "With 1M context Anthropic still recommends proactive /compact with a description of what to keep (2026)",
+    "Subagents get a clean context and return only their result; recommended when work produces lots of unneeded intermediate output"
+   ]
+  },
+  {
+   "title": "Context window and what survives compaction (Claude Code Docs)",
+   "url": "https://code.claude.com/docs/en/context-window",
+   "type": "docs",
+   "year": 2026,
+   "venue_or_author": "Anthropic (Claude Code docs)",
+   "topics": [
+    "Claude Code",
+    "200K window",
+    "auto-compact",
+    "deferred tool loading"
+   ],
+   "summary": "Interactive Claude Code doc (verified by a sibling sweep) simulating how a 200K window fills (system prompt, auto memory, CLAUDE.md, deferred MCP schemas, skill index, then file reads) and what survives /compact. Shows a product defaulting to 200K even when 1M-capable models exist, with tool-search and subagents as the mitigation.",
+   "key_facts": [
+    "Claude Code simulation shows a 200k window; auto memory loads first 200 lines / 25KB of MEMORY.md",
+    "MCP tool schemas are deferred and loaded on demand via tool search (ENABLE_TOOL_SEARCH) to save context",
+    "After /compact, system prompt, CLAUDE.md, memory and MCP tools reload automatically; skill listing is the exception"
+   ]
+  },
+  {
+   "title": "Context caching (Gemini API)",
+   "url": "https://ai.google.dev/gemini-api/docs/generate-content/caching",
+   "type": "docs",
+   "year": 2026,
+   "venue_or_author": "Google AI for Developers",
+   "topics": [
+    "context caching",
+    "implicit caching",
+    "explicit caching",
+    "Gemini pricing"
+   ],
+   "summary": "Gemini's caching doc (verified by a sibling sweep): implicit caching is on by default for 2.5+ models and passes the discount through on prefix hits; explicit CachedContent objects with a TTL guarantee savings but add storage-time billing. Cached tokens are billed at roughly 10% of input price, which is Google's main mechanism for making 1M-token prompts economical.",
+   "key_facts": [
+    "Implicit caching on by default for Gemini 2.5+ models; discount passed through automatically on prefix hits",
+    "Explicit CachedContent with TTL guarantees savings but adds per-hour storage billing",
+    "Cached tokens billed at ~10% of standard input price; minimum cacheable prefix 2,048 tokens (per sibling-sweep summary)"
+   ]
+  },
+  {
+   "title": "Gemini 2.5 Models now support implicit caching",
+   "url": "https://developers.googleblog.com/en/gemini-2-5-models-now-support-implicit-caching/",
+   "type": "blog",
+   "year": 2025,
+   "venue_or_author": "Google Developers Blog",
+   "topics": [
+    "implicit caching",
+    "Gemini 2.5",
+    "prefix reuse"
+   ],
+   "summary": "Google's 2025 announcement (verified by a sibling sweep) that Gemini 2.5 requests sharing a common prefix automatically receive the cached-token discount with no cache management, recommending repeated content be placed at the start of the prompt.",
+   "key_facts": [
+    "Implicit caching for Gemini 2.5 gives automatic cached-token discounts on shared prefixes (2025)",
+    "Google recommends placing repeated content at the start of the prompt to maximise cache hits"
+   ]
+  }
+ ],
+ "notes": "PROVENANCE AND GAPS. Budget: WebSearch was unavailable for this agent (the session's 200-call WebSearch budget was already exhausted before my first call), so I used the 10-WebFetch cap only. (a) Fetched and verified by me on 2026-08-21: Gemini pricing, Gemini long-context guide, Meta Llama 4 blog, xAI models page, Magic.dev 100M post, Qwen2.5-1M post, DeepSeek quickstart page (wrong page, model names only). (b) Server-supplied redirect targets, content NOT fetched: developers.openai.com GPT-5 model page; platform.claude.com context-windows page. Claude figures attached to the latter come from the local claude-api reference bundled with Claude Code (cache dated 2026-06-24) and must be re-verified. (c) Reused from sibling sweeps in this project (URLs returned HTTP 200 in src/links.tsv; facts per their summaries): claude.com 1M GA blog, Claude compaction docs, Claude context-management blog, Claude Code docs, OpenAI compaction / prompt-caching / conversation-state guides, Gemini caching docs, Google implicit-caching blog, FastML Llama 4 critique; openai.com/index/gpt-4-1 returned 403 in that check. UNKNOWN / NOT CONFIRMED: GPT-5.x API window (272K input / 400K total / 128K output), ChatGPT per-plan context (32K/128K/196K), OpenAI's stated reason for defaults, DeepSeek V4 context (128K?) and MLA details, Mistral windows, Gemini 3 Pro exact window (1M vs 2M) and whether 3.x Pro keeps the 200K tier split, Anthropic's historical >200K premium pricing. VENDOR-STATED REASONS FOR CAPS found: Google frames it as cost/latency/retrieval-accuracy tradeoff (TTFT grows with length; multi-needle accuracy drops; caching ~4x cheaper). Magic quantifies KV-cache memory (638 H100s per user for a 100M-token KV cache on Llama 3.1 405B). Qwen quantifies serving memory (120-320 GB VRAM per 1M-token request) and relies on sparse attention for 3.2-6.7x prefill speedup. Meta shows 10M is extrapolation from 256K training, and independent tests show steep degradation. Pricing tiers encode serving cost: Gemini 2.5 Pro 2x input / 1.5x output above 200K; every Grok model 2x at >=200K; Anthropic removed its surcharge at 1M GA (March 2026). Default-vs-max: Claude Code product defaults to 200K while API models list 1M; Fable 5 makes 1M the default. HOW VENDORS EXTEND OR SIDESTEP: progressive RoPE-base context extension + Dual Chunk Attention extrapolation (Qwen); iRoPE interleaved no-PE layers + attention temperature scaling (Meta); non-attention sequence mechanism (Magic); and on the serving side, prefix/context caching (OpenAI 0.1x, Gemini ~10%, per-hour storage fees), server-side compaction (Anthropic default trigger 150K; OpenAI compact_threshold, Feb 2026), context editing and memory tools (Anthropic, +39%), server-held conversation state (OpenAI previous_response_id), deferred tool loading and subagents with separate windows (Claude Code)."
+}

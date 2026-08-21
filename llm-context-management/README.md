@@ -1,10 +1,14 @@
 # Context Window Playbook — how people manage an LLM's context
 
-**Report:** [`report.html`](report.html) (self-contained HTML, 293 KB) · **Date:** 2026-08-20
+**Reports:** [`report.html`](report.html) — the Context Window Playbook (techniques, 2026-08-20) · [`market-report.html`](market-report.html) — the Context Market Map (market research, 2026-08-21)
 
 A sourced survey of the popular ways to manage an LLM's context window, ranked by how much the
 literature and the community talk about them, each with a concrete implementation recipe, a code
 snippet against a real API, tools, pitfalls and 12 sources.
+
+## Context Market Map (market research, 2026-08-21)
+
+[`market-report.html`](market-report.html) answers three questions for a founder: what breaks for teams using context and memory tooling today and which of those problems are worth solving (14 scored problems), who the startups and incumbents are (24 profiled companies, 14 sourced funding rounds, 13 platform moves), and how a new entrant should pick a wedge (7 scored wedges, a recommended one, a first-90-days plan). Built by `src/market/build.py` from the `ctx-market-research` workflow outputs in `src/market/`; 195 sources. Known limitation: a session-wide search quota ran out mid-sweep, so some planned queries did not run (listed in the report's Method section).
 
 ## Findings at a glance
 
