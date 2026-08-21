@@ -1,3 +1,5 @@
 .DS_Store
 **/shots/
 *.bak-*
+llm-context-management/src/llm-context-management.html
+llm-context-management/src/llm-context-management.artifact.html

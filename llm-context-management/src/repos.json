@@ -1,0 +1,327 @@
+{
+ "fetched": "2026-08-21",
+ "repos": [
+  {
+   "repo": "anthropics/claude-code",
+   "stars": 142276,
+   "description": "Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining c",
+   "url": "https://github.com/anthropics/claude-code",
+   "pushed_at": "2026-08-20",
+   "archived": false,
+   "technique": "compaction-summarization",
+   "role": "Auto-compact at a threshold, /compact with instructions, CLAUDE.md memory files, subagents"
+  },
+  {
+   "repo": "cline/cline",
+   "stars": 66606,
+   "description": "Autonomous coding agent as an SDK, IDE extension, or CLI assistant.",
+   "url": "https://github.com/cline/cline",
+   "pushed_at": "2026-08-21",
+   "archived": false,
+   "technique": "compaction-summarization",
+   "role": "Context-window meter with compaction around 80% utilization; memory-bank practice"
+  },
+  {
+   "repo": "langchain-ai/langgraph",
+   "stars": 40185,
+   "description": "Build resilient agents.",
+   "url": "https://github.com/langchain-ai/langgraph",
+   "pushed_at": "2026-08-20",
+   "archived": false,
+   "technique": "compaction-summarization",
+   "role": "Summarization nodes, trim_messages, RemoveMessage, checkpointers and a long-term store"
+  },
+  {
+   "repo": "langchain-ai/langmem",
+   "stars": 1620,
+   "description": "",
+   "url": "https://github.com/langchain-ai/langmem",
+   "pushed_at": "2026-08-11",
+   "archived": false,
+   "technique": "long-term-memory-systems",
+   "role": "Running summaries and semantic/episodic/procedural memory managers for LangGraph"
+  },
+  {
+   "repo": "microsoft/semantic-kernel",
+   "stars": 28477,
+   "description": "Integrate cutting-edge LLM technology quickly and easily into your apps",
+   "url": "https://github.com/microsoft/semantic-kernel",
+   "pushed_at": "2026-08-21",
+   "archived": false,
+   "technique": "pruning-context-editing",
+   "role": "ChatHistoryTruncationReducer and ChatHistorySummarizationReducer"
+  },
+  {
+   "repo": "microsoft/autogen",
+   "stars": 60562,
+   "description": "A programming framework for agentic AI",
+   "url": "https://github.com/microsoft/autogen",
+   "pushed_at": "2026-04-15",
+   "archived": false,
+   "technique": "pruning-context-editing",
+   "role": "BufferedChatCompletionContext and token-limited model contexts"
+  },
+  {
+   "repo": "openai/openai-agents-python",
+   "stars": 28835,
+   "description": "A lightweight, powerful framework for multi-agent workflows",
+   "url": "https://github.com/openai/openai-agents-python",
+   "pushed_at": "2026-08-21",
+   "archived": false,
+   "technique": "pruning-context-editing",
+   "role": "Sessions, TrimmingSession and server-side conversation state"
+  },
+  {
+   "repo": "vercel/ai",
+   "stars": 26336,
+   "description": "The AI Toolkit for TypeScript. From the creators of Next.js, the AI SDK is a free open-source library for building AI-powered applications and agents ",
+   "url": "https://github.com/vercel/ai",
+   "pushed_at": "2026-08-21",
+   "archived": false,
+   "technique": "pruning-context-editing",
+   "role": "pruneMessages for dropping old tool results from the message list"
+  },
+  {
+   "repo": "pydantic/pydantic-ai",
+   "stars": 19431,
+   "description": "How Python does AI: agents, realtime voice, image generation, embeddings. Every model, every interface, typed end to end.",
+   "url": "https://github.com/pydantic/pydantic-ai",
+   "pushed_at": "2026-08-21",
+   "archived": false,
+   "technique": "pruning-context-editing",
+   "role": "History processors that trim or summarize messages before each run"
+  },
+  {
+   "repo": "mem0ai/mem0",
+   "stars": 63761,
+   "description": "Universal memory layer for AI Agents",
+   "url": "https://github.com/mem0ai/mem0",
+   "pushed_at": "2026-08-21",
+   "archived": false,
+   "technique": "long-term-memory-systems",
+   "role": "LLM fact extraction with add/update/merge consolidation; optional graph store"
+  },
+  {
+   "repo": "letta-ai/letta",
+   "stars": 24332,
+   "description": "Platform for stateful agents: AI with advanced memory that can learn and self-improve over time.",
+   "url": "https://github.com/letta-ai/letta",
+   "pushed_at": "2026-08-16",
+   "archived": false,
+   "technique": "long-term-memory-systems",
+   "role": "MemGPT lineage: self-editing core memory blocks, archival/recall tiers, sleep-time agents"
+  },
+  {
+   "repo": "getzep/graphiti",
+   "stars": 30167,
+   "description": "Build Real-Time Knowledge Graphs for AI Agents",
+   "url": "https://github.com/getzep/graphiti",
+   "pushed_at": "2026-08-21",
+   "archived": false,
+   "technique": "long-term-memory-systems",
+   "role": "Bi-temporal knowledge-graph memory behind Zep"
+  },
+  {
+   "repo": "topoteretes/cognee",
+   "stars": 30171,
+   "description": "Cognee is the open-source AI memory platform for agents. Give your AI agents persistent long-term memory across sessions with a self-hosted knowledge graph engi",
+   "url": "https://github.com/topoteretes/cognee",
+   "pushed_at": "2026-08-21",
+   "archived": false,
+   "technique": "long-term-memory-systems",
+   "role": "Graph-vector hybrid memory platform"
+  },
+  {
+   "repo": "crewAIInc/crewAI",
+   "stars": 57428,
+   "description": "Framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tac",
+   "url": "https://github.com/crewAIInc/crewAI",
+   "pushed_at": "2026-08-21",
+   "archived": false,
+   "technique": "long-term-memory-systems",
+   "role": "Unified memory (short-term, long-term, entity) for agent crews"
+  },
+  {
+   "repo": "run-llama/llama_index",
+   "stars": 51790,
+   "description": "LlamaIndex is the leading document agent and OCR platform",
+   "url": "https://github.com/run-llama/llama_index",
+   "pushed_at": "2026-08-20",
+   "archived": false,
+   "technique": "retrieval-jit-context-loading",
+   "role": "RAG framework; memory blocks that flush history into long-term memory"
+  },
+  {
+   "repo": "Aider-AI/aider",
+   "stars": 48386,
+   "description": "aider is AI pair programming in your terminal",
+   "url": "https://github.com/Aider-AI/aider",
+   "pushed_at": "2026-05-22",
+   "archived": false,
+   "technique": "retrieval-jit-context-loading",
+   "role": "Tree-sitter repo map ranked into ~1K tokens of code context"
+  },
+  {
+   "repo": "microsoft/agent-framework",
+   "stars": 13027,
+   "description": "A framework for building, orchestrating and deploying AI agents and multi-agent workflows with support for Python and .NET.",
+   "url": "https://github.com/microsoft/agent-framework",
+   "pushed_at": "2026-08-21",
+   "archived": false,
+   "technique": "sub-agent-isolation",
+   "role": "Multi-agent orchestration with per-agent context (successor to AutoGen/SK agents)"
+  },
+  {
+   "repo": "humanlayer/12-factor-agents",
+   "stars": 25406,
+   "description": "What are the principles we can use to build LLM-powered software that is actually good enough to put in the hands of production customers?",
+   "url": "https://github.com/humanlayer/12-factor-agents",
+   "pushed_at": "2025-09-21",
+   "archived": false,
+   "technique": "offloading-cache-friendly-prompt-design",
+   "role": "Factor 3 \"own your context window\": custom token-dense serialization of the event log"
+  },
+  {
+   "repo": "vllm-project/vllm",
+   "stars": 89644,
+   "description": "A high-throughput and memory-efficient inference and serving engine for LLMs",
+   "url": "https://github.com/vllm-project/vllm",
+   "pushed_at": "2026-08-21",
+   "archived": false,
+   "technique": "model-infra-foundations",
+   "role": "PagedAttention and automatic prefix caching for KV reuse"
+  },
+  {
+   "repo": "sgl-project/sglang",
+   "stars": 32233,
+   "description": "SGLang is a high-performance serving framework for large language models and multimodal models.",
+   "url": "https://github.com/sgl-project/sglang",
+   "pushed_at": "2026-08-21",
+   "archived": false,
+   "technique": "model-infra-foundations",
+   "role": "RadixAttention prefix cache (LRU radix tree)"
+  },
+  {
+   "repo": "LMCache/LMCache",
+   "stars": 11295,
+   "description": "LMCache: Supercharge Your LLM with the Fastest KV Cache Layer",
+   "url": "https://github.com/LMCache/LMCache",
+   "pushed_at": "2026-08-21",
+   "archived": false,
+   "technique": "model-infra-foundations",
+   "role": "KV-cache offload GPU\u2192CPU\u2192disk and cross-instance sharing"
+  },
+  {
+   "repo": "vllm-project/production-stack",
+   "stars": 2522,
+   "description": "vLLM\u2019s reference system for K8S-native cluster-wide deployment with community-driven performance optimization",
+   "url": "https://github.com/vllm-project/production-stack",
+   "pushed_at": "2026-08-18",
+   "archived": false,
+   "technique": "model-infra-foundations",
+   "role": "Production vLLM stack; tutorial on offloading the KV cache"
+  },
+  {
+   "repo": "chroma-core/context-rot",
+   "stars": 301,
+   "description": "This repository contains the toolkit for replicating results from our technical report.",
+   "url": "https://github.com/chroma-core/context-rot",
+   "pushed_at": "2025-09-03",
+   "archived": false,
+   "technique": "model-infra-foundations",
+   "role": "Code and data behind Chroma's context-rot evaluation of 18 models"
+  },
+  {
+   "repo": "microsoft/LLMLingua",
+   "stars": 6589,
+   "description": "[EMNLP'23, ACL'24] To speed up LLMs' inference and enhance LLM's perceive of key information, compress the prompt and KV-Cache, which achieves up to 20x compres",
+   "url": "https://github.com/microsoft/LLMLingua",
+   "pushed_at": "2026-04-08",
+   "archived": false,
+   "technique": "prompt-compression",
+   "role": "LLMLingua, LongLLMLingua and LLMLingua-2 prompt compressors"
+  },
+  {
+   "repo": "openai/tiktoken",
+   "stars": 19059,
+   "description": "tiktoken is a fast BPE tokeniser for use with OpenAI's models.",
+   "url": "https://github.com/openai/tiktoken",
+   "pushed_at": "2026-08-17",
+   "archived": false,
+   "technique": "addendum-token-accounting-context-observability",
+   "role": "Fast BPE tokenizer for local token counts on OpenAI models"
+  },
+  {
+   "repo": "nilenso/context-viewer",
+   "stars": 84,
+   "description": "Observability for contexts. Given a coversation log (messages), this tool will provide a breakdown of its components and their sizes. It also classifies message",
+   "url": "https://github.com/nilenso/context-viewer",
+   "pushed_at": "2026-08-09",
+   "archived": false,
+   "technique": "addendum-token-accounting-context-observability",
+   "role": "Classifies a conversation log by component and charts context growth"
+  },
+  {
+   "repo": "open-telemetry/semantic-conventions",
+   "stars": 637,
+   "description": "Defines standards for generating consistent, accessible telemetry across a variety of domains",
+   "url": "https://github.com/open-telemetry/semantic-conventions",
+   "pushed_at": "2026-08-20",
+   "archived": false,
+   "technique": "addendum-token-accounting-context-observability",
+   "role": "GenAI semantic conventions: gen_ai.usage.* token attributes for tracing"
+  },
+  {
+   "repo": "openai/openai-cookbook",
+   "stars": 75450,
+   "description": "Examples and guides for using the OpenAI API",
+   "url": "https://github.com/openai/openai-cookbook",
+   "pushed_at": "2026-08-21",
+   "archived": false,
+   "technique": "addendum-token-accounting-context-observability",
+   "role": "\"How to count tokens with tiktoken\" notebook"
+  },
+  {
+   "repo": "Meirtz/Awesome-Context-Engineering",
+   "stars": 3277,
+   "description": " \ud83d\udd25 Comprehensive survey on Context Engineering: from prompt engineering to production-grade AI systems. hundreds of papers, frameworks, and  implementation guid",
+   "url": "https://github.com/Meirtz/Awesome-Context-Engineering",
+   "pushed_at": "2026-05-28",
+   "archived": false,
+   "technique": "meta",
+   "role": "Curated list of context-engineering papers, posts and tools"
+  },
+  {
+   "repo": "jihoo-kim/awesome-context-engineering",
+   "stars": 110,
+   "description": "A curated list of awesome open-source libraries for context engineering (Long-term memory, MCP: Model Context Protocol, Prompt/RAG Compression, Multi-Agent)",
+   "url": "https://github.com/jihoo-kim/awesome-context-engineering",
+   "pushed_at": "2025-07-03",
+   "archived": false,
+   "technique": "meta",
+   "role": "Curated list of context-engineering resources"
+  }
+ ],
+ "threads": [
+  {
+   "url": "https://github.com/anthropics/claude-code/issues/10948",
+   "title": "claude-code #10948 \u2014 auto-compact triggers mid-task, causing context loss (closed as duplicate of a 10+ issue cluster)"
+  },
+  {
+   "url": "https://github.com/anthropics/claude-code/issues/42590",
+   "title": "claude-code #42590 \u2014 compaction too aggressive on the 1M window"
+  },
+  {
+   "url": "https://github.com/anthropics/claude-code/issues/34299",
+   "title": "claude-code #34299 \u2014 feature request: pre-compaction hook and warning"
+  },
+  {
+   "url": "https://github.com/cline/cline/discussions/3248",
+   "title": "cline discussion #3248 \u2014 the Compact feature"
+  },
+  {
+   "url": "https://github.com/anomalyco/opencode/issues/5200",
+   "title": "opencode #5200 \u2014 make /compact use OpenAI server-side compaction"
+  }
+ ]
+}

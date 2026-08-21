@@ -20,6 +20,10 @@ snippet against a real API, tools, pitfalls and 12 sources.
 | 8 | Prompt compression (LLMLingua family, gisting) | compress | 12 |
 | † | Addenda: vendor server-side state (OpenAI Responses/compact); token accounting & observability | | |
 
+The report also maps the **open-source landscape**: 30 GitHub repositories (frameworks, tools, research
+companions, curated lists) and 5 community threads, with live star counts, grouped by the technique each
+implements (`src/repos.json`, fetched 2026-08-21).
+
 Evidence base: 164 unique sources — 52 papers, 42 blog posts, 33 doc pages, 17 videos/talks,
 9 community threads, 6 repos. Popularity = distinct sources that substantively cover a technique
 (ranking also weighs stars, citations and how many frameworks ship it). Search was US-only and never
@@ -48,7 +52,7 @@ were then audited (`src/links.tsv`: 147 live, 16 bot-blocked but confirmed, 1 de
 
 ```bash
 cd src
-python3 build.py            # reads result.json, taxonomy.json, sections/, sweep/, links.tsv, decision.json
+python3 build.py            # reads result.json, taxonomy.json, sections/, sweep/, links.tsv, decision.json, repos.json
 cp llm-context-management.html ../report.html
 # visual check (needs the Playwright workspace at ~/browser-automation):
 NODE_PATH=~/browser-automation/node_modules node shoot.js llm-context-management.html ./shots

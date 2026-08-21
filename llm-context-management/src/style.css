@@ -61,6 +61,13 @@ th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--hair);verti
 th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
 details{margin:10px 0}
+.repo-lists{columns:2;column-gap:36px}
+.repo-group{break-inside:avoid;margin-bottom:6px}
+.repo-group h4{font-size:15.5px;margin:14px 0 6px;font-family:"Bricolage Grotesque",system-ui,sans-serif}
+ul.repos{padding-left:20px;margin:0 0 10px}
+ul.repos li{margin:0 0 6px;font-size:15px}
+.stars{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:900px){.repo-lists{columns:1}}
 summary{cursor:pointer;font-weight:600}
 footer{padding:24px 20px 48px;font-size:14px}
 @media (max-width:600px){body{font-size:16px}.lede{font-size:18px}.dek{font-size:18px}.masthead{padding:32px 0 24px}section.part,section.technique{padding:30px 0}pre{font-size:12px}figure{padding:10px}.kv>div{font-size:14.5px}}

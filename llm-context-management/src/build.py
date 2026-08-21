@@ -246,6 +246,42 @@ def svg_flow(spec):
             out.append(t(n['x'] + n['w'] / 2, n['y'] + n['h'] + 13, n['sub'], 10.5, MUTED, 500, 'middle'))
     out.append('</svg>'); return ''.join(out)
 
+# ---------------- Figure 5: GitHub stars per repo (log scale dot plot) ----------------
+META_COLOR = '#9aa3b2'
+def fmt_stars(n):
+    return f'{n/1000:.0f}k' if n >= 10000 else (f'{n/1000:.1f}k' if n >= 1000 else str(n))
+def svg_repo_stars(repos, cats_by_slug):
+    import math
+    rows = sorted(repos, key=lambda r: -r['stars'])
+    W = 880; lab_w = 292; x0 = lab_w + 10; plot_w = W - x0 - 84; rh = 34; top = 28
+    lo, hi = 1.7, 5.35
+    def X(v): return x0 + plot_w * (math.log10(max(v, 10)) - lo) / (hi - lo)
+    n = len(rows); H = top + rh * n + 78
+    out = [svg_open(W, H, 'GitHub stars per repository, log scale, coloured by the technique each implements', minw=640)]
+    for v, lab in [(100, '100'), (1000, '1k'), (10000, '10k'), (100000, '100k')]:
+        gx = X(v)
+        out.append(f'<line x1="{gx:.1f}" y1="{top - 8}" x2="{gx:.1f}" y2="{top + rh * n}" stroke="{HAIR}" stroke-width="1"/>')
+        out.append(t(gx, top + rh * n + 16, lab, 11, MUTED, 400, 'middle'))
+    out.append(t(x0 + plot_w / 2, top + rh * n + 34, 'GitHub stars, log scale (fetched 2026-08-21)', 11, MUTED, 400, 'middle'))
+    for i, r in enumerate(rows):
+        y = top + i * rh; cy = y + rh / 2
+        c = cats_by_slug.get(r['technique'])
+        col = STAGES[stage_key(c.get('stage'))]['color'] if c else META_COLOR
+        tech = sname(c) if c else 'Curated list'
+        if i % 2 == 0: out.append(f'<rect x="0" y="{y}" width="{W}" height="{rh}" fill="{BG}"/>')
+        out.append(t(12, cy - 2, r['repo'], 12.5, INK, 600))
+        out.append(t(12, cy + 11, tech, 10.5, MUTED, 500))
+        xs = X(r['stars'])
+        out.append(f'<line x1="{x0}" y1="{cy:.1f}" x2="{xs:.1f}" y2="{cy:.1f}" stroke="{col}" stroke-width="2" stroke-opacity="0.35"/>')
+        out.append(f'<circle cx="{xs:.1f}" cy="{cy:.1f}" r="6" fill="{col}" stroke="{SURFACE}" stroke-width="2"><title>{esc(r["repo"])}: {r["stars"]:,} stars</title></circle>')
+        out.append(t(xs + 11, cy + 4, fmt_stars(r['stars']), 11.5, INK2, 600))
+    ly = top + rh * n + 58; lx = 12
+    out.append(t(lx, ly, 'Stage:', 11.5, MUTED, 600)); lx += 44
+    for k, st in list(STAGES.items()) + [('meta', dict(name='Curated list', color=META_COLOR))]:
+        out.append(f'<rect x="{lx}" y="{ly - 10}" width="12" height="12" rx="2" fill="{st["color"]}"/>')
+        out.append(t(lx + 17, ly, st['name'], 11.5, INK2)); lx += 17 + 7.2 * len(st['name']) + 22
+    out.append('</svg>'); return ''.join(out)
+
 # ---------------- fragment hygiene ----------------
 def clean_fragment(frag):
     frag = re.sub(r'<script\b.*?</script>', '', frag, flags=re.S | re.I)
@@ -327,6 +363,7 @@ def main():
         sections_html.append(frag)
 
     decision = json.load(open(os.path.join(DIR, 'decision.json'))) if os.path.exists(os.path.join(DIR, 'decision.json')) else None
+    repos = json.load(open(os.path.join(DIR, 'repos.json'))) if os.path.exists(os.path.join(DIR, 'repos.json')) else None
 
     # ---- nav ----
     def short(n):
@@ -334,6 +371,7 @@ def main():
     nav = ['<li><a href="#glance">At a glance</a></li>'] + \
           [f'<li><a href="#{esc(c["slug"])}">{c.get("rank")}. {esc(sname(c))}</a></li>' for c in cats if c['slug'] in sums_by_slug or os.path.exists(os.path.join(DIR, 'sections', c['slug'] + '.html'))]
     if decision: nav.append('<li><a href="#decide">Which one when</a></li>')
+    if repos: nav.append('<li><a href="#repos">Open-source landscape</a></li>')
     nav.append('<li><a href="#method">Method &amp; sources</a></li>')
 
     # ---- tiles ----
@@ -373,6 +411,30 @@ def main():
         fig_decide = (f'<section class="part wide" id="decide"><h2>Which one to reach for</h2><p class="lede">{esc(decision.get("lede", ""))}</p>'
                       f'<figure><div class="scroll">{svg_flow(decision)}</div><figcaption><span class="swipe">Swipe sideways to see the whole figure. </span><b>Figure 4.</b> {esc(decision.get("caption", ""))}</figcaption></figure></section>')
 
+    fig_repos = ''
+    if repos:
+        order = [c['slug'] for c in cats] + ['meta']
+        lists = ''
+        for slug in order:
+            items = sorted([r for r in repos['repos'] if r['technique'] == slug], key=lambda r: -r['stars'])
+            if not items: continue
+            c = cats_by_slug.get(slug)
+            head = (f'<a href="#{esc(slug)}">{esc(sname(c))}</a>' if c else 'Curated lists')
+            lis = ''.join(f'<li><a href="{esc(r["url"])}" target="_blank" rel="noopener">{esc(r["repo"])}</a> <span class="stars">{fmt_stars(r["stars"])}★</span> — {esc(r["role"])}</li>' for r in items)
+            lists += f'<div class="repo-group"><h4>{head}</h4><ul class="repos">{lis}</ul></div>'
+        threads = ''.join(f'<li><a href="{esc(th["url"])}" target="_blank" rel="noopener">{esc(th["title"])}</a></li>' for th in repos['threads'])
+        rtab = ['<div class="table-wrap"><table><thead><tr><th>Repository</th><th>Technique</th><th class="n">Stars</th><th>Last push</th><th>Role in context management</th></tr></thead><tbody>']
+        for r in sorted(repos['repos'], key=lambda r: -r['stars']):
+            c = cats_by_slug.get(r['technique'])
+            rtab.append(f'<tr><td><a href="{esc(r["url"])}" target="_blank" rel="noopener">{esc(r["repo"])}</a></td><td>{esc(sname(c) if c else "Curated list")}</td><td class="n">{r["stars"]:,}</td><td>{esc(r["pushed_at"])}</td><td>{esc(r["role"])}</td></tr>')
+        rtab.append('</tbody></table></div>')
+        fig_repos = (f'<section class="part wide" id="repos"><h2>Open-source landscape</h2>'
+                     f'<p class="lede">The GitHub repositories that surfaced in the research: the frameworks and tools that ship each technique, the research companions and curated lists, and the community threads where practitioners argue about compaction. Stars are a rough attention signal, fetched live on {esc(repos.get("fetched", ""))}; a small, focused repo can matter more than a large framework where only one module is relevant.</p>'
+                     f'<figure><div class="scroll">{svg_repo_stars(repos["repos"], cats_by_slug)}</div><figcaption><span class="swipe">Swipe sideways to see the whole figure. </span><b>Figure 5.</b> GitHub stars for every repository the research touched, on a log scale because the range runs from under 100 to over 140,000. Colour = lifecycle stage of the technique the repo implements; the grey rows are curated lists. Exact values in the table below.</figcaption>'
+                     f'<details><summary>Table view</summary>{"".join(rtab)}</details></figure>'
+                     f'<h3>By technique</h3><div class="repo-lists">{lists}</div>'
+                     f'<h3>Community threads that surfaced in the research</h3><ul class="repos">{threads}</ul></section>')
+
     body = f'''
 <header class="masthead"><div class="wrap">
   <p class="eyebrow">Research report · {TODAY} · {total} sources across papers, blogs, docs, videos and community threads</p>
@@ -395,6 +457,7 @@ def main():
 </section>
 {''.join(f'<div class="wrap">{s}</div>' for s in sections_html)}
 {fig_decide}
+{fig_repos}
 <section class="part wrap" id="method">
   <h2>Method &amp; sources</h2>
   <p>Six parallel research sweeps ran on {TODAY}, each restricted to one kind of source and capped at roughly 14 searches / 8 page fetches / 15 minutes: academic papers, industry engineering blogs, videos and conference talks, social and community threads, framework and tool documentation, and model/inference-level research. Results were de-duplicated by URL, clustered into the categories above, and each category was then deep-read by a dedicated pass (≤ 10 fetches) that wrote its section from primary sources. A final completeness check looked for missing techniques and triggered one bounded gap-fill round.</p>
