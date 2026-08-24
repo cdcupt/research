@@ -376,6 +376,30 @@ def svg_causes(causes):
     nodes.append(dict(id='end', kind='start', x=820, y=20 + (rh * n - 64) / 2, w=240, h=64, text='Vendors cap windows near 1M and price long context higher', chars=26, size=12))
     return svg_flow(dict(title='Why context windows are capped: causes and effects', w=W, h=H, minw=860, nodes=nodes, edges=edges))
 
+def svg_cn_stack(players):
+    LAYERS = [('architecture', 'Model architecture'), ('serving', 'Serving & KV infrastructure'), ('memory-layer', 'Memory layer'), ('application', 'Applications & agents'), ('research', 'Academic research')]
+    W = 1120; lab_w = 230; y = 14; out = [svg_open(W, 10, 'The Chinese context-management stack, by layer; filled dot = open weights', minw=900)]
+    for i, (key, name) in enumerate(LAYERS):
+        items = [a for a in players if a.get('layer') == key]
+        if not items: continue
+        x = lab_w + 10; cy = y + 26; chips = []
+        for a in items:
+            lab = f"{a['org']} · {a['model_or_product']}"; w = 6.9 * len(lab) + 30
+            if x + w > W - 12: x = lab_w + 10; cy += 30
+            chips.append((x, cy, w, a, lab)); x += w + 8
+        h = (cy - y) + 24
+        out.append(f'<rect x="8" y="{y}" width="{W-16}" height="{h}" rx="5" fill="{BG if i % 2 == 0 else SURFACE}" stroke="{HAIR}"/>')
+        out.append(tlines(18, y + 22, wrap(name, 24, 2), 12.5, 14, INK, 700))
+        for cx, cy2, w, a, lab in chips:
+            out.append(f'<rect x="{cx:.1f}" y="{cy2 - 17}" width="{w:.1f}" height="24" rx="12" fill="{SURFACE}" stroke="{STAGES["foundations"]["color"]}" stroke-width="1.2"><title>{esc(a["contribution"])}</title></rect>')
+            dot = f'<circle cx="{cx + 12}" cy="{cy2 - 5}" r="4.5" fill="{"#2a78d6" if a.get("open_weight") else SURFACE}" stroke="#2a78d6" stroke-width="1.6"/>'
+            out.append(dot); out.append(t(cx + 22, cy2 - 1, lab, 11.5, INK, 600))
+        y += h + 8
+    ly = y + 16
+    out.append(f'<circle cx="26" cy="{ly - 4}" r="4.5" fill="#2a78d6"/>' + t(38, ly, 'open weights', 11, INK2))
+    out.append(f'<circle cx="140" cy="{ly - 4}" r="4.5" fill="{SURFACE}" stroke="#2a78d6" stroke-width="1.6"/>' + t(152, ly, 'closed', 11, INK2))
+    out[0] = out[0].replace(f'viewBox="0 0 {W} 10"', f'viewBox="0 0 {W} {ly + 12}"'); out.append('</svg>'); return ''.join(out)
+
 # ---------------- fragment hygiene ----------------
 def clean_fragment(frag):
     frag = re.sub(r'<script\b.*?</script>', '', frag, flags=re.S | re.I)
@@ -477,6 +501,17 @@ def main():
         deep_html = frag
         gp = os.path.join(dd_dir, 'sections', 'addendum-context-limits.html')
         if os.path.exists(gp): deep_html += clean_fragment(open(gp, encoding='utf-8').read())
+    # ---- China stack section ----
+    cn_html = ''
+    cn_dir = os.path.join(DIR, 'china'); cn_res_p = os.path.join(cn_dir, 'result.json'); cn_frag_p = os.path.join(cn_dir, 'sections', 'china-stack.html')
+    if os.path.exists(cn_res_p) and os.path.exists(cn_frag_p):
+        cn = json.load(open(cn_res_p)); cw = cn.get('china_stack') or {}
+        frag = clean_fragment(open(cn_frag_p, encoding='utf-8').read())
+        if cw.get('players'):
+            figc = f'<figure class="breakout"><div class="scroll">{svg_cn_stack(cw["players"])}</div><figcaption><span class="swipe">Swipe sideways to see the whole figure. </span><b>Figure 10.</b> The Chinese context-management stack by layer; a filled dot means the weights are open. Hover a chip for the contribution.</figcaption></figure>'
+            frag = re.sub(r'(<h3>)', figc + r'\1', frag, count=1)
+        meta_cn = '<div class="meta-row"><span class="stage-chip"><i class="dot" style="background:' + STAGES['foundations']['color'] + '"></i>China · added ' + esc(cn.get('date', TODAY)) + '</span></div>'
+        cn_html = re.sub(r'(</h2>)', r'\1' + meta_cn, frag, count=1)
     decision = json.load(open(os.path.join(DIR, 'decision.json'))) if os.path.exists(os.path.join(DIR, 'decision.json')) else None
     repos = json.load(open(os.path.join(DIR, 'repos.json'))) if os.path.exists(os.path.join(DIR, 'repos.json')) else None
 
@@ -486,6 +521,7 @@ def main():
     nav = ['<li><a href="#glance">At a glance</a></li>'] + \
           [f'<li><a href="#{esc(c["slug"])}">{c.get("rank")}. {esc(sname(c))}</a></li>' for c in cats if c['slug'] in sums_by_slug or os.path.exists(os.path.join(DIR, 'sections', c['slug'] + '.html'))]
     if deep_html: nav.append('<li><a href="#context-limits">★ Deep dive: context limits</a></li>')
+    if cn_html: nav.append('<li><a href="#china-stack">CN The Chinese stack</a></li>')
     if decision: nav.append('<li><a href="#decide">Which one when</a></li>')
     if repos: nav.append('<li><a href="#repos">Open-source landscape</a></li>')
     nav.append('<li><a href="#method">Method &amp; sources</a></li>')
@@ -573,6 +609,7 @@ def main():
 </section>
 {''.join(f'<div class="wrap">{s}</div>' for s in sections_html)}
 {('<div class="wrap">' + deep_html + '</div>') if deep_html else ''}
+{('<div class="wrap">' + cn_html + '</div>') if cn_html else ''}
 {fig_decide}
 {fig_repos}
 <section class="part wrap" id="method">

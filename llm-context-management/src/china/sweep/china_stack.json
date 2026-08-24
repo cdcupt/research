@@ -1,0 +1,367 @@
+{
+  "modality": "china_stack",
+  "as_of": "2026-08-24",
+  "sources": [
+    {
+      "title": "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model",
+      "url": "https://arxiv.org/abs/2405.04434",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "arXiv / DeepSeek-AI",
+      "lang": "en",
+      "topics": ["MLA", "KV cache compression", "MoE", "DeepSeek"],
+      "summary": "Origin paper of Multi-head Latent Attention (MLA), DeepSeek's KV-cache-compressing attention that became the foundation of its long-context economics and was widely copied across Chinese and Western labs.",
+      "key_facts": [
+        "DeepSeek-V2 (236B total / 21B activated, 128K context) introduced Multi-head Latent Attention (MLA), May 2024; https://arxiv.org/abs/2405.04434",
+        "Paper reports MLA-based V2 cuts KV cache 93.3% and boosts max generation throughput 5.76x vs DeepSeek 67B; https://arxiv.org/abs/2405.04434"
+      ]
+    },
+    {
+      "title": "Native Sparse Attention: Hardware-Aligned and Natively Trainable Sparse Attention",
+      "url": "https://arxiv.org/abs/2502.11089",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv / DeepSeek-AI",
+      "lang": "en",
+      "topics": ["NSA", "sparse attention", "long context", "DeepSeek"],
+      "summary": "DeepSeek's NSA paper (Feb 2025): sparse attention that is trainable end-to-end and aligned to GPU hardware, the research step between MLA and the production DSA/CSA lines.",
+      "key_facts": [
+        "NSA (Native Sparse Attention) posted 2025-02-16 by DeepSeek — hardware-aligned, natively trainable sparse attention for long context; https://arxiv.org/abs/2502.11089"
+      ]
+    },
+    {
+      "title": "Introducing DeepSeek-V3.2-Exp (DeepSeek API news, 2025-09-29)",
+      "url": "https://api-docs.deepseek.com/news/news250929",
+      "type": "docs",
+      "year": 2025,
+      "venue_or_author": "DeepSeek",
+      "lang": "en",
+      "topics": ["DSA", "sparse attention", "API pricing", "DeepSeek V3.2"],
+      "summary": "Official release note for DeepSeek-V3.2-Exp introducing DeepSeek Sparse Attention (DSA) in production, with an immediate API price cut of over 50% — the moment sparse attention became a pricing weapon.",
+      "key_facts": [
+        "DeepSeek-V3.2-Exp (built on V3.1-Terminus) introduced DeepSeek Sparse Attention (DSA), released 2025-09-29; https://api-docs.deepseek.com/news/news250929",
+        "DeepSeek API prices dropped 50%+ effective immediately with V3.2-Exp launch (2025-09-29); https://api-docs.deepseek.com/news/news250929",
+        "V3.1-Terminus kept on temporary comparison API until 2025-10-15 15:59 UTC; https://api-docs.deepseek.com/news/news250929"
+      ]
+    },
+    {
+      "title": "DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence",
+      "url": "https://arxiv.org/abs/2606.19348",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv / DeepSeek-AI",
+      "lang": "en",
+      "topics": ["DeepSeek V4", "CSA", "HCA", "1M context", "sparse attention", "open weights"],
+      "summary": "DeepSeek-V4 technical report (Apr 2026): hybrid Compressed Sparse Attention + Heavily Compressed Attention makes 1M-token context routine at a fraction of V3.2's cost; two MoE sizes (Pro 1.6T, Flash 284B).",
+      "key_facts": [
+        "DeepSeek-V4-Pro: 1.6T params (49B activated); DeepSeek-V4-Flash: 284B (13B activated); both 1M-token context; posted 2026-04-26; https://arxiv.org/abs/2606.19348",
+        "V4 hybrid attention combines Compressed Sparse Attention (CSA) + Heavily Compressed Attention (HCA), plus Manifold-Constrained Hyper-Connections and Muon optimizer; https://arxiv.org/abs/2606.19348",
+        "At 1M-token context, V4-Pro needs only 27% of single-token inference FLOPs and 10% of KV cache vs DeepSeek-V3.2; pre-trained on 32T+ tokens; https://arxiv.org/abs/2606.19348"
+      ]
+    },
+    {
+      "title": "DeepSeek V4 重磅开源！首次打通华为Ascend，也没丢掉英伟达，百万上下文夺回国产模型话语权 (per headline)",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5rV2lzNEpLTm8yM2k1eXV3UHRyMTNYcE85dEd2Y1pQd1g2RldLQklnRUx6ZGxCTm9LMU1PZkRZQ3lEdFNWekcyb2dYdC1nYkxIU19qaUpyNkNRdjc5TVE?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "InfoQ 中文 (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["DeepSeek V4", "Huawei Ascend", "open weights", "domestic compute", "1M context"],
+      "summary": "Chinese coverage of the V4 open-weights release: first DeepSeek flagship with day-0 Huawei Ascend (昇腾) support while retaining Nvidia, framed as reclaiming the 1M-context narrative for domestic models. Fact attributed per headline (redirect unresolvable).",
+      "key_facts": [
+        "DeepSeek V4 released open-weights 2026-04-24 with first-time day-0 Huawei Ascend support alongside Nvidia, 1M context (per headline, InfoQ-CN, 2026-04-24); https://news.google.com/rss/articles/CBMiXkFVX3lxTE5rV2lzNEpLTm8yM2k1eXV3UHRyMTNYcE85dEd2Y1pQd1g2RldLQklnRUx6ZGxCTm9LMU1PZkRZQ3lEdFNWekcyb2dYdC1nYkxIU19qaUpyNkNRdjc5TVE?oc=5"
+      ]
+    },
+    {
+      "title": "Training-Free Long-Context Scaling of Large Language Models (Dual Chunk Attention)",
+      "url": "https://arxiv.org/abs/2402.17463",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "arXiv / Chunqiu Steven Xia et al. (Alibaba-affiliated authors)",
+      "lang": "en",
+      "topics": ["Dual Chunk Attention", "training-free long context", "Qwen"],
+      "summary": "The Dual Chunk Attention (DCA) paper: training-free decomposition of attention into chunk-wise pieces that lets models serve contexts far beyond their training window; later productized in Qwen's 1M-token models.",
+      "key_facts": [
+        "DCA (posted 2024-02-27) enables 100k+-token windows without training and underpins Qwen long-context serving; https://arxiv.org/abs/2402.17463"
+      ]
+    },
+    {
+      "title": "Qwen2.5-1M Technical Report",
+      "url": "https://arxiv.org/abs/2501.15383",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv / Alibaba Qwen team",
+      "lang": "en",
+      "topics": ["Qwen", "1M context", "Dual Chunk Attention", "sparse attention inference"],
+      "summary": "Alibaba's Qwen2.5-1M report (Jan 2025): open-weight 1M-token context models plus an open-sourced inference framework combining DCA and sparse attention for practical million-token serving.",
+      "key_facts": [
+        "Qwen2.5-1M (posted 2025-01-26) brought open-weight 1M-token context with a DCA + sparse-attention serving stack; https://arxiv.org/abs/2501.15383"
+      ]
+    },
+    {
+      "title": "Qwen3-Next-80B-A3B-Instruct model card",
+      "url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct",
+      "type": "repo",
+      "year": 2025,
+      "venue_or_author": "Hugging Face / Alibaba Qwen",
+      "lang": "en",
+      "topics": ["Qwen3-Next", "hybrid attention", "Gated DeltaNet", "linear attention", "1M context", "open weights"],
+      "summary": "Model card for Qwen3-Next, Alibaba's hybrid linear-attention architecture: 3:1 Gated DeltaNet to Gated Attention layers with ultra-sparse MoE, native 262K context extending to ~1M via YaRN — China's flagship 'hybrid' answer to long-context cost.",
+      "key_facts": [
+        "Qwen3-Next-80B-A3B: 80B total / 3B activated params; 48 layers in 3:1 Gated DeltaNet : Gated Attention pattern; Apache 2.0; https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct",
+        "Native context 262,144 tokens, extensible to ~1,010,000 tokens via YaRN RoPE scaling; MoE = 512 experts, 10 active + 1 shared; https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct"
+      ]
+    },
+    {
+      "title": "Qwen3.8-Max arrives on Alibaba Cloud, offering massive context capacity for enterprise workloads (per headline)",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1vWm5ISXF4a2Q2S3dRLVBPaXNhU3p0cnExc3Y4a0ZzWTB2bzRyMUJJbWN3QjhhQUhtMTZ1Wl8yQjhJZ0lrVTZ4eTJndXhOdlMxLTVmdHl4NlU?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "CRN Asia (via Google News RSS)",
+      "lang": "en",
+      "topics": ["Qwen3.8-Max", "Alibaba Cloud", "enterprise long context"],
+      "summary": "Aug 2026 status of the Qwen line: Qwen3.8-Max shipped on Alibaba Cloud marketed on context capacity for enterprise; the same week NVIDIA published serving guidance for a 2.4T-parameter Qwen3.8 MoE. Facts per headline.",
+      "key_facts": [
+        "Qwen3.8-Max launched on Alibaba Cloud with 'massive context capacity for enterprise workloads' (per headline, CRN Asia, 2026-08-07); https://news.google.com/rss/articles/CBMiWEFVX3lxTE1vWm5ISXF4a2Q2S3dRLVBPaXNhU3p0cnExc3Y4a0ZzWTB2bzRyMUJJbWN3QjhhQUhtMTZ1Wl8yQjhJZ0lrVTZ4eTJndXhOdlMxLTVmdHl4NlU?oc=5",
+        "NVIDIA published a guide to serving Qwen3.8-2.4T-A95B (2.4T params, 95B active) on GB300 NVL72 (per headline, NVIDIA Developer Blog, 2026-08-12); https://news.google.com/rss/articles/CBMiywFBVV95cUxQOHBlRVZPd1pMMDlFM3pmd3RVcnVxUWlKejJCWHZZb0kyUnB6akZWRVNkQnA1bGppQzItdm43dW8xRVIyZ2k0X19MYWRqcmlhQ3NvNGluME1IX2JlX01xM2RMT3d4aDZiUFhVN3JxZ0xEamdqVEh6OVNfWEk5QlRGUUxMempxZGZYX3RBYlAtNHVFMk50d2Z1eV9saXdscnhtWFFmbTlOQjZYMHc1Mkt1X1dIQnA4aDR0NEpPa1ZGYVBGdjhHRHVfNm5lMA?oc=5"
+      ]
+    },
+    {
+      "title": "MoBA: Mixture of Block Attention for Long-Context LLMs",
+      "url": "https://arxiv.org/abs/2502.13189",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv / Moonshot AI",
+      "lang": "en",
+      "topics": ["MoBA", "block sparse attention", "Moonshot", "Kimi"],
+      "summary": "Moonshot AI's MoBA (Feb 2025): MoE-style routing over attention blocks so each query attends to a learned subset of context blocks — Moonshot's open sparse-attention counterpart to DeepSeek's NSA, released the same week.",
+      "key_facts": [
+        "MoBA posted 2025-02-18 by Moonshot AI as trainable block-sparse attention for long context, with open code; https://arxiv.org/abs/2502.13189"
+      ]
+    },
+    {
+      "title": "Mooncake: A KVCache-centric Disaggregated Architecture for LLM Serving",
+      "url": "https://arxiv.org/abs/2407.00079",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "arXiv / Moonshot AI + Tsinghua University",
+      "lang": "en",
+      "topics": ["Mooncake", "KV cache", "disaggregated serving", "Kimi"],
+      "summary": "The serving-side pillar of China's context stack: Mooncake separates prefill and decode clusters around a distributed KV-cache pool to serve Kimi's long-context traffic; later won FAST'25 Best Paper.",
+      "key_facts": [
+        "Mooncake paper posted 2024-06-24; KVCache-centric disaggregated prefill/decode architecture powering the Kimi service; https://arxiv.org/abs/2407.00079"
+      ]
+    },
+    {
+      "title": "kvcache-ai/Mooncake (GitHub)",
+      "url": "https://github.com/kvcache-ai/Mooncake",
+      "type": "repo",
+      "year": 2026,
+      "venue_or_author": "GitHub / Moonshot AI (kvcache-ai)",
+      "lang": "en",
+      "topics": ["Mooncake", "KV cache", "adoption", "vLLM", "SGLang", "open source infrastructure"],
+      "summary": "Mooncake's open-source repo shows it became shared infrastructure well beyond Moonshot: integrated by vLLM, SGLang, TensorRT-LLM, LMDeploy, LMCache and NIXL, with heterogeneous-accelerator support spanning NVIDIA, AMD and Huawei. Fetched 2026-08-24.",
+      "key_facts": [
+        "Mooncake integrated by SGLang, vLLM, TensorRT-LLM, LMDeploy, LMCache, NIXL; 6.4k GitHub stars, 1.1k forks (as of 2026-08-24); https://github.com/kvcache-ai/Mooncake",
+        "Mooncake won FAST 2025 Best Paper (Feb 2025); production deployment lets Kimi handle 75% more requests within SLOs; https://github.com/kvcache-ai/Mooncake",
+        "Feb 2026: PyTorch-ecosystem integration and adoption by RL frameworks (Miles, Speculators); supports NVIDIA, AMD, Huawei accelerators; https://github.com/kvcache-ai/Mooncake"
+      ]
+    },
+    {
+      "title": "Kimi K3: Open Frontier Intelligence",
+      "url": "https://arxiv.org/abs/2607.24653",
+      "type": "paper",
+      "year": 2026,
+      "venue_or_author": "arXiv / Moonshot AI",
+      "lang": "en",
+      "topics": ["Kimi K3", "Kimi Delta Attention", "1M context", "open weights", "agentic RL"],
+      "summary": "Moonshot's K3 report (Jul 2026): a 2.8T-parameter open MoE with 1M-token context built on Kimi Delta Attention and Attention Residuals, trained with million-token agentic RL — the largest open Chinese frontier model of mid-2026.",
+      "key_facts": [
+        "Kimi K3: 2.8T-param MoE, 104B activated, native vision, 1M-token context; posted 2026-07-27; https://arxiv.org/abs/2607.24653",
+        "K3 uses Kimi Delta Attention + Attention Residuals; Stable LatentMoE activates 16 of 896 routed experts/token; ~2.5x scaling efficiency vs K2; https://arxiv.org/abs/2607.24653",
+        "Paper states K3 trails Claude Fable 5 and GPT-5.6 Sol overall but outperforms all other open and proprietary models in its eval suite; https://arxiv.org/abs/2607.24653"
+      ]
+    },
+    {
+      "title": "MiniMax-01: Scaling Foundation Models with Lightning Attention",
+      "url": "https://arxiv.org/abs/2501.08313",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv / MiniMax",
+      "lang": "en",
+      "topics": ["MiniMax", "lightning attention", "linear attention", "4M context"],
+      "summary": "MiniMax's bet on linear 'lightning attention' at frontier scale: MiniMax-01 (456B/45.9B active) claimed the longest context window of any major model at launch — up to 4M tokens at inference.",
+      "key_facts": [
+        "MiniMax-01: hybrid lightning-attention MoE, 456B total / 45.9B activated params, posted 2025-01-14; https://arxiv.org/abs/2501.08313",
+        "MiniMax-01 claimed inference context up to 4M tokens at launch (per paper), the longest of any major model at the time; https://arxiv.org/abs/2501.08313"
+      ]
+    },
+    {
+      "title": "MiniMax M3: Open-weight model with a million-token context challenges proprietary leaders (per headline)",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPVGdwY0FSbmFTRmlRTDJtaWNlSVpDei1vSERmb2JQdXVqTkVVc0t2NXRUbThvUFFVSDJTZUJMNWRCVFo5aE1Hay1yN2l6aGtyTmNtZUFIelE5WkVYS0Q2NDg0ZkI3VnVoZi1zeC0yLTZYUElDZVEtLThJRzJIM05QWmd0S0lON29MZjhTU25yYmJXNVFXTHdudTFPbWt0N1JlS185NzJDOG9faEhpcjZjb2pRVQ?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "The Decoder (via Google News RSS)",
+      "lang": "en",
+      "topics": ["MiniMax M3", "1M context", "open weights", "sparse attention"],
+      "summary": "MiniMax's 2026 flagship M3: open-weight, 1M-token context, positioned against proprietary leaders; a week earlier MiniMax teased M3's new sparse-attention mechanism with a claimed 15.6x long-context response speedup. Facts per headline.",
+      "key_facts": [
+        "MiniMax M3 released open-weight with 1M-token context, framed as challenging proprietary leaders (per headline, The Decoder, 2026-06-01); https://news.google.com/rss/articles/CBMiswFBVV95cUxPVGdwY0FSbmFTRmlRTDJtaWNlSVpDei1vSERmb2JQdXVqTkVVc0t2NXRUbThvUFFVSDJTZUJMNWRCVFo5aE1Hay1yN2l6aGtyTmNtZUFIelE5WkVYS0Q2NDg0ZkI3VnVoZi1zeC0yLTZYUElDZVEtLThJRzJIM05QWmd0S0lON29MZjhTU25yYmJXNVFXTHdudTFPbWt0N1JlS185NzJDOG9faEhpcjZjb2pRVQ?oc=5",
+        "MiniMax teased M3's new sparse attention with 15.6x long-context response speed boost (per headline, VentureBeat, 2026-05-27); https://news.google.com/rss/articles/CBMizwFBVV95cUxNcFN2V0ljYUhMVXpvTWd4dGlDdmRlSnlQeFd0d3BPbUlsTDZ5aTZVTV8wckxYZUo3U2NyT19MRkxGbVg5TkhMZlN0TTF0M1MtVXRlc0h2WDYzMUo5SzhSYWRQTVRlQnZsQXZ1bkRLWjNBcFh3RlpCa2gtRlhYLUdieXBYc293UmFjUzdrMkd4V243RVc4ZzVzZVZDZ2F1Y1h1blA3UlZaR3Qwd0lILW1EWklPREFqamlqLWY5YTZiSUdWYjJCRkkxNFJFTVl1NXc?oc=5"
+      ]
+    },
+    {
+      "title": "GLM-4.5: Agentic, Reasoning, and Coding (ARC) Foundation Models",
+      "url": "https://arxiv.org/abs/2508.06471",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv / Zhipu AI (Z.ai)",
+      "lang": "en",
+      "topics": ["GLM-4.5", "Zhipu", "open weights", "hybrid reasoning", "MoE"],
+      "summary": "Zhipu's GLM-4.5 report: open-source 355B/32B-active MoE with hybrid thinking/direct modes trained on 23T tokens — the open-weights baseline of the GLM line before GLM-5.x pushed context to 1M.",
+      "key_facts": [
+        "GLM-4.5: open-source MoE, 355B total / 32B activated, 23T training tokens, hybrid thinking + direct response modes; posted 2025-08-08; https://arxiv.org/abs/2508.06471"
+      ]
+    },
+    {
+      "title": "GLM-5.2 开源！1M 上下文专攻长程任务，Code Arena 全球可用模型第一 (per headline)",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE52VGRZSHAwTnZLMVp6UTRVT25QRVhlNDN6OFR1TXpxVS1CcURNOUR6MW1ZLVVaRVZhTE5OY2gtcHFjV2JKRVBudk41UVZLdTBpelZBdTVMT05jVWF3Zlk0R1VTUk14OWhu?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "CSDN (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["GLM-5.2", "Zhipu", "1M context", "open weights", "long-horizon tasks"],
+      "summary": "Zhipu open-sourced GLM-5.2 in June 2026 with a 1M-token context aimed at long-horizon tasks, claiming #1 among globally available models on Code Arena; 财联社 framed the release as a bet on long context + domestic compute. Facts per headline.",
+      "key_facts": [
+        "GLM-5.2 open-sourced with 1M context for long-horizon tasks, ranked #1 globally-available model on Code Arena (per headline, CSDN, 2026-06-18); https://news.google.com/rss/articles/CBMiaEFVX3lxTE52VGRZSHAwTnZLMVp6UTRVT25QRVhlNDN6OFR1TXpxVS1CcURNOUR6MW1ZLVVaRVZhTE5OY2gtcHFjV2JKRVBudk41UVZLdTBpelZBdTVMT05jVWF3Zlk0R1VTUk14OWhu?oc=5",
+        "财联社 framed GLM-5.2 as Zhipu betting on long context + domestic compute ecosystem to enter the global top tier (per headline, 财联社, 2026-06-17); https://news.google.com/rss/articles/CBMiSEFVX3lxTE1YSXh6R21JSjJRUWVHdlJqdnI1dEJEWjRqR3IycXNlcUd6MXoxQ3NaUUEtbWp4STR5MllsQ3NlM2NWWGZQcWp1WA?oc=5"
+      ]
+    },
+    {
+      "title": "腾讯混元Hy3 preview发布并开源：Agent能力大幅提升 (per headline)",
+      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9XWDcyT3BfczdXaUpnM1RwekJpZGZUTzZnZl91R3BfVmt0bVpNc2dNVzlhTzFxZERHQ1BKTGVYWFR5a01lbUl4NmVxRlREZ25uOWdaRDlsMEZSZ3VnVW1kQUNNR3NoT1lKODd4cnhRcnpvb0JPTGt5Zw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "新浪财经 (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["Tencent", "Hunyuan", "Hy3", "open weights", "agents"],
+      "summary": "Tencent open-sourced Hunyuan Hy3 preview in April 2026 with a large jump in agent capability; by the Q2 earnings call (Aug 2026) Tencent confirmed next-gen multimodal Hy4 was imminent amid surging Hunyuan usage. WeChat-specific agent-memory disclosures did not surface in this sweep. Facts per headline.",
+      "key_facts": [
+        "Tencent Hunyuan Hy3 preview released and open-sourced with major agent-capability gains (per headline, 新浪财经, 2026-04-23); https://news.google.com/rss/articles/CBMieEFVX3lxTE9XWDcyT3BfczdXaUpnM1RwekJpZGZUTzZnZl91R3BfVmt0bVpNc2dNVzlhTzFxZERHQ1BKTGVYWFR5a01lbUl4NmVxRlREZ25uOWdaRDlsMEZSZ3VnVW1kQUNNR3NoT1lKODd4cnhRcnpvb0JPTGt5Zw?oc=5",
+        "Tencent Q2 FY2026 report flagged Hy4 release as near-term with Hunyuan usage surging (per headline, 驱动之家, 2026-08-13); https://news.google.com/rss/articles/CBMiWEFVX3lxTE43Q25pWEZzWTRHQWpTQXRncU84dnFZVmktS09uU3l0d240YXJ1WDBoUTdyR1R1VVF0YWZ5cmZvMm9mcTJ0a1dFTmswZ25Gdkc0RVpzdERGN2g?oc=5"
+      ]
+    },
+    {
+      "title": "Step-3 is Large yet Affordable: Model-system Co-design for Cost-effective Decoding",
+      "url": "https://arxiv.org/abs/2507.19427",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv / StepFun (阶跃星辰)",
+      "lang": "en",
+      "topics": ["StepFun", "MFA", "KV cache reduction", "attention-FFN disaggregation", "decoding cost"],
+      "summary": "StepFun's Step-3 paper: a 321B VLM co-designed with its serving system — Multi-Matrix Factorization Attention (MFA) shrinks KV cache and compute, and Attention-FFN Disaggregation (AFD) cuts long-context decoding cost. StepFun's current open agent model is Step 3.5 Flash (Feb 2026).",
+      "key_facts": [
+        "Step-3: 321B-param VLM with Multi-Matrix Factorization Attention (MFA) reducing KV cache size and compute, plus Attention-FFN Disaggregation; posted 2025-07-25; https://arxiv.org/abs/2507.19427",
+        "StepFun's open-source Step 3.5 Flash topped OpenRouter global trending within 2 days of its 2026-02 launch (per headline, InfoQ-CN, 2026-02-05); https://news.google.com/rss/articles/CBMiWkFVX3lxTFBjczU2NjB1QmJkOUxIQ3NnLVFBb2NaeE5sdTRnWkRtaEVJMk1OTTlSanZDc1J2eHJFR2lzNEF6SlVlc2pPUGdOY2ttcHJGYXpzcS1TR2pCcGJuUQ?oc=5"
+      ]
+    },
+    {
+      "title": "零一万物大模型开放平台将逐步停止面向用户提供在线体验、API 调用及充值等相关服务 (per headline)",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1ORUd2Y3hmTXpUS00tMWMwcXFHdWg0ZXRtRVhpUEVZSDdKRjloTXcxb1RyRFpMREoxMFY4ZTRCRnJNTVM0dno2SVFOMTZUdVRKN2lnd25TR0pNejhPSE9Jb3llbEVmbkpyRkRVOXBDeEVaNFhUb2JTWnJpZDlIOTQ?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "新浪财经 (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["01.AI", "零一万物", "model API shutdown", "enterprise pivot"],
+      "summary": "01.AI (零一万物) status: winding down its open-platform model API, online playground and recharge services (Aug 2026), completing its exit from frontier-model competition; the company pivoted to enterprise 'decision AI' (一号位AI) products in July 2026, with Kai-Fu Lee benchmarking against Palantir. Facts per headline.",
+      "key_facts": [
+        "01.AI announced its open platform will gradually stop online experience, API calls and recharge services (per headline, 新浪财经, 2026-08-10); https://news.google.com/rss/articles/CBMif0FVX3lxTE1ORUd2Y3hmTXpUS00tMWMwcXFHdWg0ZXRtRVhpUEVZSDdKRjloTXcxb1RyRFpMREoxMFY4ZTRCRnJNTVM0dno2SVFOMTZUdVRKN2lnd25TR0pNejhPSE9Jb3llbEVmbkpyRkRVOXBDeEVaNFhUb2JTWnJpZDlIOTQ?oc=5",
+        "01.AI launched '一号位AI' enterprise decision-AI product matrix (per headline, 新华网, 2026-07-07); https://news.google.com/rss/articles/CBMijAFBVV95cUxPQnJaejEyQmNYN1M1b09Gd0lDbkthUm9WSFMyeW1sSHVwaHdtOFVHMjZ6ODdhR1VtUEFtdTFrLTd0SkNoRjhveGY1UDhmaGstdTNnM3QtbTRIUG5kOTFJOURieEd0Z3hJM1B5OWtsbXljQXpvLVR2alp0SzRCb0NMUnhiU2oxWFB1UWJRZA?oc=5"
+      ]
+    },
+    {
+      "title": "MemOS: A Memory OS for AI System",
+      "url": "https://arxiv.org/abs/2507.03724",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "arXiv / MemTensor (记忆张量) + SJTU-affiliated collaborators",
+      "lang": "en",
+      "topics": ["MemOS", "memory operating system", "MemCube", "agent memory"],
+      "summary": "The MemOS paper: treats memory as a first-class OS-managed resource for LLMs (MemCube abstraction unifying parametric, activation and plaintext memory) — the flagship of China's 'memory OS' research line.",
+      "key_facts": [
+        "MemOS paper posted 2025-07-04 (v4 revisions since), proposing an OS-style memory layer (MemCube) for LLM agents; https://arxiv.org/abs/2507.03724"
+      ]
+    },
+    {
+      "title": "MemTensor/MemOS (GitHub)",
+      "url": "https://github.com/MemTensor/MemOS",
+      "type": "repo",
+      "year": 2026,
+      "venue_or_author": "GitHub / MemTensor (记忆张量)",
+      "lang": "en",
+      "topics": ["MemOS", "agent memory", "open source", "benchmarks"],
+      "summary": "MemOS open-source repo (Apache 2.0): unified memory API with graph-structured memories, MemScheduler async ingestion, and benchmark claims beating commercial memory offerings. Fetched 2026-08-24.",
+      "key_facts": [
+        "MemOS: 11,000 GitHub stars, Apache 2.0, 2,061 commits (as of 2026-08-24); https://github.com/MemTensor/MemOS",
+        "MemOS reports LoCoMo 88.83, LongMemEval 89.20, and claims 35.24% token savings vs commercial competitors; https://github.com/MemTensor/MemOS",
+        "Aug 2026: shipped a DeepSeek Harness plugin and local plugin v2.0; https://github.com/MemTensor/MemOS"
+      ]
+    },
+    {
+      "title": "记忆张量完成亿元 pre-A融资，但它说自己不是一家记忆公司 (per headline)",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTFA1RGtGOEZ2RkdyaDhicDRZLUtOVXNyLV9qSVJ0eEFFNEVzWGg2OU5fWmY4aUJQN3hKcWVWMlhoSnNaREN1ZXl2SQ?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "品玩 PingWest (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["MemTensor", "记忆张量", "funding", "agent memory", "Pre-A round"],
+      "summary": "MemTensor (记忆张量), the Shanghai startup behind MemOS founded by Dr. Xiong Feiyu (熊飞宇), closed a ~100M-RMB (亿元) Pre-A round in July 2026 while insisting it is building long-term-intelligence infrastructure, not just 'memory'. Facts per headline.",
+      "key_facts": [
+        "MemTensor (记忆张量) completed a 亿元-level (~RMB 100M+) Pre-A round (per headline, 品玩, 2026-07-24; first reported 投资界 2026-07-20); https://news.google.com/rss/articles/CBMiSEFVX3lxTFA1RGtGOEZ2RkdyaDhicDRZLUtOVXNyLV9qSVJ0eEFFNEVzWGg2OU5fWmY4aUJQN3hKcWVWMlhoSnNaREN1ZXl2SQ?oc=5",
+        "Founder is Dr. Xiong Feiyu (熊飞宇); positioning: agent long-term memory as the next competitive layer (per headline, QQ News interview, 2026-05-07); https://news.google.com/rss/articles/CBMiVkFVX3lxTE5ibDhuWUh5dnhaRjdGTlhyM3d5bUVJLWZ6cDhjTXplb1dTUGI0V01qMUlXczBNX0pRSmZKbzBvOWlJSTFFX2NNZFV4cHZYbS1VSU9RSF9n?oc=5"
+      ]
+    },
+    {
+      "title": "给大模型做记忆，郝建业半年融三轮 (per headline)",
+      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBkN2J6dDNyM09wclE3bmltZEdMaXJJOTN1WHhkQTlLRHdfQ19SOEhLVFBFVWtsVHo3SXZGRFFXT2JnaG1mRklRbXN6eHhLUQ?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "36氪 (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["Hao Jianye", "郝建业", "Tianjin University", "learnable memory", "funding"],
+      "summary": "The Tianjin University professor memory startup, distinct from MemTensor: Prof. Hao Jianye (郝建业, Tianjin University; ex-Huawei Noah's Ark RL lead) founded a startup building 'learnable memory' (可学习记忆) as a base layer to push AI into the 'era of experience', raising three rounds within six months by Aug 2026. Company name not stated in surfaced headlines (unknown). Facts per headline.",
+      "key_facts": [
+        "Prof. Hao Jianye's LLM-memory startup closed three funding rounds in six months (per headline, 36氪, 2026-08-11); round sizes unknown; https://news.google.com/rss/articles/CBMiTkFVX3lxTFBkN2J6dDNyM09wclE3bmltZEdMaXJJOTN1WHhkQTlLRHdfQ19SOEhLVFBFVWtsVHo3SXZGRFFXT2JnaG1mRklRbXN6eHhLUQ?oc=5",
+        "Positioning: 可学习记忆 (learnable memory) as the foundation to move AI toward the 'era of experience' (per headline, 手机新浪网 interview, 2026-08-21); https://news.google.com/rss/articles/CBMickFVX3lxTE9jbnczR1VQZm9LSzFFMk5YaXFjdXNObUJXQjBQbTl2U28td2gxV2ZFNWhPX0xXNk0yREpGWG9ERVNnU011UTktRG5vWjE0RjFTNTdxbkN0emlheWZ3LXZfMzJEQkFPVmNaXzJSb09vQWk1dw?oc=5"
+      ]
+    },
+    {
+      "title": "前华为高管深圳创业，做AI记忆，融资数亿元 (MemoraX AI) (per headline)",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE5rT1JTcVROMVVXdFM5Q1VvZlpJUXVxSVpaUGJJTk0tYWhQTmdZSnZKUFZONG5vOWE0UkJmZGlNMjBQWHZpd0xqSA?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "智东西 (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["MemoraX AI", "AI memory startup", "funding", "Shenzhen", "内生记忆"],
+      "summary": "Third data point that AI memory is a hot Chinese funding vertical in 2026: MemoraX AI, founded in Shenzhen by a former Huawei chief expert, raised a $10M+ seed (Apr 2026) branded around 'endogenous memory' (内生记忆), then accumulated several hundred million RMB across rounds within ~3 months by Aug 2026. Facts per headline.",
+      "key_facts": [
+        "MemoraX AI (ex-Huawei exec, Shenzhen) cumulative funding reached 数亿元 (several hundred million RMB) by Aug 2026 (per headline, 智东西, 2026-08-12); https://news.google.com/rss/articles/CBMiSEFVX3lxTE5rT1JTcVROMVVXdFM5Q1VvZlpJUXVxSVpaUGJJTk0tYWhQTmdZSnZKUFZONG5vOWE0UkJmZGlNMjBQWHZpd0xqSA?oc=5",
+        "MemoraX AI seed round was US$10M+ for a '内生记忆' (endogenous memory) paradigm (per headline, 投资界, 2026-04-28; 品玩, 2026-04-29); https://news.google.com/rss/articles/CBMiVkFVX3lxTE5ra25EcGtwVW56Nk5MdTNGbkpNc3p5U2I0UGFfQ2JucC00OVZrZThWSXVJLVhIc0Nid1l2VXBOVGYxblNobW52QXdxM3JxREIzNjJYb3Rn?oc=5"
+      ]
+    },
+    {
+      "title": "A Survey on the Memory Mechanism of Large Language Model based Agents",
+      "url": "https://arxiv.org/abs/2404.13501",
+      "type": "paper",
+      "year": 2024,
+      "venue_or_author": "arXiv / Renmin University of China (Gaoling School of AI) with Huawei collaborators",
+      "lang": "en",
+      "topics": ["agent memory", "survey", "Chinese academia"],
+      "summary": "The canonical agent-memory survey, led by Renmin University of China's Gaoling School of AI — emblematic of how much of the agent-memory survey/benchmark literature comes from Chinese institutions (RUC here; BUPT's MemoryOS arXiv:2506.06326 with Tencent; Tsinghua/Zhipu's LongBench v2 arXiv:2412.15204).",
+      "key_facts": [
+        "RUC-led survey of LLM-agent memory mechanisms posted 2024-04-21, a foundational taxonomy for the field; https://arxiv.org/abs/2404.13501"
+      ]
+    }
+  ],
+  "notes": "CHINA CONTEXT-MANAGEMENT STACK SWEEP (as of 2026-08-24). Caps: 18/18 search calls (gnews/gnews-zh/mojeek), 7/12 WebFetch, ~16 min. Google News redirector URLs could not be resolved to publisher URLs (new opaque encoding; curl and WebFetch both return the GN shell), so news facts from RSS are marked 'per headline' with the genuine redirector URL, per ground rules.\n\nSHAPE OF THE STACK: (1) DeepSeek attention line: MLA (2024) -> NSA (Feb 2025) -> DSA in V3.2-Exp (Sep 29 2025, API -50%+) -> V4 (Apr 2026): CSA+HCA hybrid, 1M-token context at 27% FLOPs / 10% KV cache of V3.2; open weights with day-0 Huawei Ascend support (per InfoQ-CN headline). (2) Alibaba/Qwen: DCA (2024) -> Qwen2.5-1M (Jan 2025) -> Qwen3-Next hybrid (3:1 Gated DeltaNet:Gated Attention, 80B-A3B, 262K native/1M YaRN) -> Qwen3.8 family (Aug 2026: Qwen3.8-Max 'massive context' on Alibaba Cloud; 2.4T-A95B open MoE served on NVIDIA GB300 per NVIDIA blog headline 2026-08-12). Tongyi/Bailian memory-service specifics did NOT surface in this sweep (gap). (3) Moonshot/Kimi: MoBA (Feb 2025); Mooncake KV-serving became cross-industry infrastructure (vLLM, SGLang, TensorRT-LLM, LMDeploy, LMCache, NIXL; FAST'25 best paper; 6.4k stars); Kimi K3 (Jul 2026): 2.8T/104B-active open MoE, 1M ctx, Kimi Delta Attention + Attention Residuals, ~2.5x scaling efficiency vs K2. Yang Zhilin publicly framed strategy as token efficiency + long context + agent swarms (per 鞭牛士 headline 2026-03-18). (4) MiniMax: lightning (linear) attention line MiniMax-01 (456B, 4M-token claim, Jan 2025) -> M1 (first open large hybrid-attention reasoning model, 1M ctx, arXiv:2506.13585) -> M2 (priced ~8 RMB per 1M tokens, per 36Kr headline 2025-10-27) -> M3 (Jun 2026, open weights, 1M ctx, new sparse attention, claimed 15.6x long-context speedup per VentureBeat headline). (5) Zhipu/GLM: GLM-4.5 open 355B/32B (Aug 2025) -> GLM-5.2 open with 1M ctx, Code Arena #1 among globally available models (Jun 2026, per CSDN/财联社 headlines), explicitly tied to domestic-compute ecosystem. (6) Tencent: Hunyuan Hy3 preview open-sourced Apr 2026 (agent gains); Hy4 confirmed imminent at Q2 FY2026 earnings (Aug 13 2026). No WeChat agent-memory disclosure surfaced (gap). (7) StepFun: Step-3 MFA + Attention-FFN Disaggregation for cheap long-context decoding (Jul 2025); Step 3.5 Flash open model topped OpenRouter trending in 2 days (Feb 2026, per InfoQ-CN headline); new CEO Yin Qi (印奇). (8) 01.AI: effectively exited the model-API race — open platform online/API/recharge services winding down (Aug 10 2026) after pivot to enterprise decision-AI '一号位AI' (Jul 2026, Kai-Fu Lee benchmarks Palantir). (9) MEMORY-STARTUP WAVE (three distinct companies, all funded 2026): MemTensor/记忆张量 (Shanghai, Xiong Feiyu, MemOS 11k stars, ~100M RMB Pre-A Jul 2026); Prof. Hao Jianye's Tianjin-University learnable-memory startup (three rounds in six months by Aug 2026; company name unknown from headlines) — this IS the 'Tianjin University professor' company and it is distinct from MemTensor; MemoraX AI (Shenzhen, ex-Huawei, US$10M+ seed Apr 2026, cumulative 数亿元 by Aug 2026). (10) Chinese academic memory work: RUC Gaoling survey (2404.13501); BUPT+Tencent MemoryOS (2506.06326); THU/Zhipu LongBench v2 (2412.15204, 503 questions, 8k-2M-word contexts); fresh Aug-2026 arXiv wave incl. HyMem hierarchical context management (2608.15703), 'Total Recall at What Cost?' agentic-memory serving-cost benchmark (2608.11879), RippleMem (2608.13334) — affiliations unverified for the Aug-2026 batch.\n\nOPEN-WEIGHT ANGLE (for both reports): every major Chinese context-technique advance of 2025-26 shipped open-weight (DeepSeek V4, Kimi K3, MiniMax M3, GLM-5.2, Qwen3-Next/3.8, Hunyuan Hy3, Step 3.5 Flash) or open-source infra (Mooncake, MemOS), which is why Western serving stacks (vLLM/SGLang/TensorRT-LLM) now embed Chinese-origin KV-cache architecture and why global long-context research increasingly builds on Chinese baselines; US frontier labs (Anthropic/OpenAI/Google) keep weights closed. Domestic-compute coupling is explicit: V4 day-0 Ascend, GLM-5.2 国产算力 framing, Mooncake heterogeneous NVIDIA/AMD/Huawei support. GAPS for follow-up: ByteDance Doubao/Coze/Volcano context-caching and memory features (searches only surfaced Dec-2024 items — needs a dedicated pass); WeChat agent memory; Tongyi/Bailian managed memory services; exact prices for DeepSeek V4 API ('价格屠夫' repeat per 观察者 headline 2026-04-24, figures unknown); Hao Jianye company name and round sizes unknown. Also on record: Bloomberg covered V3.2 sparse-attention debut (2025-09-30); 智东西 read the V4 tech report as showcasing heterogeneous memory tiering (2026-04-25, per headline)."
+}

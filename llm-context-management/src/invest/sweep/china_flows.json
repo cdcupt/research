@@ -1,0 +1,387 @@
+{
+  "modality": "china_flows",
+  "as_of": "2026-08-24",
+  "notes": "Discovery via Google News RSS (gnews/gnews-zh; 18 search calls). Publisher pages could not be resolved: news.google.com redirectors return a JS shell to WebFetch, the batchexecute decode trick failed, and mojeek/ddg returned no publisher URLs, so URLs below are Google News RSS redirector links and every fact is attributed per RSS headline + outlet + date ('per headline') unless stated. Cross-headline caveats: (1) Moonshot AI valuation trajectory in 2026: $20B (TechCrunch, May 7) -> $31.5B pre-money (Wallstreetcn, Jun 30) -> $35B on a >$3.5B F round (Bloomberg/Seeking Alpha, Jul 29) -> $50B pre-IPO target (TechNode/Caixin-tier zh outlets, Jul 22-Aug 5); company denied filing an IPO prospectus (21财经, Aug 6). (2) DeepSeek round reporting conflicts: $7.4B raised at $45B (capacityglobal, May 6), $50B+ (Ventureburn, Jun 17), $59B (Yellow.com, Jun 16) — treat valuation as $45-59B range, all agree the state got special/only voting rights and founder Liang Wenfeng keeps control. (3) Other headline facts not in the 26 sources: record HK IPO lock-up expiry wave (Reuters, Jul 5 2026); Zhipu & MiniMax added to Hang Seng Tech Index + Stock Connect (Moomoo, Apr 28 2026); Hang Seng Tech Index largest-ever overhaul (36Kr, Aug 12 2026); $67B foreign inflow into HK AI names with AI H-shares doubling (21财经, Jul 13 2026); Trump OK'd Nvidia H200 sales to China (Yahoo Finance, Dec 8 2025) with a reported 75K-unit cap + 25% tax (tech-insider.org, Mar 22 2026); StepFun reported burning ¥17.1B in 5 months (新浪财经, May 10 2026, unverified); '无人再议AI六小龙' — the 'AI six tigers' framing is dead as leaders pull away (新浪财经, Aug 3 2026). US-vs-China lens: China funds AI largely without US capital (state $295B plan, Big Fund into DeepSeek, RMB funds) while USD funds in China's primary market shrank 84% in five years; US-investor access narrows from both sides (reverse-CFIUS outbound rules codified Jan 2026; Beijing curbing retail access to US stocks; Zhipu on US Entity List yet Wall Street still courts it).",
+  "sources": [
+    {
+      "title": "Moonshot AI Surpasses Funding Goal to Hit $35 Billion Value",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPb0N0WDlMd1dFLUVQS1Bfd2U5WDgzVFdydjV3dVNUbHpKX3BmV2l5cWtIRDRWSlZfTHZZYW96QVd5RVliVHJUYWFCLXhnaXozT21NNWppODlGYkw0UzdNd1l2X0V4LUdnR0llajVMZ2VNS29iZEFBSU50LV8zWjhXRHpEVVp2UThjVlhjbVkySHJua3hQZTB5U1EzVUtHdEFJV0NicnhDMEFFNDJ4ek9PSG5RdEY?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Bloomberg",
+      "lang": "en",
+      "topics": ["Moonshot AI", "funding", "valuation", "China AI startups"],
+      "summary": "Moonshot AI (月之暗面), maker of Kimi, oversubscribed its funding round and reached a $35B valuation in late July 2026, cementing it as China's most valuable LLM startup.",
+      "key_facts": [
+        "Moonshot AI hit a $35B valuation after oversubscribing its round, Jul 29 2026 (per headline, Bloomberg).",
+        "Companion Seeking Alpha headline same day: round size $3.5B at $35B valuation."
+      ]
+    },
+    {
+      "title": "Moonshot AI reportedly plans final pre-IPO round at $50 billion valuation",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPMFRNaWZJbHE3eHUxZHhyTl96c1lvb05qUUswYXFOU29SUzJyeTJ1RVdKRmRReDRGOU11dmZkV0VjVjdWUUFaWTlwaTNBWUVJb3hkbUdRVTZyR0RGNjExWFpJX1d5UjNzajA0RW1TZWkzd0NtSGh6TUFTRFNUX1E5Wnp1TzYwY1UtS3RJQnpjRFhBcm1LTUhRbE96S1NSTjg2NjVaR29ubm8?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "TechNode",
+      "lang": "en",
+      "topics": ["Moonshot AI", "pre-IPO", "valuation"],
+      "summary": "Moonshot AI planned a final pre-IPO round at a $50B valuation and could go public within 2026, per July 2026 reports.",
+      "key_facts": [
+        "Moonshot targets $50B valuation in final pre-IPO round, Jul 22 2026 (per headline, TechNode).",
+        "NY Post same week: Moonshot 'could go public this year', Jul 21 2026 (per headline)."
+      ]
+    },
+    {
+      "title": "月之暗面完成股改 杨植麟任董事长，估值350亿美元冲刺港股 (Moonshot completes shareholding reform, Yang Zhilin chairman, $35B valuation, sprint to HK listing)",
+      "url": "https://news.google.com/rss/articles/CBMipgRBVV95cUxNcTdZaENKRlViZXdEZ1BHeWd5bjVCekZ1WEwwZFhKVmVadGxkb2dzbkdOcTlXaldmWjJtQ2pBQ0d4eGMwRXlwX1pDTC1INGxfWk5nZDYzeW1jbGFHOXFocWpZYUpScXFDUXczcnRHcmd0VGU1VWE2bmpFS0s4b3NPTVpRMnhzcFFLTDEtdGhvaHZmSEtxVWw0M2VWZDdqa1dVV1JzUnpYcERXenRqQnhHSGtta29rRVg4YUxNNkJzcmpsQzNvb1NLU05ody1mV0lNd2x0cEowT3dLSTZfeF92M2NybUV4cmpfU0FpN2JPTy1KT1NzY1lUbHg1TkRza3JQNGthcTdDZF9TakNQdUlyckhIZ1hqOGltTHJYS1hiVFViSnNiaXI3M0I1NlliYkJadHdYWGFubDZDb0xUUEpYUm15MTEwdzRQczdoTmNlVkJaX1VRaUIwOEdpSFBNTFUtTkRkMGh3MUVrMlpPbHBXQ05lMEVpbW84T1pSekpCdi1EdWE0M2tHWVQzc3hXeXAyOVZlM3NEMUtqcU1XTjl4bDZaS3lPQXNIWm5PVk9BbnktTFRrQ2NOWmUxM0pMVTk5ekYzbXNScEo4YVdtMy1TWkhVN1ladnBfNWJlaG1nWVB6WkU3cS1GZ052WFVDbzNPdnJfd0ZtcHZpQzd3UjUxZ3RDM01nb3g0Ul9xYy1SbmVLM3Z3R2NycDBUVmQ3cW9ncmlYWUlR?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "新浪财经 (Sina Finance)",
+      "lang": "zh",
+      "topics": ["Moonshot AI", "IPO", "Hong Kong listing", "corporate restructuring"],
+      "summary": "Moonshot AI completed its joint-stock reform (股改) with founder Yang Zhilin (杨植麟) as chairman, a formal step toward a Hong Kong IPO at a $35B valuation.",
+      "key_facts": [
+        "Moonshot completed 股改 (shareholding reform); Yang Zhilin named chairman; $35B valuation; HK IPO push, Aug 21 2026 (per headline, Sina Finance).",
+        "Same-day Sina piece: at $50B talk, heavy secondary/old-share transfers circulating — cash-out vs accumulation debate (Kimi估值冲上500亿美元,老股转让满天飞)."
+      ]
+    },
+    {
+      "title": "独家｜月之暗面500亿美元Pre-IPO轮开闸 K3模型发布后额度骤然紧俏 (Moonshot's $50B pre-IPO round opens; allocations tighten after K3 launch)",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE9qbzdoT0IwRndZZzFlbmhWODZLTnRxQWswb0hhMWM3N0tNdmZCRldUckpiV3R5V2l5MFo5NlVvdkV5Q181NDdDMw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "财联社 (Cailianshe)",
+      "lang": "zh",
+      "topics": ["Moonshot AI", "pre-IPO", "Kimi K3", "investor demand"],
+      "summary": "Moonshot opened its pre-IPO round at a $50B pre-money valuation and allocations became scarce after the Kimi K3 model launch; a 21财经 piece the next day says the company denied having filed IPO papers.",
+      "key_facts": [
+        "$50B pre-IPO round opened; allocation demand spiked after K3 model release, Aug 5 2026 (per headline, Cailianshe exclusive).",
+        "Moonshot denied IPO filing rumor while raising at ~$50B, Aug 6 2026 (per headline, 21财经/thepaper.cn)."
+      ]
+    },
+    {
+      "title": "China's Zhipu AI launches US$560 million share sale as Hong Kong's IPO tech race heats up",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE4yMHlOeHhvNG9MdWJ1WkNPS1ZyWGRMTE9QUHFvZmgyUmxtTGZuUEZrSnUxSDJuZ2VxWVRtQXB4SU1idFcyanBVeW45dFllWEl3UXFDSkV0cWxhX0FsT0VLU1hIVVlIbHgzUG1QNVZnVEZ0bmJqZnU3eWpxb2dVQQ?oc=5",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "SCMP via Yahoo Finance",
+      "lang": "en",
+      "topics": ["Zhipu AI", "IPO", "Hong Kong"],
+      "summary": "Zhipu AI (智谱/Z.ai) launched a US$560M Hong Kong share sale in late December 2025, kicking off the wave of Chinese LLM-startup listings.",
+      "key_facts": [
+        "Zhipu/Z.ai HK IPO raise size US$560M, launched Dec 30 2025 (per headline, SCMP/Yahoo; SiliconANGLE same day)."
+      ]
+    },
+    {
+      "title": "The first of China's 'AI tigers' goes public as Zhipu climbs in Hong Kong debut",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOdGo4VGRyM0xfdmpTX0ZPakVNd2tlVGs5ajVMbjN2NU5pZVZOdzc1MkJBOUd2SmpiRUdueHpjam1yOWE5R0hDQzFOclVYdWVyV3BhX3liMHdnLXIyalVTTWtrN0pOU3FnaUQtbC0wcnlieG9kbEx0OGF6VFRwNHdpMlo2VUFYV3Y5Y0prdUlockhDa0hnMklPNEtzdU1LYWZPbXd3WDRLRFBRck9rZjhIeERlcjhqOVFnRVRoSHM5akx5em1oUVE?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "CNBC",
+      "lang": "en",
+      "topics": ["Zhipu AI", "IPO", "Hong Kong", "AI tigers"],
+      "summary": "Zhipu became the first of China's 'AI tiger' LLM startups to go public, rising in its Hong Kong debut on Jan 7 2026; CGTN noted Zhipu warned of a global model price war.",
+      "key_facts": [
+        "Zhipu listed in Hong Kong Jan 7 2026, stock climbed on debut — first Chinese AI-tiger IPO (per headline, CNBC).",
+        "Zhipu trades as 02513.HK (per Xueqiu ticker page, Aug 2026).",
+        "Zhipu warned of a global AI price war at listing, Jan 9 2026 (per headline, CGTN)."
+      ]
+    },
+    {
+      "title": "MiniMax doubles in Hong Kong debut, marking yet another Chinese AI listing",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE16MnNUSjF5MnNLeUFFam94ZjlmOFVXLXRpWVNVTG01WmM4cWVmX0VNd2N0VFF6OUhxTTdwQVdQOVYzckxVVGpkSU9YN3hUVXlUaEcxdXgyeTFDVW1uZ0JKTDBLWGlpTlRpMjZfbl8xa3V4TWh6eUVySi1CVUY4ZDTSAYQBQVVfeXFMTlVObUVBalhrTTRZNUhldWtwOWtrWVJJaG82T2RWVzdpYzZwejJDdHJORnlKZmNxejNlMkhJTmFEUGJHYlRWd0lmQklyVUZtQzRGbVRpSy0weXQ5aElfUEZsMkdxdmo1UElEUG95dHBJUWllRW1FS3J1cE5wZnpPOG1GNm9F?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "CNBC",
+      "lang": "en",
+      "topics": ["MiniMax", "IPO", "Hong Kong"],
+      "summary": "MiniMax shares more than doubled on their Hong Kong debut (Jan 9 2026) after a US$538M IPO priced amid Chinese AI frenzy.",
+      "key_facts": [
+        "MiniMax stock more than doubled on HK debut, Jan 9 2026 (per headline, CNBC).",
+        "MiniMax IPO sized at US$538M, Jan 5 2026 (per headline, SCMP/Yahoo).",
+        "First post-IPO results: revenue more than doubled, Mar 3 2026 (per headline, WSJ)."
+      ]
+    },
+    {
+      "title": "MiniMax eyes a Shanghai listing after a 400% run in Hong Kong",
+      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE10V293WW1FbXI3WTZqbVFKS25LWGdnZVFnQUVPcnRqbnpvb2RzSXctYnhCZEZzOG5mVnRYWWtkbmtGMWFIaUc5a3ZXQ1d3cHRRZHNKZXc5bkhzSUJvR1AxeVlrdjBaci1BOWFxYUFrVDAxdw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "The Next Web",
+      "lang": "en",
+      "topics": ["MiniMax", "dual listing", "A-shares", "Shanghai"],
+      "summary": "After its HK shares ran up ~400% post-IPO, MiniMax prepared a mainland (Shanghai) dual listing — evidence of the A-share/H-share AI listing loop.",
+      "key_facts": [
+        "MiniMax HK shares up ~400% from IPO by end-May 2026; Shanghai listing planned, Jun 1 2026 (per headline, TNW; SCMP May 31).",
+        "Nikkei Jun 2 2026: MiniMax and Zhipu both pursuing dual listings to tap China's AI fever (per headline)."
+      ]
+    },
+    {
+      "title": "Chinese AI Billionaire Yan Junjie Battles Heavy Selling Pressure After $39 Billion Market Wipeout",
+      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNMHBUS2dnNWpFTnJuTF91dGZkYlR2VHdydm4wamhGX3ljcHh0T1ZIRkZvYzZISjFzX3h1eGgxSzdXSDA4eXdfTm5WYkIxWUIwY2xuNDg0eDh3T1BCa1Q3WXotNERDNWZQZ2ZfMWo0Skw1M0NjczVMNXVjQ1ZoclJBWTJKcl9DU3Y4MEsweV9KT2wzUE9FbEF3V3BIREU4VFFibEZQUDl1MktLbVN3MVRDSGN3RnBubGwwWExUZWYzTTI1S3pZZHBlRXo0RlRGRFBrWEdrYnlHdTVXQ3M?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Forbes",
+      "lang": "en",
+      "topics": ["MiniMax", "lock-up expiry", "correction", "Hong Kong"],
+      "summary": "MiniMax suffered a ~$39B market-cap wipeout amid heavy selling as the record wave of HK IPO lock-ups expired in July 2026 — the correction leg of the AI-listing rally.",
+      "key_facts": [
+        "MiniMax market cap fell ~$39B from peak amid lock-up-expiry selling, Jul 6 2026 (per headline, Forbes).",
+        "Reuters Jul 5 2026: record wave of IPO lock-up shares hitting the HK market (per headline).",
+        "SCMP Jul 7 2026: Zhipu and MiniMax shares 'to test' the market as lock-ups end (per headline)."
+      ]
+    },
+    {
+      "title": "China preps $295 billion plan to fund nationwide AI buildout",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQLVc1MVBsYnkwTWZPT2FCMy14QjFGYnc3ZzBhSmdSTGdCRTlfM1dkY3RoXzJvbjRVc0U1dXRnUC1QalZvalE1eUpoRllIOVZhN2hMSmxTaFdWMGViRF9QSS16NXN0VjRkS01NMXdMc0t6ZVNsMEc5dXRsaGNpNDRjQUl3NFNZRzN0YWxmVjJ0ZEtORG5tTnYyYU1weFctbGJwM3R1NEFWcVZ5TllWUm1NakR1elE3X3hJMVN4RUlldw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Reuters (citing Bloomberg News)",
+      "lang": "en",
+      "topics": ["state capital", "government AI fund", "AI infrastructure", "China"],
+      "summary": "Beijing prepared a ~$295B plan to fund a nationwide AI buildout (compute, infrastructure), reported June 9 2026 — the headline number for Chinese state AI capital in 2026.",
+      "key_facts": [
+        "China preparing ~$295B national AI buildout funding plan, reported Jun 9 2026 (per headline, Bloomberg via Reuters)."
+      ]
+    },
+    {
+      "title": "How China is funding its AI ambitions without US capital",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQU2V2UjFkaUdiakwxZjBhM1NoTlJkNENsYm5KUzdjcDBGQndkSW1GLUVZUnJyNVpVTi1iQkFfbEhUR2F3azRyTUNNOF9iQm1OR2hsTnJhZmtlT1J4eUNOQXZCSE5faHJNbHlJaGNFdkdZWWZHQV9EOVI2UlN3TUFGdnpsTXB4aHc0eER1NjlhOEhRclVW?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "ThinkChina (Lianhe Zaobao)",
+      "lang": "en",
+      "topics": ["state capital", "RMB funds", "US-China decoupling", "AI funding"],
+      "summary": "Analysis of how China's AI sector is now financed largely by domestic state funds, RMB VC and strategic corporates rather than US dollar capital — the structural US-vs-China funding divergence.",
+      "key_facts": [
+        "China's AI funding stack now runs without US capital — state funds + RMB VC, Aug 13 2026 (per headline, ThinkChina; full text unfetchable)."
+      ]
+    },
+    {
+      "title": "China's Big Fund in talks to lead DeepSeek investment at $45bn valuation",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFB5LVAxVFMwUWpNVVhQSUM0d2xET0J2WC1LTHpCOGVwZHBlYTdjdzVISGZIU2k2SmZqa0ROQzJnUjFtc0x0VF9qR1ZUNW00LVFJeldhU2N0RGZncEdEdmUwaURkUnFqNWtlQUVYVFZJeWhocmFHNmc?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Capacity Media (capacityglobal.com)",
+      "lang": "en",
+      "topics": ["DeepSeek", "state capital", "Big Fund", "valuation"],
+      "summary": "China's state semiconductor 'Big Fund' was in talks to lead an investment in DeepSeek at a $45B valuation — DeepSeek's first outside money after its famous no-VC, High-Flyer-funded structure.",
+      "key_facts": [
+        "State Big Fund in talks to lead DeepSeek round at $45B valuation, May 6 2026 (per headline, Capacity).",
+        "Analytics India Mag May 27 2026: 'Inside the $45B State Deal' — state-led syndicate, not conventional VC (per headline).",
+        "上观新闻 May 7 2026: DeepSeek valuation cited at ¥300B (~$42B) in Chinese coverage (per headline)."
+      ]
+    },
+    {
+      "title": "DeepSeek Raises $7.4 Billion, Only the Chinese State Gets Voting Rights",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQWnFjLVNXMEZyb3U0eGFha0E5WVBTdVhCdk9RWldGbnhVX0Q4dHJSeU5aX2NYcWtnVUFFeGRSQlJodmFvTVNwbDZQREVyN05DWTBWV0Zsdk5hdzVXb3h2bGtIUE9TS3BraUZXbmdMa2x1VzV3U0Rha0owVDAzVnFlX1RxZGRJeXVDeG50QjNaZnJIMl9EUGFYMm8tU3d4MXJmV3c?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Trending Topics EU",
+      "lang": "en",
+      "topics": ["DeepSeek", "funding structure", "governance", "state capital"],
+      "summary": "DeepSeek closed a $7.4B round in June 2026 structured so outside investors get no voting rights (state entity excepted) — the 'unusual no-VC' structure preserved even as it finally took external money.",
+      "key_facts": [
+        "DeepSeek raised $7.4B; only the Chinese state investor received voting rights, Jun 17 2026 (per headline, Trending Topics).",
+        "Valuation reported variously: $50B+ founder-led (Ventureburn Jun 17), $59B with founder control (Yellow.com Jun 16) (per headlines).",
+        "Tech Times Jul 14 2026: Liang Wenfeng tops AI wealth list; 'Beijing holds the only board vote' (per headline)."
+      ]
+    },
+    {
+      "title": "DeepSeek Sprinting Toward IPO: The 'Four AI Rising Stars' Face Full Valuation Recalculation",
+      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5Rc1BvTWVqc29HZ1h4RUxzVmI1cElSRTNpSm9OWUg4NU15a1dzdzFfQnNqaHd1ZUVnWjk1UW5CM1A3Rkk4U2FXaktHcE1oVjBmTWQ4?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "36Kr (English)",
+      "lang": "en",
+      "topics": ["DeepSeek", "IPO", "valuation", "AI tigers"],
+      "summary": "36Kr reports DeepSeek moving toward an IPO, forcing a valuation re-rating of the remaining private Chinese model startups ('four rising stars').",
+      "key_facts": [
+        "DeepSeek reported 'sprinting toward IPO'; peer valuations being recalculated, Jul 15 2026 (per headline, 36Kr)."
+      ]
+    },
+    {
+      "title": "Chinese AI startup StepFun to unwind offshore structure to pave way for IPO, sources say",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPdldCcU9ZUl9aZmplZ29ZRnU4NXJFWm9wVWZwcEpVNnJUNVZkOFNwNk5pTmU2UU5Sb2p3ZWFtdC1HT3ZDRENfbjVaa0ZrVVZkY3ZWWjdCNmFuT3dvR05aZ0thN0tDZW8zWm1Ca3A3LWVNbTRPemxHVzZxYzhpTDNjNHItS3hBanppME1FbF9XQUpCVkxSdTR2RUFOUmo1UUtKd000cXpVUUxoOUltTG9uNDFiSG9GcnhmRFFiQWtXWHZMR2s?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Reuters",
+      "lang": "en",
+      "topics": ["StepFun", "IPO", "VIE unwind", "onshore listing"],
+      "summary": "StepFun (阶跃星辰) moved to unwind its offshore (VIE) structure to enable a domestic listing — a pattern (also StepFun got a ¥10B-scale round in May) showing Chinese AI startups re-domiciling for RMB capital markets.",
+      "key_facts": [
+        "StepFun unwinding offshore structure to prepare an IPO, Apr 12 2026 (per headline, Reuters).",
+        "Sina VC monthly report Jun 4 2026: Moonshot and StepFun each landed ¥10B-scale (百亿级) rounds in May (per headline)."
+      ]
+    },
+    {
+      "title": "中国大模型\"五小龙\"估值集体暴涨 (China's five LLM dragons: valuations surge collectively)",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNNk5TNVozNjBiM1d1OUlVb0tucE9FakJYLXVOMDRmX0tDcFVBbGRQdWFLOGgxZjU2c29YVHlpaksxajJMNkRmSzVIUk1xUE8tSE1oWjFXMXBpemlvQnFYSElwcGxobFc0SGlvZHNqUHNyNjcwSTJOT1RVdUkyWURoRmhjTjQyc05sYmpFcjZ6OA?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "21财经 (21jingji)",
+      "lang": "zh",
+      "topics": ["valuations", "AI tigers", "Moonshot", "Zhipu", "MiniMax", "StepFun", "Baichuan"],
+      "summary": "Chinese coverage of the collective valuation surge across the 'five little dragons' of Chinese LLMs (Moonshot, Zhipu, MiniMax, StepFun, Baichuan-tier) in H1 2026; companion 36Kr piece put the 'AI four tigers' combined valuation above ¥1T.",
+      "key_facts": [
+        "'五小龙' model-company valuations surged collectively, May 15 2026 (per headline, 21财经).",
+        "36Kr May 7 2026: 'AI四小龙，估值破万亿' — top four AI startups' combined valuation broke ¥1 trillion (per headline).",
+        "finance.biggo May 14 2026: '$10B floods into China's LLM sector' with three reality-checks on sky-high valuations (per headline)."
+      ]
+    },
+    {
+      "title": "五年萎缩84%：美元基金在中国一级市场的「失落时代」 (USD funds' lost era: down 84% in five years in China's primary market)",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE15Z2lpT3JpWlgxWnF2SHd0MjV3ZjZjOGFWTloxMHhXVGZuTmdxU1MzRDM5OUlTb1ZQeWYtWjIzenBoNHJDbGRhcDR5cnVvRVRpSGNVTmRVM0E5ZldrT3JrRy1YUEJDRVJCV0c0V19LUWRoMlZsLXA2SHBIYWJiVms?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "新浪财经 (Sina Finance)",
+      "lang": "zh",
+      "topics": ["USD funds", "RMB funds", "venture capital", "China primary market"],
+      "summary": "USD-denominated VC funds' activity in China's primary market shrank 84% over five years — the quantitative core of the RMB-vs-USD fund shift that shapes who finances Chinese AI.",
+      "key_facts": [
+        "USD fund activity in China primary market down 84% over five years, Jan 8 2026 (per headline, Sina Finance)."
+      ]
+    },
+    {
+      "title": "三千亿热钱涌入AI江湖，一级市场谁在定规矩？ (¥300B of hot money floods the AI arena — who sets the rules in the primary market?)",
+      "url": "https://news.google.com/rss/articles/CBMiREFVX3lxTFBfbzlzcjhZcWdhM0NzNUNEdzB2TEpYZF85Nmh3bzRpWWt0WlZFb3BoemtBd1d6RXRfSkw1X0htOUwwUmFS?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "or100.cc",
+      "lang": "zh",
+      "topics": ["RMB funds", "AI funding boom", "primary market"],
+      "summary": "By August 2026, roughly ¥300B of 'hot money' had poured into China's AI primary market, with state-linked and strategic investors setting terms; 财联社 the same week described a unicorn glut with the market 'paying for certainty'.",
+      "key_facts": [
+        "~¥300B (三千亿) hot money into China AI primary market, Aug 19 2026 (per headline, or100.cc).",
+        "财联社 Aug 23 2026: unicorns everywhere — primary market paying up for 'certainty' (确定性) (per headline)."
+      ]
+    },
+    {
+      "title": "Chinese AI chipmaker Cambricon aims for US$14b revenue over 3 years",
+      "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOVjAzTk11b2ZYV2lNNXhGb1I4eVVBeUJMa2MtVmZlNUZYSGdQcG5RN3lEWVN5V1llSW1xSEUycFdObVRsRE1tS0Eyd0FfeUN5WVlYMjJxY2NYSWZiQ1Z0bjktRUJLY29pZnpqR3FvZ1VKX0FzdDctQmNObG45QVhrdFV3UmhGQkUzVF9CRUJJRVVEZ0VaTVhHTUZUV1VRTlN3UE5FYXpLZzhPLUN2NVhDekdidmFMQ0x1d0RQUUhTajR0d9IBwgFBVV95cUxQVmRtSDBGTjFPVWtKcUxGM3ZjZXZmNTZMRHQ4MHZCN0xnSU9YVTBEXzNLSzZwcWdSTC1NalRuZm5YeXBHTG5meXJHdmIzOXlVSmF2cXlTd3FNMWNsWHhQbVRWUXlORXR5eGE3ZlhybDg2VHg0aXFla2NrcTRqNHhjT1NmOTI2UzFLYkdSREFiRTZJOW5WQTNkQ3V2dFY0dGhBNFAyYUlPZ1ZOSkhXVnh6MEZHdDcyc01FSDdwdTZSXzFGUQ?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "South China Morning Post",
+      "lang": "en",
+      "topics": ["Cambricon", "AI chips", "A-shares", "domestic substitution"],
+      "summary": "Cambricon (寒武纪, 688256.SS) guided to US$14B revenue over three years as it positions to replace Nvidia in China — the earnings narrative behind its A-share re-rating.",
+      "key_facts": [
+        "Cambricon targets US$14B cumulative revenue over 3 years, Jul 29 2026 (per headline, SCMP).",
+        "Business Times Dec 4 2025: Cambricon aims to triple chip output to replace Nvidia in China (per headline)."
+      ]
+    },
+    {
+      "title": "Cambricon Denies ByteDance Chip Supply Rumor After Market Cap Nears $143 Billion",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE8yZVBWWHFiTjMzRG5OdHByVVlwVk5iaFc0Vm9tekxsWTFSN0s5WHlBNV80QVNDOW5ianExbVhqOGpTSjBQY0FUdVhhM1hhYUpkWDlJbEtVcWhQbFRNYjdrT3BfSGRtZjc4Q2tXVm1DcnRZU09lcHc?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "finance.biggo.com",
+      "lang": "en",
+      "topics": ["Cambricon", "A-share rally", "AI chips", "hype vs demand"],
+      "summary": "Cambricon's market cap neared $143B in June 2026 (A-shares' priciest stock per Sina, May 6) amid the domestic AI-chip frenzy; the company denied a ByteDance supply rumor as analysts flagged hype vs real demand.",
+      "key_facts": [
+        "Cambricon market cap neared $143B; company denied ByteDance chip-supply rumor, Jun 18 2026 (per headline, finance.biggo).",
+        "Sina May 6 2026: Cambricon again the most expensive A-share stock amid semiconductor-wide rally (per headline)."
+      ]
+    },
+    {
+      "title": "Hang Seng Index adds major Chinese chipmaker as tech pivot continues",
+      "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQY0h2VzRsT1AxWG53Qk93TWpHcGhpTklLVndxaWwyc2RBand4T2VpYzdZLS1iSEhockh6Q3BOMG0zSTlOYWVMenVzR081NURDZ0RPWmw1MlBIaGp3eWplX0l6bkJ3NUM2MWtUUTZWMEo5b1J6em94VXJwNHZRUU15N1k1MzRRdVBONFVKSUNtRkRHR3dyV0NGRnNXWjBQQjZabm9JWjFoVG1wYVNYQldoNzZhcVhQM1RIM2xsZlhTLUlIXzQyVUhaV3Bac2lYRG1O0gHQAUFVX3lxTE51NEFFVjhXVDJrSVlFQWZNc3FJUExLT0Y5RnNzNVR4amJkZHctVlBtSFhiSFJaRjVmenV1RmlHNXlBTFFpTVpoOXpabGZvR211Qlc5R1lSLUt1YWRBbWJ3SWVOMHJkS21DMVR5NnRObE1QTjM5YlhodVFYZmM2X3ZobDlUUVZTUEk3VGZKNnB2b1ZQaEk2aXcxeVQwVUVseGhmaVQxM2didFZJeEdOUll6T21jU3ZTRGN6QWlIYkdmRTRFcGNLOUpFX2x2Ry1FNGU?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "South China Morning Post",
+      "lang": "en",
+      "topics": ["Hang Seng Index", "SMIC", "index inclusion", "Hong Kong equities"],
+      "summary": "The Hang Seng Index added a major Chinese chipmaker in its August 2026 review as HK benchmarks pivot toward AI/tech; the HS Tech Index had its largest-ever overhaul days earlier, and Zhipu/MiniMax entered HS Tech + Stock Connect in April.",
+      "key_facts": [
+        "Hang Seng Index added a major Chinese chipmaker in quarterly review, Aug 21 2026 (per headline, SCMP).",
+        "36Kr Aug 12 2026: Hang Seng Tech Index unveils largest overhaul in its history (per headline).",
+        "Moomoo Apr 28 2026: Zhipu and MiniMax set to enter Hang Seng Tech Index and Stock Connect (per headline)."
+      ]
+    },
+    {
+      "title": "Alibaba AI Strategy Fuels 34% Stock Surge",
+      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNRlNqVTZnUFRFTVU1ZnIwd0x6RjJ4QlRkVHN2RFQzWjg2eHdjYUhfWnNudXJGRGRtaTVRUkZ5cWNZeE1TWHJ1bnFLWUxpd2tFNDZCZjJfbDR4T2ZlSlJYYzNhdEs3Ym04SklvRzlscWd1NndQWVJUTEVMS1VYdkx3WUwxb0NhTlhleFU4VEp6V3dRZw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Briefs Finance",
+      "lang": "en",
+      "topics": ["Alibaba", "AI strategy", "Hong Kong equities", "Qwen"],
+      "summary": "Alibaba's AI/Qwen strategy drove a ~34% stock surge into mid-August 2026, leading China's tech rally; on Aug 3 it rose 7% in a day as Qwen's cost strategy was spotlighted and Hang Seng regained 26,000.",
+      "key_facts": [
+        "Alibaba stock up ~34% on AI strategy, as of Aug 19 2026 (per headline, Briefs Finance).",
+        "BABA rose 7% Aug 3 2026 on Qwen AI cost strategy; Hang Seng back to 26,000 (per headlines, TechStock2 / finance.biggo).",
+        "Edge Malaysia Aug 20 2026: AI resurgence made Alibaba the top Chinese tech stock of the quarter (per headline)."
+      ]
+    },
+    {
+      "title": "Alibaba's Near HK$80 Billion Share Placement Triggers Selloff; Hang Seng Index Loses 25,500 as Double-Bottom Risk Mounts",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5YTnowOE9vaXJEbkwwRFp4WTVLclg0QnBXSndZcUp3eWdxLTBkVGU5Smd0cHkxanpyam1Pd2pMV05ManZuVThaUG15amVIX21ZcjE3MlRINjNnOWpLZm1wQ3U3STF0a24zd3M5QnQ1YU9pQ3k5S0E?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "finance.biggo.com",
+      "lang": "en",
+      "topics": ["Alibaba", "share placement", "Hang Seng", "correction", "AI capex"],
+      "summary": "On Aug 24 2026 (today), Alibaba's ~HK$80B share placement to fund AI spending triggered a selloff that dragged the Hang Seng below 25,500 and pulled China/HK markets lower on AI-capex concerns.",
+      "key_facts": [
+        "Alibaba ~HK$80B placement triggered selloff; Hang Seng lost 25,500 level, Aug 24 2026 (per headline, finance.biggo).",
+        "Economic Times same day: 'Alibaba rout drags China, Hong Kong markets lower amid AI spending concerns' (per headline)."
+      ]
+    },
+    {
+      "title": "China Loses Out On AI Boom As Stocks Trail By Most Since '01",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNc1lGMnZhdzFDcjZxWjV2UEFVUjdHQkJ2UHk3U1oxaFRGZzB1VGp0UTVPeFVtNW5XaldvandzM1JNZkNydFpscG1HV0plUmFNLU52dmx6c2V5QWNDMVZvb2NQQ3NuVm9BVmRNaFZRMzBKSlZ4ZUd2VWRDYmtrRUJ1MVFFLWZxODlnNUlFZG5nMjdXS2tFRzNxdm4xMmVEbkhnanU40gGrAUFVX3lxTFBpN2V3blgzcGxCWTBzaV9BOXp0LXV0NkVicXd4VWdPT2RNMGdMMnlpbE5KMVJhUjlsS3NpLWFsbzB6eVRraVF6d3ZBVHBkbWROTll5OVZQS2tLUDVhQWpORG43U3lWUUEzdHFTQmtLa2ZraDZDdDlyNTdpLUtsWUtrUzhlOU9UdC1UdjFRV0RlUkVuOHN5ZnVRalE1OTRmZWQ1aEJua0swU0lubw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Bloomberg via NDTV Profit",
+      "lang": "en",
+      "topics": ["China equities", "US-China gap", "AI rally", "relative performance"],
+      "summary": "Despite domestic model wins, Chinese stocks trailed US peers in the AI boom by the widest margin since 2001 as of end-June 2026 — the US-vs-China public-market performance gap in one line.",
+      "key_facts": [
+        "Chinese stocks trailing US in AI boom by most since 2001, Jun 30 2026 (per headline, Bloomberg/NDTV Profit).",
+        "天下雜誌 Aug 3 2026: 'China's tech stocks are falling despite their own breakthroughs' (per headline)."
+      ]
+    },
+    {
+      "title": "China is making it harder for mom and pop to access U.S. stocks. Here's who will benefit",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQSzc1SUpjbndmOTF6N3RWOER1TlZFZTBIUmU1c29RZ3lla244WUJnbGt4eGltbG4zUlJUTFI3eElpRndGQnFJa24wZy1sWHFVYzl2M0ViQmxNR2RJZEpzM3ZSUHRTVmhaSEJxZFJ0LTlmazN6TllzVU5TYlRmem5yQ2JxNjQ1eTg1RS1LV2NnUWhZYjVPLVhHNTNTSnBfWjBrNjlJ0gGoAUFVX3lxTE9BbDg5VUh5ejRIc18tYmg2S3ZaU2RKaFVmY1ktNEsyZ0pBOTgtVXFMQk55N0ExUFcyRFRXRWVuTnd4dmFKX3pkTU4xOERXMmV1NWRKTWhaWVAwRUlKZndkV1pHZVJocDBJeEtsenBfRy00cFhGNGhBSWVST2RreVFva0V1X2lzV1hVOFpKS3A4NlI3SDFidFB2b2Z0cGhnU3prd3JacHlreA?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "CNBC",
+      "lang": "en",
+      "topics": ["capital controls", "cross-border investing", "China retail investors"],
+      "summary": "Beijing tightened Chinese retail investors' access to US stocks (June 2026) — capital-flow friction now runs both directions, redirecting Chinese savings toward domestic/HK AI equities.",
+      "key_facts": [
+        "China restricting mom-and-pop access to US stocks, Jun 2 2026 (per headline, CNBC); beneficiaries: HK/A-share markets."
+      ]
+    },
+    {
+      "title": "US Treasury's 'Reverse CFIUS' Authority Is Codified and Some Restrictions Are Clarified",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNNFFCN1RPZW5vS21fV1dxbGhNVGR4VGdwdGtLUEp5cm0tRXNLcm16NTlJaGx0VG5mSEt6WGM0U3R6ZW5EbUFJaFZRNC1NcmtBNlE3X0tXQ1VaeWFtN3ZOYXVEMTlxaW1vakxRY0dQdVJEa0l4M0kxSkh4b3NJTzlnNGxaUXU5MjVuTXA4U0JGcVFuMHQ4?oc=5",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Skadden, Arps (client alert)",
+      "lang": "en",
+      "topics": ["outbound investment rules", "reverse CFIUS", "US investors", "AI restrictions"],
+      "summary": "The US outbound-investment screening regime ('reverse CFIUS') covering AI, semiconductors and quantum in China was codified into statute in January 2026, formalizing the legal wall between US capital and Chinese AI startups.",
+      "key_facts": [
+        "Reverse-CFIUS outbound investment authority codified, restrictions on US investment into Chinese AI clarified, Jan 8 2026 (per headline, Skadden alert)."
+      ]
+    },
+    {
+      "title": "Wall Street is betting on Zhipu AI as Washington's export crackdown hands Chinese models a gift",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPT090alhpQkZhaWl0c0pqUEkzSjJVTzdPMDdjMXdUc0hxY2RqN0NHRWNocFpRQTRfMDFjdm9malI0ZUs5R29Tdllnc24xSlNScDhHbVUxMW1oMEJfSGkwQThoREVoMVBXZDBFeVJJTFo2ME00Wk5ZaDdrTHJUM1NlVDJjQnhHUjZDRmQyRk56S3BFN1VrLU9qUkxmRWE2eHhuSnZzUWd6QXV2NFFULXFhWkl6c3hlQWZ4VWVtRlVwcw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Startup Fortune",
+      "lang": "en",
+      "topics": ["Zhipu AI", "export controls", "Entity List", "investment case"],
+      "summary": "Despite Zhipu being on the US Entity List (its chairman now a billionaire per Forbes, Jan 8 2026), Wall Street interest grew as US export controls boosted demand for Chinese open models — export controls as an investment-case tailwind, not just a headwind.",
+      "key_facts": [
+        "Wall Street positioning in Zhipu as export crackdown boosts Chinese model adoption, Jun 17 2026 (per headline, Startup Fortune).",
+        "Forbes Jan 8 2026: chairman of the US-blacklisted 'OpenAI challenger' (Zhipu) became a billionaire on the IPO (per headline).",
+        "Startup Fortune Jun 16 2026: Huawei chip breakthrough argues US export controls 'built the rival they were meant to stop' (per headline)."
+      ]
+    }
+  ]
+}

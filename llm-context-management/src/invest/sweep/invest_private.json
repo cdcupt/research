@@ -1,0 +1,401 @@
+{
+  "modality": "invest_private",
+  "as_of": "2026-08-24",
+  "sources": [
+    {
+      "title": "Crunchbase Data: Global Startup Investment Hit Record $510B In H1 2026 As AI Boom Accelerates Funding And Exits",
+      "url": "https://news.crunchbase.com/venture/global-startup-exits-ipo-ma-soar-ai-q2-h1-2026/",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Crunchbase News (Gené Teare)",
+      "lang": "en",
+      "topics": ["vc-funding-totals", "ai-share", "exits", "concentration"],
+      "summary": "H1 2026 global venture funding hit a record $510B, already above 2025's full-year $440B, with capital concentrating in frontier AI labs while IPOs and M&A returned in force; Q2 was one of the strongest exit periods in years.",
+      "key_facts": [
+        "Global venture funding hit record $510B in H1 2026, surpassing $440B invested in all of 2025 (Crunchbase, Jul 2 2026). https://news.crunchbase.com/venture/global-startup-exits-ipo-ma-soar-ai-q2-h1-2026/",
+        "OpenAI and Anthropic alone took $217B = 43% of all H1 2026 startup funding. https://news.crunchbase.com/venture/global-startup-exits-ipo-ma-soar-ai-q2-h1-2026/",
+        "Q1 2026: $305B (largest quarter on record); Q2 2026: $205B into 5,000+ startups (second-largest). https://news.crunchbase.com/venture/global-startup-exits-ipo-ma-soar-ai-q2-h1-2026/"
+      ]
+    },
+    {
+      "title": "These 3 Charts Show How Venture Capital Has Concentrated At The Top In 2026",
+      "url": "https://news.crunchbase.com/venture/capital-concentrated-ai-global-q1-2026/",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Crunchbase News (Marlize van Romburgh)",
+      "lang": "en",
+      "topics": ["ai-share", "concentration", "mega-rounds"],
+      "summary": "Q1 2026 was an all-time quarterly high driven by bigger checks not more deals: AI took 80% of global venture funding and four US companies took ~65% of the entire quarter while global deal count fell.",
+      "key_facts": [
+        "AI startups captured 80% of global venture funding in Q1 2026; AI first crossed 50% in Q4 2024 and hovered ~50% until then (Apr 16 2026). https://news.crunchbase.com/venture/capital-concentrated-ai-global-q1-2026/",
+        "Q1 2026 top four rounds — OpenAI $122B, Anthropic $30B, xAI $20B, Waymo $16B — totaled $188B, ~65% of global venture investment that quarter. https://news.crunchbase.com/venture/capital-concentrated-ai-global-q1-2026/",
+        "Four of the five largest venture rounds ever recorded closed in Q1 2026; nearly all top recipients were US companies. https://news.crunchbase.com/venture/capital-concentrated-ai-global-q1-2026/"
+      ]
+    },
+    {
+      "title": "Crunchbase Predicts: Why Top VCs Expect More Venture Dollars, Bigger Rounds And Fewer Winners In 2026",
+      "url": "https://news.crunchbase.com/venture/crunchbase-predicts-vcs-expect-more-funding-ai-ipo-ma-2026-forecast/",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Crunchbase News (Mary Ann Azevedo)",
+      "lang": "en",
+      "topics": ["investor-expectations", "vc-funding-totals", "2026-forecast"],
+      "summary": "Survey of top VCs entering 2026: they expect more venture dollars and bigger rounds but fewer winners; 2025 was on pace to be the third-highest funding year ever after 2021/2022 thanks to AI.",
+      "key_facts": [
+        "2025 global venture funding on pace for third-highest year on record after 2021 and 2022 (Jan 5 2026). https://news.crunchbase.com/venture/crunchbase-predicts-vcs-expect-more-funding-ai-ipo-ma-2026-forecast/",
+        "H1 2025 raised $205B, up 32% from H1 2024 — strongest half since H1 2022; Q3 2025 funding +38% YoY. https://news.crunchbase.com/venture/crunchbase-predicts-vcs-expect-more-funding-ai-ipo-ma-2026-forecast/",
+        "The two largest 2025 rounds were AI: OpenAI $40B (Q1 2025) and Scale AI $14.3B (Q2 2025). https://news.crunchbase.com/venture/crunchbase-predicts-vcs-expect-more-funding-ai-ipo-ma-2026-forecast/"
+      ]
+    },
+    {
+      "title": "AI is Driving the Venture Capital Market — But Not Fixing It",
+      "url": "https://www.institutionalinvestor.com/article/ai-driving-venture-capital-market-not-fixing-it",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Institutional Investor (Michelle Celarier, citing PitchBook)",
+      "lang": "en",
+      "topics": ["fund-return-skepticism", "dry-powder", "valuation-multiples", "ipo-window", "liquidity"],
+      "summary": "PitchBook-based analysis (May 18 2026): AI dominates VC but exits remain scarce; AI valuation premiums compress future return multiples, dry powder is falling, and OpenAI/Anthropic IPOs could soak up so much capital that broader VC recovery slips to 2027.",
+      "key_facts": [
+        "PitchBook: only 15 VC-backed IPOs in Q1 2026 — annualized pace 'well short' of reducing the years-long liquidity backlog (May 18 2026). https://www.institutionalinvestor.com/article/ai-driving-venture-capital-market-not-fixing-it",
+        "Q1 2026 Series A AI companies priced at 84% premium over non-AI peers; Series B premium 55%, up from 39% in 2025 (PitchBook). https://www.institutionalinvestor.com/article/ai-driving-venture-capital-market-not-fixing-it",
+        "US VC dry powder fell to $278.5B from 2023 peak of $323.3B; rolling one-year VC IRR 14.6% after five straight positive quarters. https://www.institutionalinvestor.com/article/ai-driving-venture-capital-market-not-fixing-it",
+        "AI-related companies now make up half of total VC market valuation; SpaceX targeted $1.75T valuation in a June 2026 IPO. https://www.institutionalinvestor.com/article/ai-driving-venture-capital-market-not-fixing-it",
+        "PitchBook: if OpenAI/Anthropic IPOs absorb available capital, broader VC recovery could slip to 2027. https://www.institutionalinvestor.com/article/ai-driving-venture-capital-market-not-fixing-it"
+      ]
+    },
+    {
+      "title": "Anthropic raises $65B in Series H funding at $965B post-money valuation",
+      "url": "https://www.anthropic.com/news/series-h",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Anthropic",
+      "lang": "en",
+      "topics": ["mega-rounds", "anthropic", "valuations"],
+      "summary": "Anthropic's May 28 2026 Series H: $65B at $965B post-money — the largest private AI valuation at the time, overtaking OpenAI — led by Altimeter, Dragoneer, Greenoaks and Sequoia with $15B from hyperscalers.",
+      "key_facts": [
+        "Anthropic Series H: $65B at $965B post-money, announced May 28 2026; leads Altimeter, Dragoneer, Greenoaks, Sequoia. https://www.anthropic.com/news/series-h",
+        "Round included $15B from hyperscalers (incl. $5B Amazon) plus Blackstone, GIC, MGX, Temasek, Fidelity, T. Rowe Price and chipmakers Micron/Samsung/SK hynix. https://www.anthropic.com/news/series-h",
+        "Anthropic said run-rate revenue crossed $47B earlier in May 2026. https://www.anthropic.com/news/series-h"
+      ]
+    },
+    {
+      "title": "xAI Raises $20B Series E",
+      "url": "https://x.ai/news/series-e",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "xAI",
+      "lang": "en",
+      "topics": ["mega-rounds", "xai", "compute"],
+      "summary": "xAI closed a $20B Series E on Jan 6 2026, above its $15B target, with Valor, StepStone, Fidelity, QIA, MGX, Baron plus strategic investors Nvidia and Cisco; proceeds fund the Colossus buildout.",
+      "key_facts": [
+        "xAI Series E: $20B closed Jan 6 2026, exceeding $15B target; investors incl. Valor, StepStone, Fidelity, Qatar Investment Authority, MGX, Nvidia, Cisco. https://x.ai/news/series-e",
+        "xAI claimed 1M+ H100-GPU-equivalents across Colossus I/II by end-2025 and ~600M monthly active users across X and Grok. https://x.ai/news/series-e",
+        "Valuation not disclosed on xAI's page (~$235B post-money per NextBigFuture headline, Jan 6 2026 — per headline). https://x.ai/news/series-e"
+      ]
+    },
+    {
+      "title": "OpenAI closes record-breaking $122 billion funding round as anticipation builds for IPO",
+      "url": "https://www.cnbc.com/2026/03/31/openai-funding-round-ipo.html",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "CNBC",
+      "lang": "en",
+      "topics": ["mega-rounds", "openai", "ipo-window"],
+      "summary": "OpenAI closed the largest private funding round ever — $122B — on Mar 31 2026, topping the ~$110B reported in February, with an $852B valuation reported by multiple outlets, amid IPO anticipation.",
+      "key_facts": [
+        "OpenAI closed a record $122B round on Mar 31 2026 (CNBC; also announced on openai.com same day, per headline). https://www.cnbc.com/2026/03/31/openai-funding-round-ipo.html",
+        "Valuation $852B post-money per SiliconANGLE and tech-insider headlines (Mar 31 / May 11 2026, per headline). https://www.cnbc.com/2026/03/31/openai-funding-round-ipo.html",
+        "TechCrunch had reported $110B 'one of the largest private rounds in history' on Feb 27 2026 before the close (per headline). https://www.cnbc.com/2026/03/31/openai-funding-round-ipo.html"
+      ]
+    },
+    {
+      "title": "OpenAI wraps $7 billion share sale ahead of potential IPO",
+      "url": "https://www.cnbc.com/2026/08/10/openai-wraps-7-billion-share-sale-ahead-of-potential-ipo-.html",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "CNBC",
+      "lang": "en",
+      "topics": ["secondaries", "openai", "tender-offer"],
+      "summary": "OpenAI completed a $7B employee tender offer in August 2026 ahead of a potential IPO — one of the largest secondary programs ever — with the $852B valuation reportedly confirmed in the sale.",
+      "key_facts": [
+        "OpenAI wrapped a $7B employee share sale on Aug 10 2026 ahead of potential IPO (CNBC). https://www.cnbc.com/2026/08/10/openai-wraps-7-billion-share-sale-ahead-of-potential-ipo-.html",
+        "Tender reportedly done at $852B valuation (StartupHub/NewsCord headlines, Aug 11 2026 — per headline). https://www.cnbc.com/2026/08/10/openai-wraps-7-billion-share-sale-ahead-of-potential-ipo-.html",
+        "Earlier May 11 2026 tender coverage: 600 OpenAI employees sold $6.6B in one day, 75 took out $30M+ (Yahoo Finance headline — per headline). https://www.cnbc.com/2026/08/10/openai-wraps-7-billion-share-sale-ahead-of-potential-ipo-.html"
+      ]
+    },
+    {
+      "title": "Anthropic Raising $30 Billion More as AI Labs Absorb Majority of VC Funding",
+      "url": "https://www.wsj.com/tech/ai/anthropic-raising-30-billion-more-as-ai-labs-absorb-majority-of-vc-funding-d26128d7",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Wall Street Journal",
+      "lang": "en",
+      "topics": ["mega-rounds", "anthropic", "ai-share"],
+      "summary": "WSJ reported (May 15 2026) Anthropic was raising another $30B — days before the $65B Series H was announced — framing frontier labs as absorbing the majority of all VC funding. Paywalled; facts per headline.",
+      "key_facts": [
+        "Anthropic reported raising $30B more as 'AI labs absorb majority of VC funding' (WSJ, May 15 2026, per headline; round closed as $65B on May 28). https://www.wsj.com/tech/ai/anthropic-raising-30-billion-more-as-ai-labs-absorb-majority-of-vc-funding-d26128d7"
+      ]
+    },
+    {
+      "title": "Anthropic revenue run rate tops $65 billion, source says",
+      "url": "https://www.reuters.com/technology/anthropic-revenue-run-rate-tops-65-billion-source-says-2026-08-17/",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Reuters",
+      "lang": "en",
+      "topics": ["anthropic", "revenue", "valuations"],
+      "summary": "Reuters (Aug 17 2026): Anthropic's revenue run rate topped $65B — up from the $47B the company disclosed in May — a key input to its pre-IPO valuation debate. Facts per headline.",
+      "key_facts": [
+        "Anthropic run-rate revenue topped $65B as of Aug 17 2026 (Reuters, per headline; vs $47B self-reported May 28 2026). https://www.reuters.com/technology/anthropic-revenue-run-rate-tops-65-billion-source-says-2026-08-17/"
+      ]
+    },
+    {
+      "title": "Anthropic needs Amazon-style earnings to justify its $2 trillion valuation — but it's barely turned a profit",
+      "url": "https://fortune.com/2026/08/14/anthropic-valuation-ipo-amazon-trillion-openai/",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Fortune",
+      "lang": "en",
+      "topics": ["anthropic", "ipo-window", "fund-return-skepticism", "valuations"],
+      "summary": "Fortune (Aug 14 2026) questions the ~$2T IPO valuation being floated for Anthropic given thin profitability — the bear case on frontier-lab multiples heading into the October 2026 IPO window.",
+      "key_facts": [
+        "Anthropic reportedly targeting ~$2T IPO valuation despite barely turning a profit (Fortune, Aug 14 2026, per headline). https://fortune.com/2026/08/14/anthropic-valuation-ipo-amazon-trillion-openai/",
+        "StartupHub headline (Aug 16 2026): Anthropic targets $2T IPO valuation in October 2026 (per headline). https://fortune.com/2026/08/14/anthropic-valuation-ipo-amazon-trillion-openai/",
+        "CNBC (Aug 13 2026): CFO Krishna Rao leading early IPO meetings with investors; valuation not yet discussed (per headline). https://fortune.com/2026/08/14/anthropic-valuation-ipo-amazon-trillion-openai/"
+      ]
+    },
+    {
+      "title": "Anthropic has soared to a $1.5 trillion valuation on secondary markets. Almost no one wants to sell.",
+      "url": "https://www.businessinsider.com/anthropic-1-5-trillion-valuation-on-secondary-markets-2026-8",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Business Insider (Ben Bergman)",
+      "lang": "en",
+      "topics": ["secondaries", "anthropic", "valuations", "ipo-window"],
+      "summary": "Aug 14 2026: Anthropic shares trade on secondary markets at up to $1.5T — 25% above a month earlier and ~55% above its May primary round — with almost no sellers as buyers position pre-IPO; warns about nested-SPV structures.",
+      "key_facts": [
+        "Anthropic secondary-market valuation reached as high as $1.5T, +25% in one month (BI, Aug 14 2026; last primary $965B in May). https://www.businessinsider.com/anthropic-1-5-trillion-valuation-on-secondary-markets-2026-8",
+        "Anthropic filed to go public in June 2026 with debut expected 'in the next few months' (BI, Aug 14 2026). https://www.businessinsider.com/anthropic-1-5-trillion-valuation-on-secondary-markets-2026-8",
+        "Demand for nested SPVs with indirect exposure is softening; buyers increasingly demand direct cap-table exposure (Practical VC's Aman Verjee). https://www.businessinsider.com/anthropic-1-5-trillion-valuation-on-secondary-markets-2026-8"
+      ]
+    },
+    {
+      "title": "This AI startup has roughly 50 employees, no product and has never published a word of research. It's worth $32 billion",
+      "url": "https://finance.yahoo.com/technology/ai/articles/ai-startup-roughly-50-employees-133000150.html",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Yahoo Finance",
+      "lang": "en",
+      "topics": ["ssi", "valuations", "mega-rounds"],
+      "summary": "Safe Superintelligence (SSI), Ilya Sutskever's lab, valued at $32B with ~50 employees, no product and no published research (Jul 29 2026) — the purest expression of pre-product frontier-lab pricing.",
+      "key_facts": [
+        "SSI valued at $32B with ~50 employees, no product, no published research (Yahoo Finance, Jul 29 2026, per headline/article). https://finance.yahoo.com/technology/ai/articles/ai-startup-roughly-50-employees-133000150.html",
+        "SSI has raised ~$8B total to date (StartupHub headline, Aug 14 2026, per headline). https://finance.yahoo.com/technology/ai/articles/ai-startup-roughly-50-employees-133000150.html"
+      ]
+    },
+    {
+      "title": "Nvidia to Invest $5 Billion in Ilya Sutskever's AI Research Lab",
+      "url": "https://www.bloomberg.com/news/articles/2026-07-27/nvidia-makes-substantial-investment-in-sutskever-s-ai-startup",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Bloomberg",
+      "lang": "en",
+      "topics": ["ssi", "strategic-investment", "nvidia"],
+      "summary": "Bloomberg (Jul 27 2026): Nvidia to invest $5B in SSI as SSI partners with Nvidia to scale research — corporate/strategic capital increasingly substituting for traditional VC in frontier labs. Paywalled; per headline.",
+      "key_facts": [
+        "Nvidia to invest $5B in Safe Superintelligence; SSI–Nvidia research partnership announced (Bloomberg/TechCrunch, Jul 27 2026, per headline). https://www.bloomberg.com/news/articles/2026-07-27/nvidia-makes-substantial-investment-in-sutskever-s-ai-startup"
+      ]
+    },
+    {
+      "title": "Mistral is rumored to be raising €3B at €20B valuation",
+      "url": "https://techcrunch.com/2026/06/12/mistral-is-rumored-to-be-raising-e3b-at-e20-valuation/",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "TechCrunch",
+      "lang": "en",
+      "topics": ["mistral", "mega-rounds", "europe"],
+      "summary": "Europe's flagship lab Mistral in talks (Jun 12 2026) to raise ~€3B at ~€20B — a fraction of US frontier-lab valuations, underlining the US-centric nature of the AI funding boom.",
+      "key_facts": [
+        "Mistral in funding talks: ~€3B at ~€20B valuation (TechCrunch and Bloomberg, Jun 12 2026, per headline/reporting). https://techcrunch.com/2026/06/12/mistral-is-rumored-to-be-raising-e3b-at-e20-valuation/",
+        "By Jul 12 2026 Mistral valuation reported nearing $23B (tech-insider headline, per headline). https://techcrunch.com/2026/06/12/mistral-is-rumored-to-be-raising-e3b-at-e20-valuation/"
+      ]
+    },
+    {
+      "title": "Services: The New Software",
+      "url": "https://www.sequoiacap.com/article/services-the-new-software/",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "Sequoia Capital (Julien Bek)",
+      "lang": "en",
+      "topics": ["investor-thesis", "ai-agents", "tam"],
+      "summary": "Sequoia's Mar 5 2026 thesis: the next $1T company will sell outcomes not tools ('autopilots' over copilots), attacking services budgets — insurance brokerage $140-200B, staffing $200B+, consulting $300-400B — because agents now start more software tasks than humans do.",
+      "key_facts": [
+        "Sequoia: 'more tasks are started by agents than by humans' in software engineering (Mar 5 2026). https://www.sequoiacap.com/article/services-the-new-software/",
+        "Sequoia TAM map: staffing $200B+, consulting $300-400B, supply chain $200B+, insurance brokerage $140-200B, IT managed services $100B+. https://www.sequoiacap.com/article/services-the-new-software/",
+        "Thesis: shift from selling tools (copilots) to outcomes (autopilots); next $1T company is 'a software company masquerading as a services firm'. https://www.sequoiacap.com/article/services-the-new-software/"
+      ]
+    },
+    {
+      "title": "AI Infrastructure Roadmap: Five Frontiers for 2026",
+      "url": "https://www.bvp.com/atlas/ai-infrastructure-roadmap-five-frontiers-for-2026",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Bessemer Venture Partners",
+      "lang": "en",
+      "topics": ["investor-thesis", "ai-infrastructure", "memory-context", "observability"],
+      "summary": "Bessemer's Mar 30 2026 infra thesis names five frontiers — harness infrastructure, continual learning, RL platforms, inference inflection, world models — and calls agent memory/context management critical infrastructure ('enterprise AI suffers organizational amnesia'), directly validating the context-management category.",
+      "key_facts": [
+        "Bessemer's five 2026 AI-infra frontiers: harness infrastructure, continual learning systems, RL platforms, inference inflection point, world models (Mar 30 2026). https://www.bvp.com/atlas/ai-infrastructure-roadmap-five-frontiers-for-2026",
+        "Bessemer: 'enterprise AI systems suffer from organizational amnesia'; RAG solved connection, compound systems now need more sophisticated memory infrastructure. https://www.bvp.com/atlas/ai-infrastructure-roadmap-five-frontiers-for-2026",
+        "Bessemer estimates '78% of AI failures are invisible'; names Braintrust, Judgment Labs, Bigspin.ai in eval/observability. https://www.bvp.com/atlas/ai-infrastructure-roadmap-five-frontiers-for-2026"
+      ]
+    },
+    {
+      "title": "Y Combinator Requests for Startups (Fall 2026)",
+      "url": "https://www.ycombinator.com/rfs",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Y Combinator",
+      "lang": "en",
+      "topics": ["investor-expectations", "ai-agents", "rfs"],
+      "summary": "YC's Fall 2026 RFS asks for agent-era infrastructure: multiplayer/collaborative AI agent sessions, a cloud for small agent-built software, self-maintaining APIs powered by coding agents, AI-native compliance, and operating systems coordinating agents, robots and humans.",
+      "key_facts": [
+        "YC Fall 2026 RFS includes 'Multiplayer AI' — teams dropping into a shared live agent session to watch, redirect, hand off. https://www.ycombinator.com/rfs",
+        "YC asks for self-maintaining APIs that auto-update customer codebases via agents like Claude Code (Fall 2026 RFS). https://www.ycombinator.com/rfs",
+        "YC RFS theme: AI moving into the physical world — new OS coordinating AI agents, robots, and wearable-equipped humans. https://www.ycombinator.com/rfs"
+      ]
+    },
+    {
+      "title": "Menlo Ventures' 2025 State of Generative AI Report: Enterprise Investment Hit $37B in 2025, Tripling in One Year",
+      "url": "https://www.globenewswire.com/news-release/2025/12/09/3202258/0/en/menlo-ventures-2025-state-of-generative-ai-report-enterprise-investment-hit-37b-in-2025-tripling-in-one-year.html",
+      "type": "report",
+      "year": 2025,
+      "venue_or_author": "Menlo Ventures / GlobeNewswire",
+      "lang": "en",
+      "topics": ["enterprise-ai-spend", "investor-thesis"],
+      "summary": "Menlo Ventures' annual enterprise survey (Dec 9 2025): enterprise generative-AI spend hit $37B in 2025, roughly tripling year-over-year — the demand-side datapoint investors cite against pilot-failure skepticism. Report also at menlovc.com/perspective/2025-the-state-of-generative-ai-in-the-enterprise/.",
+      "key_facts": [
+        "Enterprise genAI investment hit $37B in 2025, tripling in one year (Menlo Ventures report, Dec 9 2025). https://www.globenewswire.com/news-release/2025/12/09/3202258/0/en/menlo-ventures-2025-state-of-generative-ai-report-enterprise-investment-hit-37b-in-2025-tripling-in-one-year.html"
+      ]
+    },
+    {
+      "title": "MIT report: 95% of generative AI pilots at companies are failing",
+      "url": "https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "Fortune (MIT NANDA report)",
+      "lang": "en",
+      "topics": ["fund-return-skepticism", "pilot-failure", "enterprise-ai"],
+      "summary": "The canonical skepticism datapoint: MIT's 2025 report found ~95% of enterprise genAI pilots produced no measurable P&L return — attributed to tools that fail to learn/retain context, not model quality. Debate continued into 2026 (Fast Company follow-up May 12 2026; Forbes framed the cause as avoiding friction).",
+      "key_facts": [
+        "MIT 2025 report: ~95% of enterprise generative-AI pilots failing to show measurable returns (Fortune, Aug 18 2025). https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/",
+        "MIT researchers blamed tools that fail to learn from feedback/retain context — not the underlying models (Silicon Canals recap, Jul 12 2026, per headline). https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/",
+        "Follow-ups persisted into 2026: 'Why 95% of AI pilots fail' (Fast Company, May 12 2026, per headline). https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/"
+      ]
+    },
+    {
+      "title": "Okta buys AI security startup Permiso — source says for about $200M",
+      "url": "https://techcrunch.com/2026/07/30/okta-buys-ai-security-startup-permiso-source-says-for-about-200m/",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "TechCrunch",
+      "lang": "en",
+      "topics": ["m-and-a", "exits", "ai-infrastructure"],
+      "summary": "Representative of the reopened 2026 AI M&A market: Okta paid ~$200M for AI-security startup Permiso (Jul 30 2026); same season saw Cisco-Astrix ($400M, May 4), Zoom-Common Room (Jul 2), Netflix-InterPositive ($587M, Jul 20), and four AI labs each making acquisitions in one May week.",
+      "key_facts": [
+        "Okta acquired AI security startup Permiso for ~$200M (TechCrunch, Jul 30 2026). https://techcrunch.com/2026/07/30/okta-buys-ai-security-startup-permiso-source-says-for-about-200m/",
+        "Cisco acquired AI security startup Astrix for $400M (calcalistech, May 4 2026, per headline). https://techcrunch.com/2026/07/30/okta-buys-ai-security-startup-permiso-source-says-for-about-200m/",
+        "Netflix paid $587M for AI startup InterPositive (Tech in Asia, Jul 20 2026, per headline); four AI labs made acquisitions in one week of May 2026 (StartupHub, May 25 2026, per headline). https://techcrunch.com/2026/07/30/okta-buys-ai-security-startup-permiso-source-says-for-about-200m/"
+      ]
+    },
+    {
+      "title": "智谱、MiniMax、月之暗面角逐\"大模型第一股\" (Zhipu, MiniMax, Moonshot race to be China's first listed LLM company)",
+      "url": "https://m.cls.cn/detail/2227664",
+      "type": "news",
+      "year": 2025,
+      "venue_or_author": "财联社/科创板日报 (Cailianshe / STAR Market Daily, 李明明)",
+      "lang": "zh",
+      "topics": ["china", "ipo-window", "llm-startups", "valuations"],
+      "summary": "Dec 12 2025 baseline for China's LLM IPO race: Zhipu (智谱) was first of the '六小虎' to file IPO tutoring (Apr 2025, CICC) and weighed switching to Hong Kong; MiniMax targeted an HK IPO as early as Jan 2026; Moonshot (月之暗面) was valued near $4B planning a 2H 2026 listing — Chinese LLM valuations then ran far below US peers (OpenAI $500B).",
+      "key_facts": [
+        "Zhipu filed IPO tutoring with Beijing CSRC bureau Apr 14 2025 (adviser CICC) — first of China's LLM 'six tigers'; later weighed HK listing. https://m.cls.cn/detail/2227664",
+        "MiniMax prepared HK IPO as early as Jan 2026; its Jul 2025 C round (~$300M, Shanghai state fund) valued it >$4B (~¥30B). https://m.cls.cn/detail/2227664",
+        "Moonshot valuation ~$4B after a hundreds-of-millions USD round (IDG, Tencent interest); planned to start IPO in 2H 2026. https://m.cls.cn/detail/2227664",
+        "Zhipu: 15+ rounds since 2019, >¥5B raised in six months to mid-2025, valuation ¥40B; GLM coding-plan ARR >¥100M; 2.7M paying API customers (Dec 2025). https://m.cls.cn/detail/2227664"
+      ]
+    },
+    {
+      "title": "估值超200亿美元，美团龙珠领投月之暗面20亿美元新融资 (Moonshot raises $2B led by Meituan Longzhu at >$20B valuation)",
+      "url": "https://www.21jingji.com/article/20260507/herald/6b95422e2eeccacae3176f0a4206eff7.html",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "21财经/界面新闻 (21jingji / Jiemian, 宋佳楠)",
+      "lang": "zh",
+      "topics": ["china", "mega-rounds", "moonshot", "deepseek", "valuations"],
+      "summary": "May 7 2026: Moonshot AI (月之暗面/Kimi) closed ~$2B led by Meituan Longzhu (美团龙珠) at >$20B post — 4 rounds totaling >$3.9B in under six months, valuation up >4x from Nov 2025 — while DeepSeek was in talks with China's IC 'Big Fund' at ~$45B; also gives HK market caps for listed Zhipu and MiniMax.",
+      "key_facts": [
+        "Moonshot raised ~$2B at >$20B post-money led by Meituan Longzhu with 水木资本, China Mobile, CPE (May 7 2026). https://www.21jingji.com/article/20260507/herald/6b95422e2eeccacae3176f0a4206eff7.html",
+        "Moonshot: four rounds >$3.9B in under six months; cumulative funding >¥37.6B — most of any Chinese LLM startup (vs MiniMax ~¥15B, Zhipu ~¥13B). https://www.21jingji.com/article/20260507/herald/6b95422e2eeccacae3176f0a4206eff7.html",
+        "Moonshot valuation path: $2.5B (Feb 2024) → $4.3B (Dec 2025) → $10B→$18B (Jan-Feb 2026 rounds) → >$20B (May 2026); ARR >$200M by Apr 2026. https://www.21jingji.com/article/20260507/herald/6b95422e2eeccacae3176f0a4206eff7.html",
+        "As of May 7 2026 HK market caps: Zhipu ~¥362.7B, MiniMax ~¥220.7B — both already listed. https://www.21jingji.com/article/20260507/herald/6b95422e2eeccacae3176f0a4206eff7.html",
+        "DeepSeek reportedly in talks for first external round led by 国家集成电路产业投资基金 (state IC Big Fund) at ~$45B post-money (May 7 2026, unconfirmed). https://www.21jingji.com/article/20260507/herald/6b95422e2eeccacae3176f0a4206eff7.html"
+      ]
+    },
+    {
+      "title": "月之暗面Kimi半年融资超39亿美元，投前估值升至315亿美元 (Kimi raised >$3.9B in six months; pre-money valuation rises to $31.5B)",
+      "url": "https://www.eet-china.com/news/202607015745.html",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "电子工程专辑 (EET-China)",
+      "lang": "zh",
+      "topics": ["china", "moonshot", "valuations"],
+      "summary": "Jul 1 2026 (per headline): Moonshot's valuation kept climbing after the May round — pre-money reported at $31.5B on >$3.9B raised in half a year; by Aug 2026 Chinese media framed Moonshot as the next LLM IPO ('大模型第二股', thepaper.cn Jul 24 2026), though the company denied near-term IPO plans (Aug 13 2026).",
+      "key_facts": [
+        "Moonshot pre-money valuation reported at $31.5B, after >$3.9B raised in six months (EET-China, Jul 1 2026, per headline). https://www.eet-china.com/news/202607015745.html",
+        "Moonshot/Kimi framed as heading for China's second LLM listing; company denied IPO Aug 13 2026 (thepaper.cn Jul 24 / 维科号 Aug 13 2026, per headlines). https://www.eet-china.com/news/202607015745.html"
+      ]
+    },
+    {
+      "title": "MiniMax启动A股IPO进程 将推动本土AI板块估值体系重构 (MiniMax starts A-share IPO process, may re-anchor domestic AI valuations)",
+      "url": "http://www.cb.com.cn/index/show/gs1/cv/cv12547891131",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "中国经营网 (cb.com.cn)",
+      "lang": "zh",
+      "topics": ["china", "ipo-window", "minimax"],
+      "summary": "Jun 5 2026 (per headline): after listing in Hong Kong, MiniMax began an A-share (STAR Market) IPO process expected to rebuild the valuation framework for China's domestic AI sector — with 上观新闻 (May 30 2026) reporting the HK-then-A-share 'south-north dual listing' path only ~4 months after its HK debut.",
+      "key_facts": [
+        "MiniMax started A-share IPO process ~4 months after HK listing, targeting 科创板 (cb.com.cn Jun 5 / 上观新闻 May 30 2026, per headlines). http://www.cb.com.cn/index/show/gs1/cv/cv12547891131"
+      ]
+    },
+    {
+      "title": "不到一个月就解禁，MiniMax的泡沫却先破了 (MiniMax lockup expires within a month — but its bubble popped first)",
+      "url": "https://www.21jingji.com/article/20260622/herald/94326c5f86abff4f45e4b0105b3b5046.html",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "21财经 (21jingji)",
+      "lang": "zh",
+      "topics": ["china", "post-ipo", "fund-return-skepticism", "minimax"],
+      "summary": "Jun 22 2026 (per headline): the skeptical counterpoint in China's LLM listing wave — MiniMax's HK shares deflated ahead of its first lockup expiry, less than half a year after IPO, showing post-listing valuation risk for Chinese AI startups.",
+      "key_facts": [
+        "MiniMax HK shares fell ('bubble popped') ahead of lockup expiry due within a month (21财经, Jun 22 2026, per headline). https://www.21jingji.com/article/20260622/herald/94326c5f86abff4f45e4b0105b3b5046.html"
+      ]
+    },
+    {
+      "title": "智谱万亿，该重估MiniMax了 (Zhipu at RMB 1 trillion — time to re-rate MiniMax)",
+      "url": "https://wallstreetcn.com/articles/3775823",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "华尔街见闻 (Wallstreetcn)",
+      "lang": "zh",
+      "topics": ["china", "post-ipo", "valuations", "zhipu"],
+      "summary": "Jun 30 2026 (per headline): Zhipu's HK market cap crossed ~¥1 trillion, prompting calls to re-rate MiniMax upward — 36kr echoed on Aug 24 2026 with '智谱万亿了，DeepSeek还会远吗?' (Zhipu at a trillion — is DeepSeek far behind?), and 36kr argued (Jun 9 2026) US mega-IPOs were resetting the valuation anchors for MiniMax and Zhipu.",
+      "key_facts": [
+        "Zhipu HK market cap reached ~¥1 trillion by end-Jun 2026 (华尔街见闻 Jun 30 2026; 36kr Aug 24 2026, per headlines) — vs ~¥362.7B on May 7 2026. https://wallstreetcn.com/articles/3775823",
+        "36kr (Jun 9 2026, per headline): US mega-IPOs are changing the valuation anchor for MiniMax and Zhipu. https://wallstreetcn.com/articles/3775823"
+      ]
+    }
+  ],
+  "notes": "invest_private sweep, run 2026-08-24 within caps (18 searches, 12 WebFetch; Google News redirectors decoded via batchexecute in Bash and publisher pages curled, so several sources have full-text backing beyond the caps). STRUCTURE OF THE STORY: (1) Totals/concentration — record $510B H1 2026 global VC, AI ~80% of Q1 2026 funding, OpenAI+Anthropic = 43% of H1; boom is US-centric (Crunchbase 'not a global phenomenon', Jun 15 2026, per headline). (2) Mega-rounds 2026: OpenAI $122B @ $852B (Mar 31); Anthropic $65B @ $965B (May 28) then secondaries to $1.5T (Aug) and ~$2T IPO talk for an October 2026 listing; xAI $20B Series E (Jan 6, ~$235B per headline; SpaceX-xAI merger valued $1.25T, CNBC Feb 3 2026 per headline); SSI $32B on ~$8B raised, no product, Nvidia $5B strategic; Mistral ~€20B — Europe an order of magnitude below US. (3) Investor expectations: Crunchbase Predicts (more dollars, bigger rounds, fewer winners); Sequoia outcome-selling/agents thesis; Bessemer names agent memory/context + harness + evals as 2026 infra frontiers (directly relevant to the context-management report); YC Fall 2026 RFS wants multiplayer agent sessions and self-maintaining APIs; Menlo: enterprise genAI spend $37B in 2025 (3x YoY); sovereign funds (QIA, MGX, GIC, Temasek) now routine in mega-rounds. (4) Skepticism: MIT ~95% pilot-failure (Aug 2025) still argued over in 2026; PitchBook via Institutional Investor — 15 IPOs Q1 2026 insufficient for liquidity backlog, AI Series A premium 84%, US dry powder down to $278.5B, recovery may slip to 2027 if OpenAI/Anthropic IPOs absorb capital. (5) Exits reopening: record H1 2026 IPO+M&A (Crunchbase); lab M&A (Anthropic-Coefficient Bio $400M Apr 2026 per headline; four labs acquiring in one May week); infra M&A comps Okta-Permiso $200M, Cisco-Astrix $400M, Netflix-InterPositive $587M. (6) Secondaries: OpenAI $7B tender @ $852B (Aug 2026), Anthropic secondaries $1.5T with no sellers. (7) CHINA LENS: valuations one tier down but rising fast — Moonshot $2.5B(2024)→>$20B(May 2026)→$31.5B pre-money (Jul, per headline), $2B round led by Meituan Longzhu + China Mobile/CPE; DeepSeek courted by state IC Big Fund at ~$45B (unconfirmed); exits happening EARLIER than US — Zhipu and MiniMax already HK-listed by mid-2026 (Zhipu ~¥1T market cap end-Jun), MiniMax doubling back for A-share 科创板 listing, but with post-IPO drawdown risk (MiniMax pre-lockup slump). State/strategic capital (Shanghai state fund, Big Fund, China Mobile) plays the role US sovereign/hyperscaler money plays. CAVEATS: figures marked 'per headline' were not verified against full article text (WSJ/Bloomberg paywalls, JS-blocked Chinese pages); Anthropic $2T and Moonshot $31.5B are reported targets/secondary figures, not closed primary rounds; DeepSeek $45B round unconfirmed at publication. No 2026-dated funding rounds specifically for memory/context/RAG startups (Mem0, Letta, LangChain, Pinecone) surfaced in this sweep's headlines — reuse earlier techniques-report findings but re-date them; Bessemer/YC theses above provide the 2026 investor-expectation framing for that category."
+}

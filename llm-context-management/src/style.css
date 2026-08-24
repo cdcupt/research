@@ -52,6 +52,7 @@ figure .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 figure svg{display:block;height:auto}
 figcaption{font-size:14px;color:var(--muted);margin-top:10px}
 figcaption b{color:var(--ink)}
+#method p,#method li{overflow-wrap:anywhere}
 .swipe{display:none;color:var(--accent);font-weight:600}
 @media (max-width:700px){.swipe{display:inline}}
 figure.rail{background:var(--bg);padding:10px 10px 8px;margin:6px 0 10px}

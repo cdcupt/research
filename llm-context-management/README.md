@@ -1,6 +1,6 @@
 # Context Window Playbook — how people manage an LLM's context
 
-**Reports:** [`report.html`](report.html) — the Context Window Playbook (techniques, 2026-08-20) · [`market-report.html`](market-report.html) — the Context Market Map (market research, 2026-08-21)
+**Reports:** [`report.html`](report.html) — the Context Window Playbook (techniques) · [`market-report.html`](market-report.html) — the Context Market Map (market research) · [`investment-report.html`](investment-report.html) — the AI Investment Outlook (investor expectations & the stock situation, 2026-08-24)
 
 A sourced survey of the popular ways to manage an LLM's context window, ranked by how much the
 literature and the community talk about them, each with a concrete implementation recipe, a code
@@ -9,6 +9,10 @@ snippet against a real API, tools, pitfalls and 12 sources.
 ## Deep dive: why context windows stop near 1M (added 2026-08-21)
 
 A new section of `report.html` (nav: "★ Deep dive: context limits") answers: why frontier models cluster at ~1M tokens and why GPT-5 exposes 272K of input (400K window minus a 128K output reservation — verified on OpenAI's model page), the four bottlenecks (quadratic attention compute, linear KV-cache memory — e.g. ~328 GB per 1M tokens on Llama 3 70B — quality decay well before the nominal limit, and scarce long-context training data), how labs extend context (RoPE scaling, sparse/hybrid attention, MLA, training curricula), and what a distributed system can and cannot fix (context parallelism and disaggregated KV pools solve capacity; quality decay and per-token cost remain, so decomposition/retrieval/compaction stay necessary). Four figures: nominal-vs-effective context per model, cause→effect map, KV memory per 1M tokens vs GPU capacity, and an approach map by layer and maturity. Built from `src/deepdive/` (workflow `ctx-limits-deepdive`, 7 agents; sources verified via arXiv/Semantic Scholar APIs and WebFetch because the session's search quota was exhausted).
+
+## AI Investment Outlook (2026-08-24)
+
+[`investment-report.html`](investment-report.html) captures where investors stand in late August 2026: the public-market situation (a 13-ticker dated stock board, the bubble debate, hyperscaler capex, the Nvidia Aug 26 fulcrum), private-market trends (record $510B H1-2026 VC with AI ≈ 80% of Q1; named investor expectations from Sequoia, Bessemer, YC, Menlo, PitchBook, NBIM), and the US-versus-China capital picture. Built from `src/invest/`. Both older reports also gained China sections in this pass: the Playbook a "Chinese context-management stack" deep dive (Figure 10) and the Market Map a "Chinese market for context and memory" section with two addenda — built from `src/china/`. Discovery for this pass ran on Google News RSS (EN + 中文), Mojeek and page fetches (session search quota exhausted); facts sourced only to headlines are labelled "per headline" in the text.
 
 ## Context Market Map (market research, 2026-08-21)
 

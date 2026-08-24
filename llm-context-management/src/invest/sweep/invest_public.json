@@ -1,0 +1,347 @@
+{
+  "modality": "invest_public",
+  "as_of": "2026-08-24",
+  "method": "Google News RSS (en+zh) via search.sh; gnews redirector URLs retained as source URLs; most facts attributed per headline+outlet+RSS date because Google News redirect decoding was rate-limited (HTTP 429) and WebFetch on redirectors returns no target. One URL (DW) was successfully decoded via the batchexecute technique.",
+  "sources": [
+    {
+      "title": "Norway wealth fund sounds alarm on AI stock market bubble",
+      "url": "https://www.dw.com/en/norway-wealth-fund-ai-stock-market-bubble-china/a-78351371",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "DW (Deutsche Welle)",
+      "topics": ["AI bubble", "Norway sovereign wealth fund", "public markets"],
+      "summary": "Norway's ~$2T sovereign wealth fund publicly warned of an AI-driven stock market bubble, the anchor bubble-warning story of the week of Aug 17, 2026; article also carries a China angle per its URL slug.",
+      "key_facts": [
+        "Norway's sovereign wealth fund warned of an AI stock market bubble, per DW headline dated Aug 18, 2026 (dw.com)",
+        "DW URL slug pairs the AI-bubble warning with China, indicating a China dimension in the fund's warning (dw.com, Aug 18, 2026; page fetch blocked)"
+      ]
+    },
+    {
+      "title": "'Crying Wolf': Norway's Sovereign Wealth Fund CEO Issues Dire Warning After Record Profit",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNVDk1bURqeFpMRU1xWHNHYjR5NWdKZ2sxNl9QUGdqV2xJYXJpT0MyNWlVbWhpdXVtVWNRT3lHOWNhLW5TVmRQWmJUM2kzamhLdVNwLWUwSEJvNHNXZ1ZNZlV4VEdUdFc3eG5KRWRiWGhEQUpLUFpCcUdWdzJmcnUwMnZmdVA4bjNNNFpabGxLbHFwbm8wSjVWekNkbGpwbVJPWlE?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Yahoo Finance",
+      "topics": ["AI bubble", "Norway sovereign wealth fund", "investor sentiment"],
+      "summary": "Nicolai Tangen's bubble warning came immediately after the fund posted record profit, framing the warning as 'crying wolf' after benefiting from the AI rally (per headline).",
+      "key_facts": [
+        "Norway wealth fund CEO issued a dire AI-bubble warning right after reporting record profit, per Yahoo Finance headline, Aug 17, 2026"
+      ]
+    },
+    {
+      "title": "Norway Oil Fund Reports $184B Record From AI Rally It Cannot Hedge Against",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNRm9oRl9seG8yamlTM3FPcElGUFlyclFsVVJzYXU4S0w2QUMwME1wWkJ2b0lQM1pTYXJXeDBsUWpaTFFscTVzNm5zbVAzY0FKZTVUajczUXlrZkNmNFV2bDZNQzJXLUNDaUEwLWc4d0Fya1NodzRtMnJQVTdEQnJJUWhmbWpjZl9RNkhrMTM1U0dYc0d0LU5nQzJDVVdYck1zWjM1anpwMHp0U2oydFgzQ0RIYVBtYTVoWnpVdnhkN2M?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Tech Times",
+      "topics": ["Norway sovereign wealth fund", "AI rally", "concentration risk"],
+      "summary": "The Norwegian oil fund reported a $184B record return driven by the AI rally, while its CEO said the fund cannot hedge against an AI-bubble collapse (per headline).",
+      "key_facts": [
+        "Norway oil fund reported a record $184B return attributed to the AI rally, per Tech Times headline, Aug 12, 2026",
+        "Fund management says it 'cannot hedge against' the AI rally reversing, per Tech Times headline, Aug 12, 2026",
+        "Related: fund CEO said he is 'more nervous' after record returns, per Fortune headline, Aug 12, 2026"
+      ]
+    },
+    {
+      "title": "NVIDIA Q1 $81.6B: Vera Rubin Ramping, Financing $500B AI Fund, $91B Q2 Guidance — August 26 Earnings Test",
+      "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQekZqMHF6VW1idkExNmtINnVWR01IaFlySnQ4VFk2akNjT2gyeHVHYnVPUnpZNFFMZUJkaEhHb2V5NWZoVHFKbHdkd3N6b3dHZ2N5YXNMZld0c2ZyQXNlQkNDNEMzbFo2dXB6dTNCZGd2ZWVDM1daZ1NDc01KZzIwRlNtdU1MenRRb0YzQU1YMFdQdkp6MGV0RXJ2T1pRbGZueVhrWTNycG8zam10ZFF6T0hsU1JTUEkwZkx3b3FucHZ3Ym9DWDZXQnRMR3ZfLTZ5enFpRkFkV0N0X2ttWlVpWHJMZC1MS1ZoSWxiUG9XVkE?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "TradingKey",
+      "topics": ["Nvidia", "semiconductors", "earnings", "AI capex"],
+      "summary": "Ahead of Aug 26, 2026 earnings, Nvidia's prior quarter (Q1 FY2027) showed $81.6B revenue with $91B guided for Q2; Vera Rubin platform ramping and Nvidia involved in financing a $500B AI fund (per headline).",
+      "key_facts": [
+        "Nvidia Q1 FY2027 revenue was $81.6B, per TradingKey headline, Aug 19, 2026",
+        "Nvidia guided Q2 FY2027 revenue to ~$91B, per TradingKey headline, Aug 19, 2026",
+        "Nvidia tied to financing a $500B AI fund; Vera Rubin platform ramping, per TradingKey headline, Aug 19, 2026",
+        "Next earnings report Aug 26, 2026 framed as the sustainability test, per TradingKey headlines Aug 19-21, 2026",
+        "Companion piece: Q1 FY2027 data center revenue grew +92% y/y, per TradingKey headline, Aug 21, 2026"
+      ]
+    },
+    {
+      "title": "Nvidia Q2 Earnings Preview: Gross Margin and Rubin Hold Key to Breakout After Four Straight Quarters of Post-Earnings Drops",
+      "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxNaFNkVFRDVlJ3OUJvc1hMZUl1UzA1RTN2ZFd6MGUxUnFQbXltQlFWV0U5RVdEcFBIc1VkN1dnQ2VFcW1EaVVScjgtWERlVE9SNHU2V093QjI4RmdLRTZyWTNLcm0zRFNILVZ0YTZFUzJIQjhUZHBWNXFhU3pnak5rUWtVQjIyMUhERnZxY3dXVHpncVhDQjQzZ1o5aF9QQUUtbDlON2ZuZllMdGFwMzBwenlXcTBCd255VzB5ZVpxUHdrNmZMMlhCSVdPUFpldlBpa3Vld1M3VlFmdw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "TradingKey",
+      "topics": ["Nvidia", "earnings", "investor expectations"],
+      "summary": "Preview of Nvidia's Aug 26, 2026 report: despite beats, the stock has fallen after earnings four straight quarters; gross margin trajectory and Rubin ramp seen as the swing factors (per headline).",
+      "key_facts": [
+        "Nvidia stock dropped post-earnings in four consecutive quarters into Aug 2026, per TradingKey headline, Aug 23, 2026",
+        "Options market implied ~$316B of Nvidia market cap at stake around the Q2 print, per TechStock2 headline, Aug 21, 2026",
+        "Nvidia shares added ~$562B market cap in early Aug 2026 into the guidance event, per TechStock2 headline, Aug 10, 2026"
+      ]
+    },
+    {
+      "title": "Nvidia Stock Has One Week to Prove the AI Spending Boom Is Still Alive",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPbEpuWi1KaGVqVTBXZmw1My14XzRpZEdsUUJHNEwxbmxMXzNLVnpkZE0yQXNiTzFJVFZGd0hUOElvRVo4bTlEa3doMXdKc1kzU3Y3LWFoY21QYW81d3dHTldmUXFDZWNITjdYV051Z1hxLXhuNm01LUU4TFNiT0pOMmF3SEgwVkpXbmpnY2VRWXlWWDJVVlUzT0NGRHVfcjNjbjJwRmEtQTk2Z182T01oX0hKTjg?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "24/7 Wall St.",
+      "topics": ["Nvidia", "AI spending", "market sentiment"],
+      "summary": "Framing piece: the entire AI-spending narrative is treated as riding on Nvidia's Aug 26, 2026 earnings (per headline).",
+      "key_facts": [
+        "Market treats Nvidia's Aug 26, 2026 report as the referendum on whether the AI spending boom is intact, per 24/7 Wall St. headline, Aug 21, 2026"
+      ]
+    },
+    {
+      "title": "Big Tech AI spending spree tops $1tn",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVnh4X1BCWTB5dFFVWWJWRzZKWmhLZl9BbmloMEFDQ2RobExYTHMxSUdyeTljSnFvdWZJSFVZXzZoU2lta1lHS0lkVnc5Sl9XY0VGcUp4VW9jNEdZMVZ2VHdkd0UzX2tUTHRUZjJrSVd3ZXNjX2c3X0dVQWZ1YVRsd1hEX2I?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Financial Times",
+      "topics": ["hyperscaler capex", "AI infrastructure", "Big Tech"],
+      "summary": "FT tallies cumulative Big Tech AI spending passing the $1 trillion mark as of end-July 2026 (per headline).",
+      "key_facts": [
+        "Big Tech's AI spending spree topped $1tn, per Financial Times headline, Jul 30, 2026"
+      ]
+    },
+    {
+      "title": "Google, Microsoft, Meta, and Amazon capex spending to hit $725 billion in 2026, up 77% from last year — analyst says bear thesis is 'garbage'",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOQS03MWU4YWVzUHRkZTd5VVRoZGRhT1E4Y295VXdmdlQyRW5IbUFLZ3NaZm5XZkctUzRCZmtpa21Db1pmX3phR2ZMMlpaVlQ4TUpNYkFDTzBxYmdVNUZrdUp0VWNrQlh3YVRVd3hpWTI5R2RvNUVXVmNuUERnZmtzOXdRZHVHRzRZRUdFVjlXMnBzTTk0YWcyQ1FrN2ZwZw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Tom's Hardware",
+      "topics": ["hyperscaler capex", "2026 capex", "AI infrastructure"],
+      "summary": "Analyst estimate: combined 2026 capex of the four hyperscalers reaching $725B, +77% y/y, with the bear thesis dismissed (per headline).",
+      "key_facts": [
+        "Google+Microsoft+Meta+Amazon 2026 capex projected at $725B, up 77% y/y, per Tom's Hardware headline, Apr 30, 2026",
+        "Comparison point: Futurum Group earlier framed 2026 as a '$690B AI infrastructure sprint', per headline, Feb 12, 2026"
+      ]
+    },
+    {
+      "title": "Hyperscalers Tap External Financing as AI Capex Outruns Cash Flow",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNR0hMdy0xV3ZNRVItNXg1Q2NxU2gxUElXYjVRTXpBZmpkZGFvdmtEdnJaczBOWVVJMXhDU29FY29QeWdScjlNdUxJSm9KbUduajU2TkNyVmVVdjEyRlZXMVVEWVpYRFhIT1ZDdkljUVFXVmliOEFTbnJhRXlQYzVNdVl1Mm55cDlJeXlOTWtSdkNQckJzN0JybtIBqAFBVV95cUxPVndlUG5sajYtdkFGMEg4WHd3Xy1yVlA4dHdzaUdaNzhUZTFZSGRIQkZsb0VnYWZPbnhHLTNZa0tPR2thYnMtekFWNk5TSGtyaEtJaVhFRy1HdVpyaVhjdHVRMFJDSkg0cnJYY1FVWnpNUjR6eHFHTks4c3Jhc21TNE93aWpHblEwT2ZiOUhsTlZ2bThwQTdBTXM5QnBUbEFIYWhfbFlIQno?oc=5",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "FactSet Insight",
+      "topics": ["hyperscaler capex", "debt financing", "free cash flow"],
+      "summary": "FactSet documents hyperscalers turning to external/debt financing because AI capex now exceeds operating cash generation (per headline).",
+      "key_facts": [
+        "Hyperscalers began tapping external financing as AI capex outran cash flow, per FactSet Insight headline, Jul 23, 2026",
+        "Reuters similarly reported the AI boom putting Big Tech free cash flow under pressure, per Reuters headline, Jul 22, 2026"
+      ]
+    },
+    {
+      "title": "Amazon, Meta and Microsoft face skeptical investors this week after Google report sparked sell-off",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPYmFTZV9PdnYxTnNKT3RHemp5WmNNRUdLTko4b1pEdURWMkE0eFg1WEFaTGNFUEVZV080RXB1Y3BPbjYxX0QtNnAybzJObmVFS3oxYWtySGlYRzN1NGFGaGgxX3hLNkx5bkh2dHY3U0EtZFIxeXRwWHA5R19sWjdfSVJRb1U3cXhNOGJiQzhMTW1uSU1vNmRkbWJFVzBmd1pCZFc5c1ZCdUPSAa4BQVVfeXFMTzh4di1UM0VFcFFLX3k2bjZKSjJSVFhmNjB4ZmNuNXdUVnlRaXRsQnR3Z2lvNzZESnM5blB1dkgwbW9ieUJscFdHTm1pU2pPdmJBb1k5c3FOckhzbURUUUZtRGI3SGotQl9sTEdWRXNrU3BCV215elhab2NiM3I3TmhvYlpFcmplZkJ5MnM3Wlg5WXBJTU5CTmR2azNuOXZvZ1ExbzZNbmhZUFM3WWJR?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "CNBC",
+      "topics": ["hyperscaler capex", "market reaction", "Q2 2026 earnings"],
+      "summary": "Alphabet's late-July 2026 report (raised capex) sparked a sell-off, turning investors skeptical into Amazon/Meta/Microsoft prints — capex now punished, not rewarded (per headline).",
+      "key_facts": [
+        "A Google (Alphabet) report sparked an AI-capex sell-off ahead of Amazon/Meta/Microsoft results, per CNBC headline, Jul 28, 2026",
+        "Follow-on: cloud revenue divided AI stock winners from losers in the early-Aug 2026 selloff, per TechStock2 headline, Aug 2, 2026"
+      ]
+    },
+    {
+      "title": "CoreWeave stock pops 14% as revenue doubles on accelerating AI infrastructure demand",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPclpXaXMyMThmdzRpVzZvNlpmNEVBLUMtOGlDTXEtdGxxTnJHQkttQl9RanRkOXZBS1VqTnNOS2ktTTdGZXI1YzliTDFQYU5rekpWaUtEUmpCMG5PcFc3RFE4Z0JLaHhHeUZPbWIySVZiZUJHc0pkRXc0ekpsME9HddIBhgFBVV95cUxQZ3p0QWgxUlZWaFVJM21SenVENE1QT0NWSUhKZVM0Zzd5QVhnblI5SWVqUHZwM0JWYnRId2FfSk9kUVpHbWlhYkIzczQ3RFNhdGZGMHFFZXVqaE5HVWdTNUZic2ZROW1HYlZIdk13YXBaalRwUXlzTmcyMEdxZnpJRGNzd2xmdw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "CNBC",
+      "topics": ["CoreWeave", "AI infrastructure listings", "earnings"],
+      "summary": "CoreWeave's Q2 2026: revenue roughly doubled y/y and the stock popped ~14% (13.5% per Investing.com transcript note), though losses widened per qz.com (all per headlines, Aug 11, 2026).",
+      "key_facts": [
+        "CoreWeave stock popped 14% after Q2 2026 revenue doubled y/y, per CNBC headline, Aug 11, 2026",
+        "CoreWeave losses widened despite the revenue beat, per qz.com headline, Aug 11, 2026",
+        "Bloomberg framed the guidance as key to avoiding another post-earnings selloff, per Bloomberg headline, Aug 11, 2026"
+      ]
+    },
+    {
+      "title": "The 2025 IPO Class, Graded. Only 3 of 13 Are Above Water",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNLS1XWDRmc2dQQVgwcmZPcFVmcFhJbndpbUdCWkNCa0VOc1BlRDJ0TlkxWW5FcHhQVEFEcXEwZzJHWF9UUkNrZ1h6eEpLY1NKbDdnUGQxZy02M1pYeThXVGxtN2F0N2VGdGJsazVVbHU2cDVqbXFYcVN4Yzh2ZG1HUFlTYkc?oc=5",
+      "type": "blog",
+      "year": 2026,
+      "venue_or_author": "SaaStr",
+      "topics": ["AI IPOs", "2025 IPO class", "listings performance"],
+      "summary": "Scorecard of the 2025 tech IPO class (which included CoreWeave, Figma, Circle, Navan): only 3 of 13 traded above their IPO price by Feb 2026 (per headline).",
+      "key_facts": [
+        "Only 3 of 13 companies in the 2025 tech IPO class were above water by Feb 24, 2026, per SaaStr headline",
+        "Context: Figma soared in its Jul 31, 2025 debut, per Fast Company headline; Navan sank 20% on day one of its $6B Nasdaq IPO, per CNBC headline, Oct 30, 2025",
+        "The Information flagged poor tech IPO performance clouding new listings, per headline, Dec 23, 2025"
+      ]
+    },
+    {
+      "title": "IPO Market Set for 2026 as SpaceX, Anthropic, and OpenAI Eye Public Listings",
+      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOT0ZVSE1rZWdQT3Q3ekNhV01WdDdPX1VxQ1RjcGhhX1Q0U2hBTGNPTW5mT09ya0lLdjhuc1JNMmNQR1h2VjIxdE1wM29FdHNhN0xWd0hnajJWTXd4V1E5MjBLUy1zTklqQnRGdEdJWG4tQlp0bmtoblZFR3pZbEFfY09ZRjBQZw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Barron's",
+      "topics": ["AI IPOs", "2026 pipeline", "OpenAI", "Anthropic"],
+      "summary": "Barron's on the 2026 IPO pipeline: SpaceX, Anthropic and OpenAI floated as candidates eyeing public listings (per headline, Jan 2, 2026).",
+      "key_facts": [
+        "SpaceX, Anthropic, and OpenAI were reported eyeing public listings in 2026, per Barron's headline, Jan 2, 2026",
+        "Chinese echo: Caixin-affiliated Cailianshe warned mega IPOs could repeat century-old bubble patterns ('华尔街最准分析师'), per 财联社 headline, May 23, 2026"
+      ]
+    },
+    {
+      "title": "Snowflake, MongoDB receive target hikes after infrastructure software rally: Truist",
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQVVBGcWpXSnVOZ0JMTmFZY0d0bVRyck9fZzlZMkZYaTlnU19GSG5wMmlCMEJJSGw0UkNpOWtHZ1drUE1pdkttanlBNS01THhxNmRlR2dIMXZMVXUwX1hvVHB4Qkc1bHVnakEtOE44ZVhubFJ0U2cwbFhLM2VURGFwTDFqTGI2NlBaTHc4RUU5Y1lQNGxVekx2OGFEZnBNZmNVQVNWLTlyTU1OOFBzUy1tb0ptXzA3cFBfYzJJ?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Seeking Alpha",
+      "topics": ["software repricing", "Snowflake", "MongoDB", "analyst targets"],
+      "summary": "Truist raised price targets on Snowflake and MongoDB after an infrastructure-software rally — evidence of data-layer incumbents repricing upward on AI demand (per headline, Aug 20, 2026).",
+      "key_facts": [
+        "Truist hiked Snowflake and MongoDB price targets after an infrastructure software rally, per Seeking Alpha headline, Aug 20, 2026"
+      ]
+    },
+    {
+      "title": "Datadog's stock jumps 31% on crushing earnings beat, showing there's still hope for software",
+      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOMklhT05ESDFCWE5wSHNkYWlwUjBWMnhSMktkNFNOVnlGUXB5MTNveGdORkdlaTBLa3Z2dVdIbUZpZ2xIS1NObDh2QS1JRmVNdUpfUEVJcTZRR3R4Y3dEVFc1UTNWOVMtakJ4eVB2T2FRczVYckFTa2o1czF1ZEFweTBDSkJkX2xWazRTM0xyNHhzR3RtWHhuLU1veUlLcTRIa3phdlMzTlZqbkJlNmowTmVYbTVzZ29IaFE?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "SiliconANGLE",
+      "topics": ["software repricing", "Datadog", "AI winners in software"],
+      "summary": "Datadog jumped 31% on a Q1 2026 beat helped by AI-lab customer deals — the 'AI isn't killing software' datapoint in the incumbents-repricing debate (per headlines, May 7-8, 2026).",
+      "key_facts": [
+        "Datadog stock jumped 31% on its earnings beat, per SiliconANGLE headline, May 7, 2026",
+        "Datadog's surge was tied partly to AI-lab deals, per qz.com headline, May 8, 2026",
+        "Same week contrast: Cloudflare and CoreWeave sank while Datadog and Akamai soared, per Techzine headline, May 8, 2026"
+      ]
+    },
+    {
+      "title": "There isn't just one AI bubble, strategist says — there's a 'rolling sequence of bubbles' instead",
+      "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPaHE5enlCZU4wRTJnUk9ETFlzMTA4RWF5cnQ5ZlhjX3pNTUEzeVhHdEJJanp6SFU2MzdVNHdCc2xNMXcyTHQyWko2SzRxLThzQkJQRDhlREVFNS1sWERyckF4THBZVlJFUjBwZHJQcU1KM2hRNEJnTjlFSmUwcE54ZWtjeThaR0NVQmZXdllsRmpncHNIRm9oRG8xc0s?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Fortune",
+      "topics": ["AI bubble debate", "strategist views"],
+      "summary": "A strategist reframes the AI-bubble debate: not one bubble but a 'rolling sequence of bubbles' across AI sub-sectors (per headline, Aug 16, 2026).",
+      "key_facts": [
+        "Strategist described AI markets as a 'rolling sequence of bubbles' rather than one bubble, per Fortune headline, Aug 16, 2026"
+      ]
+    },
+    {
+      "title": "US Tech Stock Correction Warning: ECB Economists Flag AI Bubble Risks for 2026",
+      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5PWUtmYmNXbWdfdjlFWnBpdDhMMUtZN0YtVUJjYnFqUTh2NS1jRkdoYXl2cWJ2Tm5tQ05BRFoyQXc2MThzQlN0U1ptYXI2SlNRdXJ2VVhpcDF1TDhwUmJJakduanNGbGpYc3pqdDZrallNRzFBTnFleg?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Intellectia AI",
+      "topics": ["AI bubble debate", "ECB", "correction risk"],
+      "summary": "ECB economists flagged AI-bubble/US-tech-correction risk for 2026, adding an official-sector voice to the bubble side of the debate (per headline, Aug 19, 2026).",
+      "key_facts": [
+        "ECB economists flagged AI bubble and US tech correction risks for 2026, per Intellectia AI headline, Aug 19, 2026"
+      ]
+    },
+    {
+      "title": "前美联储'三把手'比尔·达德利警告：AI投资热已达顶峰，泡沫或在2027年底前破裂",
+      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9ZN0dfa28yLTI0OHBaLTJ2T0JmbldoUm5GR2tfUzVNVkQteUlJVm1BNUZPRVpHWnc2R2E3RWNhVTA0YnFybGpNTnMyVWpKQmd1NU9kNlFiY09VbThoVERQcHdBdHNIS05VSXphdDVnVUtKeUFFOEY1Vg?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "新浪财经 (Sina Finance)",
+      "topics": ["AI bubble debate", "Bill Dudley", "Fed", "Chinese media"],
+      "summary": "Former New York Fed president Bill Dudley (比尔·达德利) warned the AI investment boom has peaked and the bubble may burst before end-2027 (per Chinese headline, Aug 24, 2026).",
+      "key_facts": [
+        "Ex-NY Fed chief Bill Dudley: AI investment boom has peaked; bubble may burst before end of 2027, per 新浪财经 headline, Aug 24, 2026"
+      ]
+    },
+    {
+      "title": "美银衍生品部门警告：市场剧烈波动已成常态，AI泡沫风险指标逼近互联网时代极值",
+      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9xa21fUkRJb0YwOW9hNG1RVUJ0NDFGal9JNHFaa3prb05ITVZETS1FRmVnTWtQd1hWRzB5NTNXV0lwWC1RZFVIYUxSZGZpTlJKU2Yw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "华尔街见闻 (Wallstreetcn)",
+      "topics": ["AI bubble indicators", "volatility", "BofA derivatives", "Chinese media"],
+      "summary": "BofA's derivatives desk warned violent swings are now the norm and its AI-bubble risk indicator is approaching dot-com-era extremes (per Chinese headline, Aug 7, 2026).",
+      "key_facts": [
+        "BofA derivatives desk: AI-bubble risk indicator nearing dot-com-era extreme values; violent volatility now normal, per 华尔街见闻 headline, Aug 7, 2026",
+        "Related zh coverage: JPMorgan said a US-stock phenomenon resembles the eve of the dot-com bust, per 东方财富 headline, Jul 2, 2026"
+      ]
+    },
+    {
+      "title": "罗杰斯清仓美股 续持中国股份 警告下场危机惨过金融海啸 AI热潮终成泡沫",
+      "url": "https://news.google.com/rss/articles/CBMi3wNBVV95cUxQdjBpWjR3OWhOUnV0TUdKNGF0ZGlSR0NaT1lBbVZ3NmRVM09iaVN5a1Y5X1U5YkJyZ0h4aTZxVkFBdEpxMmtEQkEtTllwOFhGWWpYaFNnSWxRV3NGQTY0LVhoUGdpWkVlSjdzQkxfbVc3bFA1cUVGejI2ZDQxM1J1TVVzZTUwWTFHRVJnX2pQMnBJaUpqRl91NEdmODVKM1c3YnJUMHp5LVdGeVc5SXpUcGFucTc4a0YxRXRLNVJnNHIzM3ZzMTRHWWx1VF84amc5WC1wR2RTTDNDa1liaTJpMEdnUThLd2ZfcjhFcnZrd0dydkdyVWxQTUlwQ0FUMzZhR2NwLXMtZjN2TE1TbzNNWDd0Rmx1Z0Q2NVNmOURpVEg3UmZLeldfY05FelY3STNzYUxHdzZWaWtiLTBJdGZIZ2pFdUNRdGtrSHh4S18zSFdnNVI1a21DZ1g2dHMwN1A0NWVMWUFUREN1QUUyYmR6YnlHWUYtaExDSWxoQndsdGphN3NISXk1OW5yR1BwUGMwRGoyeXVvUG12c2kyalhJc3dKeDhDTnRrZWFLTFBteUJ0djNuTFgtamV3NmdzTFVfdXhNUUlmVmJhT0FFZWlBVXI3X1V5RlZRdENuSVVyRQ?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "星島頭條 (Sing Tao)",
+      "topics": ["US-vs-China positioning", "Jim Rogers", "AI bubble"],
+      "summary": "Jim Rogers (罗杰斯) said he liquidated US stocks while keeping Chinese holdings, warning the next crisis will be worse than 2008 and the AI boom will end as a bubble (per Chinese headline, Aug 16, 2026).",
+      "key_facts": [
+        "Jim Rogers liquidated US stocks, kept China positions, warned next crisis worse than 2008 and AI boom will end in bubble, per 星島頭條 headline, Aug 16, 2026"
+      ]
+    },
+    {
+      "title": "Citigroup lifts S&P 500 year-end target to 8,100 on earnings strength, AI 'supercycle'",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPUUJzZ2RnQjZiRVhIaFd1a01Xcjg5Z0Q2S2hxWXlpck1FZkd1UE1KS2Y3TTlGN3pnWElYV0p6R19NNTh3ZjhaTkphR1lUZjdETE1zNnEwZXNXSTBrcEsycl94Vkwzem9ROG1JUm5JWDlyblVBR3hJcFZkSGI1UThDZTFydmRjTksyUy15TnBRbzlzeF9tcXdoWEFnSHBNakg5VG02Rko0UVNkX1VGbXpRQ1NGbDUxSVR0Wl9qUA?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Reuters",
+      "topics": ["strategist targets", "S&P 500", "AI supercycle"],
+      "summary": "Citi lifted its S&P 500 year-end 2026 target to 8,100, citing earnings strength and an AI 'supercycle'; same-day coverage contrasts BofA's 'too many red flags' (per headlines, Jun 8, 2026).",
+      "key_facts": [
+        "Citigroup raised its S&P 500 year-end 2026 target to 8,100 citing AI 'supercycle', per Reuters headline, Jun 8, 2026",
+        "BofA simultaneously warned of 'too many red flags', per Yahoo Finance headline, Jun 8, 2026",
+        "Yardeni saw S&P 500 eclipsing 8,000, per Bloomberg headline, May 11, 2026"
+      ]
+    },
+    {
+      "title": "JPMorgan just bumped its S&P 500 price target as it sees AI capex finally delivering for companies",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNb2pPUWdiZVh4WEVxZ3Fud1E3VUxNN3pGR2drMjN4Q1llb1VYaFExRmtjcE1uMlpBdGJZWUJaZjB2bTNmUEs2TkhOTk9WTUVxSExzRlBoVk5CcEl2bk1Wa0o4Y0ZhRW96TWk4RFlHcVBtQi0tVU01Zy1GMjdseHJUV1FSSTVtMkdQM3RRY2p6eDBDa2JtTUllTlVFdE40OXhS?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Business Insider",
+      "topics": ["strategist targets", "AI capex ROI", "S&P 500"],
+      "summary": "JPMorgan raised its S&P 500 target in Aug 2026 on the view that AI capex is finally showing up in company earnings; Wall Street targets kept ratcheting up through Aug 2026 (per headlines).",
+      "key_facts": [
+        "JPMorgan bumped its S&P 500 target, citing AI capex finally delivering earnings payoff, per Business Insider headline, Aug 10, 2026",
+        "Wall Street firms kept lifting 2026 S&P 500 targets, per Finimize headline, Aug 11, 2026"
+      ]
+    },
+    {
+      "title": "The Magnificent Seven's Market Cap vs. the S&P 500",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE0wdTBtd3BXdnRYSmNDRXlTYnpkMTc3RE9TVkUzcWJFWmt4ekpzcWtrSmVKWWZtbERkUlpEdkJna1pUSkM3Z1FHVTYybHNjREtkdWpjV1BRMVJmU0lUSURQc09uNWhLdw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "The Motley Fool",
+      "topics": ["market concentration", "Magnificent Seven", "S&P 500"],
+      "summary": "Concentration datapoint: Magnificent Seven market cap weighed against the whole S&P 500 as of Aug 8, 2026; companion piece pegs the AI-linked concentration at a '$27 trillion secret' (per headlines).",
+      "key_facts": [
+        "Magnificent Seven market cap vs S&P 500 concentration analyzed, per Motley Fool headline, Aug 8, 2026",
+        "AI-linked S&P concentration framed as a '$27 trillion' issue, per finance.biggo.com headline, Aug 6, 2026",
+        "Seeking Alpha ran 'Understanding Concentration Risk In The S&P 500', per headline, Aug 4, 2026"
+      ]
+    },
+    {
+      "title": "July CPI Cools To 3.4%: Why Bloom Energy, SanDisk Stocks Rallied",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxObGwzLWltbWp2T3VWTGZZN0tKSmZYZnUtZHFTTFJFSmw1bTNiQlZ0OS1yRllPZDd6RFRWVkFIRUk2NXdYMUNOWHd3TXVBZkN6SDY3WXBoTEdYQTgwRjg1NFBrdnJyOE9jSXM3Nktha3hQWGsySHUtQ1JUaEtTaDFMMVNMMmdMbXl2NGloT2hXY3M3SURlc0tnYUxzMk9xTHRmN2hodF9Ia3B6UXhvdXRuTXlzNVdjRFg3UlBCbERB?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Benzinga",
+      "topics": ["rate environment", "CPI", "AI stock rally"],
+      "summary": "Rate backdrop for the Aug 2026 AI rally: July 2026 CPI cooled to 3.4%, keeping Fed rate-cut expectations alive and lifting AI-adjacent names (per headline, Aug 12, 2026).",
+      "key_facts": [
+        "US July 2026 CPI cooled to 3.4%, fueling rate-cut hopes and an AI-stock rally, per Benzinga headline, Aug 12, 2026",
+        "S&P 500 hit record highs on CPI relief plus AI earnings, per Intellectia AI headlines, Aug 13 and Aug 16, 2026"
+      ]
+    },
+    {
+      "title": "美商务部官员证实：英伟达H200芯片对华销售为零，出口审批仍处停滞状态",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1McEd6dHg0NjNPVzdKLWduQ0o1RmxVZENDMVhYMXdna09kdkhtX2QtY2JaN1hsVi15U0ZIYWIxWnFjcnJPcFF5akZwUlJpNkhlYTA2WXNpM3hLQlNa?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "电子工程专辑 (EE Times China)",
+      "topics": ["Nvidia China exposure", "export controls", "H200"],
+      "summary": "US Commerce official confirmed Nvidia H200 sales to China were zero with export approvals stalled (per Chinese headline, Feb 25, 2026); by May 2026 Chinese media described Nvidia's China share 'going to zero' (36Kr).",
+      "key_facts": [
+        "US Commerce official: Nvidia H200 China sales = zero, export approvals stalled, per 电子工程专辑 headline, Feb 25, 2026",
+        "Nvidia's China AI-chip market share described as going from ~95% to ~0%, per 搜狐 headline, Feb 26, 2026 and 36Kr, May 8, 2026",
+        "Brookings: 'the US is out of the AI chip market in China', per headline, Jun 17, 2026"
+      ]
+    },
+    {
+      "title": "Super Micro shares tank 33% after employees charged with smuggling Nvidia chips to China",
+      "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNd2EwNHBwMjJ0dkFmMFctSDJHVjQ3NkdSRWJJNU44WGkwVlNnb25CQ01hcDV4QWlOcENyY0dwUEZXYk4wMXVKbWVtcmpQelMzS1p0VG1pc09JNnNqTWRxdldUc1lMek83VU1PTnBEWS0xMkJXNXNERVhxak9wNk9lbi1tbkRWN1RlQ0Z4czlRcXdyV196VXAyZVlzSFNxUdIBowFBVV95cUxPTEdWbkdtMGZ4TGVaR0wwMDZ0VUZ4bHNBSjhrNGZrR3dKSEd6MS01eUI2bGEzdGdCNmRHMU8yVUVxeXo2bVR4anR3c1ZBS1RhZ0xqRUdVYXktY28yc3M2Uk1MR1hkWWdreERxeXU0cmZ2RGRnd1ViQWhzMklQMS1GcjFBd2hXMlZZcURzZzk3TnpyR2FCNXJjQ2hmNXRNekRZNEhR?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "CNBC",
+      "topics": ["semis", "China export controls", "stock moves"],
+      "summary": "China-exposure risk made concrete: Super Micro fell 33% after employees were charged with smuggling Nvidia chips to China (per headline, Mar 19, 2026).",
+      "key_facts": [
+        "Super Micro shares tanked 33% on charges of employees smuggling Nvidia chips to China, per CNBC headline, Mar 19, 2026"
+      ]
+    }
+  ]
+}

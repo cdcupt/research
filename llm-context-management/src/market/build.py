@@ -262,6 +262,25 @@ def main():
     order = ['problems', 'market', 'startups-memory', 'startups-infra', 'incumbents', 'cases', 'gtm']
     secs = OrderedDict((k, res.get(k.replace('-', '_'))) for k in order)
     secs['startups-memory'] = res.get('startups_memory'); secs['startups-infra'] = res.get('startups_infra')
+    cn_res_p = os.path.join(os.path.dirname(SRC), 'china', 'result.json')
+    cn_frag_p = os.path.join(os.path.dirname(SRC), 'china', 'sections', 'china-market.html')
+    if os.path.exists(cn_res_p) and os.path.exists(cn_frag_p):
+        cnr = json.load(open(cn_res_p)); cw = cnr.get('china_market') or {}
+        if cw: secs['china-market'] = dict(cw)
+        import glob as _g
+        for ap in sorted(_g.glob(os.path.join(os.path.dirname(SRC), 'china', 'sections', 'addendum-*.html'))):
+            aslug = os.path.basename(ap)[:-5]
+            at = open(ap, encoding='utf-8').read()
+            am = re.search(r'<h2>(.*?)</h2>', at, re.S); atitle = re.sub(r'<[^>]+>', '', am.group(1)).strip() if am else aslug
+            alm = re.search(r'<p class="lede">(.*?)</p>', at, re.S)
+            secs[aslug] = dict(slug=aslug, title=atitle, takeaway=(re.sub(r'<[^>]+>', '', alm.group(1)).strip()[:180] if alm else ''), sources=[])  # china_addenda
+    if 'china-market' in secs:  # keep document order aligned with the nav: after incumbents, before cases
+        reordered = OrderedDict()
+        for k in ['problems', 'market', 'startups-memory', 'startups-infra', 'incumbents', 'china-market', 'cases', 'gtm']:
+            if k in secs: reordered[k] = secs[k]
+        for k, v in secs.items():
+            if k not in reordered: reordered[k] = v
+        secs = reordered
     for g in res.get('gapSections') or []: secs[g['slug']] = g
     problems = (res.get('problems') or {}).get('problems') or []
     startups = ((res.get('startups_memory') or {}).get('startups') or []) + ((res.get('startups_infra') or {}).get('startups') or [])
@@ -291,6 +310,10 @@ def main():
     frags = []
     for slug, s in secs.items():
         path = os.path.join(HERE, 'sections', f'{slug}.html')
+        if slug == 'china-market': path = cn_frag_p
+        if slug.startswith('addendum-') and not os.path.exists(path):
+            alt = os.path.join(os.path.dirname(SRC), 'china', 'sections', f'{slug}.html')
+            if os.path.exists(alt): path = alt
         if not os.path.exists(path): print('MISSING fragment', path); continue
         frag = clean_fragment(open(path, encoding='utf-8').read())
         inject = ''
@@ -319,7 +342,7 @@ def main():
     cards = ''.join(f'<div class="card"><b><a href="#{esc(k)}">{esc(s.get("title", k))}</a></b><p>{esc(s.get("takeaway", ""))}</p></div>' for k, s in secs.items() if s)
     top_html = ''.join(f'<li><b>{esc(p["name"])}</b> — felt by {esc(p["who"])}; score {score(p):g}</li>' for p in top5)
     wedge_html = esc(gtm.get('recommended_wedge', '')) if gtm else ''
-    nav = ['<li><a href="#summary">Summary</a></li>'] + [f'<li><a href="#{esc(k)}">{esc(short)}</a></li>' for k, short in [('problems', 'Problems'), ('market', 'Market & money'), ('startups-memory', 'Memory startups'), ('startups-infra', 'Adjacent startups'), ('incumbents', 'Incumbents'), ('cases', 'Case studies'), ('gtm', 'Playbook')] if secs.get(k)] + [f'<li><a href="#{esc(k)}">{esc(v.get("title", k)[:28])}</a></li>' for k, v in secs.items() if k.startswith('addendum') and v] + ['<li><a href="#method">Method &amp; sources</a></li>']
+    nav = ['<li><a href="#summary">Summary</a></li>'] + [f'<li><a href="#{esc(k)}">{esc(short)}</a></li>' for k, short in [('problems', 'Problems'), ('market', 'Market & money'), ('startups-memory', 'Memory startups'), ('startups-infra', 'Adjacent startups'), ('incumbents', 'Incumbents'), ('china-market', 'China'), ('cases', 'Case studies'), ('gtm', 'Playbook')] if secs.get(k)] + [f'<li><a href="#{esc(k)}">{esc(v.get("title", k)[:28])}</a></li>' for k, v in secs.items() if k.startswith('addendum') and v] + ['<li><a href="#method">Method &amp; sources</a></li>']
 
     idx = []
     for tp in type_order:
@@ -356,7 +379,7 @@ def main():
   <p>Seven parallel research sweeps ran on {TODAY}, each restricted to one kind of evidence and capped at roughly 14 searches / 8 fetches / 15 minutes: practitioner pain points, open research problems, memory-layer startups, adjacent context-infrastructure startups, incumbent platform moves, market sizing and investor theses, and buyer / go-to-market evidence. Six synthesis agents then wrote the sections from that evidence, verifying numbers against primary sources (≤ 10 fetches each), a playbook agent built the wedge analysis on top of them, and a critic checked for unsourced figures, contradictions and missing companies before one bounded gap-fill round.</p>
   <p><b>Scores are judgement, not measurement.</b> Frequency, severity, willingness-to-pay, platform-risk, attractiveness and difficulty are 1–5 ratings assigned by the research agents from the quoted evidence; they are useful for ranking and arguing, not as precise quantities. Funding figures are only shown when a source could be cited; "undisclosed" means none was found within the caps. Web search was US-only and never surfaced Reddit. <b>Coverage limitation:</b> a session-wide search quota was exhausted partway through the sweeps, so four to six planned queries per sweep never ran (notably coding-agent context products, agent frameworks, some YC-batch memory startups and several 2026 rounds); the per-sweep notes below list what was not covered, and the two addenda were researched to close the most important gaps.</p>
   <ul>{stats_lis}</ul>
-  <p><b>Critic verdict:</b> <i>{esc(critic.get("verdict", "n/a"))}</i>. {esc(critic.get("notes", ""))}</p>
+  <p><b>Critic verdict:</b> <i>{esc(critic.get("verdict", "n/a"))}</i>. {esc(clean_note(critic.get("notes", "")))}</p>
   {('<p><b>Corrections applied after the critic pass:</b></p><ul>' + fixes + '</ul>') if fixes else ''}
   <h3>Source index</h3>
   <p class="muted">All {len(all_src)} unique sources gathered by the sweeps, grouped by type, newest first.</p>

@@ -8,3 +8,8 @@ llm-context-management/src/market/market-report.artifact.html
 llm-context-management/src/market/demo/
 llm-context-management/src/deepdive/demo-shots/
 llm-context-management/src/deepdive/shots/
+llm-context-management/src/invest/investment-report.html
+llm-context-management/src/invest/investment-report.artifact.html
+llm-context-management/src/invest/demo/
+llm-context-management/src/invest/shots/
+llm-context-management/src/china/*.png

@@ -1,0 +1,364 @@
+{
+  "modality": "china_market",
+  "as_of": "2026-08-24",
+  "sources": [
+    {
+      "title": "记忆张量获亿元Pre-A轮融资：华为、荣耀、商汤投资，创始人熊飞宇曾任职阿里",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE8zbno2cnFqaE1TWGtReUV2a2o0RDJlakNkTTN0NnFCd0tPNkxpTjg3bkdoRzhsZXVTal90QjR5dzZXSENVc1luZzBnZjlXeDZnQWUzYkhNX1dKVjN4R1pHTzNDamZ6cXc5STBZWVNn?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "新浪财经 (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["MemTensor", "MemOS", "memory startup funding", "big-tech CVC"],
+      "summary": "Per headline (article body not fetched): Shanghai memory startup MemTensor (记忆张量), maker of MemOS, closed a ~RMB 100M (亿元) Pre-A round backed by Huawei, Honor and SenseTime; founder Xiong Feiyu (熊飞宇) previously worked at Alibaba. Parallel coverage the same day by 投资界 and 雷峰网 framed it as the leading Chinese 'AI memory' company raising again to build a next-generation general memory-native model.",
+      "key_facts": [
+        "MemTensor (记忆张量) raised ~RMB 100M (亿元) Pre-A, reported Jul 20 2026 (per headline, 新浪财经 via gnews RSS)",
+        "Investors named: Huawei (华为), Honor (荣耀), SenseTime (商汤) — hardware/AI big-tech strategic money, not USD VC (per headline)",
+        "Founder Xiong Feiyu (熊飞宇) is ex-Alibaba (per headline); 投资界 same day called it a Shanghai team's 首发 Pre-A"
+      ]
+    },
+    {
+      "title": "MemTensor/MemOS (GitHub repository)",
+      "url": "https://github.com/MemTensor/MemOS",
+      "type": "repo",
+      "year": 2026,
+      "venue_or_author": "MemTensor",
+      "lang": "en",
+      "topics": ["MemOS", "open-source memory layer", "benchmarks", "agent memory"],
+      "summary": "MemOS is MemTensor's open-source 'memory operating system' for LLMs/agents: unified APIs for store/retrieve/edit/delete, memory as an inspectable graph, multi-modal memory (text, images, tool traces, personas), Multi-Cube isolated memory spaces, and async ingestion via MemScheduler. Apache 2.0, 11,000+ stars and ~1,000 forks as of Aug 24 2026, with 2026 updates including agent-harness integrations.",
+      "key_facts": [
+        "11,000+ GitHub stars, ~1,000 forks, Apache 2.0 license as of Aug 24 2026",
+        "Reported benchmarks: 88.83 LoCoMo, 89.20 LongMemEval, and a claimed 35.24% token saving vs baseline",
+        "Claims agent task completion lift from 36.63% to 50.87% with memory enabled (repo, 2026 updates)"
+      ]
+    },
+    {
+      "title": "MemOS product site (openmem.net)",
+      "url": "https://memos.openmem.net",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "MemTensor (记忆张量)",
+      "lang": "en",
+      "topics": ["MemOS Cloud", "pricing", "enterprise adoption", "memory-as-a-service"],
+      "summary": "MemTensor's commercial surface for MemOS: open-source core plus MemOS Lite (fully local, zero cloud dependency) and MemOS Cloud (managed, '5-minute integration, millisecond response') with tiered pricing from Free to custom Enterprise. Ecosystem products include Memmy (personal memory hub) and ClawForce (enterprise agent platform). Named partners include Trip.com, Anker, Haier, Alibaba Cloud, China Telecom and Shanghai Jiao Tong University.",
+      "key_facts": [
+        "Cloud free tier: 50K memory adds / 20K searches monthly; Pro tier listed $0 promo (originally $286) for 80M adds/30M searches (site, Aug 2026)",
+        "Enterprise partners named: Trip.com, Anker, Haier, Alibaba Cloud, China Telecom, SJTU — evidence of Chinese enterprise adoption",
+        "Offers fully-local MemOS Lite — fits on-prem/sovereignty (信创) deployment demand"
+      ]
+    },
+    {
+      "title": "MemOS: A Memory OS for AI System",
+      "url": "https://arxiv.org/abs/2507.03724",
+      "type": "paper",
+      "year": 2025,
+      "venue_or_author": "MemTensor et al. (arXiv)",
+      "lang": "en",
+      "topics": ["memory operating system", "research", "MemCube"],
+      "summary": "The research paper underpinning MemOS (arXiv:2507.03724, v4 updated Dec 3 2025), positioning memory as an operating-system-level resource for AI systems. Verified via arXiv export API; anchors MemTensor's academic credibility (SJTU-linked team) behind the commercial products.",
+      "key_facts": [
+        "arXiv:2507.03724, latest v4 dated Dec 3 2025 (arXiv API, checked Aug 24 2026)",
+        "Formalizes OS-style memory management for LLM systems — the research basis of the funded MemTensor company"
+      ]
+    },
+    {
+      "title": "阿里云百炼（Model Studio）长期记忆文档",
+      "url": "https://help.aliyun.com/zh/model-studio/long-term-memory",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Alibaba Cloud Bailian (阿里云百炼)",
+      "lang": "zh",
+      "topics": ["Bailian", "platform memory service", "long-term memory", "pricing"],
+      "summary": "Alibaba Cloud Bailian's built-in long-term memory (长期记忆) for agent/workflow apps: auto-extracted 'memory nodes' from conversations plus manually defined 'memory variables' (which override nodes), recalled by memory ID and injected with each user question; memory IDs can be shared across apps for consistent user profiles. As of Aug 2026 the docs state memory storage is free and memory tokens are 'currently not charged' — the hyperscaler bundles memory at zero price.",
+      "key_facts": [
+        "Bailian memory = auto memory nodes + manual memory variables, recalled per memory ID (docs, accessed Aug 24 2026)",
+        "Storage free and memory-content tokens 'currently not charged' — platform memory given away, squeezing standalone memory vendors",
+        "Memory IDs shareable across applications for one user profile; indefinite retention until deleted"
+      ]
+    },
+    {
+      "title": "腾讯云大模型知识引擎 / Agent开发平台 (ADP) 产品页",
+      "url": "https://cloud.tencent.com/product/lke",
+      "type": "docs",
+      "year": 2026,
+      "venue_or_author": "Tencent Cloud",
+      "lang": "zh",
+      "topics": ["Tencent Cloud", "enterprise RAG", "agent platform", "knowledge engine"],
+      "summary": "Tencent Cloud's enterprise agent platform (LKE, rebranded around ADP) sells 'LLM+RAG, Workflow, Multi-agent' with a 'dynamic Agentic RAG retrieval engine', connector/skills ecosystem for proprietary data, targeting finance, hospitality, logistics and healthcare buyers who need accuracy, monitoring and compliance. Free trial plus subscription tiers; pricing scales with model type, volume, concurrency. Related Apr 2026 launches (per 智东西/央广网 headlines) include an Agent Portal for unified enterprise agent management.",
+      "key_facts": [
+        "Tencent Cloud LKE/ADP: agentic RAG + multi-agent framework, compliance-focused enterprise verticals (product page, accessed Aug 24 2026)",
+        "Priced by model type, call volume, concurrency; free trial tier exists",
+        "Tencent VP Li Qiang: enterprise Agent entering '产业实战期' (industry combat phase), Apr 28 2026 (per 央广网 headline)"
+      ]
+    },
+    {
+      "title": "coze-dev/coze-studio (GitHub repository)",
+      "url": "https://github.com/coze-dev/coze-studio",
+      "type": "repo",
+      "year": 2026,
+      "venue_or_author": "ByteDance (open-sourced Coze core)",
+      "lang": "en",
+      "topics": ["Coze", "ByteDance", "agent platform memory", "open source"],
+      "summary": "Coze Studio is the open-sourced core engine of ByteDance's Coze agent platform (which had 'served tens of thousands of enterprises and millions of developers'). No/low-code agent building with knowledge bases, databases, variables, and memory features that let agents answer 'based on a personal user's historical conversations'. Apache 2.0; 21.5k stars, 3.1k forks as of Aug 24 2026 — ByteDance giving away the platform-memory layer as OSS.",
+      "key_facts": [
+        "Coze Studio: 21.5k stars, 3.1k forks, Apache 2.0 as of Aug 24 2026",
+        "Ships knowledge bases, databases, variables and per-user conversation memory as free open-source platform features",
+        "Commercial Coze platform claims tens of thousands of enterprises, millions of developers (repo README)"
+      ]
+    },
+    {
+      "title": "langgenius/dify (GitHub repository)",
+      "url": "https://github.com/langgenius/dify",
+      "type": "repo",
+      "year": 2026,
+      "venue_or_author": "LangGenius",
+      "lang": "en",
+      "topics": ["Dify", "RAG pipeline", "agent workflows", "enterprise self-hosting"],
+      "summary": "Dify (LangGenius; Chinese-founded, heavily used in China) is the dominant open-source LLM-app platform: agentic workflows, full RAG pipeline from document ingestion to retrieval, LLMOps; 153.4k stars / 24.2k forks as of Aug 24 2026 under a modified-Apache 'Dify Open Source License'. Cloud, self-hosted community, and paid enterprise editions. Chinese coverage (雪球, Mar 2025 per headline) called Dify and Monica the two big Chinese-origin global Agent players, with deployments into carriers, government and finance via partners.",
+      "key_facts": [
+        "Dify: 153.4k GitHub stars, 24.2k forks as of Aug 24 2026; Apache-2.0-based custom license",
+        "Full RAG/knowledge-base pipeline and agent workflows self-hostable — fits Chinese on-prem/sovereignty procurement",
+        "Reached tens of millions RMB revenue two years from open-sourcing, partly on AWS go-to-market (per doit.com.cn headline, Sep 11 2025)"
+      ]
+    },
+    {
+      "title": "Manus (AI agent) — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Manus_(AI_agent)",
+      "type": "other",
+      "year": 2026,
+      "venue_or_author": "Wikipedia",
+      "lang": "en",
+      "topics": ["Manus", "Butterfly Effect", "Singapore relocation", "Meta acquisition", "China deal block"],
+      "summary": "Full Manus arc: Butterfly Effect (founded 2022, Beijing/Wuhan; Monica browser extension 2023; Manus built from Oct 2024). Seed by ZhenFund 2023; Series A Nov 2024 (Sequoia China, Tencent); Series B Apr 2025 ~$75M at ~$500M valuation led by Benchmark. Mid-2025 the three co-founders moved to Singapore, ~40 of ~120 China staff relocated, rest laid off. Meta announced acquisition Dec 2025 at $2-3B; MOFCOM investigated Jan 2026; NDRC blocked Apr 27 2026; Meta unwound Jun 15 2026; Manus declared independent operations Aug 11 2026.",
+      "key_facts": [
+        "Series B Apr 2025: ~$75M at ~$500M valuation, led by Benchmark; co-founders relocated to Singapore mid-2025",
+        "Meta acquisition announced Dec 2025 at $2-3B; China (NDRC) blocked Apr 27 2026; Meta unwound Jun 15 2026",
+        "Manus announced independent operations Aug 11 2026; ~100 staff, mostly Singapore (Wikipedia, accessed Aug 24 2026)"
+      ]
+    },
+    {
+      "title": "China's decision to block Meta-Manus deal shows how far Washington and Beijing are drifting over AI",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1ESFExMW1uMHB2ekhDMWxENmtzOXR1MUFBcVFLa2dITEEwdzg4Vkx1NVdhT2tJVmQzUzBlVk9Pc0puZS1EZ0FNNlBRclQxRDctTElDU1BxMjU5ZnFETjRyNGRnOEN4RVh6TWJVNkFHUDM?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Fortune (via Google News RSS)",
+      "lang": "en",
+      "topics": ["US-China AI decoupling", "Manus", "deal review"],
+      "summary": "Per headline (Apr 28 2026; article behind gnews redirector): Fortune frames Beijing's block of Meta's ~$2B Manus purchase as evidence of accelerating US-China AI decoupling — Chinese-origin AI assets are no longer freely acquirable by US big tech even after offshore restructuring. Companion FT headline (Apr 27 2026): 'China blocks Meta's $2bn purchase of AI group Manus'.",
+      "key_facts": [
+        "China blocked Meta's ~$2bn Manus acquisition, reported Apr 27-28 2026 (per Fortune and FT headlines)",
+        "Framed as marker of widening Washington-Beijing drift over AI assets and talent (per headline)"
+      ]
+    },
+    {
+      "title": "China's Manus AI case sets red lines to bar 'Singapore washing'",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQeklxSVlaQnJVRlZfdWdiaGswRlJzRGhVeFl5ck9tczYydDQ5d3ZjNHZvZ3VfODdFZUtCRWoxR0E0eFZZbWNPek92aWlIOURJdUhlYmttdUtZaE5Jam83OWFteE5aVXdMRDN1YVBWOTBZNXlRM0p1UXY0RDA0dGhzUENncU5wdTBDTzdXeURGWXFCMEVCaHc?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Asia Times (via Google News RSS)",
+      "lang": "en",
+      "topics": ["Singapore washing", "regulatory red lines", "Chinese AI startups offshore"],
+      "summary": "Per headline (May 1 2026): the Manus block establishes Beijing's red lines against 'Singapore washing' — Chinese AI startups re-domiciling abroad to raise US money or sell to US acquirers. Directly relevant to any US context-startup thesis that Chinese memory/agent teams can simply move offshore: the exit path via US acquisition is now policed from the China side too.",
+      "key_facts": [
+        "'Singapore washing' named as the practice Beijing's Manus decision is designed to bar (per Asia Times headline, May 1 2026)"
+      ]
+    },
+    {
+      "title": "Beijing tightens its grip on AI firms that try to shed their Chinese ties",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPaUNrckJGa0dEX1BNOTluR19ZbjZKOE9qeFFMdE84NkRqNEVOdXJrMlZaZFFJOEllSldZSGs4bDFTZ3YyY1NadDJtTnAzVHFSUzFiWGVxY3VLWUM2NjJZSGNuc3EwSklZdWZGU1JxX3N1UDg4akVEamEtUWNYeHRXQ3M1MEZ5VW8?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "The Washington Post (via Google News RSS)",
+      "lang": "en",
+      "topics": ["Chinese AI regulation", "offshore restructuring", "capital controls"],
+      "summary": "Per headline (Apr 21 2026): Beijing is broadly tightening control over AI companies attempting to shed Chinese ties, beyond the single Manus case — separate Times of India coverage (May 5 2026, per headline) reported Chinese authorities urging startups to reject certain US funding. Establishes the systemic, not one-off, nature of the constraint.",
+      "key_facts": [
+        "Beijing tightening grip on AI firms shedding Chinese ties, reported Apr 21 2026 (per WaPo headline)",
+        "Chinese government reportedly told startups to reject some US funding after Manus deal (per Times of India headline, May 5 2026)"
+      ]
+    },
+    {
+      "title": "Genspark.ai Extends Series B to $485M, at $2.6 Billion Valuation",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOZEhTVS1Sb0pMa1ZCTXRhTkpieWp2cmpYeUJvSDAwZ01XZ0V2OW1VUlQ4UjF3VXVqbmxUVDE2d0w4MlhIaHRoeTVBdldsdE1USEhGeGEwRkFUUTN0YmxNekktVG1CdjlwYXplZHZVdkt4Q2dlOGRNdjNTTU5rdTEybVRNbU0yaTRva3NVSUx1YTdQMWZmNVliODVuS0RrRDg?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "FinSMEs (via Google News RSS)",
+      "lang": "en",
+      "topics": ["Genspark", "agent startup funding", "Chinese-founded diaspora startups"],
+      "summary": "Per headline cluster (FinSMEs Jun 15 2026; Axios Jun 11; Pulse 2.0 Jun 14; citybiz Jun 17): Palo Alto-based, Chinese-founded (ex-Baidu 小度 team) agent startup Genspark added a $100M Series B extension, taking Series B to $485M total at a $2.6B valuation, and hired Jamison Powell as CRO. Forbes had reported unicorn status Nov 20 2025; The Business Journals (Apr 9 2026) noted $1.6B valuation months after launch. A diaspora counter-example to Manus: raised US money while operating from the US.",
+      "key_facts": [
+        "Genspark Series B extended by $100M to $485M total at $2.6B valuation, reported Jun 11-17 2026 (per FinSMEs/Axios headlines)",
+        "Valuation path: unicorn Nov 2025 (Forbes), $1.6B Apr 2026, $2.6B Jun 2026 (per headlines)"
+      ]
+    },
+    {
+      "title": "Genspark Unveils AI Workspace 6.0: Betting AI's Next Breakthrough Isn't Models, It's Context",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQMGVUN2NrVmhmdklhTXVjSlUxTmh3MExDSUktS0s1Y0tDMU9ReEhNQXBvR3hDRTBKeU80Nmd2cmpBSUhxWDFKblRHNjM1bjV2YmR5bWhPNTY3S0FHUW5ZVTZnTVU0UVY5c3g4UkZ6LTNLdklyTmdzUm81WkhlbnRiTGlaTEZ1djZoei1hV0J1M3hkTGJnWlZ4ZF9WUFFCSWgySHFnZ0EzdWt1a1NKS1oxMDhtbUt1MGM2b2wxZlM4U2xRbThTRkRjMk5QZm9lYllrRzdpbTc1Q3UtUmU4?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "Business Wire (via Google News RSS)",
+      "lang": "en",
+      "topics": ["context as differentiator", "Genspark", "agent workspace"],
+      "summary": "Per headline (Jul 21 2026): Genspark's AI Workspace 6.0 launch explicitly markets the thesis that 'AI's next breakthrough isn't models, it's context' — a Chinese-founded agent company making context/memory the headline differentiator, competing directly with the value proposition of US context startups.",
+      "key_facts": [
+        "Genspark Workspace 6.0 marketed on 'context, not models' thesis, Jul 21 2026 (per Business Wire headline)"
+      ]
+    },
+    {
+      "title": "国家大基金领投DeepSeek，投前估值450亿美元",
+      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1nR0JsVVd6amd2NU40ZElPVW13QTZabDFweUlOY2lHa0VQTXJwazVoN3Z4UGpaNWRGV1hWbm9PN2pHZjRpN2pVQnlxdEl0UDRJVGtn?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "华尔街见闻 (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["DeepSeek funding", "state funds", "国家大基金"],
+      "summary": "Per headline (May 28 2026, corroborated by 联合早报, 21财经, 虎嗅, 证券时报 May 7-28 2026): China's national 'Big Fund' (国家大基金) set to lead DeepSeek's first external round at a $45B pre-money valuation. Emblematic of the Chinese funding model: the flagship open-weight lab's first round is state-led, not VC-led. Note: Wikipedia's DeepSeek page (accessed Aug 24 2026) still carries an earlier April 2026 figure ($300M at $10B), showing how fast reported terms escalated; treat exact terms as unconfirmed.",
+      "key_facts": [
+        "国家大基金 (state Big Fund) reported leading DeepSeek first round, $45B pre-money, May 28 2026 (per 华尔街见闻/联合早报 headlines)",
+        "Earlier April 2026 talk was $300M at $10B valuation (Wikipedia, accessed Aug 24 2026) — terms escalated rapidly; unconfirmed"
+      ]
+    },
+    {
+      "title": "消息称DeepSeek首轮融资约70亿美元，估值攀升至590亿美元",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNVUFCZmp6N0U0emJybkJkcmk3WlVLcjFldm51M3lYSTZWdzJkQV81SHpXc0ppd0s3X0I1bXdBN2E3UFI5X3dVSS1NMktzWlBvSURtQzJyS3YtMmk5Y0tKSjAzXzFGbmQ0QmptMnVSWkV4NnBtOFRsa2c4Wk9HOVlkMnNhblVXbVNBVjZRX21Vdw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "21财经 (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["DeepSeek valuation", "mega-round", "China AI capital"],
+      "summary": "Per headline (Jun 3 2026; Jiemian similarly reported '超70亿美元 first round, valuation over $50B' on Jun 16 2026): DeepSeek's first round reportedly reached ~$7B raised with valuation climbing to ~$59B — a China mega-round rivaling US frontier-lab rounds, anchored by state capital rather than Sand Hill Road.",
+      "key_facts": [
+        "DeepSeek first round reported ~$7B raised, valuation ~$59B, Jun 3 2026 (per 21财经 headline); Jiemian Jun 16: >$7B at >$50B"
+      ]
+    },
+    {
+      "title": "DeepSeek — Wikipedia (V4 releases, 1M context)",
+      "url": "https://en.wikipedia.org/wiki/DeepSeek",
+      "type": "other",
+      "year": 2026,
+      "venue_or_author": "Wikipedia",
+      "lang": "en",
+      "topics": ["DeepSeek V4", "open-weight models", "1M context window", "commoditization"],
+      "summary": "DeepSeek unveiled the V4 series in April 2026: V4-Flash and the 1.6-trillion-parameter V4-Pro, both with a one-million-token context window, released under MIT license (V4-Flash launched Jul 31 2026; V4-Pro Aug 13 2026). Open-weight, MIT-licensed 1M-context models are the sharpest commoditization pressure on paid long-context/context-management offerings — any vendor can self-host frontier-adjacent long context.",
+      "key_facts": [
+        "DeepSeek V4-Flash launched Jul 31 2026; V4-Pro (1.6T params) Aug 13 2026; both 1M-token context, MIT license (Wikipedia, accessed Aug 24 2026)"
+      ]
+    },
+    {
+      "title": "DeepSeek-V4-Pro宣布API价格永久降价为原定价的四分之一 能否再掀模型价格战？",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1mQzlaRG1QeWl1NWF2ZHBRd2YtdjRQbzlqUEY5U1JPSXo5RkVSeWM5VlYyYjNBOG51SExWLUo3YjZSUGxGenJIZ1BmRjR4bzlSbjFZVG15QWEwTFRh?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "财新 Caixin (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["token price war", "DeepSeek pricing", "context economics"],
+      "summary": "Per headline (May 25 2026): DeepSeek permanently cut V4-Pro API prices to one quarter of original list price, reigniting the model price war. Follow-on headlines: Xiaomi cut MiMo-V2.5 API prices 'permanently' (财新, May 27 2026; 爱范儿 called Xiaomi the 'Token价格屠夫'); VentureBeat (May 28 2026): 'DeepSeek V4's permanent price cut upends enterprise AI'; 财联社 (Jun 11 2026): price war 'burning to the US' with OpenAI reportedly weighing big cuts. Cheap tokens shrink the savings pitch of context-compression vendors while making memory-heavy agents cheaper to run.",
+      "key_facts": [
+        "DeepSeek V4-Pro API permanently cut to 1/4 of original price, May 25 2026 (per Caixin headline)",
+        "Xiaomi MiMo-V2.5 API permanent price cut followed May 27 2026 (per Caixin/爱范儿 headlines)",
+        "OpenAI reportedly considering major price cuts as war reaches US, Jun 11 2026 (per 财联社 headline)"
+      ]
+    },
+    {
+      "title": "DeepSeek涨价，OpenAI降价，Agent改写了大模型价格战",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE03WkFnQkM4YVl1dGlhZ3VuU1NRQkQwZ1dITzVWUTdsTmxXR0ZTeWZKeF9LOXFfVlhseTF6NHlZVURnOXQ2VzdKakZ0Q3NVRE1aSnEzWVRR?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "腾讯新闻 QQ News (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["agent token consumption", "pricing reversal", "context economics"],
+      "summary": "Per headline (Aug 18 2026; plus 亚洲电视新闻 Aug 23: DeepSeek weekend/off-peak API discounts; 手机新浪网 Aug 23: will others follow DeepSeek's repricing): by late Aug 2026 the price war had inverted — DeepSeek raising/restructuring prices while OpenAI cuts — because agent workloads exploded token volumes and changed unit economics. 36Kr (Jul 24 2026) framed the 'second half' of the price war as driving down inference prices specifically; 新浪财经 (Jul 16 2026) declared the old flat price war over. Directly shapes context economics: agents make context/token management a cost-control necessity, not a luxury.",
+      "key_facts": [
+        "DeepSeek raising prices while OpenAI cuts — agents rewrote the LLM price war (per QQ News headline, Aug 18 2026)",
+        "DeepSeek introduced weekend/off-peak API discounts, reported Aug 23 2026 (per 亚洲电视新闻 headline)",
+        "Price war 'second half' targets inference prices, Jul 24 2026 (per 36Kr headline)"
+      ]
+    },
+    {
+      "title": "豆包付费背后：Token大降价的时代落幕了",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9Da0EzOUJHYU1renYzX1NfMk05Wll1bFBGNnFmMjhfNjVPeDdqY1l2YTR4RXhfeUM2NWN5YVB5RXB1MUFtSFY4aUdMMTJYY1NoZzRqQUJPZXo3ZTBQWVE?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "澎湃 The Paper (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["Doubao monetization", "end of subsidies", "ByteDance"],
+      "summary": "Per headline (May 12 2026): ByteDance's Doubao moving to paid tiers marks the end of the token mega-discount era in China — the subsidy phase that made Chinese inference the world's cheapest is giving way to monetization, which restores room for value-added context/memory services to charge.",
+      "key_facts": [
+        "Doubao (豆包) shifted toward paid model; 'token big-discount era has ended', May 12 2026 (per The Paper headline)"
+      ]
+    },
+    {
+      "title": "生成式人工智能服务监管热点——“双备案”实务新观察",
+      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5aTTlnVnF3LTVBalp2VDM0ZHFFZ01tVUtVNXhzSkFuaXNrMkYzelA3blhWRWZwRXlUYl93SkdaY2E3M1ZKSDdiU1V2S0xGMmlYTGc?oc=5",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "君合律师事务所 JunHe (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["algorithm registration", "dual filing", "GenAI regulation", "PIPL"],
+      "summary": "Per headline (Apr 28 2026, JunHe law firm client alert): Chinese GenAI services face 'dual filing' (双备案) in practice — algorithm filing (算法备案) under the recommendation-algorithm rules plus large-model/GenAI filing under the 2023 GenAI Measures — now an enforcement hotspot. Mondaq (Aug 11 2026, per headline) reviewed filing practice 'from the perspective of regulatory enforcement', i.e., regulators are actively checking. Any memory service storing user profiles also triggers PIPL personal-information duties — a real compliance moat/barrier for foreign context vendors in China.",
+      "key_facts": [
+        "'双备案' (dual filing: algorithm + GenAI model) is current enforcement focus for Chinese AI services, Apr 28 2026 (per JunHe headline)",
+        "Enforcement-driven review of corporate AI filing obligations published Aug 11 2026 (per Mondaq headline)"
+      ]
+    },
+    {
+      "title": "从《智能体新规》看AI智能体的风险防范与合规治理（下）",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNS3RZc3Q4LXRLa3NRY0lCazZsdU1ELVJFOWdFLUZGcGZYVnMzN2lSVllQYnRfVjBieHByeHFrRlNDQktEVVhuOWxnQWVOM0gyRmk3VWlhMExua1RVeWpCNnhkcUpBXzROTkVGcTdYN3FxeVFuSXhzbzFLbDhMcS03dE4wT21iOGd6Q0NB?oc=5",
+      "type": "report",
+      "year": 2026,
+      "venue_or_author": "Lexology (law-firm analysis, via Google News RSS)",
+      "lang": "zh",
+      "topics": ["AI agent regulation", "compliance", "China agent rules"],
+      "summary": "Per headline (May 22 2026): law-firm analysis of new Chinese rules specifically governing AI agents (《智能体新规》) and their risk/compliance requirements — China now regulates agents as a category, on top of model filing and PIPL. Related 安全内参 pieces (Dec 14 2025 'legal issues of deploying AI Agents in China'; Jun 2 2026 'data-flow paths and compliance boundaries from Prompt to Agent') map how agent memory/data flows are the compliance pressure point.",
+      "key_facts": [
+        "New Chinese agent-specific rules (《智能体新规》) analyzed May 22 2026 (per Lexology headline) — agents regulated as distinct category",
+        "Agent data-flow compliance ('from Prompt to Agent') analyzed Jun 2 2026 (per 安全内参 headline)"
+      ]
+    },
+    {
+      "title": "Z Potentials｜沈俊潇：从 Meta 出走，剑桥博士创立 Memories.ai，获 Samsung Next、Susa Ventures 千万美元押注",
+      "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBwOVNIc1BHbDkwaEw5R2hEVUEydTBzVkdCX3ZNUmtnaHE3a0MydE5XS1E5QmRFMWRJc1VySXNaZFB4dFp3cG51c2VaZ3VIXzBMY1hzUlpR?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "腾讯新闻 QQ News / Z Potentials (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["Memories.ai", "visual memory", "diaspora founders", "US funding"],
+      "summary": "Per headline cluster: Memories.ai — founded by ex-Meta, Cambridge-PhD Chinese founder Shen Junxiao (沈俊潇) — raised a $8M seed (搜狐/36Kr, Jul 25 2025; 'world's first visual memory large model, unlimited context, Samsung invested') then 千万美元 (tens of millions USD) from Samsung Next and Susa Ventures (QQ/Z Potentials, Feb 10 2026), and partnered with Nvidia on a visual memory layer for wearables/robots (QQ, Mar 18 2026). The diaspora pattern: Chinese founder, US/Korea capital, global market — memory as the product.",
+      "key_facts": [
+        "Memories.ai seed $8M reported Jul 25 2025; Samsung Next + Susa Ventures backing 千万美元 reported Feb 10 2026 (per headlines)",
+        "Claims 'first large visual memory model' with million-hour video memory, unlimited context (per 36Kr/MIT Tech Review CN headlines, Jul-Aug 2025)",
+        "Nvidia partnership for visual memory layer in wearables/robotics, Mar 18 2026 (per QQ headline)"
+      ]
+    },
+    {
+      "title": "科大讯飞为何能发布一款让党政用户“敢用、好用”的国产大模型一体机",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQZ0MwblFXTUJsZ2FpS05DZHU0eFVLbFFKYlhHdVVXYkJMZUFKN053NEstaGJsUjdYMDkxVUdGQkZUM0NnV3JqMTRnQzB1TzZ4MkE5X1o2Q1BvMk9GVlZkeDlCRXpUNUd4eGR1OGpaUVdLcDhicGJ3a2g1dDRCVFRsV1cwVQ?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "China Daily (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["xinchuang", "on-prem deployment", "party-government market", "iFlytek"],
+      "summary": "Per headline (May 11 2026): iFlytek shipped a fully domestic (国产) LLM appliance that party-and-government (党政) users 'dare to use' — the xinchuang (信创) pattern: government/SOE AI must run on domestic chips, on-prem, with security review. Adjacent headlines: CSDN (Jun 5 2026) tested 8 domestic GPU brands running LLMs; multiple Aug 2026 财富号/网易 listicles rank 'privately deployable' full-stack agent vendors for 政企 clients. Context/memory capability in this segment is bought as on-prem software, not SaaS — structurally closed to US cloud vendors.",
+      "key_facts": [
+        "iFlytek domestic LLM appliance targeted at 党政 (party-government) users, May 11 2026 (per China Daily headline)",
+        "8 domestic GPU brands tested for LLM serving, Jun 5 2026 (per CSDN headline) — xinchuang stack maturing",
+        "Aug 2026 vendor roundups emphasize 可私有化部署 (private deployment) as the key 政企 procurement criterion (per 网易/财富号 headlines)"
+      ]
+    },
+    {
+      "title": "滴普科技赵杰辉：记忆，是智能体的“灵魂”",
+      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBia3dfNW15MG1yUTdjeHJYRS1PS3RVOFVYX281MUFmWm0xWFZRNDN6RmdpaExUal9TOFZLWnRhRFdQTjd0YlhlbTFNODItZw?oc=5",
+      "type": "news",
+      "year": 2026,
+      "venue_or_author": "36Kr (via Google News RSS)",
+      "lang": "zh",
+      "topics": ["enterprise agents", "memory as differentiator", "Chinese enterprise AI vendors"],
+      "summary": "Per headline (May 7 2026): Deepexi (滴普科技) CEO Zhao Jiehui publicly positions memory as 'the soul of the agent' — evidence that mainstream Chinese enterprise-AI vendors (not just memory-native startups) now sell memory capability as the core agent differentiator. Complementary: Tencent-published deep dive '万字解码 Agentic AI 时代的记忆系统演进之路' (qq.com, Aug 14 2025) mapped the memory-system landscape for Chinese engineers, and 爱分析 (Aug 24 2026, per headline) calls agent-era infrastructure the 'new foundation'.",
+      "key_facts": [
+        "Deepexi (滴普科技) CEO: 'memory is the agent's soul', May 7 2026 (per 36Kr headline)",
+        "Tencent 10,000-character memory-systems survey for agentic AI published Aug 14 2025 (per qq.com headline)"
+      ]
+    }
+  ],
+  "notes": "CAPS USED: 18/18 search calls, 11/12 WebFetch. Google News redirector URLs could not be resolved to publisher pages (JS-only redirect; batchexecute recipe broken), so headline-attributed facts are marked 'per headline' and carry the gnews RSS URL — treat figures as reported-not-verified. VERIFIED-BY-FETCH sources: MemOS GitHub + openmem.net, arXiv 2507.03724, Bailian long-term-memory docs, Tencent cloud.tencent.com/product/lke, Coze Studio + Dify repos, Wikipedia Manus + DeepSeek. KEY SYNTHESIS FOR THE REPORTS: (1) China has a funded memory-native champion — MemTensor/MemOS (~RMB100M Pre-A, Jul 2026, Huawei/Honor/SenseTime money, SJTU-linked research, 11k-star OSS, cloud tiers, enterprise logos Trip/Haier/China Telecom) — its funding is strategic-CVC/state-adjacent, unlike US memory startups (contrast: Mem0 raised $24M from YC/Peak XV, Nov 4 2025, per QQ headline gnews CBMiVkFVX3lxTE1rVnhIZWFTQ1BBX3plRE9fa3FUWllzZjNaZDhkRlloMkIxc2FidEt6T0g1NDZvMVJMYk5vV0gySjhYX3ZsQ0JlbVZRdXNnSmhjanZ0MXNB; DeepSeek's first round reportedly state-Big-Fund-led at $45B pre-money; Big Fund also made first embodied-AI bet 银河通用 RMB2.5B, Mar 2 2026 per 财联社 headline). (2) Hyperscalers bundle memory free: Bailian long-term memory storage+tokens currently uncharged; ByteDance open-sourced Coze Studio (Apache 2.0); Dify 153k stars self-hostable — platform giveaway + open-weight DeepSeek V4 (MIT, 1M context) = severe commoditization pressure on any paid US context product. (3) Market access is bilaterally closing: Meta-Manus $2B deal blocked by NDRC Apr 27 2026, unwound Jun 15 2026; 'Singapore washing' red lines; Beijing pressuring startups to refuse US money — a US context startup faces both a hard-to-enter China market (xinchuang on-prem procurement, 双备案 filing, PIPL, new Agent rules) and Chinese-founded rivals (Genspark $2.6B, explicitly marketing 'context not models') competing freely in the US. (4) Context economics whiplash: 2025-H1 2026 permanent price cuts (DeepSeek V4-Pro to 1/4 price May 25 2026; Xiaomi followed) then Aug 2026 reversal — DeepSeek raising/off-peak-discounting while OpenAI cuts, because agent workloads exploded token volume (QQ Aug 18 2026): cheap tokens weaken 'save tokens' pitches, but agent-driven volume makes context management a cost-control necessity. NOT COVERED (budget exhausted): Volcano Engine's specific memory/context-cache product docs (only old Dec 2024 headlines found); Zilliz/vector-DB funding 2026; MemPrivacy (36Kr May 15 2026 headline exists on AI-memory privacy); NYT Jul 19 2026 'Alibaba AI hard to monetize' (gnews CBMickFVX3lxTE4wZ2pQY0szQ1ppaVBBLUpBVTQzc0stVExrOUVNZmFuME4zUHQtVkxZMUFVeTdVYmpLX0xWbE9xRk5JR01pXzd3QzlEdWUxeUFUM3hnb2pvb1NEOFh0anBBTTAzZy1Za05faElxZTl2VWtOdw) is a good monetization-pressure cite if needed."
+}

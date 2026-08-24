@@ -1,0 +1,70 @@
+<section class="msection" id="addendum-bytedance-volcano-memory">
+  <h2>ByteDance's context-cache and memory stack: what Volcano Engine and Coze charge today</h2>
+  <p class="lede">The sweeps only caught ByteDance's Dec-2024 launches. As of Aug 24, 2026, ByteDance meters both layers: Volcano Ark bills explicit context-cache storage at 0.017 yuan/M tokens/hour with cache hits at ~20% of input price, and Coze has charged per memory write/retrieval/storage-hour since an Oct 2025 upgrade — while open-sourcing the deepest layer as OpenViking (32.9k stars). "Platforms give memory away free" needs qualification.</p>
+  <div class="kv"><div><b>Key numbers</b><span>0.017 yuan/M tok/hr explicit cache storage; cache hit = 20% of input price (e.g. 1.20 vs 6.00 yuan/M, doubao-seed-2.1-pro) — Ark docs, Aug 24 2026; 7-day max cache retention; Coze memory: 0.03 yuan/write, 0.01 yuan/retrieval, 0.02 yuan/10k entries/hr (docs.coze.cn, Aug 24 2026); OpenViking 32,914 stars, v0.4.16 (Aug 21 2026)</span></div><div><b>Confidence</b><span>high — primary vendor pricing docs fetched Aug 24, 2026</span></div><div><b>Evidence base</b><span>7 fetched (5 vendor doc pages, GitHub repo + API), 6 from headlines</span></div></div>
+
+  <h3>The Dec-2024 cache product is being retired into a standard API</h3>
+  <p>Volcano Ark's dedicated 上下文缓存 (Context API) — the product both sweeps surfaced from Dec 2024 — is now marked 待下线 ("pending offline") in <a href="https://docs.volcengine.com/docs/82379/1396491">Ark's historical docs</a> (page updated Aug 24, 2026; exact shutdown date not published — unknown). Its replacement is caching folded into the <a href="https://docs.volcengine.com/docs/82379/1569618">Responses API</a>, which extends caching from text-only to multimodal inputs (text, image, video) and tool-call information. The current <a href="https://docs.volcengine.com/docs/82379/1398933">context-caching guide</a> (updated Aug 24, 2026) describes a two-mode system: <b>implicit caching</b> — automatic, cannot be disabled, no storage fee, hit not guaranteed, minimum 1,024-token cache block, default-on for doubao-seed-2.0-and-later and doubao-seed-code models — and <b>explicit caching</b> (Session cache and prefix cache) — deterministic hits, configurable expiry via expire_at up to a hard cap of 7 days, storage billed hourly from creation, prefix cache minimum 256 tokens. The pattern matches the US trajectory: the standalone "context product" of 2024 had a roughly 18-month half-life before being absorbed into the standard inference API.</p>
+
+  <h3>What Volcano charges for context today — cache is paid, not free</h3>
+  <p>Ark's <a href="https://docs.volcengine.com/docs/82379/1099320">model price list</a> (updated Aug 24, 2026) prices cache hits at a consistent ~80% discount to fresh input across the doubao-seed line, plus an hourly storage fee for explicit caches. Input, hit, and output prices all step up by context-length tier (0–32k, 32–128k, 128–256k input) — the "context-interval pricing" Doubao 1.6 pioneered (per InfoQ-CN headline, Jun 12, 2025) is now the standard scheme.</p>
+  <div class="table-wrap"><table>
+    <tr><th>Model (input tier, k tokens)</th><th>Input yuan/M</th><th>Cache hit yuan/M</th><th>Cache storage yuan/M/hr</th><th>Output yuan/M</th></tr>
+    <tr><td>doubao-seed-2.1-pro [0–256k]</td><td>6.00</td><td>1.20</td><td>0.017</td><td>30.00</td></tr>
+    <tr><td>doubao-seed-2.1-turbo [0–256k]</td><td>3.00</td><td>0.60</td><td>0.017</td><td>15.00</td></tr>
+    <tr><td>doubao-seed-2.0-pro [0–32k]</td><td>3.2</td><td>0.64</td><td>0.017</td><td>16.0</td></tr>
+    <tr><td>doubao-seed-2.0-pro (128–256k]</td><td>9.6</td><td>1.92</td><td>0.017</td><td>48.0</td></tr>
+    <tr><td>doubao-seed-2.0-mini [0–32k]</td><td>0.2</td><td>0.04</td><td>0.017</td><td>2.0</td></tr>
+    <tr><td>deepseek-v4-flash on Ark (from Aug 21/28, 2026)</td><td>3.0</td><td>0.1</td><td>—</td><td>9.0</td></tr>
+    <tr><td>deepseek-v4-pro on Ark (from Aug 28, 2026)</td><td>9.0</td><td>0.3</td><td>—</td><td>27.0</td></tr>
+  </table></div>
+  <p>Two nuances matter for the pricing-squeeze argument. Implicit cache storage is explicitly not billed — only the discounted hit price applies — so light multi-turn workloads get caching effectively free. But production agent workloads that need deterministic hits (role-play, fixed instruction templates, long tool chains) must use explicit caching, pay 0.017 yuan/M tokens/hour storage from the moment of creation ("storage fees accrue at cache creation and stop only on deletion or expiry", per the <a href="https://docs.volcengine.com/docs/82379/1398933">billing notes</a>), and re-create everything after 7 days. Cache hits are also priced per input-length tier, so a 200k-token cached agent context still hits at the top tier.</p>
+
+  <h3>Coze memory stopped being free in October 2025</h3>
+  <p>The china-market section's "platforms give memory away free" claim leaned on Coze. That is out of date. Per the current <a href="https://www.coze.cn/open/docs/guides/long_term_memory">记忆库 (Memory Base) doc</a>, Coze upgraded long-term memory on Oct 15, 2025 into a standalone Memory Base resource — shareable across agents and workflows, isolated per user-UID×channel-ID — and the upgrade reset legacy memory data unrecoverably. Capacity is tiered by subscription, and every memory operation is metered per the <a href="https://docs.coze.cn/coze_pro/memory_fee">memory fee schedule</a> (both fetched Aug 24, 2026):</p>
+  <div class="table-wrap"><table>
+    <tr><th>Plan</th><th>Memory entry cap</th></tr>
+    <tr><td>Personal free (个人免费版)</td><td>100</td></tr>
+    <tr><td>Personal advanced / premium (进阶/高阶)</td><td>1,000 / 2,000</td></tr>
+    <tr><td>Personal flagship / supreme (旗舰/尊享)</td><td>10,000</td></tr>
+    <tr><td>Enterprise standard (企业标准版)</td><td>100,000</td></tr>
+    <tr><td>Enterprise flagship (企业旗舰版)</td><td>10,000,000</td></tr>
+  </table></div>
+  <div class="table-wrap"><table>
+    <tr><th>Billable item</th><th>Unit</th><th>Price (cash)</th><th>Price (credits)</th></tr>
+    <tr><td>Memory write (记忆写入)</td><td>per write</td><td>0.03 yuan</td><td>30 credits</td></tr>
+    <tr><td>Memory retrieval / update (检索与更新)</td><td>per call</td><td>0.01 yuan</td><td>10 credits</td></tr>
+    <tr><td>Memory storage (记忆存储)</td><td>per 10k entries per hour</td><td>0.02 yuan</td><td>20 credits</td></tr>
+  </table></div>
+  <p>The fee doc adds a retention cliff: accounts more than 15 days in arrears, or 15 days past subscription expiry, have all Memory Base data auto-deleted with no recovery. Free memory on Coze is now a 100-entry on-ramp; at agent-production scale, memory is a metered database product.</p>
+
+  <h3>OpenViking: the free layer moved to open source</h3>
+  <p>Where ByteDance does give memory away, it is as code, not as hosted service. <a href="https://github.com/volcengine/OpenViking">volcengine/OpenViking</a> — "the context database for AI agents" — was created Jan 5, 2026 and reached 32,914 stars and 2,511 forks by Aug 24, 2026 (GitHub API), with v0.4.16 released Aug 21, 2026, under AGPL-3.0. It unifies agent memory, RAG, and skills as a viking:// virtual filesystem, processes every entry into three tiers (L0 abstract / L1 overview / L2 details) loaded on demand to cut token spend, and asynchronously extracts user preferences and agent experience into long-term memory after each session commit. InfoQ-CN paired it with OpenClaw as an out-of-the-box fix for agents' "long-term memory dilemma" (长期记忆困局, per headline, Mar 17, 2026). Volcano is simultaneously positioning its paid cloud as the agent data layer — "upgrading data infrastructure as the data foundation for Agents" (per 中国日报网 headline, Jun 24, 2026) — with third-party memory vendors such as ClawLake demoing on Volcano's AI roadshow (per CSDN headline, Apr 2, 2026). The AGPL license is the tell: free for self-hosters, viral for competitors who would offer it as a service.</p>
+
+  <h3>Implications</h3>
+  <ul>
+    <li>The "memory is free in China" squeeze claim should be restated: free is the on-ramp (100 Coze memories, unbilled implicit cache), but ByteDance meters memory writes, retrievals, storage, and explicit cache storage at production scale — since Oct 15, 2025 on Coze and in Ark's current cache pricing (Aug 24, 2026).</li>
+    <li>Volcano's ~80% cache-hit discount plus 0.017 yuan/M/hr storage puts it in the same economic shape as DeepSeek and Anthropic caching; hosting deepseek-v4-flash hits at 0.1 yuan/M on Ark extends the cache-hit price war inside ByteDance's own cloud (Aug 21–28, 2026 adjustments).</li>
+    <li>Standalone context products have short half-lives: the Dec-2024 Context API is 待下线 within ~20 months, absorbed into the Responses API — a warning for startups whose product is a caching API rather than the data layer beneath it.</li>
+    <li>Implicit caching is default-on and cannot be disabled for seed-2.0+ models — cache economics are becoming part of the base token price, which compresses what a third-party "context optimization" vendor can charge for.</li>
+    <li>Coze's 15-day arrears auto-deletion of memory data is a real enterprise retention risk and a switching-cost lever; memory data portability is the counter-positioning opening for independents.</li>
+    <li>OpenViking (32.9k stars in under 8 months, AGPL-3.0) means memory startups in China compete against a free ByteDance repo and a metered ByteDance cloud at the same time; differentiation has to come from cross-platform portability or evaluation, not storage.</li>
+  </ul>
+
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li><a href="https://docs.volcengine.com/docs/82379/1099320">模型价格 (Model Prices, 火山方舟)</a> <span class="src-type docs">docs</span> — Volcano Engine, 2026</li>
+    <li><a href="https://docs.volcengine.com/docs/82379/1398933">上下文缓存 (Context Caching guide)</a> <span class="src-type docs">docs</span> — Volcano Engine, 2026</li>
+    <li><a href="https://docs.volcengine.com/docs/82379/1396491">上下文缓存 Context API（待下线）</a> <span class="src-type docs">docs</span> — Volcano Engine, 2026</li>
+    <li><a href="https://docs.volcengine.com/docs/82379/1569618">Responses API</a> <span class="src-type docs">docs</span> — Volcano Engine, 2026</li>
+    <li><a href="https://www.coze.cn/open/docs/guides/long_term_memory">记忆库 (Memory Base / long-term memory)</a> <span class="src-type docs">docs</span> — Coze 扣子, 2026</li>
+    <li><a href="https://docs.coze.cn/coze_pro/memory_fee">记忆库费用 (Memory Base fees)</a> <span class="src-type docs">docs</span> — Coze 扣子, 2026</li>
+    <li><a href="https://github.com/volcengine/OpenViking">volcengine/OpenViking — Context Database for AI Agents</a> <span class="src-type repo">repo</span> — GitHub, 2026</li>
+    <li><a href="https://news.google.com/rss/articles/CBMiWkFVX3lxTFBKUXc3eWdqMGx4QWk5YVNEcnFpQndXMVhfS3k3dEpYS244VGQwOEQxbnhrVmpwSV9nUEUzZEhVQUN5azFZcXBYMEZ6RHJaUF9MODBTSjhCTkN6UQ?oc=5">字节 AI 卷出新高度：豆包试水"上下文定价" (per headline)</a> <span class="src-type news">news</span> — InfoQ-CN, 2025</li>
+    <li><a href="https://news.google.com/rss/articles/CBMiXkFVX3lxTE5tckdkUFdZY3U2clRQbmxXd25HYndzRlJILTdUZkF0WXhxY3N1N3BoRkNUSTE5emd5RFJoV3dkSzZ0VXEtTzBGR3B1czAySi00ZUEwd2c0WkRJZjRtd3c?oc=5">OpenViking x OpenClaw：解决 Agent 的长期记忆困局 (per headline)</a> <span class="src-type news">news</span> — InfoQ-CN, 2026</li>
+    <li><a href="https://news.google.com/rss/articles/CBMifEFVX3lxTE1FNWhEWWNRNHpGRnhVZ2g1c2xBUmg0bElISmlZN0c0RXNQZjNZSlpGZURxUmVSX1ByZjQyNk44Zy0xSUNoWE5STVVaOXVEVFZKVGlBOVptcURwaUVobjlSRUR4SWl5UTRjNjdxN2czRm1nVXk4T0xMdk43Mmk?oc=5">火山引擎升级数据基础设施，打造专为Agent服务的数据底座 (per headline)</a> <span class="src-type news">news</span> — 中国日报网, 2026</li>
+    <li><a href="https://news.google.com/rss/articles/CBMiVEFVX3lxTFBSNFg4T1Q1cFNWNmNuc3pkMWk0Z1hrMlh4clhQRk5QWTJqMzJ4SFBkTnFLVWlQQkdQeDZtQjR3VnNiV2gzRUlCbGxKSks1M05Pb1o0Vw?oc=5">豆包悄悄收费，AI大模型走上变现之路 (per headline)</a> <span class="src-type news">news</span> — CBNData 第一财经商业数据中心, 2026</li>
+    <li><a href="https://news.google.com/rss/articles/CBMiXkFVX3lxTE45S1QyRGFkTURGV0FrUkpVblhxeG9mWDlRT3ZZTU9yaUNzek9SVTdpNUE4aW1RSUNXVndNNnBfS0ktTTRjMXIwZnI5T3VTVnZFbGVkRk5UcDdPa1NqX2c?oc=5">企业级专属记忆底座方案 ClawLake 亮相火山引擎AI巡展 (per headline)</a> <span class="src-type news">news</span> — CSDN, 2026</li>
+    <li><a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTE8zX0NrcHo2LVgxQ2ZiU1l2OHBibld5ZjZJNV96N25fdWlRaVo1M1RuZXkxcXkxdGM4WWtUQmNZZDZoWFp1MUxZSVFjREY3MldSa3FZ?oc=5">智能体时代的新基础设施｜爱分析报告 (per headline)</a> <span class="src-type report">report</span> — 电子工程专辑 / 爱分析, 2026</li>
+  </ol>
+</section>
