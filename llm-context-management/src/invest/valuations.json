@@ -1,0 +1,142 @@
+{
+ "fetched": "2026-08-26",
+ "note": "Points are reported valuations from the investment report's sourced claims; 'per headline' items were not verified against article bodies.",
+ "companies": [
+  {
+   "name": "OpenAI",
+   "side": "US",
+   "points": [
+    [
+     "2024-10",
+     157,
+     "Series (reported)"
+    ],
+    [
+     "2025-03",
+     300,
+     "reported"
+    ],
+    [
+     "2025-10",
+     500,
+     "secondary, per headline"
+    ],
+    [
+     "2026-03",
+     852,
+     "$122B round, reported"
+    ]
+   ]
+  },
+  {
+   "name": "Anthropic",
+   "side": "US",
+   "points": [
+    [
+     "2025-03",
+     61.5,
+     "Series E, reported"
+    ],
+    [
+     "2025-09",
+     183,
+     "Series F, reported"
+    ],
+    [
+     "2026-05",
+     965,
+     "Series H post-money, verified"
+    ],
+    [
+     "2026-08",
+     1500,
+     "secondaries, per headline"
+    ]
+   ]
+  },
+  {
+   "name": "xAI",
+   "side": "US",
+   "points": [
+    [
+     "2024-12",
+     45,
+     "reported"
+    ],
+    [
+     "2025-07",
+     200,
+     "per headline"
+    ],
+    [
+     "2026-01",
+     235,
+     "Series E, per headline"
+    ]
+   ]
+  },
+  {
+   "name": "Moonshot AI",
+   "side": "China",
+   "points": [
+    [
+     "2024-02",
+     2.5,
+     "reported"
+    ],
+    [
+     "2025-12",
+     4.3,
+     "reported"
+    ],
+    [
+     "2026-05",
+     20,
+     "$2B round, per headline"
+    ],
+    [
+     "2026-07",
+     35,
+     "F round, Bloomberg per headline"
+    ],
+    [
+     "2026-08",
+     50,
+     "pre-IPO target, per headline"
+    ]
+   ]
+  },
+  {
+   "name": "DeepSeek",
+   "side": "China",
+   "points": [
+    [
+     "2026-06",
+     52,
+     "state-led round midpoint of $45-59B reports, unconfirmed"
+    ]
+   ]
+  },
+  {
+   "name": "Zhipu (Z.ai)",
+   "side": "China",
+   "points": [
+    [
+     "2025-07",
+     5.6,
+     "pre-IPO reported"
+    ],
+    [
+     "2026-01",
+     8,
+     "HK IPO debut, reported"
+    ],
+    [
+     "2026-06",
+     140,
+     "~\u00a51T market cap, per headline"
+    ]
+   ]
+  }
+ ]
+}

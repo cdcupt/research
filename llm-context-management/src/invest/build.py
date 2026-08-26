@@ -5,9 +5,110 @@ from collections import OrderedDict, Counter
 SRC = os.path.dirname(os.path.abspath(__file__))
 HERE = os.environ.get('INVEST_DIR', SRC)
 sys.path.insert(0, os.path.dirname(SRC))
-from build import esc, norm_url, clean_fragment, INK, INK2, MUTED, HAIR, SURFACE, BG, ACCENT  # noqa: E402
+from build import esc, norm_url, clean_fragment, INK, INK2, MUTED, HAIR, SURFACE, BG, ACCENT, t, tlines, wrap, svg_open  # noqa: E402
 TODAY = '2026-08-24'
 OUT_FULL = os.path.join(HERE, 'investment-report.html'); OUT_ART = os.path.join(HERE, 'investment-report.artifact.html')
+UP, UP_TXT, DOWN = '#0ca30c', '#006300', '#d03b3b'
+PANEL_COLORS = ['#2a78d6', '#eb6834', '#4a3aa7', '#1baf7a']  # validated categorical set
+ALIAS = {'MINIMAX-W (HK)': '0100.HK', 'MINIMAX-W': '0100.HK', 'MINIMAX': '0100.HK'}
+def load_prices():
+    fp = os.path.join(HERE, 'prices.json')
+    if not os.path.exists(fp): fp = os.path.join(SRC, 'prices.json')
+    return json.load(open(fp)) if os.path.exists(fp) else None
+def series_for(prices, ticker):
+    if not prices: return None
+    k = ALIAS.get(ticker.strip().upper(), ticker.strip().upper())
+    return prices['series'].get(k)
+def sparkline(pts, w=150, h=36):
+    vals = [v for _, v in pts]
+    lo, hi = min(vals), max(vals); rng = (hi - lo) or 1
+    xs = [4 + (w - 8) * i / max(len(vals) - 1, 1) for i in range(len(vals))]
+    ys = [4 + (h - 8) * (1 - (v - lo) / rng) for v in vals]
+    chg = (vals[-1] / vals[0] - 1) * 100
+    col = UP if chg >= 0 else DOWN
+    d = 'M' + ' L'.join(f'{x:.1f},{y:.1f}' for x, y in zip(xs, ys))
+    return (f'<svg viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img" aria-label="price sparkline">'
+            f'<path d="{d}" fill="none" stroke="{col}" stroke-width="1.8"/>'
+            f'<circle cx="{xs[-1]:.1f}" cy="{ys[-1]:.1f}" r="2.6" fill="{col}"/></svg>'), chg
+def spread(vals, gap):
+    idx = sorted(range(len(vals)), key=lambda i: vals[i]); out = list(vals)
+    for a, b in zip(idx, idx[1:]):
+        if out[b] - out[a] < gap: out[b] = out[a] + gap
+    return out
+import datetime as _dt
+def _ord(ds): y, m, d = (list(map(int, ds.split('-'))) + [1, 1])[:3]; return _dt.date(y, m, d).toordinal()
+def svg_indexed_panels(prices):
+    PANELS = [('Hyperscalers', ['MSFT', 'GOOGL', 'META', 'AMZN'], 'lin'), ('Semis & AI infrastructure', ['NVDA', 'SMCI', 'CRWV'], 'lin'),
+              ('Software incumbents', ['MDB', 'SNOW', 'DDOG'], 'lin'), ('China: platforms & 2026 listings', ['BABA', '0700.HK', '688256.SS', '2513.HK'], 'log')]
+    PW, PH, GX, GY, W = 528, 250, 40, 56, 1230
+    H = GY + 2 * (PH + 64)
+    import math as _mm
+    out = [svg_open(W, H, 'Indexed share-price performance 2026 year-to-date, four panels', minw=1000)]
+    for pi, (title, tickers, scale) in enumerate(PANELS):
+        px = 12 + (pi % 2) * (PW + 90); py = 34 + (pi // 2) * (PH + 64)
+        out.append(t(px + 4, py - 8, title.upper(), 11.5, MUTED, 700, extra='letter-spacing=".07em"'))
+        sers = [(tk, series_for(prices, tk)) for tk in tickers]; sers = [(tk, s_) for tk, s_ in sers if s_ and len(s_['points']) > 5]
+        if not sers: continue
+        allx = [_ord(p[0]) for tk, s_ in sers for p in s_['points']]; x0d, x1d = min(allx), max(allx)
+        def IX(o): return px + 44 + (PW - 52) * (o - x0d) / max(x1d - x0d, 1)
+        idxd = {}
+        for tk, s_ in sers:
+            base = s_['points'][0][1]; idxd[tk] = [(_ord(d_), v / base * 100) for d_, v in s_['points']]
+        vals = [v for pts in idxd.values() for _, v in pts]; lo, hi = min(vals), max(vals)
+        if scale == 'log':
+            L0, L1 = _mm.log10(lo), _mm.log10(hi)
+            def IY(v): return py + PH - (PH - 8) * (_mm.log10(v) - L0) / max(L1 - L0, 0.01)
+            ticks = [x for x in [50, 100, 200, 400, 800, 1600] if lo * 0.9 <= x <= hi * 1.1]
+        else:
+            pad = (hi - lo) * 0.06 or 1; lo -= pad; hi += pad
+            def IY(v): return py + PH - (PH - 8) * (v - lo) / (hi - lo)
+            step = max(round((hi - lo) / 4 / 10) * 10, 10); ticks = [x for x in range(int(lo // step * step), int(hi) + step, step) if lo <= x <= hi]
+        for tv in ticks:
+            out.append(f'<line x1="{px + 44}" y1="{IY(tv):.1f}" x2="{px + PW - 8}" y2="{IY(tv):.1f}" stroke="{HAIR}"/>'); out.append(t(px + 40, IY(tv) + 3.5, str(tv), 10, MUTED, 400, 'end'))
+        base_y = IY(100)
+        out.append(f'<line x1="{px + 44}" y1="{base_y:.1f}" x2="{px + PW - 8}" y2="{base_y:.1f}" stroke="#c3c2b7" stroke-width="1.2"/>')
+        for mo in range(1, 9): 
+            o = _dt.date(2026, mo, 1).toordinal()
+            if x0d <= o <= x1d: out.append(t(IX(o), py + PH + 14, f'{mo}月'[:0] + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug'][mo-1], 9.5, MUTED, 400, 'middle'))
+        ends = []
+        for ci, (tk, s_) in enumerate(sers):
+            col = PANEL_COLORS[ci % 4]; pts = idxd[tk]
+            d = 'M' + ' L'.join(f'{IX(o):.1f},{IY(v):.1f}' for o, v in pts)
+            out.append(f'<path d="{d}" fill="none" stroke="{col}" stroke-width="2"><title>{esc(s_["name"])} indexed to 100 at first 2026 close</title></path>')
+            ends.append((tk, s_, col, pts[-1][1]))
+        eys = spread([IY(v) for tk, s_, col, v in ends], 13)
+        for (tk, s_, col, v), ey in zip(ends, eys):
+            out.append(f'<circle cx="{IX(x1d):.1f}" cy="{IY(v):.1f}" r="3" fill="{col}"/>')
+            out.append(t(px + PW + 2, ey + 3.5, f'{tk} {v - 100:+.0f}%', 10.5, col, 700))
+    out.append('</svg>'); return ''.join(out)
+def svg_valuations(V):
+    import math as _mm
+    W = 1120; px, py, PW, PH = 60, 40, W - 260, 380
+    x0d, x1d = _dt.date(2024, 1, 1).toordinal(), _dt.date(2026, 11, 1).toordinal()
+    def X(o): return px + PW * (o - x0d) / (x1d - x0d)
+    def Y(v): return py + PH - PH * (_mm.log10(v) - 0) / (_mm.log10(2000) - 0)
+    out = [svg_open(W, py + PH + 70, 'Reported valuations of frontier AI labs, 2024-2026, log scale, US versus China', minw=900)]
+    for tv, lab in [(1, '$1B'), (10, '$10B'), (100, '$100B'), (1000, '$1T')]:
+        out.append(f'<line x1="{px}" y1="{Y(tv):.1f}" x2="{px + PW}" y2="{Y(tv):.1f}" stroke="{HAIR}"/>'); out.append(t(px - 6, Y(tv) + 3.5, lab, 10.5, MUTED, 400, 'end'))
+    for yr in (2024, 2025, 2026):
+        o = _dt.date(yr, 1, 1).toordinal(); out.append(f'<line x1="{X(o):.1f}" y1="{py}" x2="{X(o):.1f}" y2="{py + PH}" stroke="{HAIR}"/>'); out.append(t(X(o), py + PH + 16, str(yr), 11, MUTED, 400, 'middle'))
+    SIDE = {'US': '#2a78d6', 'China': '#eb6834'}
+    ends = [(c, c['points'][-1][1]) for c in V['companies']]
+    eys = spread([Y(v) for c, v in ends], 15)
+    for (c, endv), ey in zip(ends, eys):
+        col = SIDE[c['side']]; pts = [(_ord(d_ + '-01' if len(d_) == 7 else d_), v, lab) for d_, v, lab in c['points']]
+        if len(pts) > 1:
+            d = 'M' + ' L'.join(f'{X(o):.1f},{Y(v):.1f}' for o, v, _ in pts)
+            out.append(f'<path d="{d}" fill="none" stroke="{col}" stroke-width="2" stroke-opacity="0.75"/>')
+        for o, v, lab in pts:
+            out.append(f'<circle cx="{X(o):.1f}" cy="{Y(v):.1f}" r="4.5" fill="{col}" stroke="{SURFACE}" stroke-width="1.5"><title>{esc(c["name"])}: ${v}B — {esc(lab)}</title></circle>')
+        out.append(t(px + PW + 10, ey + 3.5, f"{c['name']} ${endv:g}B", 11.5, col, 700))
+    ly = py + PH + 44
+    out.append(f'<rect x="{px}" y="{ly - 10}" width="12" height="12" rx="2" fill="{SIDE["US"]}"/>' + t(px + 17, ly, 'United States', 11.5, INK2))
+    out.append(f'<rect x="{px + 130}" y="{ly - 10}" width="12" height="12" rx="2" fill="{SIDE["China"]}"/>' + t(px + 147, ly, 'China', 11.5, INK2))
+    out.append(t(px + 230, ly, 'hover a point for the round and sourcing label; all figures are reported, several per headline', 11, MUTED))
+    out.append('</svg>'); return ''.join(out)
+
 STANCE = OrderedDict([('bull', ('Bulls', '#1baf7a')), ('mixed', ('Mixed', '#5b6472')), ('cautious', ('Cautious', '#eb6834')), ('bear', ('Bears', '#d03b3b'))])
 
 def main():
@@ -31,12 +132,24 @@ def main():
             [f'<div class="tile"><b>{by_type[tp]}</b><span>{PL[tp]}</span></div>' for tp in type_order if by_type.get(tp)]
 
     # --- stock board ---
+    prices = load_prices()
     board = ''
     for s in sorted(pub.get('stocks') or [], key=lambda s: s['ticker']):
+        ser = series_for(prices, s['ticker']); spark = ''
+        if ser:
+            svg_, chg = sparkline(ser['points'])
+            pcol = UP_TXT if chg >= 0 else DOWN
+            spark = (f'<div class="sparkrow">{svg_}<span class="pct" style="color:{pcol}">{chg:+.0f}%<em>2026 YTD ({esc(ser["currency"])})</em></span></div>')
         board += (f'<div class="stock"><div class="trow"><b>{esc(s["ticker"])}</b><span class="key">{esc(s["key_number"])}</span></div>'
-                  f'<div class="nm">{esc(s["name"])}</div><p>{esc(s["situation"])}</p>'
+                  f'<div class="nm">{esc(s["name"])}</div>{spark}<p>{esc(s["situation"])}</p>'
                   f'<div class="asof">as of {esc(s["as_of"])} · <a href="{esc(s["source_url"])}" target="_blank" rel="noopener">source</a></div></div>')
     fig_board = f'<h3>The board: where the AI trade stands</h3><div class="stockboard">{board}</div>' if board else ''
+    if prices:
+        fig_board += (f'<figure class="breakout"><div class="scroll">{svg_indexed_panels(prices)}</div><figcaption><span class="swipe">Swipe sideways to see the whole figure. </span><b>Figure A.</b> 2026 share-price trends, indexed to 100 at each name\'s first close of the year (HK listings from their debut). Daily closes from Yahoo Finance (US) and Tencent (HK/A-shares), as of {esc(prices.get("fetched", ""))}; the China panel is log-scaled because Cambricon and Zhipu moved in multiples, not percent.</figcaption></figure>')
+    vals_p = os.path.join(HERE, 'valuations.json'); vals_p = vals_p if os.path.exists(vals_p) else os.path.join(SRC, 'valuations.json')
+    if os.path.exists(vals_p):
+        V = json.load(open(vals_p))
+        fig_board += (f'<figure class="breakout"><div class="scroll">{svg_valuations(V)}</div><figcaption><span class="swipe">Swipe sideways to see the whole figure. </span><b>Figure B.</b> Private-lab valuation trajectories, 2024-2026, on a log scale — the startups\' equivalent of a stock chart. Every point is a reported figure from the sources in this report; hover for the round and label. {esc(V.get("note", ""))}</figcaption></figure>')
 
     # --- expectations board ---
     exps = prv.get('expectations') or []
@@ -121,6 +234,9 @@ section.msection{padding:44px 0;border-bottom:1px solid var(--hair);scroll-margi
 .stock .key{color:var(--accent);font-weight:700}
 .stock .nm{color:var(--muted);font-size:12.5px;margin:2px 0 6px}
 .stock p{margin:0 0 8px;color:var(--ink2)}
+.sparkrow{display:flex;align-items:center;gap:10px;margin:2px 0 8px}
+.sparkrow .pct{font-weight:700;font-size:15px}
+.sparkrow .pct em{display:block;font-style:normal;font-weight:400;font-size:10.5px;color:var(--muted)}
 .asof{font-size:11.5px;color:var(--muted)}
 .stancegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:12px 0 20px}
 .stancecol h4{font-size:15px;margin:0 0 8px;display:flex;align-items:center;gap:7px;font-family:"Bricolage Grotesque",system-ui,sans-serif}
