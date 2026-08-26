@@ -400,6 +400,18 @@ def svg_cn_stack(players):
     out.append(f'<circle cx="140" cy="{ly - 4}" r="4.5" fill="{SURFACE}" stroke="#2a78d6" stroke-width="1.6"/>' + t(152, ly, 'closed', 11, INK2))
     out[0] = out[0].replace(f'viewBox="0 0 {W} 10"', f'viewBox="0 0 {W} {ly + 12}"'); out.append('</svg>'); return ''.join(out)
 
+SERIES = [('index.html', 'Series hub'), ('report.html', 'Playbook'), ('context-limits.html', 'Context Limits'), ('china-report.html', 'China Brief'), ('market-report.html', 'Market Map'), ('investment-report.html', 'Investment Outlook')]
+def series_nav(current, mode='file'):
+    urls = {}
+    ap = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'artifacts.json')
+    if mode == 'artifact' and os.path.exists(ap): urls = json.load(open(ap))
+    items = []
+    for f, name in SERIES:
+        href = urls.get(f) if mode == 'artifact' else f
+        if f == current: items.append(f'<b>{esc(name)}</b>')
+        elif href: items.append(f'<a href="{esc(href)}">{esc(name)}</a>')
+    return '<div class="series"><div class="wide"><span class="slabel">Context research series</span>' + ' <span class="sep">·</span> '.join(items) + '</div></div>'
+
 # ---------------- fragment hygiene ----------------
 def clean_fragment(frag):
     frag = re.sub(r'<script\b.*?</script>', '', frag, flags=re.S | re.I)
@@ -483,7 +495,7 @@ def main():
     # ---- deep dive: context limits ----
     deep_html = ''
     dd_dir = os.path.join(DIR, 'deepdive'); dd_res = os.path.join(dd_dir, 'result.json'); dd_frag = os.path.join(dd_dir, 'sections', 'context-limits.html')
-    if os.path.exists(dd_res) and os.path.exists(dd_frag):
+    if False:  # split into context-limits.html (2026-08-26)
         dd = json.load(open(dd_res)); w = dd.get('writer') or {}
         frag = clean_fragment(open(dd_frag, encoding='utf-8').read())
         def fig(svg, num, cap): return f'<figure class="breakout"><div class="scroll">{svg}</div><figcaption><span class="swipe">Swipe sideways to see the whole figure. </span><b>Figure {num}.</b> {cap}</figcaption></figure>'
@@ -504,7 +516,7 @@ def main():
     # ---- China stack section ----
     cn_html = ''
     cn_dir = os.path.join(DIR, 'china'); cn_res_p = os.path.join(cn_dir, 'result.json'); cn_frag_p = os.path.join(cn_dir, 'sections', 'china-stack.html')
-    if os.path.exists(cn_res_p) and os.path.exists(cn_frag_p):
+    if False:  # split into china-report.html (2026-08-26)
         cn = json.load(open(cn_res_p)); cw = cn.get('china_stack') or {}
         frag = clean_fragment(open(cn_frag_p, encoding='utf-8').read())
         if cw.get('players'):
@@ -588,7 +600,7 @@ def main():
                      f'<h3>Community threads that surfaced in the research</h3><ul class="repos">{threads}</ul></section>')
 
     body = f'''
-<header class="masthead"><div class="wrap">
+{{NAV}}<header class="masthead"><div class="wrap">
   <p class="eyebrow">Research report · {TODAY} · {total} sources across papers, blogs, docs, videos and community threads</p>
   <h1>Context Window Playbook</h1>
   <p class="dek">The popular ways engineers manage an LLM's context window — summarize, retrieve, remember, prune, compress, isolate, and the model-level foundations underneath — ranked by how much the literature and the community talk about them, each with a concrete recipe for implementing it.</p>
@@ -630,8 +642,9 @@ def main():
     css = open(os.path.join(DIR, 'style.css'), encoding='utf-8').read()
     fonts = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">'
     title = '<title>Context Window Playbook</title>'
-    art = f'{title}\n{fonts}\n<style>{css}</style>\n{body}'
-    full = f'<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n{title}\n{fonts}\n<style>{css}</style>\n</head>\n<body>\n{body}\n</body>\n</html>\n'
+    art = f'{title}\n{fonts}\n<style>{css}</style>\n' + body.replace('{NAV}', series_nav('report.html', 'artifact'))
+    fbody = body.replace('{NAV}', series_nav('report.html', 'file'))
+    full = f'<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n{title}\n{fonts}\n<style>{css}</style>\n</head>\n<body>\n{fbody}\n</body>\n</html>\n'
     open(OUT_FULL, 'w', encoding='utf-8').write(full); open(OUT_ART, 'w', encoding='utf-8').write(art)
     print(f'wrote {OUT_FULL} ({len(full)//1024} KB) and artifact variant; categories={len(cats)} sections={len(sections_html)} summaries={len(summaries)} sources={len(all_src)}')
 

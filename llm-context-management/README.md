@@ -1,6 +1,6 @@
 # Context Window Playbook — how people manage an LLM's context
 
-**Reports:** [`report.html`](report.html) — the Context Window Playbook (techniques) · [`market-report.html`](market-report.html) — the Context Market Map (market research) · [`investment-report.html`](investment-report.html) — the AI Investment Outlook (investor expectations & the stock situation, 2026-08-24)
+**The series** (start at [`index.html`](index.html)): [`report.html`](report.html) — Context Window Playbook (techniques) · [`context-limits.html`](context-limits.html) — The Context Ceiling (why windows stop near 1M) · [`china-report.html`](china-report.html) — China Context Brief · [`market-report.html`](market-report.html) — Context Market Map · [`investment-report.html`](investment-report.html) — AI Investment Outlook. Split into five standalone reports with a shared series nav on 2026-08-26; the Playbook and Market Map no longer carry the deep-dive/China bolt-ons.
 
 A sourced survey of the popular ways to manage an LLM's context window, ranked by how much the
 literature and the community talk about them, each with a concrete implementation recipe, a code

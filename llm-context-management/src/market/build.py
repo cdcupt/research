@@ -10,7 +10,7 @@ SRC = os.path.dirname(os.path.abspath(__file__))
 HERE = os.environ.get('MARKET_DIR', SRC)
 sys.path.insert(0, os.path.dirname(SRC))
 import build as base  # noqa: E402  (helpers: t, tlines, wrap, chevron, svg_open, svg_rail, esc, norm_url, clean_fragment, STAGES, colours)
-from build import t, tlines, wrap, chevron, svg_open, svg_rail, esc, norm_url, clean_fragment, INK, INK2, MUTED, HAIR, SURFACE, BG, ACCENT, ARROW_DEFS, fmt_stars  # noqa: E402
+from build import series_nav, t, tlines, wrap, chevron, svg_open, svg_rail, esc, norm_url, clean_fragment, INK, INK2, MUTED, HAIR, SURFACE, BG, ACCENT, ARROW_DEFS, fmt_stars  # noqa: E402
 
 TODAY = '2026-08-21'
 OUT_FULL = os.path.join(HERE, 'market-report.html'); OUT_ART = os.path.join(HERE, 'market-report.artifact.html')
@@ -262,25 +262,6 @@ def main():
     order = ['problems', 'market', 'startups-memory', 'startups-infra', 'incumbents', 'cases', 'gtm']
     secs = OrderedDict((k, res.get(k.replace('-', '_'))) for k in order)
     secs['startups-memory'] = res.get('startups_memory'); secs['startups-infra'] = res.get('startups_infra')
-    cn_res_p = os.path.join(os.path.dirname(SRC), 'china', 'result.json')
-    cn_frag_p = os.path.join(os.path.dirname(SRC), 'china', 'sections', 'china-market.html')
-    if os.path.exists(cn_res_p) and os.path.exists(cn_frag_p):
-        cnr = json.load(open(cn_res_p)); cw = cnr.get('china_market') or {}
-        if cw: secs['china-market'] = dict(cw)
-        import glob as _g
-        for ap in sorted(_g.glob(os.path.join(os.path.dirname(SRC), 'china', 'sections', 'addendum-*.html'))):
-            aslug = os.path.basename(ap)[:-5]
-            at = open(ap, encoding='utf-8').read()
-            am = re.search(r'<h2>(.*?)</h2>', at, re.S); atitle = re.sub(r'<[^>]+>', '', am.group(1)).strip() if am else aslug
-            alm = re.search(r'<p class="lede">(.*?)</p>', at, re.S)
-            secs[aslug] = dict(slug=aslug, title=atitle, takeaway=(re.sub(r'<[^>]+>', '', alm.group(1)).strip()[:180] if alm else ''), sources=[])  # china_addenda
-    if 'china-market' in secs:  # keep document order aligned with the nav: after incumbents, before cases
-        reordered = OrderedDict()
-        for k in ['problems', 'market', 'startups-memory', 'startups-infra', 'incumbents', 'china-market', 'cases', 'gtm']:
-            if k in secs: reordered[k] = secs[k]
-        for k, v in secs.items():
-            if k not in reordered: reordered[k] = v
-        secs = reordered
     for g in res.get('gapSections') or []: secs[g['slug']] = g
     problems = (res.get('problems') or {}).get('problems') or []
     startups = ((res.get('startups_memory') or {}).get('startups') or []) + ((res.get('startups_infra') or {}).get('startups') or [])
@@ -310,10 +291,6 @@ def main():
     frags = []
     for slug, s in secs.items():
         path = os.path.join(HERE, 'sections', f'{slug}.html')
-        if slug == 'china-market': path = cn_frag_p
-        if slug.startswith('addendum-') and not os.path.exists(path):
-            alt = os.path.join(os.path.dirname(SRC), 'china', 'sections', f'{slug}.html')
-            if os.path.exists(alt): path = alt
         if not os.path.exists(path): print('MISSING fragment', path); continue
         frag = clean_fragment(open(path, encoding='utf-8').read())
         inject = ''
@@ -342,7 +319,7 @@ def main():
     cards = ''.join(f'<div class="card"><b><a href="#{esc(k)}">{esc(s.get("title", k))}</a></b><p>{esc(s.get("takeaway", ""))}</p></div>' for k, s in secs.items() if s)
     top_html = ''.join(f'<li><b>{esc(p["name"])}</b> — felt by {esc(p["who"])}; score {score(p):g}</li>' for p in top5)
     wedge_html = esc(gtm.get('recommended_wedge', '')) if gtm else ''
-    nav = ['<li><a href="#summary">Summary</a></li>'] + [f'<li><a href="#{esc(k)}">{esc(short)}</a></li>' for k, short in [('problems', 'Problems'), ('market', 'Market & money'), ('startups-memory', 'Memory startups'), ('startups-infra', 'Adjacent startups'), ('incumbents', 'Incumbents'), ('china-market', 'China'), ('cases', 'Case studies'), ('gtm', 'Playbook')] if secs.get(k)] + [f'<li><a href="#{esc(k)}">{esc(v.get("title", k)[:28])}</a></li>' for k, v in secs.items() if k.startswith('addendum') and v] + ['<li><a href="#method">Method &amp; sources</a></li>']
+    nav = ['<li><a href="#summary">Summary</a></li>'] + [f'<li><a href="#{esc(k)}">{esc(short)}</a></li>' for k, short in [('problems', 'Problems'), ('market', 'Market & money'), ('startups-memory', 'Memory startups'), ('startups-infra', 'Adjacent startups'), ('incumbents', 'Incumbents'), ('cases', 'Case studies'), ('gtm', 'Playbook')] if secs.get(k)] + [f'<li><a href="#{esc(k)}">{esc(v.get("title", k)[:28])}</a></li>' for k, v in secs.items() if k.startswith('addendum') and v] + ['<li><a href="#method">Method &amp; sources</a></li>']
 
     idx = []
     for tp in type_order:
@@ -357,7 +334,7 @@ def main():
     fixes = ''.join(f'<li><b>{esc(f["section"])}</b>: {esc(f["issue"])} → {esc(f["fix"])}</li>' for f in (critic.get('fixes') or []))
 
     body = f'''
-<header class="masthead"><div class="wrap">
+{{NAV}}<header class="masthead"><div class="wrap">
   <p class="eyebrow">Market research · {TODAY} · {total} sources · companion to the <a href="report.html">Context Window Playbook</a></p>
   <h1>Context Market Map</h1>
   <p class="dek">Who is building the memory and context layer for LLM applications, what still breaks for the teams using it, which of those problems are worth a startup's time, and how a new entrant should pick its wedge — with the money, the incumbents and the reference companies laid out.</p>
@@ -404,8 +381,9 @@ ol.top li{margin:0 0 8px}
 '''
     fonts = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">'
     title = '<title>Context Market Map</title>'
-    art = f'{title}\n{fonts}\n<style>{css}</style>\n{body}'
-    full = f'<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n{title}\n{fonts}\n<style>{css}</style>\n</head>\n<body>\n{body}\n</body>\n</html>\n'
+    art = f'{title}\n{fonts}\n<style>{css}</style>\n' + body.replace('{NAV}', series_nav('market-report.html', 'artifact'))
+    fbody = body.replace('{NAV}', series_nav('market-report.html', 'file'))
+    full = f'<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n{title}\n{fonts}\n<style>{css}</style>\n</head>\n<body>\n{fbody}\n</body>\n</html>\n'
     open(OUT_FULL, 'w', encoding='utf-8').write(full); open(OUT_ART, 'w', encoding='utf-8').write(art)
     print(f'wrote {OUT_FULL} ({len(full)//1024} KB); sections={len(frags)} startups={len(startups)} problems={len(problems)} rounds={len(market.get("rounds") or [])} moves={len(incumbents.get("moves") or [])} wedges={len(gtm.get("wedges") or [])} sources={len(all_src)}')
 

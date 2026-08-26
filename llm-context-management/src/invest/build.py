@@ -5,7 +5,7 @@ from collections import OrderedDict, Counter
 SRC = os.path.dirname(os.path.abspath(__file__))
 HERE = os.environ.get('INVEST_DIR', SRC)
 sys.path.insert(0, os.path.dirname(SRC))
-from build import esc, norm_url, clean_fragment, INK, INK2, MUTED, HAIR, SURFACE, BG, ACCENT, t, tlines, wrap, svg_open  # noqa: E402
+from build import series_nav, esc, norm_url, clean_fragment, INK, INK2, MUTED, HAIR, SURFACE, BG, ACCENT, t, tlines, wrap, svg_open  # noqa: E402
 TODAY = '2026-08-24'
 OUT_FULL = os.path.join(HERE, 'investment-report.html'); OUT_ART = os.path.join(HERE, 'investment-report.artifact.html')
 UP, UP_TXT, DOWN = '#0ca30c', '#006300', '#d03b3b'
@@ -194,7 +194,7 @@ def main():
     sent = esc(pub.get('sentiment_summary', ''))
 
     body = f'''
-<header class="masthead"><div class="wrap">
+{{NAV}}<header class="masthead"><div class="wrap">
   <p class="eyebrow">Market research · {TODAY} · {len(all_src)} sources · companion to the <a href="report.html">Context Window Playbook</a> and the <a href="market-report.html">Context Market Map</a></p>
   <h1>AI Investment Outlook</h1>
   <p class="dek">Where investors stand on AI in late August 2026 — the public-market situation and the bubble debate, private funding trends and what named investors expect next, and the US-versus-China competitive picture — with every number dated and sourced.</p>
@@ -253,8 +253,9 @@ table.cmp td{vertical-align:top}
 '''
     fonts = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">'
     title = '<title>AI Investment Outlook</title>'
-    art = f'{title}\n{fonts}\n<style>{css}</style>\n{body}'
-    full = f'<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n{title}\n{fonts}\n<style>{css}</style>\n</head>\n<body>\n{body}\n</body>\n</html>\n'
+    art = f'{title}\n{fonts}\n<style>{css}</style>\n' + body.replace('{NAV}', series_nav('investment-report.html', 'artifact'))
+    fbody = body.replace('{NAV}', series_nav('investment-report.html', 'file'))
+    full = f'<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n{title}\n{fonts}\n<style>{css}</style>\n</head>\n<body>\n{fbody}\n</body>\n</html>\n'
     open(OUT_FULL, 'w', encoding='utf-8').write(full); open(OUT_ART, 'w', encoding='utf-8').write(art)
     print(f'wrote {OUT_FULL} ({len(full)//1024} KB); sections={len(frags)} stocks={len(pub.get("stocks") or [])} expectations={len(exps)} trends={len(prv.get("trends") or [])} compare={len(uc.get("compare") or [])} sources={len(all_src)}')
 
