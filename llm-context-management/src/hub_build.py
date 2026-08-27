@@ -15,7 +15,7 @@ CARDS = [
  ('context-limits.html', 'The Context Ceiling', 'Why context windows stop near 1M tokens (and GPT-5 exposes 272K of input), the four bottlenecks, how labs extend context, and what distributed systems can and cannot fix.', f'{n_sources("deepdive/sweep/*.json")} sources · researched Aug 21', '⛰️'),
  ('china-report.html', 'China Context Brief', 'The Chinese open-weight stack (DeepSeek, Qwen, Kimi, MiniMax, GLM, MemOS), the funded Chinese memory-startup category, the token price war, and what it means for US builders.', f'{n_sources("china/sweep/*.json")} sources · researched Aug 24', '🇨🇳'),
  ('market-report.html', 'Context Market Map', 'The market: 14 scored problems worth solving, 24 startup profiles with funding, incumbent-platform moves, six case studies, and a go-to-market playbook for a new entrant.', f'{n_sources("market/sweep/*.json")} sources · researched Aug 21', '🗺️'),
- ('investment-report.html', 'AI Investment Outlook', 'Where investors stand: the stock situation with real price trends, private funding at record scale, named investor expectations, and the US-versus-China capital picture.', f'{n_sources("invest/sweep/*.json")} sources · researched Aug 24, prices Aug 26', '📈'),
+ ('investment-report.html', 'AI Investment Outlook', 'Where investors stand: the stock situation with real price trends, private funding at record scale, named investor expectations, and the US-versus-China capital picture.', f'{n_sources("invest/sweep/*.json")} sources · researched Aug 24 · prices {json.load(open(os.path.join(SRC, "invest", "prices.json")))["fetched"]}', '📈'),
 ]
 def main():
     urls = json.load(open(os.path.join(SRC, 'artifacts.json'))) if os.path.exists(os.path.join(SRC, 'artifacts.json')) else {}
