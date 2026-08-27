@@ -23,7 +23,7 @@ const CN = { "hk00700": ["0700.HK", "Tencent"], "hk02513": ["2513.HK", "Zhipu (Z
   // Tencent for CN/HK via fetch (node18+ global fetch)
   for (const [sym, [t, name]] of Object.entries(CN)) {
     try {
-      const r = await fetch(`https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=${sym},day,2026-01-01,2026-08-26,320,qfq`);
+      const r = await fetch(`https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=${sym},day,2026-01-01,${new Date().toISOString().slice(0,10)},320,qfq`);
       const d = await r.json(); const rec = d.data[sym] || {}; const days = rec.qfqday || rec.day || [];
       const pts = days.map(x => [x[0], parseFloat(x[2])]).filter(x => isFinite(x[1]));
       if (!pts.length) { console.log(t, "no points"); continue; }
